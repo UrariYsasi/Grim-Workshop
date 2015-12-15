@@ -6,6 +6,7 @@
 #include "Bonfire.hpp"
 #include "Window.hpp"
 #include "Renderer.hpp"
+#include "Input.hpp"
 
 class Game
 {
@@ -13,10 +14,11 @@ class Game
         Game();
         ~Game();
 
-        void Start();
+        void Initialize();
         void Update();
-        void ProcessInput();
         void Render();
+        void Terminate();
+
         void LeftClick();
         void LeftClickUp();
         void RightClick();
@@ -58,6 +60,7 @@ class Game
 
         std::unique_ptr<Window> m_window;
         std::unique_ptr<Renderer> m_renderer;
+        std::unique_ptr<Input> m_input;
 
         // Input
         bool m_buttonsDown[5];

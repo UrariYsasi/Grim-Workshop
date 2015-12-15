@@ -22,6 +22,7 @@
     <ClCompile Include="Source\Bonfire.cpp" />
     <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
+    <ClCompile Include="Source\Input.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Peon.cpp" />
     <ClCompile Include="Source\Renderer.cpp" />
@@ -35,6 +36,7 @@
     <ClInclude Include="Source\Bonfire.hpp" />
     <ClInclude Include="Source\Game.hpp" />
     <ClInclude Include="Source\GameObject.hpp" />
+    <ClInclude Include="Source\Input.hpp" />
     <ClInclude Include="Source\PCH.hpp" />
     <ClInclude Include="Source\Peon.hpp" />
     <ClInclude Include="Source\Renderer.hpp" />

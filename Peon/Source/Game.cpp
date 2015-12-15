@@ -39,7 +39,7 @@ Game::~Game()
     TTF_Quit();
 }
 
-void Game::Start()
+void Game::Initialize()
 {
     // Initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -67,6 +67,7 @@ void Game::Start()
 
     m_window = std::make_unique<Window>(640, 480, "Peon");
     m_renderer = std::make_unique<Renderer>(m_window.get());
+    m_input = std::make_unique<Input>(this);
 
     // Load Textures
     LoadTexture("Resources/Textures/man.png", "man");
@@ -139,102 +140,40 @@ void Game::Start()
         m_deltaTime = (frameStartTime - frameEndTime) / 1000;
         frameEndTime = frameStartTime;
 
-        for (int i = 0; i < 5; i++)
-        {
-            m_buttonsDown[i] = false;
-            m_buttonsUp[i] = false;
-        }
-
-        SDL_Event event;
-        while (SDL_PollEvent(&event) != 0)
-        {
-            if (event.type == SDL_QUIT)
-            {
-                m_isRunning = false;
-            }
-
-            if (event.type == SDL_MOUSEBUTTONDOWN)
-            {
-                if (event.button.button == SDL_BUTTON_LEFT)
-                {
-                    if (!m_buttonsCurrent[SDL_BUTTON_LEFT])
-                    {
-                        m_buttonsDown[SDL_BUTTON_LEFT] = true;
-                    }
-
-                    m_buttonsCurrent[SDL_BUTTON_LEFT] = true;
-                }
-                else if (event.button.button == SDL_BUTTON_RIGHT)
-                {
-                    if (!m_buttonsCurrent[SDL_BUTTON_RIGHT])
-                    {
-                        m_buttonsDown[SDL_BUTTON_RIGHT] = true;
-                    }
-
-                    m_buttonsCurrent[SDL_BUTTON_RIGHT] = true;
-                }
-            }
-
-            if (event.type == SDL_MOUSEBUTTONUP)
-            {
-                if (event.button.button == SDL_BUTTON_LEFT)
-                {
-                    m_buttonsUp[SDL_BUTTON_LEFT] = true;
-                    m_buttonsCurrent[SDL_BUTTON_LEFT] = false;
-                }
-                else if (event.button.button == SDL_BUTTON_RIGHT)
-                {
-                    m_buttonsUp[SDL_BUTTON_RIGHT] = true;
-                    m_buttonsCurrent[SDL_BUTTON_RIGHT] = false;
-                }
-            }
-        }
-
-        if (!m_isRunning)
-        {
-            break;
-        }
-
-        ProcessInput();
+        m_input->Update();
         Update();
         Render();
     }
 }
 
-void Game::Update()
+void Game::Terminate()
 {
-    SpawnPeons(false);
-
-    for (std::vector<GameObject*>::const_iterator it = m_gameObjects.begin(); it != m_gameObjects.end(); it++)
-    {
-        (*it)->Update();
-    }
+    m_isRunning = false;
 }
 
-void Game::ProcessInput()
+void Game::Update()
 {
     SDL_GetMouseState(&mouseX, &mouseY);
 
-    if (m_buttonsDown[SDL_BUTTON_LEFT])
+    if (m_input->GetMouseButtonPress(SDL_BUTTON_LEFT))
     {
         LeftClick();
     }
-    else if (m_buttonsDown[SDL_BUTTON_RIGHT])
+    else if (m_input->GetMouseButtonPress(SDL_BUTTON_RIGHT))
     {
         RightClick();
     }
 
-    if (m_buttonsUp[SDL_BUTTON_LEFT])
+    if (m_input->GetMouseButtonRelease(SDL_BUTTON_LEFT))
     {
         LeftClickUp();
     }
-    if (m_buttonsUp[SDL_BUTTON_LEFT])
+    else if (m_input->GetMouseButtonRelease(SDL_BUTTON_RIGHT))
     {
         RightClickUp();
     }
 
-    // Box selection
-    if (m_buttonsCurrent[SDL_BUTTON_LEFT])
+    if (m_input->GetMouseButton(SDL_BUTTON_LEFT))
     {
         if (!m_selecting)
         {
@@ -249,6 +188,13 @@ void Game::ProcessInput()
             m_selectionRect.w = mouseX - m_selectionRect.x;
             m_selectionRect.h = mouseY - m_selectionRect.y;
         }
+    }
+
+    SpawnPeons(false);
+
+    for (std::vector<GameObject*>::const_iterator it = m_gameObjects.begin(); it != m_gameObjects.end(); it++)
+    {
+        (*it)->Update();
     }
 }
 
