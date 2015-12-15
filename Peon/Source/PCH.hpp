@@ -9,7 +9,6 @@
 #include <cstdlib>
 #include <ctime>
 
-// SDL2
 #if WINDOWS
     #include <SDL.h>
     #include <SDL_image.h>

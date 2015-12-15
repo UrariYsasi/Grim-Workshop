@@ -24,10 +24,12 @@
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Peon.cpp" />
+    <ClCompile Include="Source\Renderer.cpp" />
     <ClCompile Include="Source\Stone.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
     <ClCompile Include="Source\Tree.cpp" />
     <ClCompile Include="Source\Vector2D.cpp" />
+    <ClCompile Include="Source\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Bonfire.hpp" />
@@ -35,10 +37,12 @@
     <ClInclude Include="Source\GameObject.hpp" />
     <ClInclude Include="Source\PCH.hpp" />
     <ClInclude Include="Source\Peon.hpp" />
+    <ClInclude Include="Source\Renderer.hpp" />
     <ClInclude Include="Source\Stone.hpp" />
     <ClInclude Include="Source\Timer.hpp" />
     <ClInclude Include="Source\Tree.hpp" />
     <ClInclude Include="Source\Vector2D.hpp" />
+    <ClInclude Include="Source\Window.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{9AAE8292-4106-4182-A26F-2DDE23C134DE}</ProjectGuid>

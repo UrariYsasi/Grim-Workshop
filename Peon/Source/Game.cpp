@@ -3,6 +3,8 @@
 #include "Vector2D.hpp"
 
 Game::Game() :
+    m_window(nullptr),
+    m_renderer(nullptr),
     m_deltaTime(0.0),
     m_isRunning(true),
     m_resources(0),
@@ -31,9 +33,6 @@ Game::~Game()
     {
         Mix_FreeChunk(soundIt->second);
     }
-
-    SDL_DestroyRenderer(m_renderer);
-    SDL_DestroyWindow(m_window);
 
     SDL_Quit();
     Mix_Quit();
@@ -66,28 +65,8 @@ void Game::Start()
         std::cerr << "SDL_ttf could not be initialized! SDL_ttf error: " << TTF_GetError() << std::endl;
     }
 
-    // Create window
-    m_window = SDL_CreateWindow(WINDOW_TITLE.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
-    if (m_window == nullptr)
-    {
-        std::cerr << "Window could not be created! SDL error: " << SDL_GetError() << std::endl;
-    }
-
-    // Create renderer
-    m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    if (m_renderer == nullptr)
-    {
-        std::cerr << "Renderer could not be created! SDL error: " << SDL_GetError() << std::endl;
-    }
-
-    // Load window icon
-    SDL_Surface* tempSurface = IMG_Load("Resources/Textures/icon.png");
-    if (tempSurface == nullptr)
-    {
-        std::cerr << "Unable to load image " << "res/textures/icon.png" << "! SDL_image error: " << IMG_GetError() << std::endl;
-    }
-    SDL_SetWindowIcon(m_window, tempSurface);
-    SDL_FreeSurface(tempSurface);
+    m_window = std::make_unique<Window>(640, 480, "Peon");
+    m_renderer = std::make_unique<Renderer>(m_window.get());
 
     // Load Textures
     LoadTexture("Resources/Textures/man.png", "man");
@@ -124,11 +103,11 @@ void Game::Start()
     for (int i = 0; i < 6; i++)
     {
         Tree* t = new Tree(this);
-        Vector2D pos = Vector2D(rand() % (WINDOW_WIDTH - 100), rand() % (WINDOW_HEIGHT - 100));
+        Vector2D pos = Vector2D(rand() % (640 - 100), rand() % (480 - 100));
 
         while (Vector2D::Distance(pos, m_bonfire->GetPosition()) < 100)
         {
-            pos = Vector2D(rand() % (WINDOW_WIDTH - 100), rand() % (WINDOW_HEIGHT - 100));
+            pos = Vector2D(rand() % (640 - 100), rand() % (480 - 100));
         }
 
         t->Load(pos, 32, 32, "tree");
@@ -138,11 +117,11 @@ void Game::Start()
     for (int i = 0; i < 3; i++)
     {
         Stone* s = new Stone(this);
-        Vector2D pos = Vector2D(rand() % (WINDOW_WIDTH - 100), rand() % (WINDOW_HEIGHT - 100));
+        Vector2D pos = Vector2D(rand() % (640 - 100), rand() % (480 - 100));
 
         while (Vector2D::Distance(pos, m_bonfire->GetPosition()) < 100)
         {
-            pos = Vector2D(rand() % (WINDOW_WIDTH - 100), rand() % (WINDOW_HEIGHT - 100));
+            pos = Vector2D(rand() % (640 - 100), rand() % (480 - 100));
         }
 
         s->Load(pos, 32, 32, "stone");
@@ -154,7 +133,6 @@ void Game::Start()
     // Game loop
     double frameStartTime = 0.0;
     double frameEndTime = 0.0;
-    SDL_Event event;
     while (m_isRunning)
     {
         frameStartTime = SDL_GetTicks();
@@ -167,6 +145,7 @@ void Game::Start()
             m_buttonsUp[i] = false;
         }
 
+        SDL_Event event;
         while (SDL_PollEvent(&event) != 0)
         {
             if (event.type == SDL_QUIT)
@@ -275,12 +254,12 @@ void Game::ProcessInput()
 
 void Game::Render()
 {
-    SDL_SetRenderDrawColor(m_renderer, 133, 222, 80, 255);
-    SDL_RenderClear(m_renderer);
+    m_renderer->SetDrawColor(SDL_Color{ 255, 255, 255, 255 });
+    m_renderer->Clear();
 
-    for (int x = 0; x < (WINDOW_WIDTH / 32); x++)
+    for (int x = 0; x < (640 / 32); x++)
     {
-        for (int y = 0; y < (WINDOW_HEIGHT / 32); y++)
+        for (int y = 0; y < (480 / 32); y++)
         {
             RenderTexture("grass", x * 32, y * 32, 32, 32);
         }
@@ -298,8 +277,8 @@ void Game::Render()
 
     if (m_selecting)
     {
-        SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
-        SDL_RenderDrawRect(m_renderer, &m_selectionRect);
+        m_renderer->SetDrawColor(SDL_Color{ 0, 0, 0, 255 });
+        SDL_RenderDrawRect(m_renderer->GetSDLRenderer(), &m_selectionRect);
     }
 
     // Draw GUI
@@ -314,7 +293,7 @@ void Game::Render()
     RenderTexture("man", 0 - 16, 0 - 32, 64, 64);
     RenderText("dos", 8, 32, sstream.str());
 
-    SDL_RenderPresent(m_renderer);
+    m_renderer->Present();
 }
 
 void Game::LeftClick()
@@ -466,8 +445,8 @@ void Game::SpawnPeons(bool initial)
     for (int i = 0; i < m_peonsToSpawn; i++)
     {
         Peon* obj;
-        Vector2D position(rand() % WINDOW_WIDTH, -(rand() % 100));
-        Vector2D dest(rand() % (WINDOW_WIDTH - 100), rand() % (WINDOW_HEIGHT - 100));
+        Vector2D position(rand() % 640, -(rand() % 100));
+        Vector2D dest(rand() % (640 - 100), rand() % (480 - 100));
         int width = 32;
         int height = 32;
 
@@ -559,7 +538,7 @@ bool Game::LoadTexture(const std::string& path, const std::string& id)
         return false;
     }
 
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(m_renderer, tempSurface);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(m_renderer->GetSDLRenderer(), tempSurface);
     SDL_FreeSurface(tempSurface);
     if (texture == nullptr)
     {
@@ -577,7 +556,7 @@ void Game::RenderTexture(const std::string& id, const int& x, const int& y, cons
     SDL_Rect srcRect = { 0, 0, 32, 32 };
     SDL_Rect destRect = { x, y, width, height };
 
-    SDL_RenderCopyEx(m_renderer, m_textureMap[id], &srcRect, &destRect, 0, 0, SDL_FLIP_NONE);
+    SDL_RenderCopyEx(m_renderer->GetSDLRenderer(), m_textureMap[id], &srcRect, &destRect, 0, 0, SDL_FLIP_NONE);
 }
 
 bool Game::LoadFont(const std::string& path, const std::string& id)
@@ -601,7 +580,7 @@ void Game::RenderText(const std::string& fontID, const int& x, const int& y, con
         std::cerr << "Failed to render font to surface! SDL_ttf error: " << TTF_GetError() << std::endl;
     }
 
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(m_renderer, surface);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(m_renderer->GetSDLRenderer(), surface);
     int width;
     int height;
     SDL_QueryTexture(texture, NULL, NULL, &width, &height);
@@ -613,7 +592,7 @@ void Game::RenderText(const std::string& fontID, const int& x, const int& y, con
     SDL_Rect srcRect = { 0, 0, width, height };
     SDL_Rect destRect = { x, y, width, height };
 
-    SDL_RenderCopyEx(m_renderer, texture, &srcRect, &destRect, 0, 0, SDL_FLIP_NONE);
+    SDL_RenderCopyEx(m_renderer->GetSDLRenderer(), texture, &srcRect, &destRect, 0, 0, SDL_FLIP_NONE);
 
     SDL_FreeSurface(surface);
     SDL_DestroyTexture(texture);

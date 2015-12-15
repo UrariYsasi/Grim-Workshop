@@ -4,6 +4,8 @@
 #include "Tree.hpp"
 #include "Stone.hpp"
 #include "Bonfire.hpp"
+#include "Window.hpp"
+#include "Renderer.hpp"
 
 class Game
 {
@@ -52,13 +54,10 @@ class Game
         SDL_Rect m_selectionRect;
 
     private:
-        const std::string WINDOW_TITLE = "Peon";
-        const int WINDOW_WIDTH = 640;
-        const int WINDOW_HEIGHT = 480;
         bool m_isRunning;
 
-        SDL_Window* m_window;
-        SDL_Renderer* m_renderer;
+        std::unique_ptr<Window> m_window;
+        std::unique_ptr<Renderer> m_renderer;
 
         // Input
         bool m_buttonsDown[5];
