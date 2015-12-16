@@ -54,6 +54,26 @@ void Peon::Render()
 {
     m_game->RenderSprite("peon", 0, 0, m_position.GetX(), m_position.GetY() + hopOffset, 32, 32);
     
+    if (m_state == GATHERING || m_state == WALKING)
+    {
+        if (m_resources < 5)
+        {
+            Tree* t = dynamic_cast<Tree*>(m_targetResource);
+            if (t != nullptr)
+            {
+                m_game->RenderSprite("peon", 0, 1, m_position.GetX(), m_position.GetY(), 32, 32);
+            }
+            else
+            {
+                Stone* s = dynamic_cast<Stone*>(m_targetResource);
+                if (s != nullptr)
+                {
+                    m_game->RenderSprite("peon", 1, 1, m_position.GetX(), m_position.GetY(), 32, 32);
+                }
+            }
+        }
+    }
+    
     if (m_resources >= 5)
     {
         Tree* t = dynamic_cast<Tree*>(m_targetResource);
