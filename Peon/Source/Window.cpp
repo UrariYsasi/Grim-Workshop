@@ -17,3 +17,39 @@ Window::~Window()
 {
     SDL_DestroyWindow(m_SDLWindow);
 }
+
+
+SDL_Window* Window::GetSDLWindow() const
+{
+    return m_SDLWindow;
+}
+
+int Window::GetWidth() const
+{
+    return m_width;
+}
+
+void Window::SetWidth(const int& width)
+{
+    m_width = width;
+}
+
+int Window::GetHeight() const
+{
+    return m_height;
+}
+
+void Window::SetHeight(const int& height)
+{
+    m_height = height;
+}
+
+std::string Window::GetTitle() const
+{
+    return m_title;
+}
+
+void Window::SetTitle(const std::string& title)
+{
+    m_title = title;
+}

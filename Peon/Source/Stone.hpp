@@ -1,13 +1,13 @@
 #pragma once
 #include "PCH.hpp"
-#include "GameObject.hpp"
+#include "Entity.hpp"
 
-class Stone : public GameObject
+class Stone : public Entity
 {
 public:
-    Stone(Game* game);
+    Stone(Game* game, const Vector2D& position);
+    ~Stone();
 
-    void Update();
-    void Render();
-    void Clean();
+    virtual void Update();
+    virtual void Render();
 };

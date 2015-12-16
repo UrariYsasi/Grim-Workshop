@@ -1,13 +1,13 @@
 #pragma once
 #include "PCH.hpp"
-#include "GameObject.hpp"
+#include "Entity.hpp"
 
-class Tree : public GameObject
+class Tree : public Entity
 {
 public:
-    Tree(Game* game);
+    Tree(Game* game, const Vector2D& position);
+    ~Tree();
 
-    void Update();
-    void Render();
-    void Clean();
+    virtual void Update();
+    virtual void Render();
 };

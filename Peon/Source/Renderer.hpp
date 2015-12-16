@@ -17,13 +17,3 @@ class Renderer
     private:
         SDL_Renderer* m_SDLRenderer;
 };
-
-inline SDL_Renderer* Renderer::GetSDLRenderer() const
-{
-    return m_SDLRenderer;
-}
-
-inline void Renderer::SetDrawColor(const SDL_Color& drawColor)
-{
-    SDL_SetRenderDrawColor(m_SDLRenderer, drawColor.r, drawColor.g, drawColor.b, drawColor.a);
-}

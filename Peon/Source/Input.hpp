@@ -24,8 +24,8 @@ class Input
         bool m_downKeys[256];
         bool m_upKeys[256];
         bool m_currentMouseButtons[5];
-        bool m_downMouseButtons[256];
-        bool m_upMouseButtons[256];
+        bool m_downMouseButtons[5];
+        bool m_upMouseButtons[5];
 };
 
 inline bool Input::GetKey(const int& key)

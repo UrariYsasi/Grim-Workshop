@@ -1,18 +1,17 @@
 #pragma once
 #include "PCH.hpp"
-#include "GameObject.hpp"
+#include "Entity.hpp"
 #include "Timer.hpp"
 #include "Tree.hpp"
 #include "Bonfire.hpp"
 
-class Peon : public GameObject
+class Peon : public Entity
 {
 public:
-    Peon(Game* game, const Vector2D& position, const int& width, const int& height, const std::string& textureID);
+    Peon(Game* game, const Vector2D& position);
 
-    void Update();
-    void Render();
-    void Clean();
+    virtual void Update();
+    virtual void Render();
 
     void MoveTo(Vector2D dest);
     void Respawn();
@@ -34,7 +33,7 @@ public:
     State m_state;
 
     Bonfire* m_bonfire;
-    GameObject* m_targetResource;
+    Entity* m_targetResource;
     std::string m_lastResource;
 
     int soundDelay;
@@ -45,7 +44,7 @@ public:
 
     double hopOffset;
     double hopIndex;
-    double hopAmp = 3;
+    double hopAmp = 6;
     double hopFreq;
 
 private:

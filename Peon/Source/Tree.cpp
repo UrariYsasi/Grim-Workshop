@@ -2,23 +2,20 @@
 #include "Tree.hpp"
 #include "Game.hpp"
 
-Tree::Tree(Game* game)
+Tree::Tree(Game* game, const Vector2D& position) :
+    Entity(game, position)
 {
-    m_game = game;
-    m_ID = "tree";
+}
+
+Tree::~Tree()
+{
 }
 
 void Tree::Update()
 {
-    GameObject::Update();
 }
 
 void Tree::Render()
 {
-    GameObject::Render();
-}
-
-void Tree::Clean()
-{
-    GameObject::Clean();
+    m_game->RenderTexture("tree", m_position.GetX(), m_position.GetY(), 32, 32);
 }

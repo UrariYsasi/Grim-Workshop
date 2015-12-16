@@ -14,6 +14,16 @@ Renderer::~Renderer()
     SDL_DestroyRenderer(m_SDLRenderer);
 }
 
+SDL_Renderer* Renderer::GetSDLRenderer() const
+{
+    return m_SDLRenderer;
+}
+
+void Renderer::SetDrawColor(const SDL_Color& drawColor)
+{
+    SDL_SetRenderDrawColor(m_SDLRenderer, drawColor.r, drawColor.g, drawColor.b, drawColor.a);
+}
+
 void Renderer::Clear()
 {
     SDL_RenderClear(m_SDLRenderer);

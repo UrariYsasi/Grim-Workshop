@@ -7,6 +7,7 @@
 #include "Window.hpp"
 #include "Renderer.hpp"
 #include "Input.hpp"
+#include "EntityManager.hpp"
 
 class Game
 {
@@ -15,9 +16,9 @@ class Game
         ~Game();
 
         void Initialize();
+        void Terminate();
         void Update();
         void Render();
-        void Terminate();
 
         void LeftClick();
         void LeftClickUp();
@@ -28,7 +29,7 @@ class Game
         Tree* FindTree(Peon* peon);
         void SpawnPeons(bool initial);
         void SacrificePeon(Peon* peon);
-        void CommandPeons(GameObject* target);
+        void CommandPeons(Entity* target);
         void DepositResources(int amount);
         int GetResources() const;
 
@@ -61,6 +62,7 @@ class Game
         std::unique_ptr<Window> m_window;
         std::unique_ptr<Renderer> m_renderer;
         std::unique_ptr<Input> m_input;
+        std::unique_ptr<EntityManager> m_entityManager;
 
         // Input
         bool m_buttonsDown[5];
@@ -77,8 +79,7 @@ class Game
         std::map<std::string, Mix_Chunk*> m_soundMap;
 
         // GameObjects
-        std::vector<GameObject*> m_gameObjects;
-        GameObject* m_bonfire;
+        Bonfire* m_bonfire;
 
         std::vector<Peon*> m_selectedPeons;
 

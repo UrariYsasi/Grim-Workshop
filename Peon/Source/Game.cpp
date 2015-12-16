@@ -14,8 +14,6 @@ Game::Game() :
 
 Game::~Game()
 {
-    m_gameObjects.clear();
-
     std::map<std::string, SDL_Texture*>::const_iterator texIt;
     for (texIt = m_textureMap.begin(); texIt != m_textureMap.end(); texIt++)
     {
@@ -68,6 +66,7 @@ void Game::Initialize()
     m_window = std::make_unique<Window>(640, 480, "Peon");
     m_renderer = std::make_unique<Renderer>(m_window.get());
     m_input = std::make_unique<Input>(this);
+    m_entityManager = std::make_unique<EntityManager>();
 
     // Load Textures
     LoadTexture("Resources/Textures/man.png", "man");
@@ -97,10 +96,10 @@ void Game::Initialize()
     LoadSound("Resources/Sounds/die.wav", "die");
 
     // Load GameObjects
-    m_bonfire = new Bonfire(this);
-    m_bonfire->Load(Vector2D(304, 224), 32, 32, "bonfire");
-    m_gameObjects.push_back(m_bonfire);
+    m_bonfire = new Bonfire(this, Vector2D(304, 224));
+    m_entityManager->RegisterEntity(m_bonfire);
 
+    /*
     for (int i = 0; i < 6; i++)
     {
         Tree* t = new Tree(this);
@@ -128,6 +127,7 @@ void Game::Initialize()
         s->Load(pos, 32, 32, "stone");
         m_gameObjects.push_back(s);
     }
+    */
 
     SpawnPeons(true);
 
@@ -191,11 +191,8 @@ void Game::Update()
     }
 
     SpawnPeons(false);
-
-    for (std::vector<GameObject*>::const_iterator it = m_gameObjects.begin(); it != m_gameObjects.end(); it++)
-    {
-        (*it)->Update();
-    }
+    
+    m_entityManager->Update();
 }
 
 void Game::Render()
@@ -211,14 +208,11 @@ void Game::Render()
         }
     }
 
-    for (std::vector<GameObject*>::const_iterator it = m_gameObjects.begin(); it != m_gameObjects.end(); it++)
-    {
-        (*it)->Render();
-    }
+    m_entityManager->Render();
 
     for (std::vector<Peon*>::const_iterator it = m_selectedPeons.begin(); it != m_selectedPeons.end(); it++)
     {
-        RenderTexture("selection", (*it)->GetPosition().GetX(), (*it)->GetPosition().GetY(), (*it)->GetWidth(), (*it)->GetHeight());
+        RenderTexture("selection", (*it)->GetPosition().GetX(), (*it)->GetPosition().GetY(), 32, 32);
     }
 
     if (m_selecting)
@@ -239,6 +233,10 @@ void Game::Render()
     RenderTexture("man", 0 - 16, 0 - 32, 64, 64);
     RenderText("dos", 8, 32, sstream.str());
 
+    SDL_Rect srcRect = { 0, 0, 32, 32 };
+    SDL_Rect destRect = { 256, 256, 16, 16 };
+    SDL_RenderCopyEx(m_renderer->GetSDLRenderer(), m_textureMap["test"], &srcRect, &destRect, 0, 0, SDL_FLIP_NONE);
+
     m_renderer->Present();
 }
 
@@ -251,17 +249,12 @@ void Game::LeftClickUp()
 {
     if (m_selecting)
     {
-        // Look for the peons in our selection box, and select them
-        for (std::vector<GameObject*>::const_iterator it = m_gameObjects.begin(); it != m_gameObjects.end(); it++)
+        std::vector<Peon*> peons = m_entityManager->GetEntitiesOfType<Peon>();
+        for (std::vector<Peon*>::const_iterator it = peons.begin(); it != peons.end(); it++)
         {
-            GameObject* obj = *it;
-            if (obj->m_ID == "peon")
+            if (CheckCollision(m_selectionRect, (*it)->GetHitbox()))
             {
-                // Check if the selection contains that unit
-                if (CheckCollision(m_selectionRect, obj->GetHitBox()))
-                {
-                    m_selectedPeons.push_back(dynamic_cast<Peon*>(obj));
-                }
+                m_selectedPeons.push_back(*it);
             }
         }
 
@@ -271,6 +264,7 @@ void Game::LeftClickUp()
 
 void Game::RightClick()
 {
+    /*
     GameObject* obj = nullptr;
     for (std::vector<GameObject*>::const_iterator objIt = m_gameObjects.begin(); objIt != m_gameObjects.end(); objIt++)
     {
@@ -283,8 +277,10 @@ void Game::RightClick()
             }
         }
     }
-
-    CommandPeons(obj);
+    */
+    Entity* ent = nullptr;
+    CommandPeons(ent);
+    
 }
 
 void Game::RightClickUp()
@@ -346,43 +342,12 @@ bool Game::CheckCollision(SDL_Rect a, SDL_Rect b)
 
 Bonfire* Game::FindBonfire(Peon* peon)
 {
-    Bonfire* bonfire = nullptr;
-
-    for (std::vector<GameObject*>::const_iterator objIt = m_gameObjects.begin(); objIt != m_gameObjects.end(); objIt++)
-    {
-        GameObject* obj = *objIt;
-        if (obj->m_ID == "bonfire")
-        {
-            bonfire = dynamic_cast<Bonfire*>(obj);
-        }
-    }
-
-    return bonfire;
+    return m_bonfire;
 }
 
 Tree* Game::FindTree(Peon* peon)
 {
     Tree* tree = nullptr;
-
-    for (std::vector<GameObject*>::const_iterator objIt = m_gameObjects.begin(); objIt != m_gameObjects.end(); objIt++)
-    {
-        GameObject* obj = *objIt;
-        if (obj->m_ID == "tree")
-        {
-            if (tree == nullptr)
-            {
-                tree = dynamic_cast<Tree*>(obj);
-            }
-            else
-            {
-                if (Vector2D::Distance(peon->GetPosition(), obj->GetPosition()) < Vector2D::Distance(peon->GetPosition(), tree->GetPosition()))
-                {
-                    tree = dynamic_cast<Tree*>(obj);
-                }
-            }
-        }
-    }
-
     return tree;
 }
 
@@ -390,7 +355,7 @@ void Game::SpawnPeons(bool initial)
 {
     for (int i = 0; i < m_peonsToSpawn; i++)
     {
-        Peon* obj;
+        Peon* peon;
         Vector2D position(rand() % 640, -(rand() % 100));
         Vector2D dest(rand() % (640 - 100), rand() % (480 - 100));
         int width = 32;
@@ -398,17 +363,17 @@ void Game::SpawnPeons(bool initial)
 
         if (!initial)
         {
-            obj = new Peon(this, position, width, height, "man");
-            obj->dest = dest;
-            obj->m_state = Peon::WALKING;
+            peon = new Peon(this, position);
+            peon->dest = dest;
+            peon->m_state = Peon::WALKING;
         }
         else
         {
-            obj = new Peon(this, dest, width, height, "man");
-            obj->m_state = Peon::IDLE;
+            peon = new Peon(this, dest);
+            peon->m_state = Peon::IDLE;
         }
 
-        m_gameObjects.push_back(obj);
+        m_entityManager->RegisterEntity(peon);
         m_peons++;
     }
 
@@ -437,7 +402,7 @@ void Game::SacrificePeon(Peon* peon)
     m_selectedPeons.clear();
 }
 
-void Game::CommandPeons(GameObject* target)
+void Game::CommandPeons(Entity* target)
 {
     for (std::vector<Peon*>::const_iterator it = m_selectedPeons.begin(); it != m_selectedPeons.end(); it++)
     {
@@ -456,10 +421,12 @@ void Game::CommandPeons(GameObject* target)
                 (*it)->m_targetResource = target;
             }
 
+            /*
             if (target->m_ID == "bonfire")
             {
                 (*it)->m_state = Peon::SACRIFICE;
             }
+            */
         }
 
     }

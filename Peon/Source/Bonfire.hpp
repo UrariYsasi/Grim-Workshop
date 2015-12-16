@@ -1,13 +1,13 @@
 #pragma once
 #include "PCH.hpp"
-#include "GameObject.hpp"
+#include "Entity.hpp"
 
-class Bonfire : public GameObject
+class Bonfire : public Entity
 {
 public:
-    Bonfire(Game* game);
+    Bonfire(Game* game, const Vector2D& position);
+    ~Bonfire();
 
-    void Update();
-    void Render();
-    void Clean();
+    virtual void Update();
+    virtual void Render();
 };

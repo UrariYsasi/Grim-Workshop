@@ -2,42 +2,17 @@
 #include "Peon.hpp"
 #include "Game.hpp"
 
-Peon::Peon(Game* game, const Vector2D& position, const int& width, const int& height, const std::string& textureID) :
+Peon::Peon(Game* game, const Vector2D& position) :
+    Entity(game, position),
     m_state(IDLE),
     dest(0, 0),
     m_bonfire(nullptr),
     m_targetResource(nullptr),
     m_resources(0)
 {
-    m_position = position;
-    m_width = width;
-    m_height = height;
-    m_textureID = textureID;
-
-    m_game = game;
-    m_ID = "peon";
-
     m_bonfire = m_game->FindBonfire(this);
 
     speedVariation = rand() % 20 - 10;
-
-    int randTex = rand() % 80;
-    if (randTex <= 20)
-    {
-        m_textureID = "man";
-    }
-    else if (randTex <= 40)
-    {
-        m_textureID = "man2";
-    }
-    else if (randTex <= 60)
-    {
-        m_textureID = "man3";
-    }
-    else if (randTex <= 80)
-    {
-        m_textureID = "man4";
-    }
 
     // Set up state machine
     m_stateHandler[IDLE] = &Peon::IdleState;
@@ -57,7 +32,16 @@ void Peon::Respawn()
 
 void Peon::Update()
 {
-    GameObject::Update();
+    m_hitbox.x = m_position.GetX();
+    m_hitbox.y = m_position.GetY();
+    m_hitbox.w = 32;
+    m_hitbox.h = 32;
+
+    if (m_state == WALKING || m_state == SACRIFICE)
+    {
+        hopIndex += m_game->m_deltaTime;
+        hopOffset = -(hopAmp * abs(sin(hopFreq * hopIndex)));
+    }
 
     stateFunction stateFunc = m_stateHandler[m_state];
     if (stateFunc != nullptr)
@@ -68,33 +52,7 @@ void Peon::Update()
 
 void Peon::Render()
 {
-    if (m_state == WALKING || m_state == SACRIFICE)
-    {
-        hopIndex += m_game->m_deltaTime;
-        hopOffset = -(hopAmp * sin(hopFreq * hopIndex));
-    }
-
-    m_game->RenderTexture(m_textureID, m_position.GetX(), m_position.GetY() + hopOffset, m_width, m_height);
-
-    if (m_resources >= 5)
-    {
-        std::string texID;
-        if (m_lastResource == "tree")
-        {
-            texID = "log";
-        }
-        else if (m_lastResource == "stone")
-        {
-            texID = "rock";
-        }
-
-        m_game->RenderTexture(texID, m_position.GetX() + 8, m_position.GetY() + 10, 16, 16);
-    }
-}
-
-void Peon::Clean()
-{
-    GameObject::Clean();
+    m_game->RenderTexture("man", m_position.GetX(), m_position.GetY() - hopOffset, 32, 32);
 }
 
 void Peon::MoveTo(Vector2D dest)
@@ -106,10 +64,10 @@ void Peon::MoveTo(Vector2D dest)
         Vector2D direction = Vector2D::Normalize(dest - start);
 
         double speed = runSpeed;
-        hopFreq = 30;
+        hopFreq = 15;
         if (m_isWandering)
         {
-            hopFreq = 15;
+            hopFreq = 8;
             speed = walkSpeed;
         }
         speed += speedVariation;
@@ -204,6 +162,8 @@ void Peon::GatheringState()
     if (m_gatherTimer.GetTime() > soundDelay)
     {
         m_gatherTimer.Stop();
+        m_resources += 1;
+        /*
         if (m_targetResource->m_ID == "tree")
         {
             m_lastResource = "tree";
@@ -216,6 +176,7 @@ void Peon::GatheringState()
             m_game->PlaySound("mine");
             m_resources += 2;
         }
+        */
     }
 
     if (m_resources >= 5)

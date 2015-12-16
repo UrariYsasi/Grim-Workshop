@@ -21,9 +21,6 @@
     <ClCompile Include="Source\Bonfire.cpp">
       <Filter>Source\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="Source\GameObject.cpp">
-      <Filter>Source\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Peon.cpp">
       <Filter>Source\Entities</Filter>
     </ClCompile>
@@ -54,12 +51,15 @@
     <ClCompile Include="Source\Input.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\EntityManager.cpp">
+      <Filter>Source\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity.cpp">
+      <Filter>Source\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Bonfire.hpp">
-      <Filter>Source\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameObject.hpp">
       <Filter>Source\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Source\Peon.hpp">
@@ -91,6 +91,12 @@
     </ClInclude>
     <ClInclude Include="Source\Input.hpp">
       <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EntityManager.hpp">
+      <Filter>Source\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity.hpp">
+      <Filter>Source\Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

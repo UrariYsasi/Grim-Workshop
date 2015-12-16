@@ -2,23 +2,20 @@
 #include "Stone.hpp"
 #include "Game.hpp"
 
-Stone::Stone(Game* game)
+Stone::Stone(Game* game, const Vector2D& position) :
+    Entity(game, position)
 {
-    m_game = game;
-    m_ID = "stone";
+}
+
+Stone::~Stone()
+{
 }
 
 void Stone::Update()
 {
-    GameObject::Update();
 }
 
 void Stone::Render()
 {
-    GameObject::Render();
-}
-
-void Stone::Clean()
-{
-    GameObject::Clean();
+    m_game->RenderTexture("stone", m_position.GetX(), m_position.GetY(), 32, 32);
 }
