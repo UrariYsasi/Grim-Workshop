@@ -90,44 +90,42 @@ void Game::Initialize()
     LoadFont("Resources/Fonts/dos.ttf", "dos");
 
     // Load Sounds
-    LoadSound("Resources/Sounds/chop.wav", "chop");
-    LoadSound("Resources/Sounds/mine.wav", "mine");
-    LoadSound("Resources/Sounds/drop.wav", "drop");
-    LoadSound("Resources/Sounds/die.wav", "die");
+    LoadSound("Resources/Sounds/woodcutting_00.wav", "woodcutting_00");
+    LoadSound("Resources/Sounds/woodcutting_01.wav", "woodcutting_01");
+    LoadSound("Resources/Sounds/woodcutting_02.wav", "woodcutting_02");
+    LoadSound("Resources/Sounds/mining_00.wav", "mining_00");
+    LoadSound("Resources/Sounds/mining_01.wav", "mining_01");
+    LoadSound("Resources/Sounds/mining_02.wav", "mining_02");
+    LoadSound("Resources/Sounds/drop_00.wav", "drop_00");
+    LoadSound("Resources/Sounds/drop_01.wav", "drop_01");
+    LoadSound("Resources/Sounds/death_00.wav", "death_00");
 
     // Load GameObjects
     m_bonfire = new Bonfire(this, Vector2D(304, 224));
     m_entityManager->RegisterEntity(m_bonfire);
 
-    /*
     for (int i = 0; i < 6; i++)
     {
-        Tree* t = new Tree(this);
         Vector2D pos = Vector2D(rand() % (640 - 100), rand() % (480 - 100));
-
         while (Vector2D::Distance(pos, m_bonfire->GetPosition()) < 100)
         {
             pos = Vector2D(rand() % (640 - 100), rand() % (480 - 100));
         }
-
-        t->Load(pos, 32, 32, "tree");
-        m_gameObjects.push_back(t);
+        Tree* t = new Tree(this, pos);
+        m_entityManager->RegisterEntity(t);
     }
 
     for (int i = 0; i < 3; i++)
     {
-        Stone* s = new Stone(this);
         Vector2D pos = Vector2D(rand() % (640 - 100), rand() % (480 - 100));
-
         while (Vector2D::Distance(pos, m_bonfire->GetPosition()) < 100)
         {
             pos = Vector2D(rand() % (640 - 100), rand() % (480 - 100));
         }
 
-        s->Load(pos, 32, 32, "stone");
-        m_gameObjects.push_back(s);
+        Stone* s = new Stone(this, pos);
+        m_entityManager->RegisterEntity(s);
     }
-    */
 
     SpawnPeons(true);
 
@@ -153,8 +151,6 @@ void Game::Terminate()
 
 void Game::Update()
 {
-    SDL_GetMouseState(&mouseX, &mouseY);
-
     if (m_input->GetMouseButtonPress(SDL_BUTTON_LEFT))
     {
         LeftClick();
@@ -179,14 +175,14 @@ void Game::Update()
         {
             m_selecting = true;
 
-            m_selectionRect.x = mouseX;
-            m_selectionRect.y = mouseY;
+            m_selectionRect.x = m_input->GetMousePosition().GetX();
+            m_selectionRect.y = m_input->GetMousePosition().GetY();
         }
 
         if (m_selecting)
         {
-            m_selectionRect.w = mouseX - m_selectionRect.x;
-            m_selectionRect.h = mouseY - m_selectionRect.y;
+            m_selectionRect.w = m_input->GetMousePosition().GetX() - m_selectionRect.x;
+            m_selectionRect.h = m_input->GetMousePosition().GetY() - m_selectionRect.y;
         }
     }
 
@@ -264,21 +260,17 @@ void Game::LeftClickUp()
 
 void Game::RightClick()
 {
-    /*
-    GameObject* obj = nullptr;
-    for (std::vector<GameObject*>::const_iterator objIt = m_gameObjects.begin(); objIt != m_gameObjects.end(); objIt++)
+    Entity* ent = nullptr;
+    std::vector<Tree*> resources = m_entityManager->GetEntitiesOfType<Tree>();
+    for (Tree* t : resources)
     {
-        SDL_Rect mouseRect = { mouseX - 5, mouseY - 5, 10, 10 };
-        if (CheckCollision(mouseRect, (*objIt)->GetHitBox()))
+        SDL_Rect mouseRect = { m_input->GetMousePosition().GetX() - 5, m_input->GetMousePosition().GetY() - 5, 10, 10 };
+        if (CheckCollision(mouseRect, t->GetHitbox()))
         {
-            if ((*objIt)->m_ID == "tree" || (*objIt)->m_ID == "stone" || (*objIt)->m_ID == "bonfire")
-            {
-                obj = (*objIt);
-            }
+            ent = t;
         }
     }
-    */
-    Entity* ent = nullptr;
+
     CommandPeons(ent);
     
 }
@@ -409,7 +401,7 @@ void Game::CommandPeons(Entity* target)
         (*it)->m_isWandering = false;
         if (target == nullptr)
         {
-            (*it)->dest = Vector2D(mouseX - 16, mouseY - 16);
+            (*it)->dest = Vector2D(m_input->GetMousePosition().GetX() - 16, m_input->GetMousePosition().GetY() - 16);
             (*it)->m_targetResource = nullptr;
             (*it)->m_state = Peon::WALKING;
         }

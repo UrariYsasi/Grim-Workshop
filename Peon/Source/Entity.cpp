@@ -4,7 +4,7 @@
 Entity::Entity(Game* game, Vector2D position) :
     m_game(game),
     m_position(position),
-    m_hitbox(SDL_Rect{0, 0, 32, 32})
+    m_hitbox(SDL_Rect{(int)position.GetX(), (int)position.GetY(), 32, 32})
 {
 }
 

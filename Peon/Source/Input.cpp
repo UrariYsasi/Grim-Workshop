@@ -3,7 +3,8 @@
 #include "Game.hpp"
 
 Input::Input(Game* const game) :
-    m_game(game)
+    m_game(game),
+    m_mousePosition(0, 0)
 {
 }
 
@@ -11,8 +12,47 @@ Input::~Input()
 {
 }
 
+bool Input::GetKey(const int& key)
+{
+    return m_currentKeys[key];
+}
+
+bool Input::GetKeyPress(const int& key)
+{
+    return m_downKeys[key];
+}
+
+bool Input::GetKeyRelease(const int& key)
+{
+    return m_upKeys[key];
+}
+
+bool Input::GetMouseButton(const int& button)
+{
+    return m_currentMouseButtons[button];
+}
+
+bool Input::GetMouseButtonPress(const int& button)
+{
+    return m_downMouseButtons[button];
+}
+
+bool Input::GetMouseButtonRelease(const int& button)
+{
+    return m_upMouseButtons[button];
+}
+
+Vector2D Input::GetMousePosition() const
+{
+    return m_mousePosition;
+}
+
 void Input::Update()
 {
+    int x, y;
+    SDL_GetMouseState(&x, &y);
+    m_mousePosition = Vector2D(x, y);
+
     for (int i = 0; i < 256; i++)
     {
         m_downKeys[i] = false;

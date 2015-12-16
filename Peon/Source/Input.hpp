@@ -1,5 +1,6 @@
 #pragma once
 #include "PCH.hpp"
+#include "Vector2D.hpp"
 
 class Game;
 
@@ -15,6 +16,7 @@ class Input
         bool GetMouseButton(const int& button);
         bool GetMouseButtonPress(const int& button);
         bool GetMouseButtonRelease(const int& button);
+        Vector2D GetMousePosition() const;
 
         void Update();
 
@@ -26,34 +28,5 @@ class Input
         bool m_currentMouseButtons[5];
         bool m_downMouseButtons[5];
         bool m_upMouseButtons[5];
+        Vector2D m_mousePosition;
 };
-
-inline bool Input::GetKey(const int& key)
-{
-    return m_currentKeys[key];
-}
-
-inline bool Input::GetKeyPress(const int& key)
-{
-    return m_downKeys[key];
-}
-
-inline bool Input::GetKeyRelease(const int& key)
-{
-    return m_upKeys[key];
-}
-
-inline bool Input::GetMouseButton(const int& button)
-{
-    return m_currentMouseButtons[button];
-}
-
-inline bool Input::GetMouseButtonPress(const int& button)
-{
-    return m_downMouseButtons[button];
-}
-
-inline bool Input::GetMouseButtonRelease(const int& button)
-{
-    return m_upMouseButtons[button];
-}

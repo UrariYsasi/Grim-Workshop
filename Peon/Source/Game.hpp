@@ -50,9 +50,6 @@ class Game
     public:
         double m_deltaTime;
 
-        int mouseX;
-        int mouseY;
-
         bool m_selecting = false;
         SDL_Rect m_selectionRect;
 

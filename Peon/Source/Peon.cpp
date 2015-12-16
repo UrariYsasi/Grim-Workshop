@@ -163,6 +163,8 @@ void Peon::GatheringState()
     {
         m_gatherTimer.Stop();
         m_resources += 1;
+        m_game->PlaySound("woodcutting_00");
+
         /*
         if (m_targetResource->m_ID == "tree")
         {
