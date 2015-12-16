@@ -16,6 +16,11 @@ EntityManager::~EntityManager()
     m_entities.clear();
 }
 
+std::vector<Entity*> EntityManager::GetEntities() const
+{
+    return m_entities;
+}
+
 void EntityManager::Update()
 {
     std::vector<Entity*>::const_iterator it;

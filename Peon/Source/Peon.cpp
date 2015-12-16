@@ -52,7 +52,22 @@ void Peon::Update()
 
 void Peon::Render()
 {
-    m_game->RenderTexture("man", m_position.GetX(), m_position.GetY() - hopOffset, 32, 32);
+    m_game->RenderSprite("peon", 0, 0, m_position.GetX(), m_position.GetY() + hopOffset, 32, 32);
+    
+    if (m_resources >= 5)
+    {
+        Tree* t = dynamic_cast<Tree*>(m_targetResource);
+        if (t != nullptr)
+        {
+            // We are holding logs
+            m_game->RenderSprite("peon", 1, 2, m_position.GetX(), m_position.GetY(), 32, 32);
+        }
+        else
+        {
+            // We are holding stone
+            m_game->RenderSprite("peon", 0, 2, m_position.GetX(), m_position.GetY(), 32, 32);
+        }
+    }
 }
 
 void Peon::MoveTo(Vector2D dest)
@@ -143,7 +158,7 @@ void Peon::WalkingState()
                 {
                     m_game->DepositResources(m_resources);
                     m_resources = 0;
-                    m_game->PlaySound("drop");
+                    m_game->PlaySound("drop_00");
                     m_state = IDLE;
                 }
             }

@@ -17,6 +17,8 @@ class Input
         bool GetMouseButtonPress(const int& button);
         bool GetMouseButtonRelease(const int& button);
         Vector2D GetMousePosition() const;
+        bool IsBoxSelecting() const;
+        SDL_Rect GetBoxSelection() const;
 
         void Update();
 
@@ -29,4 +31,6 @@ class Input
         bool m_downMouseButtons[5];
         bool m_upMouseButtons[5];
         Vector2D m_mousePosition;
+        bool m_isBoxSelecting;
+        SDL_Rect m_boxSelection;
 };

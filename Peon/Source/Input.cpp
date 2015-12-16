@@ -4,7 +4,9 @@
 
 Input::Input(Game* const game) :
     m_game(game),
-    m_mousePosition(0, 0)
+    m_mousePosition(0, 0),
+    m_isBoxSelecting(false),
+    m_boxSelection(SDL_Rect{0, 0, 0, 0})
 {
 }
 
@@ -45,6 +47,16 @@ bool Input::GetMouseButtonRelease(const int& button)
 Vector2D Input::GetMousePosition() const
 {
     return m_mousePosition;
+}
+
+bool Input::IsBoxSelecting() const
+{
+    return m_isBoxSelecting;
+}
+
+SDL_Rect Input::GetBoxSelection() const
+{
+    return m_boxSelection;
 }
 
 void Input::Update()
@@ -102,6 +114,30 @@ void Input::Update()
         else if (event.type == SDL_QUIT)
         {
             m_game->Terminate();
+        }
+    }
+
+    if (GetMouseButton(SDL_BUTTON_LEFT))
+    {
+        if (!m_isBoxSelecting)
+        {
+            m_isBoxSelecting = true;
+
+            m_boxSelection.x = m_mousePosition.GetX();
+            m_boxSelection.y = m_mousePosition.GetY();
+        }
+
+        if (m_isBoxSelecting)
+        {
+            m_boxSelection.w = m_mousePosition.GetX() - m_boxSelection.x;
+            m_boxSelection.h = m_mousePosition.GetY() - m_boxSelection.y;
+        }
+    }
+    else if (GetMouseButtonRelease(SDL_BUTTON_LEFT))
+    {
+        if (m_isBoxSelecting)
+        {
+            m_isBoxSelecting = false;
         }
     }
 }

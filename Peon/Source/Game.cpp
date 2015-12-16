@@ -69,6 +69,7 @@ void Game::Initialize()
     m_entityManager = std::make_unique<EntityManager>();
 
     // Load Textures
+    LoadTexture("Resources/Textures/peon.png", "peon");
     LoadTexture("Resources/Textures/man.png", "man");
     LoadTexture("Resources/Textures/man_2.png", "man2");
     LoadTexture("Resources/Textures/man_3.png", "man3");
@@ -100,7 +101,6 @@ void Game::Initialize()
     LoadSound("Resources/Sounds/drop_01.wav", "drop_01");
     LoadSound("Resources/Sounds/death_00.wav", "death_00");
 
-    // Load GameObjects
     m_bonfire = new Bonfire(this, Vector2D(304, 224));
     m_entityManager->RegisterEntity(m_bonfire);
 
@@ -169,23 +169,6 @@ void Game::Update()
         RightClickUp();
     }
 
-    if (m_input->GetMouseButton(SDL_BUTTON_LEFT))
-    {
-        if (!m_selecting)
-        {
-            m_selecting = true;
-
-            m_selectionRect.x = m_input->GetMousePosition().GetX();
-            m_selectionRect.y = m_input->GetMousePosition().GetY();
-        }
-
-        if (m_selecting)
-        {
-            m_selectionRect.w = m_input->GetMousePosition().GetX() - m_selectionRect.x;
-            m_selectionRect.h = m_input->GetMousePosition().GetY() - m_selectionRect.y;
-        }
-    }
-
     SpawnPeons(false);
     
     m_entityManager->Update();
@@ -211,10 +194,10 @@ void Game::Render()
         RenderTexture("selection", (*it)->GetPosition().GetX(), (*it)->GetPosition().GetY(), 32, 32);
     }
 
-    if (m_selecting)
+    if (m_input->IsBoxSelecting())
     {
         m_renderer->SetDrawColor(SDL_Color{ 0, 0, 0, 255 });
-        SDL_RenderDrawRect(m_renderer->GetSDLRenderer(), &m_selectionRect);
+        SDL_RenderDrawRect(m_renderer->GetSDLRenderer(), &m_input->GetBoxSelection());
     }
 
     // Draw GUI
@@ -243,36 +226,31 @@ void Game::LeftClick()
 
 void Game::LeftClickUp()
 {
-    if (m_selecting)
+    std::vector<Peon*> peons = m_entityManager->GetEntitiesOfType<Peon>();
+    for (std::vector<Peon*>::const_iterator it = peons.begin(); it != peons.end(); it++)
     {
-        std::vector<Peon*> peons = m_entityManager->GetEntitiesOfType<Peon>();
-        for (std::vector<Peon*>::const_iterator it = peons.begin(); it != peons.end(); it++)
+        if (CheckCollision(m_input->GetBoxSelection(), (*it)->GetHitbox()))
         {
-            if (CheckCollision(m_selectionRect, (*it)->GetHitbox()))
-            {
-                m_selectedPeons.push_back(*it);
-            }
+            m_selectedPeons.push_back(*it);
         }
-
-        m_selecting = false;
     }
 }
 
 void Game::RightClick()
 {
     Entity* ent = nullptr;
-    std::vector<Tree*> resources = m_entityManager->GetEntitiesOfType<Tree>();
-    for (Tree* t : resources)
+
+    std::vector<Entity*> ents = m_entityManager->GetEntities();
+    for (std::vector<Entity*>::const_iterator it = ents.begin(); it != ents.end(); it++)
     {
         SDL_Rect mouseRect = { m_input->GetMousePosition().GetX() - 5, m_input->GetMousePosition().GetY() - 5, 10, 10 };
-        if (CheckCollision(mouseRect, t->GetHitbox()))
+        if (CheckCollision(mouseRect, (*it)->GetHitbox()))
         {
-            ent = t;
+            ent = (*it);
         }
     }
 
     CommandPeons(ent);
-    
 }
 
 void Game::RightClickUp()
@@ -334,13 +312,12 @@ bool Game::CheckCollision(SDL_Rect a, SDL_Rect b)
 
 Bonfire* Game::FindBonfire(Peon* peon)
 {
-    return m_bonfire;
+    return m_entityManager->GetEntityOfType<Bonfire>();
 }
 
 Tree* Game::FindTree(Peon* peon)
 {
-    Tree* tree = nullptr;
-    return tree;
+    return m_entityManager->GetEntityOfType<Tree>();
 }
 
 void Game::SpawnPeons(bool initial)
@@ -376,7 +353,7 @@ void Game::SacrificePeon(Peon* peon)
 {
     if (m_resources >= 100)
     {
-        PlaySound("die");
+        PlaySound("death_00");
 
         // Recycle this peon
         peon->Respawn();
@@ -409,16 +386,28 @@ void Game::CommandPeons(Entity* target)
         {
             if ((*it)->m_targetResource != target)
             {
-                (*it)->m_state = Peon::IDLE;
-                (*it)->m_targetResource = target;
+                Tree* t = dynamic_cast<Tree*>(target);
+                if (t != nullptr)
+                {
+                    (*it)->m_state = Peon::IDLE;
+                    (*it)->m_targetResource = target;
+                }
+                else
+                {
+                    Stone* s = dynamic_cast<Stone*>(target);
+                    if (s != nullptr)
+                    {
+                        (*it)->m_state = Peon::IDLE;
+                        (*it)->m_targetResource = target;
+                    }
+                }
             }
 
-            /*
-            if (target->m_ID == "bonfire")
+            Bonfire* bonfire = dynamic_cast<Bonfire*>(target);
+            if (bonfire != nullptr)
             {
                 (*it)->m_state = Peon::SACRIFICE;
             }
-            */
         }
 
     }
@@ -459,6 +448,14 @@ bool Game::LoadTexture(const std::string& path, const std::string& id)
 void Game::RenderTexture(const std::string& id, const int& x, const int& y, const int& width, const int& height)
 {
     SDL_Rect srcRect = { 0, 0, 32, 32 };
+    SDL_Rect destRect = { x, y, width, height };
+
+    SDL_RenderCopyEx(m_renderer->GetSDLRenderer(), m_textureMap[id], &srcRect, &destRect, 0, 0, SDL_FLIP_NONE);
+}
+
+void Game::RenderSprite(const std::string& id, const int& col, const int& row, const int& x, const int& y, const int& width, const int& height)
+{
+    SDL_Rect srcRect = { col * width, row * height, width, height };
     SDL_Rect destRect = { x, y, width, height };
 
     SDL_RenderCopyEx(m_renderer->GetSDLRenderer(), m_textureMap[id], &srcRect, &destRect, 0, 0, SDL_FLIP_NONE);

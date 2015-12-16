@@ -38,6 +38,7 @@ class Game
         // Textures
         bool LoadTexture(const std::string& path, const std::string& id);
         void RenderTexture(const std::string& id, const int& x, const int& y, const int& width, const int& height);
+        void RenderSprite(const std::string& id, const int& col, const int& row, const int& x, const int& y, const int& width, const int& height);
 
         // Fonts
         bool LoadFont(const std::string& path, const std::string& id);
@@ -50,21 +51,12 @@ class Game
     public:
         double m_deltaTime;
 
-        bool m_selecting = false;
-        SDL_Rect m_selectionRect;
-
     private:
         bool m_isRunning;
-
         std::unique_ptr<Window> m_window;
         std::unique_ptr<Renderer> m_renderer;
         std::unique_ptr<Input> m_input;
         std::unique_ptr<EntityManager> m_entityManager;
-
-        // Input
-        bool m_buttonsDown[5];
-        bool m_buttonsUp[5];
-        bool m_buttonsCurrent[5];
 
         // Textures
         std::map<std::string, SDL_Texture*> m_textureMap;
