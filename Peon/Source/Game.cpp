@@ -414,6 +414,7 @@ void Game::CommandPeons(Entity* target)
 
 void Game::DepositResources(int amount)
 {
+    PlaySound("drop_01");
     m_resources += amount;
 }
 

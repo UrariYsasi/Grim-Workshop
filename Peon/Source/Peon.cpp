@@ -180,7 +180,6 @@ void Peon::WalkingState()
                 {
                     m_game->DepositResources(m_resources);
                     m_resources = 0;
-                    m_game->PlaySound("drop_00");
                     m_state = IDLE;
                 }
             }
