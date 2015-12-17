@@ -8,6 +8,7 @@
 #include <sstream>
 #include <cstdlib>
 #include <ctime>
+#include <cmath>
 
 #if WINDOWS
     #include <SDL.h>

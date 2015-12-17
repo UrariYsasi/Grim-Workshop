@@ -32,6 +32,8 @@ void Peon::Respawn()
 
 void Peon::Update()
 {
+    // TODO
+    // Better way of handling entity hitboxes
     m_hitbox.x = m_position.GetX();
     m_hitbox.y = m_position.GetY();
     m_hitbox.w = 32;
@@ -40,7 +42,7 @@ void Peon::Update()
     if (m_state == WALKING || m_state == SACRIFICE)
     {
         hopIndex += m_game->m_deltaTime;
-        hopOffset = -(hopAmp * abs(sin(hopFreq * hopIndex)));
+        hopOffset = -(hopAmp * fabs(sin(hopFreq * hopIndex)));
     }
 
     stateFunction stateFunc = m_stateHandler[m_state];
@@ -53,7 +55,7 @@ void Peon::Update()
 void Peon::Render()
 {
     m_game->RenderSprite("peon", 0, 0, m_position.GetX(), m_position.GetY() + hopOffset, 32, 32);
-    
+
     if (m_state == GATHERING || m_state == WALKING)
     {
         if (m_resources < 5)
@@ -73,7 +75,7 @@ void Peon::Render()
             }
         }
     }
-    
+
     if (m_resources >= 5)
     {
         Tree* t = dynamic_cast<Tree*>(m_targetResource);

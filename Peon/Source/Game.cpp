@@ -170,7 +170,7 @@ void Game::Update()
     }
 
     SpawnPeons(false);
-    
+
     m_entityManager->Update();
 }
 
@@ -197,7 +197,8 @@ void Game::Render()
     if (m_input->IsBoxSelecting())
     {
         m_renderer->SetDrawColor(SDL_Color{ 0, 0, 0, 255 });
-        SDL_RenderDrawRect(m_renderer->GetSDLRenderer(), &m_input->GetBoxSelection());
+        SDL_Rect selection = m_input->GetBoxSelection();
+        SDL_RenderDrawRect(m_renderer->GetSDLRenderer(), &selection);
     }
 
     // Draw GUI
@@ -243,7 +244,7 @@ void Game::RightClick()
     std::vector<Entity*> ents = m_entityManager->GetEntities();
     for (std::vector<Entity*>::const_iterator it = ents.begin(); it != ents.end(); it++)
     {
-        SDL_Rect mouseRect = { m_input->GetMousePosition().GetX() - 5, m_input->GetMousePosition().GetY() - 5, 10, 10 };
+        SDL_Rect mouseRect = { (int)m_input->GetMousePosition().GetX() - 5, (int)m_input->GetMousePosition().GetY() - 5, 10, 10 };
         if (CheckCollision(mouseRect, (*it)->GetHitbox()))
         {
             ent = (*it);
@@ -327,8 +328,6 @@ void Game::SpawnPeons(bool initial)
         Peon* peon;
         Vector2D position(rand() % 640, -(rand() % 100));
         Vector2D dest(rand() % (640 - 100), rand() % (480 - 100));
-        int width = 32;
-        int height = 32;
 
         if (!initial)
         {

@@ -1,12 +1,12 @@
 CC = g++
-SRC_PATH = LD34
-BIN_PATH = bin
-BUILD_PATH = bin
-RES_PATH = LD34/res
+SRC_PATH = Peon/Source
+BIN_PATH = Peon/Binaries
+BUILD_PATH := $(BIN_PATH)
+RES_PATH = Peon/Resources
 FRAMEWORK_PATH = /Library/Frameworks/SDL2
 FRAMEWORKS = -framework SDL2 -framework SDL2_ttf -framework SDL2_mixer -framework SDL2_image
-BIN_NAME = jand
-BUILD_NAME = "Celebration of Jand"
+BIN_NAME = peon
+BUILD_NAME = "Peon"
 C_FLAGS = -Wall -std=c++14
 SRC_FILES := $(wildcard $(SRC_PATH)/*.cpp)
 OBJ_FILES := $(SRC_FILES:$(SRC_PATH)%.cpp=$(BIN_PATH)%.o)
@@ -50,4 +50,4 @@ package_app:
 	@cp -R $(RES_PATH) $(BUILD_PATH)/$(BUILD_NAME).app/Contents/Resources
 	@cp -R $(FRAMEWORK_PATH)/ $(BUILD_PATH)/$(BUILD_NAME).app/Contents/Frameworks
 	@cp $(BIN_PATH)/$(BIN_NAME) $(BUILD_PATH)/$(BUILD_NAME).app/Contents/MacOS
-	@install_name_tool -add_rpath @loader_path/../Frameworks $(BUILD_PATH)/$(BUILD_NAME).app/Contents/MacOS/jand
+	@install_name_tool -add_rpath @loader_path/../Frameworks $(BUILD_PATH)/$(BUILD_NAME).app/Contents/MacOS/$(BIN_NAME)
