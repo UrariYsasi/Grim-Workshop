@@ -18,6 +18,7 @@ public:
     virtual void Update();
     virtual void Render() = 0;
     void StartNavigation(const Vector2D& destination);
+    void PushAction(std::unique_ptr<Action> action);
 
     // State machine functions
     void WalkingState();
@@ -27,7 +28,7 @@ protected:
     State m_state; // The monsters current state
     typedef void (Monster::*stateFunction)();
     stateFunction m_stateHandler[State::ENUM_SIZE];
-    std::stack<Action> m_actionStack;
+    std::stack< std::unique_ptr<Action> > m_actionStack;
 
     Vector2D m_destination; // The destination, used for walking
     double m_moveSpeed; // The movement speed of the monster

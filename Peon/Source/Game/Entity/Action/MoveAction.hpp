@@ -2,11 +2,11 @@
 #include "../../../PCH.hpp"
 #include "Action.hpp"
 
-class IdleAction : public Action
+class MoveAction : public Action
 {
 public:
-    IdleAction(Monster* owner);
-    virtual ~IdleAction();
+    MoveAction(Monster* owner);
+    virtual ~MoveAction();
 
     virtual void Update();
 };

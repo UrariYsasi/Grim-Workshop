@@ -3,6 +3,7 @@
 #include "../Engine/Vector2D.hpp"
 #include "Entity/Tree.hpp"
 #include "Entity/Stockpile.hpp"
+#include "Entity/Action/MoveAction.hpp"
 
 Game::Game() :
     m_deltaTime(0.0),
@@ -275,6 +276,7 @@ void Game::IssueCommand(Entity* ent)
         else
         {
             // If we commanded them to empty space, they will just walk to the clicked position
+            peon->PushAction(std::make_unique<MoveAction>(peon));
             peon->StartNavigation(m_input->GetMousePosition());
         }
     }

@@ -9,3 +9,7 @@ IdleAction::IdleAction(Monster* owner) :
 IdleAction::~IdleAction()
 {
 }
+
+void IdleAction::Update()
+{
+}

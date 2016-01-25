@@ -16,6 +16,11 @@ Monster::Monster(Game* game, Vector2D position) :
 
 Monster::~Monster()
 {
+    // Free the action stack
+    while(!m_actionStack.empty())
+    {
+        m_actionStack.pop();
+    }
 }
 
 Vector2D Monster::GetDestination() const
@@ -30,11 +35,16 @@ void Monster::SetDestination(const Vector2D& destination)
 
 void Monster::Update()
 {
-    // If this monster has no actions, add an idle action.
-    if(m_actionStack.size() == 0)
+    if(m_actionStack.size() != 0)
     {
-        IdleAction action(this);
-        m_actionStack.push(action);
+        // Update the current action
+        m_actionStack.top()->Update();
+    }
+    else
+    {
+        // This monster has no actions, so add an idle action.
+        std::unique_ptr<Action> action = std::make_unique<IdleAction>(this);
+        m_actionStack.push(std::move(action));
     }
 
     stateFunction stateFunc = m_stateHandler[m_state];
@@ -45,12 +55,20 @@ void Monster::Update()
 }
 
 /*
-    Make this monster start navigating to the given destination.
+    Make this Monster start navigating to the given destination.
 */
 void Monster::StartNavigation(const Vector2D& destination)
 {
     m_destination = destination;
     m_state = WALKING;
+}
+
+/*
+    Push an action onto this Monster's action stack.
+*/
+void Monster::PushAction(std::unique_ptr<Action> action)
+{
+    m_actionStack.push(std::move(action));
 }
 
 /*
@@ -69,6 +87,7 @@ void Monster::WalkingState()
         {
             m_position = m_destination;
             m_state = IDLE;
+            m_actionStack.pop();
         }
     }
 }
