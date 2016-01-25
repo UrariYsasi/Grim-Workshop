@@ -4,7 +4,8 @@
 
 Action::Action(Monster* owner, const std::string& name) :
     m_owner(owner),
-    m_name(name)
+    m_name(name),
+    m_isComplete(false)
 {
 }
 
@@ -20,4 +21,9 @@ std::string Action::GetName() const
 void Action::SetName(const std::string& name)
 {
     m_name = name;
+}
+
+bool Action::IsComplete() const
+{
+    return m_isComplete;
 }

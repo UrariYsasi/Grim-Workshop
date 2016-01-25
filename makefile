@@ -23,11 +23,11 @@ OBJ_FILES := $(SRC_FILES:$(SRC_PATH)%.cpp=$(BIN_PATH)%.o)
 all: debug
 
 # Build the project and package it into an app bundle
-release: clean build clean_app package_app
+release: build clean_app package_app
 	@echo "*** Release build complete ***"
 
 # Build the project and run it through the terminal
-debug: clean build
+debug: build
 	@echo "*** Debug build complete ***"
 	@./$(BIN_PATH)/$(BIN_NAME)
 

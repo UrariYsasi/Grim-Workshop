@@ -11,10 +11,12 @@ public:
 
     std::string GetName() const;
     void SetName(const std::string& name);
+    bool IsComplete() const;
 
     virtual void Update() = 0;
 
-private:
+protected:
     Monster* m_owner;
     std::string m_name;
+    bool m_isComplete;
 };

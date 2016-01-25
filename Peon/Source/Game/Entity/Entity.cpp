@@ -12,6 +12,11 @@ Entity::~Entity()
 {
 }
 
+Game* Entity::GetGame()
+{
+    return m_game;
+}
+
 Vector2D Entity::GetPosition() const
 {
     return m_position;

@@ -10,6 +10,7 @@ public:
     Entity(Game* game, Vector2D position);
     virtual ~Entity();
 
+    Game* GetGame();
     Vector2D GetPosition() const;
     void SetPosition(const Vector2D& position);
     bool IsDeleted() const;
