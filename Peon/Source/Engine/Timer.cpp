@@ -1,4 +1,4 @@
-#include "PCH.hpp"
+#include "../PCH.hpp"
 #include "Timer.hpp"
 
 Timer::Timer() :
@@ -60,7 +60,7 @@ double Timer::GetTime()
             time = SDL_GetTicks() - m_startTime;
         }
     }
-    
+
     return time;
 }
 

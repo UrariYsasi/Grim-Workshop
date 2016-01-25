@@ -1,4 +1,4 @@
-#include "PCH.hpp"
+#include "../PCH.hpp"
 #include "Window.hpp"
 
 Window::Window(const int& width, const int& height, const std::string& title) :

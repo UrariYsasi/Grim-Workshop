@@ -1,6 +1,6 @@
-#include "PCH.hpp"
+#include "../PCH.hpp"
 #include "Input.hpp"
-#include "Game.hpp"
+#include "../Game/Game.hpp"
 
 Input::Input(Game* const game) :
     m_game(game),
@@ -80,7 +80,7 @@ void Input::Update()
     SDL_Event event;
     while (SDL_PollEvent(&event) != 0)
     {
-        int key = event.key.keysym.scancode;
+        int key = event.key.keysym.sym;
         int mouseButton = event.button.button;
 
         if (event.type == SDL_KEYDOWN)
@@ -117,6 +117,11 @@ void Input::Update()
         }
     }
 
+    if(GetKeyPress(SDLK_ESCAPE))
+    {
+        m_game->Terminate();
+    }
+
     if (GetMouseButton(SDL_BUTTON_LEFT))
     {
         if (!m_isBoxSelecting)
@@ -135,9 +140,14 @@ void Input::Update()
     }
     else if (GetMouseButtonRelease(SDL_BUTTON_LEFT))
     {
-        if (m_isBoxSelecting)
-        {
-            m_isBoxSelecting = false;
-        }
+        //EndBoxSelection();
+    }
+}
+
+void Input::EndBoxSelection()
+{
+    if (m_isBoxSelecting)
+    {
+        m_isBoxSelecting = false;
     }
 }

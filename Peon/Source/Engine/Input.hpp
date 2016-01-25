@@ -1,5 +1,5 @@
 #pragma once
-#include "PCH.hpp"
+#include "../PCH.hpp"
 #include "Vector2D.hpp"
 
 class Game;
@@ -21,6 +21,7 @@ class Input
         SDL_Rect GetBoxSelection() const;
 
         void Update();
+        void EndBoxSelection();
 
     private:
         Game* m_game;

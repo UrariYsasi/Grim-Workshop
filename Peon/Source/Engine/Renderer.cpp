@@ -2,7 +2,7 @@
 
 Renderer::Renderer(const Window* window)
 {
-    m_SDLRenderer = SDL_CreateRenderer(window->GetSDLWindow(), -1, SDL_RENDERER_ACCELERATED);
+    m_SDLRenderer = SDL_CreateRenderer(window->GetSDLWindow(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (m_SDLRenderer == nullptr)
     {
         std::cerr << "Renderer could not be created! SDL error: " << SDL_GetError() << std::endl;
