@@ -10,10 +10,7 @@ Monster::Monster(Game* game, Vector2D position) :
 Monster::~Monster()
 {
     // Free the action stack
-    while(!m_actionStack.empty())
-    {
-        m_actionStack.pop();
-    }
+    m_actionStack.clear();
 }
 
 void Monster::Update()
@@ -22,18 +19,18 @@ void Monster::Update()
     if(m_actionStack.size() == 0)
     {
         std::unique_ptr<Action> action = std::make_unique<IdleAction>(this);
-        m_actionStack.push(std::move(action));
+        m_actionStack.push_back(std::move(action));
     }
 
 
     // Update the current action
-    if(m_actionStack.top() != nullptr)
+    if(m_actionStack.back() != nullptr)
     {
-        m_actionStack.top()->Update();
+        m_actionStack.back()->Update();
 
-        if(m_actionStack.top()->IsComplete())
+        if(m_actionStack.back()->IsComplete())
         {
-            m_actionStack.pop();
+            m_actionStack.pop_back();
         }
     }
 }
@@ -43,5 +40,13 @@ void Monster::Update()
 */
 void Monster::PushAction(std::unique_ptr<Action> action)
 {
-    m_actionStack.push(std::move(action));
+    m_actionStack.push_back(std::move(action));
+}
+
+/*
+    Clear all this Monster's actions. This is used when commanding them.
+*/
+void Monster::ClearActions()
+{
+    m_actionStack.clear();
 }

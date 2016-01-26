@@ -13,7 +13,8 @@ public:
     virtual void Update();
     virtual void Render() = 0;
     void PushAction(std::unique_ptr<Action> action);
+    void ClearActions();
 
 protected:
-    std::stack< std::unique_ptr<Action> > m_actionStack;
+    std::vector< std::unique_ptr<Action> > m_actionStack;
 };

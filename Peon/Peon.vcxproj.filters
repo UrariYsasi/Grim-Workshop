@@ -4,99 +4,123 @@
     <Filter Include="Source">
       <UniqueIdentifier>{93f9121c-76a4-48ae-af7d-e42dfd47896f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Graphics">
-      <UniqueIdentifier>{a8bf80b3-5306-4575-af4e-16cb56a4c8f9}</UniqueIdentifier>
+    <Filter Include="Source\Game">
+      <UniqueIdentifier>{43b7ca7b-a74e-4bbb-b125-4eeba9d80a2a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Entities">
-      <UniqueIdentifier>{95f95a1e-48f4-495d-aca6-a0814cf9bf96}</UniqueIdentifier>
+    <Filter Include="Source\Engine">
+      <UniqueIdentifier>{7306b136-a6e4-47e7-b1b5-d37730e2d6fe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Utilities">
-      <UniqueIdentifier>{030961ad-02ec-4848-8ec6-95729659f6c5}</UniqueIdentifier>
+    <Filter Include="Source\Game\Entity">
+      <UniqueIdentifier>{ff4b7fe4-7d77-4a74-8f0d-1c5a9363bd04}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Math">
-      <UniqueIdentifier>{af711539-1a58-4727-9740-6fdb4a4604c2}</UniqueIdentifier>
+    <Filter Include="Source\Game\Entity\Action">
+      <UniqueIdentifier>{95eefced-b894-47b4-bf5d-da4a49b3a4d6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Bonfire.cpp">
-      <Filter>Source\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Peon.cpp">
-      <Filter>Source\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Stone.cpp">
-      <Filter>Source\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Tree.cpp">
-      <Filter>Source\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Vector2D.cpp">
-      <Filter>Source\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Timer.cpp">
-      <Filter>Source\Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Main.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Window.cpp">
-      <Filter>Source\Graphics</Filter>
+    <ClCompile Include="Source\Game\Game.cpp">
+      <Filter>Source\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Renderer.cpp">
-      <Filter>Source\Graphics</Filter>
+    <ClCompile Include="Source\Game\Entity\Entity.cpp">
+      <Filter>Source\Game\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Input.cpp">
-      <Filter>Source</Filter>
+    <ClCompile Include="Source\Game\Entity\Monster.cpp">
+      <Filter>Source\Game\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="Source\EntityManager.cpp">
-      <Filter>Source\Entities</Filter>
+    <ClCompile Include="Source\Game\Entity\Peon.cpp">
+      <Filter>Source\Game\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Entity.cpp">
-      <Filter>Source\Entities</Filter>
+    <ClCompile Include="Source\Game\Entity\Prop.cpp">
+      <Filter>Source\Game\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Entity\Resource.cpp">
+      <Filter>Source\Game\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Entity\Stockpile.cpp">
+      <Filter>Source\Game\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Entity\Tree.cpp">
+      <Filter>Source\Game\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Entity\Action\Action.cpp">
+      <Filter>Source\Game\Entity\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Entity\Action\IdleAction.cpp">
+      <Filter>Source\Game\Entity\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Entity\Action\MoveAction.cpp">
+      <Filter>Source\Game\Entity\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Input.cpp">
+      <Filter>Source\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Renderer.cpp">
+      <Filter>Source\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Timer.cpp">
+      <Filter>Source\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Vector2D.cpp">
+      <Filter>Source\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Window.cpp">
+      <Filter>Source\Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Bonfire.hpp">
-      <Filter>Source\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Peon.hpp">
-      <Filter>Source\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Stone.hpp">
-      <Filter>Source\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Tree.hpp">
-      <Filter>Source\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Vector2D.hpp">
-      <Filter>Source\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Timer.hpp">
-      <Filter>Source\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game.hpp">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="Source\PCH.hpp">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Window.hpp">
-      <Filter>Source\Graphics</Filter>
+    <ClInclude Include="Source\Game\Game.hpp">
+      <Filter>Source\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Renderer.hpp">
-      <Filter>Source\Graphics</Filter>
+    <ClInclude Include="Source\Game\Entity\Entity.hpp">
+      <Filter>Source\Game\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Input.hpp">
-      <Filter>Source</Filter>
+    <ClInclude Include="Source\Game\Entity\Monster.hpp">
+      <Filter>Source\Game\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="Source\EntityManager.hpp">
-      <Filter>Source\Entities</Filter>
+    <ClInclude Include="Source\Game\Entity\Peon.hpp">
+      <Filter>Source\Game\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Entity.hpp">
-      <Filter>Source\Entities</Filter>
+    <ClInclude Include="Source\Game\Entity\Prop.hpp">
+      <Filter>Source\Game\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Entity\Resource.hpp">
+      <Filter>Source\Game\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Entity\Stockpile.hpp">
+      <Filter>Source\Game\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Entity\Tree.hpp">
+      <Filter>Source\Game\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Entity\Action\Action.hpp">
+      <Filter>Source\Game\Entity\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Entity\Action\IdleAction.hpp">
+      <Filter>Source\Game\Entity\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Entity\Action\MoveAction.hpp">
+      <Filter>Source\Game\Entity\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Input.hpp">
+      <Filter>Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Renderer.hpp">
+      <Filter>Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Timer.hpp">
+      <Filter>Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Vector2D.hpp">
+      <Filter>Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Window.hpp">
+      <Filter>Source\Engine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -19,34 +19,42 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Bonfire.cpp" />
-    <ClCompile Include="Source\Entity.cpp" />
-    <ClCompile Include="Source\EntityManager.cpp" />
-    <ClCompile Include="Source\Game.cpp" />
-    <ClCompile Include="Source\Input.cpp" />
+    <ClCompile Include="Source\Engine\Input.cpp" />
+    <ClCompile Include="Source\Engine\Renderer.cpp" />
+    <ClCompile Include="Source\Engine\Timer.cpp" />
+    <ClCompile Include="Source\Engine\Vector2D.cpp" />
+    <ClCompile Include="Source\Engine\Window.cpp" />
+    <ClCompile Include="Source\Game\Entity\Action\Action.cpp" />
+    <ClCompile Include="Source\Game\Entity\Action\IdleAction.cpp" />
+    <ClCompile Include="Source\Game\Entity\Action\MoveAction.cpp" />
+    <ClCompile Include="Source\Game\Entity\Entity.cpp" />
+    <ClCompile Include="Source\Game\Entity\Monster.cpp" />
+    <ClCompile Include="Source\Game\Entity\Peon.cpp" />
+    <ClCompile Include="Source\Game\Entity\Prop.cpp" />
+    <ClCompile Include="Source\Game\Entity\Resource.cpp" />
+    <ClCompile Include="Source\Game\Entity\Stockpile.cpp" />
+    <ClCompile Include="Source\Game\Entity\Tree.cpp" />
+    <ClCompile Include="Source\Game\Game.cpp" />
     <ClCompile Include="Source\Main.cpp" />
-    <ClCompile Include="Source\Peon.cpp" />
-    <ClCompile Include="Source\Renderer.cpp" />
-    <ClCompile Include="Source\Stone.cpp" />
-    <ClCompile Include="Source\Timer.cpp" />
-    <ClCompile Include="Source\Tree.cpp" />
-    <ClCompile Include="Source\Vector2D.cpp" />
-    <ClCompile Include="Source\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Bonfire.hpp" />
-    <ClInclude Include="Source\Entity.hpp" />
-    <ClInclude Include="Source\EntityManager.hpp" />
-    <ClInclude Include="Source\Game.hpp" />
-    <ClInclude Include="Source\Input.hpp" />
+    <ClInclude Include="Source\Engine\Input.hpp" />
+    <ClInclude Include="Source\Engine\Renderer.hpp" />
+    <ClInclude Include="Source\Engine\Timer.hpp" />
+    <ClInclude Include="Source\Engine\Vector2D.hpp" />
+    <ClInclude Include="Source\Engine\Window.hpp" />
+    <ClInclude Include="Source\Game\Entity\Action\Action.hpp" />
+    <ClInclude Include="Source\Game\Entity\Action\IdleAction.hpp" />
+    <ClInclude Include="Source\Game\Entity\Action\MoveAction.hpp" />
+    <ClInclude Include="Source\Game\Entity\Entity.hpp" />
+    <ClInclude Include="Source\Game\Entity\Monster.hpp" />
+    <ClInclude Include="Source\Game\Entity\Peon.hpp" />
+    <ClInclude Include="Source\Game\Entity\Prop.hpp" />
+    <ClInclude Include="Source\Game\Entity\Resource.hpp" />
+    <ClInclude Include="Source\Game\Entity\Stockpile.hpp" />
+    <ClInclude Include="Source\Game\Entity\Tree.hpp" />
+    <ClInclude Include="Source\Game\Game.hpp" />
     <ClInclude Include="Source\PCH.hpp" />
-    <ClInclude Include="Source\Peon.hpp" />
-    <ClInclude Include="Source\Renderer.hpp" />
-    <ClInclude Include="Source\Stone.hpp" />
-    <ClInclude Include="Source\Timer.hpp" />
-    <ClInclude Include="Source\Tree.hpp" />
-    <ClInclude Include="Source\Vector2D.hpp" />
-    <ClInclude Include="Source\Window.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{9AAE8292-4106-4182-A26F-2DDE23C134DE}</ProjectGuid>
