@@ -28,7 +28,6 @@ void Monster::Update()
     // If this Monster has no actions, add an IdleAction.
     if(m_actionStack.size() == 0)
     {
-        SDL_Log("Action stack empty. Adding IdleAction.");
         std::unique_ptr<Action> action = std::make_unique<IdleAction>(this);
         m_actionStack.push_back(std::move(action));
     }

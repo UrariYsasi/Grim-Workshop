@@ -16,6 +16,7 @@ public:
     void Rotate(const double& radians);
 
     Vector2D operator+(const Vector2D& other);
+    Vector2D operator+(const Vector2D& other) const;
     void operator+=(const Vector2D& other);
     Vector2D operator+(const double& val);
     Vector2D operator-(const double& val);

@@ -12,6 +12,7 @@ public:
 
     Game* GetGame();
     Vector2D GetPosition() const;
+    Vector2D GetPositionCenter() const;
     void SetPosition(const Vector2D& position);
     bool IsDeleted() const;
 

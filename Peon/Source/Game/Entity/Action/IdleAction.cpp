@@ -5,7 +5,8 @@
 #include "../Monster.hpp"
 
 IdleAction::IdleAction(Monster* owner) :
-    Action(owner, "Idle")
+    Action(owner, "Idle"),
+    m_waitTime(5)
 {
 }
 

@@ -22,6 +22,11 @@ Vector2D Entity::GetPosition() const
     return m_position;
 }
 
+Vector2D Entity::GetPositionCenter() const
+{
+    return m_position + Vector2D(16, 16);
+}
+
 void Entity::SetPosition(const Vector2D& position)
 {
     m_position = position;
@@ -90,7 +95,6 @@ bool Entity::IsCollidingWithRect(const SDL_Rect& rect) const
     {
         if (bottomA > topB && topA < bottomB)
         {
-            SDL_Log("collide");
             return true;
         }
     }

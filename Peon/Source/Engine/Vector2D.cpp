@@ -60,6 +60,15 @@ Vector2D Vector2D::operator+(const Vector2D& other)
     return vec;
 }
 
+Vector2D Vector2D::operator+(const Vector2D& other) const
+{
+    Vector2D vec;
+    vec.m_x = m_x + other.m_x;
+    vec.m_y = m_y + other.m_y;
+
+    return vec;
+}
+
 void Vector2D::operator+=(const Vector2D& other)
 {
     m_x += other.m_x;

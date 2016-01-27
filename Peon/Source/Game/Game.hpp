@@ -6,6 +6,8 @@
 #include "Entity/Entity.hpp"
 #include "Entity/Peon.hpp"
 
+class Stockpile;
+
 class Game
 {
     public:
@@ -19,6 +21,9 @@ class Game
         void CleanEntities();
         void SpawnPeon();
         void IssueCommand(Entity* ent);
+
+        void Game::AddResources(const int& resources);
+        Stockpile* Game::FindStockpile();
 
         bool LoadTexture(const std::string& path, const std::string& id);
         bool LoadFont(const std::string& path, const std::string& id, const int& size = 16);
@@ -52,4 +57,6 @@ class Game
         // Entities
         std::list<Entity*> m_entities;
         std::list<Peon*> m_selectedPeons;
+
+        int m_resources;
 };

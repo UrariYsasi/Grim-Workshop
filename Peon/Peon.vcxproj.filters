@@ -69,6 +69,12 @@
     <ClCompile Include="Source\Engine\Window.cpp">
       <Filter>Source\Engine</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\Entity\Action\GatherAction.cpp">
+      <Filter>Source\Game\Entity\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Entity\Action\DumpAction.cpp">
+      <Filter>Source\Game\Entity\Action</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\PCH.hpp">
@@ -121,6 +127,12 @@
     </ClInclude>
     <ClInclude Include="Source\Engine\Window.hpp">
       <Filter>Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Entity\Action\GatherAction.hpp">
+      <Filter>Source\Game\Entity\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Entity\Action\DumpAction.hpp">
+      <Filter>Source\Game\Entity\Action</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

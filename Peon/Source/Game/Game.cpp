@@ -4,13 +4,12 @@
 #include "Entity/Tree.hpp"
 #include "Entity/Stockpile.hpp"
 #include "Entity/Action/MoveAction.hpp"
+#include "Entity/Action/GatherAction.hpp"
 
 Game::Game() :
     m_deltaTime(0.0),
     m_isRunning(true),
-    m_window(nullptr),
-    m_renderer(nullptr),
-    m_input(nullptr)
+    m_resources(0)
 {
 }
 
@@ -110,15 +109,21 @@ void Game::Initialize()
     LoadSound("Resources/Sounds/death_00.wav", "death_00");
 
     // Setup the game
-    SpawnPeon();
-    SpawnPeon();
-    SpawnPeon();
-
     Tree* tree = new Tree(this, Vector2D(200, 200));
     m_entities.push_back(tree);
 
+    Tree* tree2 = new Tree(this, Vector2D(400, 150));
+    m_entities.push_back(tree2);
+
+    Tree* tree3 = new Tree(this, Vector2D(300, 400));
+    m_entities.push_back(tree3);
+
     Stockpile* stockpile = new Stockpile(this, Vector2D(304, 224));
     m_entities.push_back(stockpile);
+
+    SpawnPeon();
+    SpawnPeon();
+    SpawnPeon();
 
     // Game loop
     double frameStartTime = 0.0;
@@ -270,7 +275,8 @@ void Game::IssueCommand(Entity* ent)
             Resource* resource = dynamic_cast<Resource*>(ent);
             if(resource != nullptr)
             {
-                //peon->IssueCommand(resource)
+                peon->ClearActions();
+                peon->PushAction(std::make_unique<GatherAction>(peon, resource));
             }
         }
         else
@@ -280,6 +286,29 @@ void Game::IssueCommand(Entity* ent)
             peon->PushAction(std::make_unique<MoveAction>(peon, m_input->GetMousePosition()));
         }
     }
+}
+
+void Game::AddResources(const int& resources)
+{
+    m_resources += resources;
+}
+
+/*
+    Search for a Stockpile.
+    TODO: Refactor this into a template of some sort?
+*/
+Stockpile* Game::FindStockpile()
+{
+    for (std::list<Entity*>::const_iterator it = m_entities.begin(); it != m_entities.end(); it++)
+    {
+        Stockpile* stockpile = dynamic_cast<Stockpile*>(*it);
+        if (stockpile != nullptr)
+        {
+            return stockpile;
+        }
+    }
+
+    return nullptr;
 }
 
 bool Game::LoadTexture(const std::string& path, const std::string& id)
