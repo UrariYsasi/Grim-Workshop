@@ -15,9 +15,20 @@ Monster::~Monster()
 
 void Monster::Update()
 {
+    // Remove any completed actions from the stack
+    std::list< std::unique_ptr<Action> >::const_iterator it;
+    for (it = m_actionStack.begin(); it != m_actionStack.end(); it++)
+    {
+        if ((*it)->IsComplete())
+        {
+            m_actionStack.erase(it++);
+        }
+    }
+
     // If this Monster has no actions, add an IdleAction.
     if(m_actionStack.size() == 0)
     {
+        SDL_Log("Action stack empty. Adding IdleAction.");
         std::unique_ptr<Action> action = std::make_unique<IdleAction>(this);
         m_actionStack.push_back(std::move(action));
     }
@@ -40,6 +51,7 @@ void Monster::Update()
 */
 void Monster::PushAction(std::unique_ptr<Action> action)
 {
+    //SDL_Log("%s action pushed.", action->GetName().c_str());
     m_actionStack.push_back(std::move(action));
 }
 
@@ -48,5 +60,10 @@ void Monster::PushAction(std::unique_ptr<Action> action)
 */
 void Monster::ClearActions()
 {
-    m_actionStack.clear();
+    //SDL_Log("Clearing action stack...");
+    std::list< std::unique_ptr<Action> >::const_iterator it;
+    for (it = m_actionStack.begin(); it != m_actionStack.end(); it++)
+    {
+        (*it)->Complete();
+    }
 }

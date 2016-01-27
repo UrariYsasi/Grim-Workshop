@@ -1,5 +1,8 @@
 #include "../../../PCH.hpp"
 #include "IdleAction.hpp"
+#include "../../../Engine/Vector2D.hpp"
+#include "MoveAction.hpp"
+#include "../Monster.hpp"
 
 IdleAction::IdleAction(Monster* owner) :
     Action(owner, "Idle")
@@ -12,4 +15,22 @@ IdleAction::~IdleAction()
 
 void IdleAction::Update()
 {
+    if (!m_timer.IsStarted())
+    {
+        m_waitTime = std::rand() % 10000 + 1000;
+        m_timer.Start();
+    }
+    else
+    {
+        if (m_timer.GetTime() > m_waitTime)
+        {
+            m_timer.Stop();
+
+            double randX = rand() % 128 - 64;
+            double randY = rand() % 128 - 64;
+            Vector2D wanderDestination = m_owner->GetPosition() + Vector2D(randX, randY);
+
+            m_owner->PushAction(std::make_unique<MoveAction>(m_owner, wanderDestination));
+        }
+    }
 }

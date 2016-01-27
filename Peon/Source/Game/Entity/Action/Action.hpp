@@ -14,6 +14,7 @@ public:
     bool IsComplete() const;
 
     virtual void Update() = 0;
+    void Complete();
 
 protected:
     Monster* m_owner;

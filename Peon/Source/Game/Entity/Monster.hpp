@@ -16,5 +16,5 @@ public:
     void ClearActions();
 
 protected:
-    std::vector< std::unique_ptr<Action> > m_actionStack;
+    std::list< std::unique_ptr<Action> > m_actionStack;
 };

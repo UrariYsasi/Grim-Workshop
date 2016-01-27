@@ -22,14 +22,15 @@ void Peon::Render()
 
     // Debug stuff
     std::stringstream ss;
-    if (m_actionStack.back() != nullptr)
+    if (m_actionStack.size() != 0)
     {
+
         ss << m_actionStack.back()->GetName();
         m_game->RenderText("dos", m_position.GetX() + 32, m_position.GetY(), ss.str());
-        ss.str("");
+        ss.str(" ");
 
         ss << m_actionStack.size();
         m_game->RenderText("dos", m_position.GetX() + 32, m_position.GetY() + 16, ss.str());
-        ss.str("");
+        ss.str(" ");
     }
 }

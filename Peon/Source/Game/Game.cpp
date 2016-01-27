@@ -276,7 +276,7 @@ void Game::IssueCommand(Entity* ent)
         else
         {
             // If we commanded them to empty space, they will just walk to the clicked position
-            //peon->ClearActions();
+            peon->ClearActions();
             peon->PushAction(std::make_unique<MoveAction>(peon, m_input->GetMousePosition()));
         }
     }

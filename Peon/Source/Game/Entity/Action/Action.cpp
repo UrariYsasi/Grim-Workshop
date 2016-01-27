@@ -27,3 +27,8 @@ bool Action::IsComplete() const
 {
     return m_isComplete;
 }
+
+void Action::Complete()
+{
+    m_isComplete = true;
+}
