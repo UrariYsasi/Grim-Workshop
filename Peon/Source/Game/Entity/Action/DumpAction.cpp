@@ -3,6 +3,7 @@
 #include "../Monster.hpp"
 #include "../../Game.hpp"
 #include "MoveAction.hpp"
+#include "../../Item/Item.hpp"
 
 DumpAction::DumpAction(Monster* owner) :
     Action(owner, "Dump")
@@ -29,8 +30,9 @@ void DumpAction::Update()
         if (distance <= 10.0)
         {
             // Add resources to the stockpile
-            // TODO make this take resources from monster inventory
-            m_owner->GetGame()->AddResources(5);
+            int resourceCount = m_owner->GetInventory()->ItemCount(Item::ID::WOOD);
+            m_owner->GetInventory()->RemoveItem(Item::ID::WOOD, resourceCount);
+            m_target->GetInventory()->AddItem(Item::ID::WOOD, resourceCount);
             m_isComplete = true;
         }
         else

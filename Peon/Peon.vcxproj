@@ -37,6 +37,8 @@
     <ClCompile Include="Source\Game\Entity\Stockpile.cpp" />
     <ClCompile Include="Source\Game\Entity\Tree.cpp" />
     <ClCompile Include="Source\Game\Game.cpp" />
+    <ClCompile Include="Source\Game\Item\Inventory.cpp" />
+    <ClCompile Include="Source\Game\Item\Item.cpp" />
     <ClCompile Include="Source\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -58,6 +60,8 @@
     <ClInclude Include="Source\Game\Entity\Stockpile.hpp" />
     <ClInclude Include="Source\Game\Entity\Tree.hpp" />
     <ClInclude Include="Source\Game\Game.hpp" />
+    <ClInclude Include="Source\Game\Item\Inventory.hpp" />
+    <ClInclude Include="Source\Game\Item\Item.hpp" />
     <ClInclude Include="Source\PCH.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

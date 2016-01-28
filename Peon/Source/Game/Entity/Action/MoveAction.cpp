@@ -27,7 +27,7 @@ void MoveAction::SetDestination(const Vector2D& destination)
 void MoveAction::Update()
 {
     Vector2D position = m_owner->GetPosition();
-    int speed = 128;
+    int speed = 64;
 
     if (position != m_destination)
     {
@@ -41,7 +41,7 @@ void MoveAction::Update()
             position = m_destination;
             m_isComplete = true;
         }
-
+        
         m_owner->SetPosition(position);
     }
     else

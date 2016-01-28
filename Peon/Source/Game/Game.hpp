@@ -38,6 +38,7 @@ class Game
 
     public:
         double m_deltaTime;
+        int m_peonCount;
 
     private:
         bool m_isRunning;

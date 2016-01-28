@@ -16,6 +16,9 @@
     <Filter Include="Source\Game\Entity\Action">
       <UniqueIdentifier>{95eefced-b894-47b4-bf5d-da4a49b3a4d6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Game\Item">
+      <UniqueIdentifier>{80ef557c-5b9c-468b-b067-2f726e1e87a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -75,6 +78,12 @@
     <ClCompile Include="Source\Game\Entity\Action\DumpAction.cpp">
       <Filter>Source\Game\Entity\Action</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\Item\Inventory.cpp">
+      <Filter>Source\Game\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Item\Item.cpp">
+      <Filter>Source\Game\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\PCH.hpp">
@@ -133,6 +142,12 @@
     </ClInclude>
     <ClInclude Include="Source\Game\Entity\Action\DumpAction.hpp">
       <Filter>Source\Game\Entity\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Item\Inventory.hpp">
+      <Filter>Source\Game\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Item\Item.hpp">
+      <Filter>Source\Game\Item</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

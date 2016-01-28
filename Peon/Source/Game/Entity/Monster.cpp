@@ -5,6 +5,7 @@
 Monster::Monster(Game* game, Vector2D position) :
     Entity(game, position)
 {
+    m_inventory = std::make_unique<Inventory>();
 }
 
 Monster::~Monster()
@@ -12,6 +13,12 @@ Monster::~Monster()
     // Free the action stack
     m_actionStack.clear();
 }
+
+Inventory* Monster::GetInventory()
+{
+    return m_inventory.get();
+}
+
 
 void Monster::Update()
 {

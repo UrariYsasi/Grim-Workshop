@@ -8,6 +8,7 @@
 
 Game::Game() :
     m_deltaTime(0.0),
+    m_peonCount(0),
     m_isRunning(true),
     m_resources(0)
 {
@@ -159,6 +160,12 @@ void Game::Update()
         m_entities.back()->Delete();
     }
 
+    // Debugging
+    if (m_input->GetKey(SDLK_p))
+    {
+        SpawnPeon();
+    }
+
     // Peon selection
     if(m_input->GetMouseButtonPress(SDL_BUTTON_LEFT))
     {
@@ -227,8 +234,10 @@ void Game::Render()
     // Render GUI
     for(std::list<Peon*>::const_iterator it = m_selectedPeons.begin(); it != m_selectedPeons.end(); it++)
     {
-        SDL_Rect outlineRect = { static_cast<int>((*it)->GetPosition().GetX()), static_cast<int>((*it)->GetPosition().GetY()), 32, 32};
-        RenderRect(outlineRect);
+        //SDL_Rect outlineRect = { static_cast<int>((*it)->GetPosition().GetX()), static_cast<int>((*it)->GetPosition().GetY()), 32, 32};
+        //RenderRect(outlineRect);
+
+        RenderTexture("selection", static_cast<int>((*it)->GetPosition().GetX()), static_cast<int>((*it)->GetPosition().GetY()), 32, 32);
     }
 
     if(m_input->IsBoxSelecting())
@@ -236,6 +245,12 @@ void Game::Render()
         SDL_Rect selectionRect = m_input->GetBoxSelection();
         RenderRect(selectionRect);
     }
+
+    // Debug stuff
+    std::stringstream ss;
+    ss << "Peons: " << m_peonCount;
+    RenderText("dos", 10, 10, ss.str());
+    ss.str(" ");
 
     m_renderer->Present();
 }
@@ -260,6 +275,7 @@ void Game::SpawnPeon()
     Vector2D position(rand() % 600, rand() % 400);
     Peon* peon = new Peon(this, position);
     m_entities.push_back(peon);
+    m_peonCount++;
 }
 
 void Game::IssueCommand(Entity* ent)

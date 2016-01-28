@@ -37,7 +37,7 @@ void GatherAction::Update()
             {
                 m_timer.Stop();
                 m_owner->GetGame()->PlaySound("woodcutting_00");
-                // Add resources to our inventory
+                m_owner->GetInventory()->AddItem(Item::ID::WOOD, 3);
                 m_owner->PushAction(std::make_unique<DumpAction>(m_owner));
             }
 
