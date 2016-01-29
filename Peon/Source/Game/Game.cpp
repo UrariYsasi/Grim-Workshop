@@ -337,6 +337,9 @@ Stockpile* Game::FindStockpile()
 
 bool Game::LoadTexture(const std::string& path, const std::string& id)
 {
+    // Tyren Review: You should wrap the SDL_????? classes instead of holding onto them.
+    // Like you did with the Renderer and Window. Later, if you decided to support a different
+    // Rendering platform you could change the underlying classes and it might just work!
     SDL_Surface* tempSurface = IMG_Load(path.c_str());
     if (tempSurface == nullptr)
     {

@@ -1,8 +1,16 @@
 #pragma once
+// Tyren Review: Never include PCH in headers
 #include "../../PCH.hpp"
+
 #include "Entity.hpp"
+
+// Tyren Review: Try to find a way to forward declare this?
 #include "Action/Action.hpp"
+
+// Tyren Review: ??? Why is this included
 #include "Action/IdleAction.hpp"
+
+// Tyren Review: Try to find a way to forward declare this?
 #include "../Item/Inventory.hpp"
 
 class Monster : public Entity

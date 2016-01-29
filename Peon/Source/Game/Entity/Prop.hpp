@@ -1,7 +1,10 @@
 #pragma once
+// Tyren Review: Never include PCH in headers
 #include "../../PCH.hpp"
+
 #include "Entity.hpp"
 
+// Tyren Review: What does this class do? 
 class Prop : public Entity
 {
 public:

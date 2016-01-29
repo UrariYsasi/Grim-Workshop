@@ -27,6 +27,7 @@ void Timer::Stop()
 
 void Timer::Pause()
 {
+    // Tyren Review: Maybe add a comment to explain in english goal of this
     if (m_isStarted && !m_isPaused)
     {
         m_isPaused = true;
@@ -35,8 +36,10 @@ void Timer::Pause()
     }
 }
 
+// Tyren Review: UnCool, this is UnSpecial and UnRight... Unpause? :)
 void Timer::UnPause()
 {
+    // Tyren Review: Maybe add a comment to explain in english goal of this
     if (m_isStarted && m_isPaused)
     {
         m_isPaused = false;
@@ -47,6 +50,8 @@ void Timer::UnPause()
 
 double Timer::GetTime()
 {
+    // Tyren Review: Is this necessary? Can't you just return the correct value below
+    // And 0 otherwise?
     double time = 0;
 
     if (m_isStarted)

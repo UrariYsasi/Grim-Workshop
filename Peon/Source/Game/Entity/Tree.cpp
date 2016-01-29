@@ -13,7 +13,6 @@ Tree::~Tree()
 
 void Tree::Update()
 {
-
 }
 
 void Tree::Render()

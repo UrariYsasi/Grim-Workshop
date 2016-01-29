@@ -18,6 +18,7 @@ void IdleAction::Update()
 {
     if (!m_timer.IsStarted())
     {
+        // Tyren Review: Wrap this in a helper function
         m_waitTime = std::rand() % 10000 + 1000;
         m_timer.Start();
     }
@@ -27,6 +28,7 @@ void IdleAction::Update()
         {
             m_timer.Stop();
 
+            // Tyren Review: Wrap this in a helper function
             double randX = rand() % 128 - 64;
             double randY = rand() % 128 - 64;
             Vector2D wanderDestination = m_owner->GetPosition() + Vector2D(randX, randY);

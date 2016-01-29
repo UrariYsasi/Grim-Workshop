@@ -5,6 +5,9 @@
 Monster::Monster(Game* game, Vector2D position) :
     Entity(game, position)
 {
+    // If every monster has an invetory, why do you have to "Make this"?
+    // Can't you just declare a private variable?
+    //              Inventory m_inventory;
     m_inventory = std::make_unique<Inventory>();
 }
 
@@ -39,7 +42,6 @@ void Monster::Update()
         m_actionStack.push_back(std::move(action));
     }
 
-
     // Update the current action
     if(m_actionStack.back() != nullptr)
     {
@@ -57,6 +59,8 @@ void Monster::Update()
 */
 void Monster::PushAction(std::unique_ptr<Action> action)
 {
+    // Tyren Review: Embrace logging, add a log class, and call it all over
+    // Then disable it later if you don't like it or it causes lag
     //SDL_Log("%s action pushed.", action->GetName().c_str());
     m_actionStack.push_back(std::move(action));
 }
