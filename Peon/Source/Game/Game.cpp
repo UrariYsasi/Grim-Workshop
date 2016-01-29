@@ -16,27 +16,27 @@ Game::Game() :
 
 Game::~Game()
 {
-    // Delete entities
+    // Entity deletion
     while(!m_entities.empty())
     {
         delete m_entities.front();
         m_entities.pop_front();
     }
 
-    std::map<std::string, SDL_Texture*>::const_iterator texIt;
-    for (texIt = m_textureMap.begin(); texIt != m_textureMap.end(); texIt++)
+    // Texture deletion
+    for (auto texIt = m_textureMap.begin(); texIt != m_textureMap.end(); texIt++)
     {
         SDL_DestroyTexture(texIt->second);
     }
 
-    std::map<std::string, TTF_Font*>::const_iterator fontIt;
-    for (fontIt = m_fontMap.begin(); fontIt != m_fontMap.end(); fontIt++)
+    // Font deletion
+    for (auto fontIt = m_fontMap.begin(); fontIt != m_fontMap.end(); fontIt++)
     {
         TTF_CloseFont(fontIt->second);
     }
 
-    std::map<std::string, Mix_Chunk*>::const_iterator soundIt;
-    for (soundIt = m_soundMap.begin(); soundIt != m_soundMap.end(); soundIt++)
+    // Sound deletion
+    for (auto soundIt = m_soundMap.begin(); soundIt != m_soundMap.end(); soundIt++)
     {
         Mix_FreeChunk(soundIt->second);
     }
@@ -46,30 +46,34 @@ Game::~Game()
     TTF_Quit();
 }
 
-void Game::Initialize()
+int Game::Initialize()
 {
     // Initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
     {
-        std::cerr << "SDL could not initialize! SDL error: " << SDL_GetError() << std::endl;
+        SDL_Log("SDL could not initialize! SDL error: %s\n", SDL_GetError());
+        return FAILURE;
     }
 
     // Initialize SDL_image
     if (IMG_Init(IMG_INIT_PNG) < 0)
     {
-        std::cerr << "SDL_image could not initialize! SDL_image Error: " << IMG_GetError() << std::endl;
+        SDL_Log("SDL_image could not initialize! SDL_image error: %s\n", IMG_GetError());
+        return FAILURE;
     }
 
     //Initialize SDL_mixer
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
     {
-        std::cerr << "SDL_mixer could not initialize! SDL_mixer Error: " << Mix_GetError() << std::endl;
+        SDL_Log("SDL_mixer could not initialize! SDL_mixer error: %s\n", Mix_GetError());
+        return FAILURE;
     }
 
     //Initialize SDL_ttf
     if (TTF_Init() < 0)
     {
-        std::cerr << "SDL_ttf could not be initialized! SDL_ttf error: " << TTF_GetError() << std::endl;
+        SDL_Log("SDL_ttf could not initialize! SDL_ttf error: %s\n", TTF_GetError());
+        return FAILURE;
     }
 
     m_window = std::make_unique<Window>(640, 480, "Peon");
@@ -126,7 +130,11 @@ void Game::Initialize()
     SpawnPeon();
     SpawnPeon();
 
-    // Game loop
+    return SUCCESS;
+}
+
+void Game::Run()
+{
     double frameStartTime = 0.0;
     double frameEndTime = 0.0;
     while (m_isRunning)

@@ -14,7 +14,8 @@ class Game
         Game();
         ~Game();
 
-        void Initialize();
+        int Initialize();
+        void Run();
         void Terminate();
         void Update();
         void Render();
@@ -22,8 +23,8 @@ class Game
         void SpawnPeon();
         void IssueCommand(Entity* ent);
 
-        void Game::AddResources(const int& resources);
-        Stockpile* Game::FindStockpile();
+        void AddResources(const int& resources);
+        Stockpile* FindStockpile();
 
         bool LoadTexture(const std::string& path, const std::string& id);
         bool LoadFont(const std::string& path, const std::string& id, const int& size = 16);

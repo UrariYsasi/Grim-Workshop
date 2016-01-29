@@ -23,3 +23,6 @@
     #include <SDL2_ttf/SDL_ttf.h>
     #include <SDL2_mixer/SDL_mixer.h>
 #endif
+
+const int SUCCESS = 1;
+const int FAILURE = 0;

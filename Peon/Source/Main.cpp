@@ -6,7 +6,10 @@ int main(int argc, char** argv)
     std::srand(std::time(0));
 
     Game game;
-    game.Initialize();
+    if (game.Initialize() == SUCCESS)
+    {
+        game.Run();
+    }
 
     return 0;
 }
