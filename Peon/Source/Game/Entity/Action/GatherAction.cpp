@@ -1,10 +1,11 @@
 #include "PCH.hpp"
 #include "GatherAction.hpp"
-#include "../../../Engine/Vector2D.hpp"
+#include "../../Game.hpp"
 #include "MoveAction.hpp"
 #include "DumpAction.hpp"
 #include "../Monster.hpp"
-#include "../../Game.hpp"
+#include "../Resource.hpp"
+#include "../../Item/Inventory.hpp"
 #include "../../Item/Item.hpp"
 
 GatherAction::GatherAction(Monster* owner, Resource* target) :
@@ -18,15 +19,14 @@ GatherAction::~GatherAction()
 {
 }
 
-void GatherAction::Update()
+void GatherAction::Update(double deltaTime)
 {
     // Check if we are in range of the resource
     Vector2D targetCenter = m_target->GetPositionCenter();
     Vector2D monsterCenter = m_owner->GetPositionCenter();
     double distance = Vector2D::Distance(monsterCenter, targetCenter);
 
-    // Tyren Review: Constant?
-    if (distance <= 10.0)
+    if (distance <= MIN_GATHER_DISTANCE)
     {
         // We are close enough. We can start gathering.
         if (!m_timer.IsStarted())
@@ -44,9 +44,6 @@ void GatherAction::Update()
                 m_owner->GetInventory()->AddItem(ItemType::WOOD, 3);
                 m_owner->PushAction(std::make_unique<DumpAction>(m_owner));
             }
-
-            // If we are carrying enough resources, go dump them at base
-            // Tyren Review: This looks like a TODO comment, is it?
         }
     }
     else

@@ -22,7 +22,6 @@
     <ClCompile Include="Source\Engine\Input.cpp" />
     <ClCompile Include="Source\Engine\Renderer.cpp" />
     <ClCompile Include="Source\Engine\Timer.cpp" />
-    <ClCompile Include="Source\Engine\Vector2D.cpp" />
     <ClCompile Include="Source\Engine\Window.cpp" />
     <ClCompile Include="Source\Game\Entity\Action\Action.cpp" />
     <ClCompile Include="Source\Game\Entity\Action\DumpAction.cpp" />

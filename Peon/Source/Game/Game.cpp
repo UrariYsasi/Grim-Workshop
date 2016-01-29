@@ -10,10 +10,8 @@
 #include "Entity/Action/GatherAction.hpp"
 
 Game::Game() :
-    m_deltaTime(0.0),
     m_peonCount(0),
-    m_isRunning(true),
-    m_resources(0)
+    m_isRunning(false)
 {
 }
 
@@ -143,16 +141,26 @@ int Game::Initialize()
 
 void Game::Run()
 {
+    if (m_isRunning)
+    {
+        SDL_Log("Game is already running!");
+        return;
+    }
+    else
+    {
+        m_isRunning = true;
+    }
+
     double frameStartTime = 0.0;
     double frameEndTime = 0.0;
     while (m_isRunning)
     {
         frameStartTime = SDL_GetTicks();
-        m_deltaTime = (frameStartTime - frameEndTime) / 1000;
+        double deltaTime = (frameStartTime - frameEndTime) / 1000;
         frameEndTime = frameStartTime;
 
         m_input->Update();
-        Update();
+        Update(deltaTime);
         Render();
     }
 }
@@ -162,19 +170,9 @@ void Game::Terminate()
     m_isRunning = false;
 }
 
-void Game::Update()
+void Game::Update(double deltaTime)
 {
     CleanEntities();
-
-    if(m_input->GetKeyPress(SDLK_w))
-    {
-        SpawnPeon();
-    }
-
-    if(m_input->GetKeyPress(SDLK_s))
-    {
-        m_entities.back()->Delete();
-    }
 
     // Debugging
     if (m_input->GetKey(SDLK_p))
@@ -219,7 +217,7 @@ void Game::Update()
         Entity* ent = nullptr;
         for(std::list<Entity*>::const_iterator it = m_entities.begin(); it != m_entities.end(); it++)
         {
-            SDL_Rect mouseRect = { static_cast<int>(m_input->GetMousePosition().GetX()) - 5,  static_cast<int>(m_input->GetMousePosition().GetY()) - 5, 10, 10 };
+            SDL_Rect mouseRect = { static_cast<int>(m_input->GetMousePosition().x) - 5,  static_cast<int>(m_input->GetMousePosition().y) - 5, 10, 10 };
             if((*it)->IsCollidingWithRect(mouseRect))
             {
                 ent = (*it);
@@ -232,7 +230,7 @@ void Game::Update()
     // Update entities
     for(std::list<Entity*>::const_iterator it = m_entities.begin(); it != m_entities.end(); it++)
     {
-        (*it)->Update();
+        (*it)->Update(deltaTime);
     }
 }
 
@@ -253,7 +251,7 @@ void Game::Render()
         //SDL_Rect outlineRect = { static_cast<int>((*it)->GetPosition().GetX()), static_cast<int>((*it)->GetPosition().GetY()), 32, 32};
         //RenderRect(outlineRect);
 
-        RenderTexture("selection", static_cast<int>((*it)->GetPosition().GetX()), static_cast<int>((*it)->GetPosition().GetY()), 32, 32);
+        RenderTexture("selection", static_cast<int>((*it)->GetPosition().x), static_cast<int>((*it)->GetPosition().y), 32, 32);
     }
 
     if(m_input->IsBoxSelecting())
@@ -318,11 +316,6 @@ void Game::IssueCommand(Entity* ent)
             peon->PushAction(std::make_unique<MoveAction>(peon, m_input->GetMousePosition()));
         }
     }
-}
-
-void Game::AddResources(const int& resources)
-{
-    m_resources += resources;
 }
 
 /*

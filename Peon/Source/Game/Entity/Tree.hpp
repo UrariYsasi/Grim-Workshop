@@ -7,6 +7,6 @@ public:
     Tree(Game* game, Vector2D position);
     virtual ~Tree();
 
-    virtual void Update();
+    virtual void Update(double deltaTime);
     virtual void Render();
 };

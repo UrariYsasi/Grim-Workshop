@@ -160,12 +160,12 @@ void Input::Update()
         {
             m_isBoxSelecting = true;
 
-            m_boxSelection.x = m_mousePosition.GetX();
-            m_boxSelection.y = m_mousePosition.GetY();
+            m_boxSelection.x = m_mousePosition.x;
+            m_boxSelection.y = m_mousePosition.y;
         }
         
-        m_boxSelection.w = m_mousePosition.GetX() - m_boxSelection.x;
-        m_boxSelection.h = m_mousePosition.GetY() - m_boxSelection.y;
+        m_boxSelection.w = m_mousePosition.x - m_boxSelection.x;
+        m_boxSelection.h = m_mousePosition.y - m_boxSelection.y;
     }
 }
 

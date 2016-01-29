@@ -11,11 +11,11 @@ Tree::~Tree()
 {
 }
 
-void Tree::Update()
+void Tree::Update(double deltaTime)
 {
 }
 
 void Tree::Render()
 {
-    m_game->RenderSprite("tree", 0, 0, m_position.GetX(), m_position.GetY(), 32, 32);
+    m_game->RenderSprite("tree", 0, 0, m_position.x, m_position.y, 32, 32);
 }

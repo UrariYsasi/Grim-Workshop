@@ -37,7 +37,9 @@ bool Entity::IsDeleted() const
     return m_isDeleted;
 }
 
-// Tyren Review: This order does not match the header, please re-order the header or the file
+/*
+    Mark this Entity for deletion. It will be deleted at the end of the frame.
+*/
 void Entity::Delete()
 {
     m_isDeleted = true;
@@ -48,7 +50,7 @@ void Entity::Delete()
 */
 bool Entity::IsCollidingWithRect(const SDL_Rect& rect) const
 {
-    SDL_Rect hitbox = { static_cast<int>(m_position.GetX()), static_cast<int>(m_position.GetY()), 32, 32 };
+    SDL_Rect hitbox = { static_cast<int>(m_position.x), static_cast<int>(m_position.y), 32, 32 };
 
     // Calculate the rectangle bounds
     int leftA = hitbox.x;

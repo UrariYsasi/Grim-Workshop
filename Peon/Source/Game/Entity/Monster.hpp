@@ -1,14 +1,8 @@
 #pragma once
 #include "Entity.hpp"
-
-// Tyren Review: Try to find a way to forward declare this?
-#include "Action/Action.hpp"
-
-// Tyren Review: ??? Why is this included
-#include "Action/IdleAction.hpp"
-
-// Tyren Review: Try to find a way to forward declare this?
 #include "../Item/Inventory.hpp"
+
+class Action;
 
 class Monster : public Entity
 {
@@ -18,12 +12,12 @@ public:
 
     Inventory* GetInventory();
 
-    virtual void Update();
+    virtual void Update(double deltaTime);
     virtual void Render() = 0;
     void PushAction(std::unique_ptr<Action> action);
     void ClearActions();
 
 protected:
     std::list< std::unique_ptr<Action> > m_actionStack;
-    std::unique_ptr<Inventory> m_inventory;
+    Inventory m_inventory;
 };

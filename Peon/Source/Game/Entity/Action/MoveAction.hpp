@@ -8,10 +8,11 @@ public:
     virtual ~MoveAction();
 
     Vector2D GetDestination() const;
-    void SetDestination(const Vector2D& destination);
 
-    virtual void Update();
+    virtual void Update(double deltaTime);
 
 private:
+    const int MOVE_SPEED = 64;
+
     Vector2D m_destination;
 };

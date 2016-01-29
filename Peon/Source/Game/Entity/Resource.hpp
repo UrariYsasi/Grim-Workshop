@@ -10,9 +10,8 @@ public:
     virtual ~Resource();
 
     Type GetType() const;
-    void SetType(const Type& type);
 
-    virtual void Update() = 0;
+    virtual void Update(double deltaTime) = 0;
     virtual void Render() = 0;
 
 protected:

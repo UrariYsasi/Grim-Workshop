@@ -19,18 +19,9 @@ Vector2D MoveAction::GetDestination() const
     return m_destination;
 }
 
-// Tyren Review: You never use this, remove it
-void MoveAction::SetDestination(const Vector2D& destination)
-{
-    m_destination = destination;
-}
-
-void MoveAction::Update()
+void MoveAction::Update(double deltaTime)
 {
     Vector2D position = m_owner->GetPosition();
-
-    // Tyren Review: Close, but move it somewhere to the top of the file and make it const?
-    int speed = 64;
 
     if (position != m_destination)
     {
@@ -39,18 +30,17 @@ void MoveAction::Update()
         Vector2D direction = m_destination - start;
         direction.Normalize();
 
-        position += direction * (speed * m_owner->GetGame()->m_deltaTime);
+        position += direction * (MOVE_SPEED * deltaTime);
         if (Vector2D::Distance(start, position) > distance)
         {
             position = m_destination;
-            // Tyren Review: Call Complete() instead, in fact make m_isComplete private
-            m_isComplete = true;
+            Complete();
         }
         
         m_owner->SetPosition(position);
     }
     else
     {
-        m_isComplete = true;
+        Complete();
     }
 }

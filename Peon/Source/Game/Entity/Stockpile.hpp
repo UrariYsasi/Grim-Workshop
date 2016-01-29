@@ -1,7 +1,5 @@
 #pragma once
 #include "Prop.hpp"
-
-// Tyren Review: Try to find a way to forward declare this?
 #include "../Item/Inventory.hpp"
 
 class Stockpile : public Prop
@@ -12,9 +10,9 @@ public:
 
     Inventory* GetInventory();
 
-    virtual void Update();
+    virtual void Update(double deltaTime);
     virtual void Render();
 
 private:
-    std::unique_ptr<Inventory> m_inventory;
+    Inventory m_inventory;
 };

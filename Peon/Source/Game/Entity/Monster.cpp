@@ -1,14 +1,11 @@
 #include "PCH.hpp"
 #include "Monster.hpp"
 #include "../Game.hpp"
+#include "Action/IdleAction.hpp"
 
 Monster::Monster(Game* game, Vector2D position) :
     Entity(game, position)
 {
-    // If every monster has an invetory, why do you have to "Make this"?
-    // Can't you just declare a private variable?
-    //              Inventory m_inventory;
-    m_inventory = std::make_unique<Inventory>();
 }
 
 Monster::~Monster()
@@ -19,11 +16,11 @@ Monster::~Monster()
 
 Inventory* Monster::GetInventory()
 {
-    return m_inventory.get();
+    return &m_inventory;
 }
 
 
-void Monster::Update()
+void Monster::Update(double deltaTime)
 {
     // Remove any completed actions from the stack
     std::list< std::unique_ptr<Action> >::const_iterator it;
@@ -45,7 +42,7 @@ void Monster::Update()
     // Update the current action
     if(m_actionStack.back() != nullptr)
     {
-        m_actionStack.back()->Update();
+        m_actionStack.back()->Update(deltaTime);
 
         if(m_actionStack.back()->IsComplete())
         {
@@ -61,7 +58,6 @@ void Monster::PushAction(std::unique_ptr<Action> action)
 {
     // Tyren Review: Embrace logging, add a log class, and call it all over
     // Then disable it later if you don't like it or it causes lag
-    //SDL_Log("%s action pushed.", action->GetName().c_str());
     m_actionStack.push_back(std::move(action));
 }
 
@@ -70,7 +66,6 @@ void Monster::PushAction(std::unique_ptr<Action> action)
 */
 void Monster::ClearActions()
 {
-    //SDL_Log("Clearing action stack...");
     std::list< std::unique_ptr<Action> >::const_iterator it;
     for (it = m_actionStack.begin(); it != m_actionStack.end(); it++)
     {

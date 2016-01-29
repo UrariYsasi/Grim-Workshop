@@ -14,7 +14,7 @@ public:
     void SetPosition(const Vector2D& position);
     bool IsDeleted() const;
 
-    virtual void Update() = 0;
+    virtual void Update(double deltaTime) = 0;
     virtual void Render() = 0;
     void Delete();
     bool IsCollidingWithRect(const SDL_Rect& rect) const;

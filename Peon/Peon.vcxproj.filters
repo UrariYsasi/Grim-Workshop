@@ -66,9 +66,6 @@
     <ClCompile Include="Source\Engine\Timer.cpp">
       <Filter>Source\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Engine\Vector2D.cpp">
-      <Filter>Source\Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Engine\Window.cpp">
       <Filter>Source\Engine</Filter>
     </ClCompile>

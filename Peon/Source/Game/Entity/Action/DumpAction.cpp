@@ -16,14 +16,18 @@ DumpAction::~DumpAction()
 {
 }
 
-void DumpAction::Update()
+void DumpAction::Update(double deltaTime)
 {
     // If we don't have a target stockpile, find one
     if (m_target == nullptr)
     {
         m_target = m_owner->GetGame()->FindStockpile();
-
-        // Tyren Review: So, if there was no stockpile... this will just search every frame?
+        
+        if (m_target == nullptr)
+        {
+            // There was no stockpile found. Stop working.
+            m_owner->ClearActions();
+        }
     }
     else
     {
@@ -32,14 +36,13 @@ void DumpAction::Update()
         Vector2D monsterCenter = m_owner->GetPositionCenter();
         double distance = Vector2D::Distance(monsterCenter, targetCenter);
 
-        // Tyren Review: 10.0 should be a constant somewhere
-        if (distance <= 10.0)
+        if (distance <= MIN_DUMP_DISTANCE)
         {
             // Add resources to the stockpile
             int resourceCount = m_owner->GetInventory()->ItemCount(ItemType::WOOD);
             m_owner->GetInventory()->RemoveItem(ItemType::WOOD, resourceCount);
             m_target->GetInventory()->AddItem(ItemType::WOOD, resourceCount);
-            m_isComplete = true;
+            Complete();
         }
         else
         {

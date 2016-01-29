@@ -7,7 +7,7 @@ public:
     Peon(Game* game, Vector2D position);
     virtual ~Peon();
 
-    virtual void Update();
+    virtual void Update(double deltaTime);
     virtual void Render();
 
 private:

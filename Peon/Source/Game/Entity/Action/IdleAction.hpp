@@ -7,7 +7,7 @@ public:
     IdleAction(Monster* owner);
     virtual ~IdleAction();
 
-    virtual void Update();
+    virtual void Update(double deltaTime);
 
 private:
     Timer m_timer;
