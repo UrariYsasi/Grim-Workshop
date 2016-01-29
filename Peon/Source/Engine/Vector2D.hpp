@@ -1,39 +1,200 @@
 #pragma once
 
-// Tyren Review: Make this a struct so it acts like a value type
-class Vector2D
+struct Vector2D
 {
-public:
-    Vector2D();
-    Vector2D(const double& x, const double& y);
-    Vector2D(const Vector2D& other);
+    double x;
+    double y;
 
-    void SetX(const double& x);
-    double GetX() const;
-    void SetY(const double& y);
-    double GetY() const;
+    Vector2D(double x = 0, double y = 0) :
+        x(x),
+        y(y)
+    {
+    }
 
-    void Rotate(const double& radians);
+    inline void operator+=(const Vector2D& other);
+    inline Vector2D operator+(const Vector2D& other);
+    inline Vector2D operator+(const Vector2D& other) const;
+    inline void operator+=(const double& val);
+    inline Vector2D operator+(const double& val);
+    inline Vector2D operator+(const double& val) const;
 
-    Vector2D operator+(const Vector2D& other);
-    Vector2D operator+(const Vector2D& other) const;
-    void operator+=(const Vector2D& other);
-    Vector2D operator+(const double& val);
-    Vector2D operator-(const double& val);
-    Vector2D operator/(const double& val);
-    void operator/=(const double& val);
-    Vector2D operator-(const Vector2D& other);
-    void operator-=(const Vector2D& other);
-    Vector2D operator*(const Vector2D& other);
-    Vector2D operator*(const double& scalar);
-    bool operator==(const Vector2D& other);
-    bool operator!=(const Vector2D& other);
+    inline void operator-=(const Vector2D& other);
+    inline Vector2D operator-(const Vector2D& other);
+    inline Vector2D operator-(const Vector2D& other) const;
+    inline void operator-=(const double& val);
+    inline Vector2D operator-(const double& val);
+    inline Vector2D operator-(const double& val) const;
 
-    static Vector2D Normalize(Vector2D vec);
-    static double Distance(Vector2D left, Vector2D right);
-    static double Magnitude(Vector2D vec);
+    inline void operator*=(const Vector2D& other);
+    inline Vector2D operator*(const Vector2D& other);
+    inline Vector2D operator*(const Vector2D& other) const;
+    inline void operator*=(const double& val);
+    inline Vector2D operator*(const double& val);
+    inline Vector2D operator*(const double& val) const;
 
-private:
-    double m_x;
-    double m_y;
+    inline void operator/=(const Vector2D& other);
+    inline Vector2D operator/(const Vector2D& other);
+    inline Vector2D operator/(const Vector2D& other) const;
+    inline void operator/=(const double& val);
+    inline Vector2D operator/(const double& val);
+    inline Vector2D operator/(const double& val) const;
+
+    inline void operator=(const Vector2D& other);
+    inline bool operator==(const Vector2D& other) const;
+    inline bool operator!=(const Vector2D& other) const;
+
+    inline void Rotate(const double& radians);
+    inline void Normalize();
+
+    inline static double Distance(Vector2D left, Vector2D right);
+    inline static double Magnitude(Vector2D vec);
 };
+
+// TODO: IMPLEMENT
+/*
+inline Vector2D operator+(const Vector2D& other);
+inline Vector2D operator+(const Vector2D& other) const;
+inline void operator+=(const double& val);
+inline Vector2D operator+(const double& val);
+inline Vector2D operator+(const double& val) const;
+
+inline void operator-=(const Vector2D& other);
+inline Vector2D operator-(const Vector2D& other);
+inline Vector2D operator-(const Vector2D& other) const;
+inline void operator-=(const double& val);
+inline Vector2D operator-(const double& val);
+inline Vector2D operator-(const double& val) const;
+
+inline void operator*=(const Vector2D& other);
+inline Vector2D operator*(const Vector2D& other);
+inline Vector2D operator*(const Vector2D& other) const;
+inline void operator*=(const double& val);
+inline Vector2D operator*(const double& val);
+inline Vector2D operator*(const double& val) const;
+
+inline void operator/=(const Vector2D& other);
+inline Vector2D operator/(const Vector2D& other);
+inline Vector2D operator/(const Vector2D& other) const;
+inline void operator/=(const double& val);
+inline Vector2D operator/(const double& val);
+inline Vector2D operator/(const double& val) const;
+
+inline void operator=(const Vector2D& other);
+inline bool operator==(const Vector2D& other) const;
+inline bool operator!=(const Vector2D& other) const;
+
+Vector2D Vector2D::operator+(const Vector2D& other)
+{
+    Vector2D vec;
+    vec.m_x = m_x + other.m_x;
+    vec.m_y = m_y + other.m_y;
+
+    return vec;
+}
+
+Vector2D Vector2D::operator+(const Vector2D& other) const
+{
+    Vector2D vec;
+    vec.m_x = m_x + other.m_x;
+    vec.m_y = m_y + other.m_y;
+
+    return vec;
+}
+
+void Vector2D::operator+=(const Vector2D& other)
+{
+    m_x += other.m_x;
+    m_y += other.m_y;
+}
+
+Vector2D Vector2D::operator+(const double& val)
+{
+    Vector2D vec;
+    vec.m_x = m_x + val;
+    vec.m_y = m_y + val;
+
+    return vec;
+}
+
+Vector2D Vector2D::operator-(const double& val)
+{
+    Vector2D vec;
+    vec.m_x = m_x - val;
+    vec.m_y = m_y - val;
+
+    return vec;
+}
+
+Vector2D Vector2D::operator/(const double& val)
+{
+    Vector2D vec;
+    vec.m_x = m_x / val;
+    vec.m_y = m_y / val;
+
+    return vec;
+}
+
+void Vector2D::operator/=(const double& val)
+{
+    m_x = m_x / val;
+    m_y = m_y / val;
+}
+
+Vector2D Vector2D::operator-(const Vector2D& other)
+{
+    Vector2D vec;
+    vec.m_x = m_x - other.m_x;
+    vec.m_y = m_y - other.m_y;
+
+    return vec;
+}
+
+void Vector2D::operator-=(const Vector2D& other)
+{
+    m_x = m_x - other.m_x;
+    m_y = m_y - other.m_y;
+}
+
+Vector2D Vector2D::operator*(const Vector2D& other)
+{
+    Vector2D vec;
+    vec.m_x = m_x * other.m_x;
+    vec.m_y = m_y * other.m_y;
+
+    return vec;
+}
+
+Vector2D Vector2D::operator*(const double& scalar)
+{
+    Vector2D vec;
+    vec.m_x = m_x * scalar;
+    vec.m_y = m_y * scalar;
+
+    return vec;
+}
+
+bool Vector2D::operator==(const Vector2D& other)
+{
+    return (m_x == other.m_x && m_y == other.m_y);
+}
+
+bool Vector2D::operator!=(const Vector2D& other)
+{
+    return (m_x != other.m_x || m_y != other.m_y);
+}
+
+Vector2D Vector2D::Normalize(Vector2D vec)
+{
+    return Vector2D(vec.GetX() / Vector2D::Magnitude(vec), vec.GetY() / Vector2D::Magnitude(vec));
+}
+
+double Vector2D::Distance(Vector2D left, Vector2D right)
+{
+    return Vector2D::Magnitude(right - left);
+}
+
+double Vector2D::Magnitude(Vector2D vec)
+{
+    return sqrt((vec.GetX() * vec.GetX()) + (vec.GetY() * vec.GetY()));
+}
+*/

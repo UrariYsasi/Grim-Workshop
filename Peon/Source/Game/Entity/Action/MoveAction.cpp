@@ -36,7 +36,8 @@ void MoveAction::Update()
     {
         Vector2D start = position;
         double distance = Vector2D::Distance(start, m_destination);
-        Vector2D direction = Vector2D::Normalize(m_destination - start);
+        Vector2D direction = m_destination - start;
+        direction.Normalize();
 
         position += direction * (speed * m_owner->GetGame()->m_deltaTime);
         if (Vector2D::Distance(start, position) > distance)

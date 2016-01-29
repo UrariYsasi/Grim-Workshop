@@ -1,43 +1,6 @@
 #include "PCH.hpp"
 #include "Vector2D.hpp"
 
-Vector2D::Vector2D()
-{
-    Vector2D(0, 0);
-}
-
-Vector2D::Vector2D(const double& x, const double& y) :
-    m_x(x),
-    m_y(y)
-{
-}
-
-Vector2D::Vector2D(const Vector2D& other) :
-    m_x(other.GetX()),
-    m_y(other.GetY())
-{
-}
-
-void Vector2D::SetX(const double& x)
-{
-    m_x = x;
-}
-
-double Vector2D::GetX() const
-{
-    return m_x;
-}
-
-void Vector2D::SetY(const double& y)
-{
-    m_y = y;
-}
-
-double Vector2D::GetY() const
-{
-    return m_y;
-}
-
 void Vector2D::Rotate(const double& degrees)
 {
     double radians = degrees * (M_PI / 180.0);
