@@ -120,8 +120,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>D:\Development\SDL2\SDL2_image_VS2015\include;D:\Development\SDL2\SDL_ttf_VS2015\include;D:\Development\SDL2\SDL_VS2015\include;D:\Development\SDL2\SDL2_mixer_VS2015\include;$(ProjectDir)Source;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Development\SDL2\SDL2_image_VS2015\lib\x86;D:\Development\SDL2\SDL_ttf_VS2015\lib\x86;D:\Development\SDL2\SDL_VS2015\lib\win32;D:\Development\SDL2\SDL2_mixer_VS2015\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\SDL2\SDL2_image_VS2015\include;$(SolutionDir)..\SDL2\SDL_ttf_VS2015\include;$(SolutionDir)..\SDL2\SDL_VS2015\include;$(SolutionDir)..\SDL2\SDL2_mixer_VS2015\include;$(ProjectDir)Source;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\SDL2\SDL2_image_VS2015\lib\x86;$(SolutionDir)..\SDL2\SDL_ttf_VS2015\lib\x86;$(SolutionDir)..\SDL2\SDL_VS2015\lib\win32;$(SolutionDir)..\SDL2\SDL2_mixer_VS2015\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
