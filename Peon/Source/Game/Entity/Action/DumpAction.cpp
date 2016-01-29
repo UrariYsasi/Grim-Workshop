@@ -20,6 +20,8 @@ void DumpAction::Update()
     if (m_target == nullptr)
     {
         m_target = m_owner->GetGame()->FindStockpile();
+
+        // Tyren Review: So, if there was no stockpile... this will just search every frame?
     }
     else
     {
@@ -27,6 +29,8 @@ void DumpAction::Update()
         Vector2D targetCenter = m_target->GetPositionCenter();
         Vector2D monsterCenter = m_owner->GetPositionCenter();
         double distance = Vector2D::Distance(monsterCenter, targetCenter);
+
+        // Tyren Review: 10.0 should be a constant somewhere
         if (distance <= 10.0)
         {
             // Add resources to the stockpile

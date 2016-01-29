@@ -18,6 +18,7 @@ std::string Action::GetName() const
     return m_name;
 }
 
+// Tyren Review: Never used, remove
 void Action::SetName(const std::string& name)
 {
     m_name = name;

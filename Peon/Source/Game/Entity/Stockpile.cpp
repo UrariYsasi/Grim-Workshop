@@ -6,6 +6,7 @@
 Stockpile::Stockpile(Game* game, Vector2D position) :
     Prop(game, position)
 {
+    // Tyren Review: Same comment as other inventory usage
     m_inventory = std::make_unique<Inventory>();
 }
 

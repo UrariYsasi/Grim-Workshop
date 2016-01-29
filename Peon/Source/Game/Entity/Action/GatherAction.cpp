@@ -23,11 +23,14 @@ void GatherAction::Update()
     Vector2D targetCenter = m_target->GetPositionCenter();
     Vector2D monsterCenter = m_owner->GetPositionCenter();
     double distance = Vector2D::Distance(monsterCenter, targetCenter);
+
+    // Tyren Review: Constant?
     if (distance <= 10.0)
     {
         // We are close enough. We can start gathering.
         if (!m_timer.IsStarted())
         {
+            // Tyren Review: Ick, this should be wrapped in a easier to read class
             m_gatherTime = std::rand() % 1000 + 700;
             m_timer.Start();
         }
@@ -42,6 +45,7 @@ void GatherAction::Update()
             }
 
             // If we are carrying enough resources, go dump them at base
+            // Tyren Review: This looks like a TODO comment, is it?
         }
     }
     else

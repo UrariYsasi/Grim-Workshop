@@ -37,6 +37,7 @@ bool Entity::IsDeleted() const
     return m_isDeleted;
 }
 
+// Tyren Review: This order does not match the header, please re-order the header or the file
 void Entity::Delete()
 {
     m_isDeleted = true;

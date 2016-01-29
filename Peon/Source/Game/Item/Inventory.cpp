@@ -12,6 +12,8 @@ Inventory::~Inventory()
 
 void Inventory::AddItem(const int& id, const int& quantity)
 {
+    // Tyren Review: Design choice, this creates a LOT of items, why not one object
+    // per item type, and have a quantity?
     for (int i = 0; i < quantity; i++)
     {
         std::unique_ptr<Item> item = std::make_unique<Item>(id);

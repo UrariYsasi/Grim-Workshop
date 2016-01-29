@@ -1,7 +1,12 @@
 #pragma once
+// Tyren Review: Never include PCH in headers
 #include "../../../PCH.hpp"
 #include "Action.hpp"
+
+// Tyren Review: Timer is small and changes rarely, move to PCH?
 #include "../../../Engine/Timer.hpp"
+
+// Tyren Review: Remove this and forward declare
 #include "../Resource.hpp"
 
 class GatherAction : public Action

@@ -16,6 +16,7 @@ Input::~Input()
 
 bool Input::GetKey(const int& key)
 {
+    // Tyren Review: What happens if I pass in 12345 into this method? Same goes for ALL of these
     return m_currentKeys[key];
 }
 
@@ -131,7 +132,7 @@ void Input::Update()
             m_boxSelection.x = m_mousePosition.GetX();
             m_boxSelection.y = m_mousePosition.GetY();
         }
-
+        // Tyren Review: Err, else?
         if (m_isBoxSelecting)
         {
             m_boxSelection.w = m_mousePosition.GetX() - m_boxSelection.x;
@@ -140,12 +141,14 @@ void Input::Update()
     }
     else if (GetMouseButtonRelease(SDL_BUTTON_LEFT))
     {
+        // Tyren Review: Remove or add a comment why this is disabled
         //EndBoxSelection();
     }
 }
 
 void Input::EndBoxSelection()
 {
+    // Tyren Review: Is this necessary?
     if (m_isBoxSelecting)
     {
         m_isBoxSelecting = false;

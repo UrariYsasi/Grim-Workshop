@@ -1,5 +1,8 @@
 #pragma once
+// Tyren Review: Never include PCH in headers
 #include "../PCH.hpp"
+
+// Tyren Review: Vector2D is small and changes rarely, move to PCH?
 #include "Vector2D.hpp"
 
 class Game;

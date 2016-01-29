@@ -19,6 +19,7 @@ Vector2D MoveAction::GetDestination() const
     return m_destination;
 }
 
+// Tyren Review: You never use this, remove it
 void MoveAction::SetDestination(const Vector2D& destination)
 {
     m_destination = destination;
@@ -27,6 +28,8 @@ void MoveAction::SetDestination(const Vector2D& destination)
 void MoveAction::Update()
 {
     Vector2D position = m_owner->GetPosition();
+
+    // Tyren Review: Close, but move it somewhere to the top of the file and make it const?
     int speed = 64;
 
     if (position != m_destination)
@@ -39,6 +42,7 @@ void MoveAction::Update()
         if (Vector2D::Distance(start, position) > distance)
         {
             position = m_destination;
+            // Tyren Review: Call Complete() instead, in fact make m_isComplete private
             m_isComplete = true;
         }
         

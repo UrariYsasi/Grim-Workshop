@@ -1,5 +1,7 @@
 #pragma once
+// Tyren Review: Never include PCH in headers
 #include "../PCH.hpp"
+
 #include "../Engine/Window.hpp"
 #include "../Engine/Renderer.hpp"
 #include "../Engine/Input.hpp"

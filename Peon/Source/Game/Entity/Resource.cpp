@@ -16,6 +16,7 @@ Resource::Type Resource::GetType() const
     return m_type;
 }
 
+// Tyren Review: Never used, remove
 void Resource::SetType(const Type& type)
 {
     m_type = type;
