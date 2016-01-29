@@ -1,4 +1,4 @@
-#include "../../PCH.hpp"
+#include "PCH.hpp"
 #include "Resource.hpp"
 
 Resource::Resource(Game* game, Vector2D position, Type type) :

@@ -1,8 +1,8 @@
-#include "../../PCH.hpp"
+#include "PCH.hpp"
 #include "Item.hpp"
 
-Item::Item(const int& id) :
-    m_id(id)
+Item::Item(ItemType type) :
+    m_type(type)
 {
 }
 
@@ -10,12 +10,12 @@ Item::~Item()
 {
 }
 
-int Item::GetID() const
+ItemType Item::GetType()
 {
-    return m_id;
+    return m_type;
 }
 
-void Item::SetID(const int& id)
+void Item::SetType(ItemType type)
 {
-    m_id = id;
+    m_type = type;
 }

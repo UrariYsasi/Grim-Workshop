@@ -1,18 +1,10 @@
-#include "../PCH.hpp"
+#include "PCH.hpp"
 #include "Window.hpp"
 
 Window::Window(const int& width, const int& height, const std::string& title) :
-    m_width(width),
-    m_height(height),
+    m_size(Vector2D(width, height)),
     m_title(title)
 {
-    m_SDLWindow = SDL_CreateWindow(m_title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_width, m_height, SDL_WINDOW_SHOWN);
-    if (m_SDLWindow == nullptr)
-    {
-        // Tyren Review: you can't fail in a constructor! That is really hard to handle
-        // Instead create an Initialize method like you did with game?
-        std::cerr << "Window could not be created! SDL error: " << SDL_GetError() << std::endl;
-    }
 }
 
 Window::~Window()
@@ -20,31 +12,34 @@ Window::~Window()
     SDL_DestroyWindow(m_SDLWindow);
 }
 
+int Window::Initialize()
+{
+    m_SDLWindow = SDL_CreateWindow(m_title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_size.GetX(), m_size.GetY(), SDL_WINDOW_SHOWN);
+    if (m_SDLWindow == nullptr)
+    {
+        SDL_Log("Window could not initialize! SDL error: %s\n", SDL_GetError());
+        return FAILURE;
+    }
+
+    return SUCCESS;
+}
+
 // Tyren Review: As said earlier, you should try to hide this.
+// TODO: Figure out how to do this
 SDL_Window* Window::GetSDLWindow() const
 {
     return m_SDLWindow;
 }
 
-int Window::GetWidth() const
+void Window::SetSize(const Vector2D& size)
 {
-    return m_width;
+    m_size = size;
+    SDL_SetWindowSize(m_SDLWindow, size.GetX(), size.GetY());
 }
 
-// Tyren Review: Wait, does this work? You never apply this, or the other settings
-void Window::SetWidth(const int& width)
+Vector2D Window::GetSize() const
 {
-    m_width = width;
-}
-
-int Window::GetHeight() const
-{
-    return m_height;
-}
-
-void Window::SetHeight(const int& height)
-{
-    m_height = height;
+    return m_size;
 }
 
 std::string Window::GetTitle() const
@@ -55,4 +50,5 @@ std::string Window::GetTitle() const
 void Window::SetTitle(const std::string& title)
 {
     m_title = title;
+    SDL_SetWindowTitle(m_SDLWindow, title.c_str());
 }

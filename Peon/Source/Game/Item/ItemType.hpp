@@ -1,0 +1,1 @@
+enum class ItemType { NONE, WOOD, STONE };

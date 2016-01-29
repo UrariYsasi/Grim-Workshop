@@ -1,11 +1,5 @@
 #pragma once
-// Tyren Review: Never include PCH in headers
-#include "../../../PCH.hpp"
-
 #include "Action.hpp"
-
-// Tyren Review: Just include in PCH?
-#include "../../../Engine/Vector2D.hpp"
 
 class MoveAction : public Action
 {

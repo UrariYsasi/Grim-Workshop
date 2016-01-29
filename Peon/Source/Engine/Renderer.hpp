@@ -1,9 +1,6 @@
 #pragma once
-// Tyren Review: Never include PCH in headers
-#include "../PCH.hpp"
 
-// Tyren Review: Not necessary, just forward decalre and include in CPP
-#include "Window.hpp"
+class Window;
 
 class Renderer
 {

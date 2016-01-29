@@ -1,13 +1,10 @@
 #pragma once
-// Tyren Review: Never include PCH in headers
-#include "../PCH.hpp"
 
-#include "../Engine/Window.hpp"
-#include "../Engine/Renderer.hpp"
-#include "../Engine/Input.hpp"
-#include "Entity/Entity.hpp"
-#include "Entity/Peon.hpp"
-
+class Window;
+class Renderer;
+class Input;
+class Entity;
+class Peon;
 class Stockpile;
 
 class Game

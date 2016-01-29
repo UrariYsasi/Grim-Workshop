@@ -1,6 +1,9 @@
-#include "../PCH.hpp"
+#include "PCH.hpp"
 #include "Game.hpp"
-#include "../Engine/Vector2D.hpp"
+#include "../Engine/Window.hpp"
+#include "../Engine/Renderer.hpp"
+#include "../Engine/Input.hpp"
+#include "Entity/Peon.hpp"
 #include "Entity/Tree.hpp"
 #include "Entity/Stockpile.hpp"
 #include "Entity/Action/MoveAction.hpp"
@@ -77,6 +80,11 @@ int Game::Initialize()
     }
 
     m_window = std::make_unique<Window>(640, 480, "Peon");
+    if (m_window->Initialize() == FAILURE)
+    {
+        return FAILURE;
+    }
+
     m_renderer = std::make_unique<Renderer>(m_window.get());
     m_input = std::make_unique<Input>(this);
 

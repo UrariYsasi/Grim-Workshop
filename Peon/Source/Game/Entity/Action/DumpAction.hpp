@@ -1,11 +1,7 @@
 #pragma once
-// Tyren Review: Never include PCH in headers
-#include "../../../PCH.hpp"
-
 #include "Action.hpp"
 
-// Tyren Review: Forward decalre
-#include "../Stockpile.hpp"
+class Stockpile;
 
 class DumpAction : public Action
 {

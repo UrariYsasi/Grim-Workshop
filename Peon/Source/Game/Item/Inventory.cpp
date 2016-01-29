@@ -1,5 +1,6 @@
-#include "../../PCH.hpp"
+#include "PCH.hpp"
 #include "Inventory.hpp"
+#include "Item.hpp"
 
 Inventory::Inventory()
 {
@@ -10,18 +11,18 @@ Inventory::~Inventory()
     m_items.clear();
 }
 
-void Inventory::AddItem(const int& id, const int& quantity)
+void Inventory::AddItem(const ItemType& type, const int& quantity)
 {
     // Tyren Review: Design choice, this creates a LOT of items, why not one object
     // per item type, and have a quantity?
     for (int i = 0; i < quantity; i++)
     {
-        std::unique_ptr<Item> item = std::make_unique<Item>(id);
+        std::unique_ptr<Item> item = std::make_unique<Item>(type);
         m_items.push_back(std::move(item));
     }
 }
 
-void Inventory::RemoveItem(const int& id, const int& quantity)
+void Inventory::RemoveItem(const ItemType& type, const int& quantity)
 {
     for (int i = 0; i < quantity; i++)
     {
@@ -31,7 +32,7 @@ void Inventory::RemoveItem(const int& id, const int& quantity)
             item = (*it).get();
             if (item != nullptr)
             {
-                if (item->GetID() == id)
+                if (item->GetType() == type)
                 {
                     m_items.erase(it++);
                 }
@@ -45,13 +46,13 @@ void Inventory::RemoveItem(const int& id, const int& quantity)
     }
 }
 
-int Inventory::ItemCount(const int& id)
+int Inventory::ItemCount(const ItemType& type)
 {
     int count = 0;
     for (auto it = m_items.begin(); it != m_items.end(); it++)
     {
         Item* item = (*it).get();
-        if (item->GetID() == id)
+        if (item->GetType() == type)
         {
             count++;
         }

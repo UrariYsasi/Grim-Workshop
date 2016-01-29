@@ -24,5 +24,9 @@
     #include <SDL2_mixer/SDL_mixer.h>
 #endif
 
+#include "Engine/Vector2D.hpp"
+#include "Engine/Timer.hpp"
+#include "Game/Item/ItemType.hpp"
+
 const int SUCCESS = 1;
 const int FAILURE = 0;

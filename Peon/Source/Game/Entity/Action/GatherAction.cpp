@@ -1,10 +1,11 @@
-#include "../../../PCH.hpp"
+#include "PCH.hpp"
 #include "GatherAction.hpp"
 #include "../../../Engine/Vector2D.hpp"
 #include "MoveAction.hpp"
 #include "DumpAction.hpp"
 #include "../Monster.hpp"
 #include "../../Game.hpp"
+#include "../../Item/Item.hpp"
 
 GatherAction::GatherAction(Monster* owner, Resource* target) :
     Action(owner, "Gather"),
@@ -40,7 +41,7 @@ void GatherAction::Update()
             {
                 m_timer.Stop();
                 m_owner->GetGame()->PlaySound("woodcutting_00");
-                m_owner->GetInventory()->AddItem(Item::ID::WOOD, 3);
+                m_owner->GetInventory()->AddItem(ItemType::WOOD, 3);
                 m_owner->PushAction(std::make_unique<DumpAction>(m_owner));
             }
 

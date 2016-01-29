@@ -1,4 +1,4 @@
-#include "../../PCH.hpp"
+#include "PCH.hpp"
 #include "Entity.hpp"
 
 Entity::Entity(Game* game, Vector2D position) :

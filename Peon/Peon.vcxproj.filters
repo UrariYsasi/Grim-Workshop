@@ -149,5 +149,8 @@
     <ClInclude Include="Source\Game\Item\Item.hpp">
       <Filter>Source\Game\Item</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\Item\ItemType.hpp">
+      <Filter>Source\Game\Item</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

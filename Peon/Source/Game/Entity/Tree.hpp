@@ -1,7 +1,4 @@
 #pragma once
-// Tyren Review: Never include PCH in headers
-#include "../../PCH.hpp"
-
 #include "Resource.hpp"
 
 class Tree : public Resource

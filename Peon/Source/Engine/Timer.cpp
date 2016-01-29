@@ -1,12 +1,39 @@
-#include "../PCH.hpp"
+#include "PCH.hpp"
 #include "Timer.hpp"
 
 Timer::Timer() :
-    m_startTime(0),
-    m_pausedTime(0),
+    m_startTime(0.0),
+    m_pausedTime(0.0),
     m_isStarted(false),
     m_isPaused(false)
 {
+}
+
+double Timer::GetTime() const
+{
+    if (m_isStarted)
+    {
+        if (m_isPaused)
+        {
+            return m_pausedTime;
+        }
+        else
+        {
+            return SDL_GetTicks() - m_startTime;
+        }
+    }
+
+    return 0;
+}
+
+bool Timer::IsStarted() const
+{
+    return m_isStarted;
+}
+
+bool Timer::IsPaused() const
+{
+    return m_isPaused;
 }
 
 void Timer::Start()
@@ -27,54 +54,24 @@ void Timer::Stop()
 
 void Timer::Pause()
 {
-    // Tyren Review: Maybe add a comment to explain in english goal of this
+    // If the timer is started, and isn't paused
     if (m_isStarted && !m_isPaused)
     {
+        // Puase the timer, set the paused time to the current time, and reset the start time.
         m_isPaused = true;
         m_pausedTime = SDL_GetTicks() - m_startTime;
         m_startTime = 0;
     }
 }
 
-// Tyren Review: UnCool, this is UnSpecial and UnRight... Unpause? :)
-void Timer::UnPause()
+void Timer::Resume()
 {
-    // Tyren Review: Maybe add a comment to explain in english goal of this
+    // If the timer is started, and is paused
     if (m_isStarted && m_isPaused)
     {
+        // Resume the timer, set our new start time, and reset the paused time.
         m_isPaused = false;
         m_startTime = SDL_GetTicks() - m_pausedTime;
         m_pausedTime = 0;
     }
-}
-
-double Timer::GetTime()
-{
-    // Tyren Review: Is this necessary? Can't you just return the correct value below
-    // And 0 otherwise?
-    double time = 0;
-
-    if (m_isStarted)
-    {
-        if (m_isPaused)
-        {
-            time = m_pausedTime;
-        }
-        else
-        {
-            time = SDL_GetTicks() - m_startTime;
-        }
-    }
-
-    return time;
-}
-
-bool Timer::IsStarted()
-{
-    return m_isStarted;
-}
-
-bool Timer::IsPaused()
-{
-    return m_isPaused;
 }

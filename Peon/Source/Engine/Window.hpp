@@ -1,6 +1,4 @@
 #pragma once
-// Tyren Review: Never include PCH in headers
-#include "../PCH.hpp"
 
 class Window
 {
@@ -9,16 +7,15 @@ class Window
         ~Window();
 
         SDL_Window* GetSDLWindow() const;
-        int GetWidth() const;
-        void SetWidth(const int& width);
-        int GetHeight() const;
-        void SetHeight(const int& height);
-        std::string GetTitle() const;
+        void SetSize(const Vector2D& size);
+        Vector2D GetSize() const;
         void SetTitle(const std::string& title);
+        std::string GetTitle() const;
+
+        int Initialize();
 
     private:
         SDL_Window* m_SDLWindow;
-        int m_width;
-        int m_height;
+        Vector2D m_size;
         std::string m_title;
 };

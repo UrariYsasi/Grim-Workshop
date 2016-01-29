@@ -1,4 +1,4 @@
-#include "../../PCH.hpp"
+#include "PCH.hpp"
 #include "Stockpile.hpp"
 #include "../Game.hpp"
 #include "../Item/Item.hpp"
@@ -30,11 +30,11 @@ void Stockpile::Render()
 
     // Debug stuff
     std::stringstream ss;
-    ss << "Wood: " << m_inventory->ItemCount(Item::ID::WOOD);
+    ss << "Wood: " << m_inventory->ItemCount(ItemType::WOOD);
     m_game->RenderText("dos", m_position.GetX(), m_position.GetY() + 32, ss.str());
     ss.str(" ");
 
-    ss << "Stone: " << m_inventory->ItemCount(Item::ID::STONE);
+    ss << "Stone: " << m_inventory->ItemCount(ItemType::STONE);
     m_game->RenderText("dos", m_position.GetX(), m_position.GetY() + 48, ss.str());
     ss.str(" ");
 }

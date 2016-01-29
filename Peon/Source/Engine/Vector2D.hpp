@@ -1,6 +1,4 @@
 #pragma once
-// Tyren Review: Never include PCH in headers
-#include "../PCH.hpp"
 
 // Tyren Review: Make this a struct so it acts like a value type
 class Vector2D

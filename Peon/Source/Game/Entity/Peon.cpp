@@ -1,4 +1,4 @@
-#include "../../PCH.hpp"
+#include "PCH.hpp"
 #include "Peon.hpp"
 #include "../Game.hpp"
 #include "Action\MoveAction.hpp"

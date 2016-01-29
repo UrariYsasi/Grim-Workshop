@@ -1,9 +1,4 @@
 #pragma once
-// Tyren Review: Never include PCH in headers
-#include "../../PCH.hpp"
-
-// Tyren Review: Just include in PCH
-#include "../../Engine/Vector2D.hpp"
 
 class Game;
 

@@ -1,20 +1,18 @@
 #pragma once
-// Tyren Review: Never include PCH in headers
-#include "../PCH.hpp"
 
 class Timer
 {
 public:
     Timer();
 
+    double GetTime() const;
+    bool IsStarted() const;
+    bool IsPaused() const;
+
     void Start();
     void Stop();
     void Pause();
-    void UnPause();
-    double GetTime();
-    bool IsStarted();
-    bool IsPaused();
-
+    void Resume();
 private:
     double m_startTime;
     double m_pausedTime;

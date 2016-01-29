@@ -1,4 +1,4 @@
-#include "../../../PCH.hpp"
+#include "PCH.hpp"
 #include "Action.hpp"
 #include "../Monster.hpp"
 
@@ -16,12 +16,6 @@ Action::~Action()
 std::string Action::GetName() const
 {
     return m_name;
-}
-
-// Tyren Review: Never used, remove
-void Action::SetName(const std::string& name)
-{
-    m_name = name;
 }
 
 bool Action::IsComplete() const

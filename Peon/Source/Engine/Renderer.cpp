@@ -1,4 +1,6 @@
+#include "PCH.hpp"
 #include "Renderer.hpp"
+#include "Window.hpp"
 
 Renderer::Renderer(const Window* window)
 {

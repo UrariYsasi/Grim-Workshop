@@ -1,8 +1,4 @@
 #pragma once
-
-// Tyren Review: Never include PCH in headers
-#include "../../PCH.hpp"
-
 #include "Prop.hpp"
 
 // Tyren Review: Try to find a way to forward declare this?

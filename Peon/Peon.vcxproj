@@ -39,7 +39,10 @@
     <ClCompile Include="Source\Game\Game.cpp" />
     <ClCompile Include="Source\Game\Item\Inventory.cpp" />
     <ClCompile Include="Source\Game\Item\Item.cpp" />
-    <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\Main.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PCH.hpp</PrecompiledHeaderFile>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Engine\Input.hpp" />
@@ -62,6 +65,7 @@
     <ClInclude Include="Source\Game\Game.hpp" />
     <ClInclude Include="Source\Game\Item\Inventory.hpp" />
     <ClInclude Include="Source\Game\Item\Item.hpp" />
+    <ClInclude Include="Source\Game\Item\ItemType.hpp" />
     <ClInclude Include="Source\PCH.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -116,7 +120,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>D:\Development\SDL2\SDL2_image_VS2015\include;D:\Development\SDL2\SDL_ttf_VS2015\include;D:\Development\SDL2\SDL_VS2015\include;D:\Development\SDL2\SDL2_mixer_VS2015\include;$(IncludePath)</IncludePath>
+    <IncludePath>D:\Development\SDL2\SDL2_image_VS2015\include;D:\Development\SDL2\SDL_ttf_VS2015\include;D:\Development\SDL2\SDL_VS2015\include;D:\Development\SDL2\SDL2_mixer_VS2015\include;$(ProjectDir)Source;$(IncludePath)</IncludePath>
     <LibraryPath>D:\Development\SDL2\SDL2_image_VS2015\lib\x86;D:\Development\SDL2\SDL_ttf_VS2015\lib\x86;D:\Development\SDL2\SDL_VS2015\lib\win32;D:\Development\SDL2\SDL2_mixer_VS2015\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -141,6 +145,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalOptions>/D "WINDOWS" %(AdditionalOptions)</AdditionalOptions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>PCH.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

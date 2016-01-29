@@ -1,6 +1,4 @@
 #pragma once
-// Tyren Review: Never include PCH in headers
-#include "../../../PCH.hpp"
 
 class Monster;
 
@@ -11,7 +9,6 @@ public:
     virtual ~Action();
 
     std::string GetName() const;
-    void SetName(const std::string& name);
     bool IsComplete() const;
 
     virtual void Update() = 0;

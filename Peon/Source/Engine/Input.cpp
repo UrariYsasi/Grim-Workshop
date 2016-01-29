@@ -1,4 +1,4 @@
-#include "../PCH.hpp"
+#include "PCH.hpp"
 #include "Input.hpp"
 #include "../Game/Game.hpp"
 
@@ -16,32 +16,63 @@ Input::~Input()
 
 bool Input::GetKey(const int& key)
 {
-    // Tyren Review: What happens if I pass in 12345 into this method? Same goes for ALL of these
+    if (key >= MAX_KEYS)
+    {
+        SDL_Log("Input::GetKey() failed! Key %d is out of range.", key);
+        return false;
+    }
+
     return m_currentKeys[key];
 }
 
 bool Input::GetKeyPress(const int& key)
 {
+    if (key >= MAX_KEYS)
+    {
+        SDL_Log("Input::GetKeyPress() failed! Key %d is out of range.", key);
+        return false;
+    }
+
     return m_downKeys[key];
 }
 
 bool Input::GetKeyRelease(const int& key)
 {
+    if (key >= MAX_KEYS)
+    {
+        SDL_Log("Input::GetKeyRelease() failed! Key %d is out of range.", key);
+    }
+
     return m_upKeys[key];
 }
 
 bool Input::GetMouseButton(const int& button)
 {
+    if (button >= MAX_MOUSE_BUTTONS)
+    {
+        SDL_Log("Input::GetMouseButton() failed! Button %d is out of range.", button);
+    }
+
     return m_currentMouseButtons[button];
 }
 
 bool Input::GetMouseButtonPress(const int& button)
 {
+    if (button >= MAX_MOUSE_BUTTONS)
+    {
+        SDL_Log("Input::GetMouseButtonPress() failed! Button %d is out of range.", button);
+    }
+
     return m_downMouseButtons[button];
 }
 
 bool Input::GetMouseButtonRelease(const int& button)
 {
+    if (button >= MAX_MOUSE_BUTTONS)
+    {
+        SDL_Log("Input::GetMouseButtonRelease() failed! Button %d is out of range.", button);
+    }
+
     return m_upMouseButtons[button];
 }
 
@@ -66,13 +97,13 @@ void Input::Update()
     SDL_GetMouseState(&x, &y);
     m_mousePosition = Vector2D(x, y);
 
-    for (int i = 0; i < 256; i++)
+    for (int i = 0; i < MAX_KEYS; i++)
     {
         m_downKeys[i] = false;
         m_upKeys[i] = false;
     }
 
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < MAX_MOUSE_BUTTONS; i++)
     {
         m_downMouseButtons[i] = false;
         m_upMouseButtons[i] = false;
@@ -132,25 +163,13 @@ void Input::Update()
             m_boxSelection.x = m_mousePosition.GetX();
             m_boxSelection.y = m_mousePosition.GetY();
         }
-        // Tyren Review: Err, else?
-        if (m_isBoxSelecting)
-        {
-            m_boxSelection.w = m_mousePosition.GetX() - m_boxSelection.x;
-            m_boxSelection.h = m_mousePosition.GetY() - m_boxSelection.y;
-        }
-    }
-    else if (GetMouseButtonRelease(SDL_BUTTON_LEFT))
-    {
-        // Tyren Review: Remove or add a comment why this is disabled
-        //EndBoxSelection();
+        
+        m_boxSelection.w = m_mousePosition.GetX() - m_boxSelection.x;
+        m_boxSelection.h = m_mousePosition.GetY() - m_boxSelection.y;
     }
 }
 
 void Input::EndBoxSelection()
 {
-    // Tyren Review: Is this necessary?
-    if (m_isBoxSelecting)
-    {
-        m_isBoxSelecting = false;
-    }
+    m_isBoxSelecting = false;
 }

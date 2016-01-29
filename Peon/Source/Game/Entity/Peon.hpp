@@ -1,7 +1,4 @@
 #pragma once
-// Tyren Review: Never include PCH in headers
-#include "../../PCH.hpp"
-
 #include "Monster.hpp"
 
 class Peon : public Monster

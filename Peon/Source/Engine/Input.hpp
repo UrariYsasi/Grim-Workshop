@@ -1,9 +1,4 @@
 #pragma once
-// Tyren Review: Never include PCH in headers
-#include "../PCH.hpp"
-
-// Tyren Review: Vector2D is small and changes rarely, move to PCH?
-#include "Vector2D.hpp"
 
 class Game;
 
@@ -27,13 +22,16 @@ class Input
         void EndBoxSelection();
 
     private:
+        const static int MAX_KEYS = 256;
+        const static int MAX_MOUSE_BUTTONS = 5;
+
         Game* m_game;
-        bool m_currentKeys[256];
-        bool m_downKeys[256];
-        bool m_upKeys[256];
-        bool m_currentMouseButtons[5];
-        bool m_downMouseButtons[5];
-        bool m_upMouseButtons[5];
+        bool m_currentKeys[MAX_KEYS];
+        bool m_downKeys[MAX_KEYS];
+        bool m_upKeys[MAX_KEYS];
+        bool m_currentMouseButtons[MAX_MOUSE_BUTTONS];
+        bool m_downMouseButtons[MAX_MOUSE_BUTTONS];
+        bool m_upMouseButtons[MAX_MOUSE_BUTTONS];
         Vector2D m_mousePosition;
         bool m_isBoxSelecting;
         SDL_Rect m_boxSelection;
