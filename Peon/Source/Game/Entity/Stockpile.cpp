@@ -23,7 +23,7 @@ void Stockpile::Update(double deltaTime)
 
 void Stockpile::Render()
 {
-    // Tyren Review: Constants good
+    // Tyren Review: Constants good, "32" bad!
     m_game->RenderSprite("bonfire_4", 0, 0, (int)m_position.x, (int)m_position.y, 32, 32);
 
     // Debug stuff

@@ -42,6 +42,8 @@ bool Input::GetKeyRelease(const int& key)
     {
         SDL_Log("Input::GetKeyRelease() failed! Key %d is out of range.", key);
         // Tyren Review: And... this will crash! You need to return here!
+        // For your info, VS2015 has a "code analysis" feature.  If you run this tool, it'lll
+        // find these crashing bugs for you.
     }
 
     return m_upKeys[key];

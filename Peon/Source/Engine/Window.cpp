@@ -14,7 +14,6 @@ Window::~Window()
 
 int Window::Initialize()
 {
-    // Tyren Review: Wrapped the long line, added casts
     m_SDLWindow = SDL_CreateWindow(
         m_title.c_str(),
         SDL_WINDOWPOS_UNDEFINED,
@@ -33,6 +32,7 @@ int Window::Initialize()
 }
 
 // Tyren Review: As said earlier, you should try to hide this.
+//   Suggestion: Add a "CreateRenderer" function to this class instead...
 // TODO: Figure out how to do this
 SDL_Window* Window::GetSDLWindow() const
 {
