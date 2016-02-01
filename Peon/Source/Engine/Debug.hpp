@@ -3,8 +3,8 @@
 class Debug
 {
 public:
-    static void Log(const std::string format, ...);
-    static void LogError(const std::string format, ...);
+    static void Log(const char* format, ...);
+    static void LogError(const char* format, ...);
     static void Enable();
     static void Disable();
     static bool IsEnabled();

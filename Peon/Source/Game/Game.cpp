@@ -49,7 +49,7 @@ Game::~Game()
 
 int Game::Initialize()
 {
-    Debug::Enable();
+    //Debug::Disable();
 
     // Initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -346,7 +346,7 @@ bool Game::LoadTexture(const std::string& path, const std::string& id)
     SDL_Surface* tempSurface = IMG_Load(path.c_str());
     if (tempSurface == nullptr)
     {
-        Debug::LogError("Failed to load image %s! SDL_image error: %s", path, IMG_GetError());
+        Debug::LogError("Failed to load image %s! SDL_image error: %s", path.c_str(), IMG_GetError());
         return false;
     }
 
@@ -354,12 +354,12 @@ bool Game::LoadTexture(const std::string& path, const std::string& id)
     SDL_FreeSurface(tempSurface);
     if (texture == nullptr)
     {
-        Debug::LogError("Failed to create texture from %s, SDL error: %s", path, SDL_GetError());
+        Debug::LogError("Failed to create texture from %s, SDL error: %s", path.c_str(), SDL_GetError());
         return false;
     }
 
     m_textureMap[id] = texture;
-    Debug::Log("Texture %s loaded.", id);
+    Debug::Log("Texture %s loaded.", id.c_str());
     return true;
 }
 
@@ -368,11 +368,11 @@ bool Game::LoadFont(const std::string& path, const std::string& id, const int& s
     TTF_Font* font = TTF_OpenFont(path.c_str(), size);
     if (font == nullptr)
     {
-        Debug::LogError("Failed to load font %s! SDL_ttf error:", path, TTF_GetError());
+        Debug::LogError("Failed to load font %s! SDL_ttf error:", path.c_str(), TTF_GetError());
     }
 
     m_fontMap[id] = font;
-    Debug::Log("Font %s loaded.", id);
+    Debug::Log("Font %s loaded.", id.c_str());
     return true;
 }
 
@@ -381,12 +381,12 @@ bool Game::LoadSound(const std::string& path, const std::string& id)
     Mix_Chunk* sound = Mix_LoadWAV(path.c_str());
     if (sound == nullptr)
     {
-        Debug::LogError("Failed to load WAV from %s! SDL_mixer error: ", path, Mix_GetError());
+        Debug::LogError("Failed to load WAV from %s! SDL_mixer error: ", path.c_str(), Mix_GetError());
         return false;
     }
 
     m_soundMap[id] = sound;
-    Debug::Log("Sound %s loaded.", id);
+    Debug::Log("Sound %s loaded.", id.c_str());
     return true;
 }
 
@@ -411,7 +411,7 @@ void Game::RenderText(const std::string& fontID, const int& x, const int& y, con
     SDL_Surface* surface = TTF_RenderText_Solid(m_fontMap[fontID], text.c_str(), color);
     if (surface == nullptr)
     {
-        Debug::LogError("Failed to render font %s to surface! SDL_ttf error: %s", fontID, TTF_GetError());
+        Debug::LogError("Failed to render font %s to surface! SDL_ttf error: %s", fontID.c_str(), TTF_GetError());
     }
 
     SDL_Texture* texture = SDL_CreateTextureFromSurface(m_renderer->GetSDLRenderer(), surface);
