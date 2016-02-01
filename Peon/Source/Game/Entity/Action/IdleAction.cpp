@@ -18,7 +18,7 @@ void IdleAction::Update(double deltaTime)
 {
     if (!m_timer.IsStarted())
     {
-        m_waitTime = Random::Generate(1000, 10000);
+        m_waitTime = (int)Random::Generate(1000, 10000);
         m_timer.Start();
     }
     else
