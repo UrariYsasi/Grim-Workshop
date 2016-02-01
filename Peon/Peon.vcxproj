@@ -35,6 +35,7 @@
     <ClCompile Include="Source\Game\Entity\Peon.cpp" />
     <ClCompile Include="Source\Game\Entity\Prop.cpp" />
     <ClCompile Include="Source\Game\Entity\Resource.cpp" />
+    <ClCompile Include="Source\Game\Entity\Rock.cpp" />
     <ClCompile Include="Source\Game\Entity\Stockpile.cpp" />
     <ClCompile Include="Source\Game\Entity\Tree.cpp" />
     <ClCompile Include="Source\Game\Game.cpp" />
@@ -63,6 +64,7 @@
     <ClInclude Include="Source\Game\Entity\Peon.hpp" />
     <ClInclude Include="Source\Game\Entity\Prop.hpp" />
     <ClInclude Include="Source\Game\Entity\Resource.hpp" />
+    <ClInclude Include="Source\Game\Entity\Rock.hpp" />
     <ClInclude Include="Source\Game\Entity\Stockpile.hpp" />
     <ClInclude Include="Source\Game\Entity\Tree.hpp" />
     <ClInclude Include="Source\Game\Game.hpp" />

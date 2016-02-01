@@ -4,7 +4,7 @@
 class Resource : public Prop
 {
 public:
-    enum Type { NONE, TREE };
+    enum Type { NONE, TREE, ROCK };
 
     Resource(Game* game, Vector2D position, Type type);
     virtual ~Resource();

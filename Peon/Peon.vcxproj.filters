@@ -87,6 +87,9 @@
     <ClCompile Include="Source\Engine\Random.cpp">
       <Filter>Source\Engine</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\Entity\Rock.cpp">
+      <Filter>Source\Game\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\PCH.hpp">
@@ -160,6 +163,9 @@
     </ClInclude>
     <ClInclude Include="Source\Engine\Random.hpp">
       <Filter>Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Entity\Rock.hpp">
+      <Filter>Source\Game\Entity</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
