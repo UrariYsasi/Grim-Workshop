@@ -56,8 +56,6 @@ void Monster::Update(double deltaTime)
 */
 void Monster::PushAction(std::unique_ptr<Action> action)
 {
-    // Tyren Review: Embrace logging, add a log class, and call it all over
-    // Then disable it later if you don't like it or it causes lag
     m_actionStack.push_back(std::move(action));
 }
 
