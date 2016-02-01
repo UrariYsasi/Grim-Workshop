@@ -24,6 +24,7 @@
     #include <SDL2_mixer/SDL_mixer.h>
 #endif
 
+#include "Engine/Debug.hpp"
 #include "Engine/Vector2D.hpp"
 #include "Engine/Timer.hpp"
 #include "Game/Item/ItemType.hpp"

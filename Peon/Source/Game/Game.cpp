@@ -49,31 +49,33 @@ Game::~Game()
 
 int Game::Initialize()
 {
+    Debug::Enable();
+
     // Initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
     {
-        SDL_Log("SDL could not initialize! SDL error: %s\n", SDL_GetError());
+        Debug::LogError("SDL could not initialize! SDL error: %s", SDL_GetError());
         return FAILURE;
     }
 
     // Initialize SDL_image
     if (IMG_Init(IMG_INIT_PNG) < 0)
     {
-        SDL_Log("SDL_image could not initialize! SDL_image error: %s\n", IMG_GetError());
+        Debug::LogError("SDL_image could not initialize! SDL_image error: %s", IMG_GetError());
         return FAILURE;
     }
 
     //Initialize SDL_mixer
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
     {
-        SDL_Log("SDL_mixer could not initialize! SDL_mixer error: %s\n", Mix_GetError());
+        Debug::LogError("SDL_mixer could not initialize! SDL_mixer error: %s", Mix_GetError());
         return FAILURE;
     }
 
     //Initialize SDL_ttf
     if (TTF_Init() < 0)
     {
-        SDL_Log("SDL_ttf could not initialize! SDL_ttf error: %s\n", TTF_GetError());
+        Debug::Log("SDL_ttf could not initialize! SDL_ttf error: %s", TTF_GetError());
         return FAILURE;
     }
 
@@ -143,7 +145,7 @@ void Game::Run()
 {
     if (m_isRunning)
     {
-        SDL_Log("Game is already running!");
+        Debug::LogError("Game::Run() cannot be called, Game is already running!");
         return;
     }
     else
@@ -189,16 +191,16 @@ void Game::Update(double deltaTime)
     if(m_input->GetMouseButtonRelease(SDL_BUTTON_LEFT))
     {
         // If we are currently box selecting
-        if(m_input->IsBoxSelecting())
+        if (m_input->IsBoxSelecting())
         {
             // Select all the peons that are within the selection box
-            for(std::list<Entity*>::const_iterator it = m_entities.begin(); it != m_entities.end(); it++)
+            for (std::list<Entity*>::const_iterator it = m_entities.begin(); it != m_entities.end(); it++)
             {
                 Peon* peon = dynamic_cast<Peon*>(*it);
-                if(peon != nullptr)
+                if (peon != nullptr)
                 {
                     SDL_Rect selectionRect = m_input->GetBoxSelection();
-                    if(peon->IsCollidingWithRect(selectionRect))
+                    if (peon->IsCollidingWithRect(selectionRect))
                     {
                         m_selectedPeons.push_back(peon);
                     }
@@ -344,7 +346,7 @@ bool Game::LoadTexture(const std::string& path, const std::string& id)
     SDL_Surface* tempSurface = IMG_Load(path.c_str());
     if (tempSurface == nullptr)
     {
-        std::cerr << "Unable to load image " << path << "! SDL_image error: " << IMG_GetError() << std::endl;
+        Debug::LogError("Failed to load image %s! SDL_image error: %s", path, IMG_GetError());
         return false;
     }
 
@@ -352,12 +354,12 @@ bool Game::LoadTexture(const std::string& path, const std::string& id)
     SDL_FreeSurface(tempSurface);
     if (texture == nullptr)
     {
-        std::cerr << "Unable to create texture from " << path << "! SDL error: " << SDL_GetError() << std::endl;
+        Debug::LogError("Failed to create texture from %s, SDL error: %s", path, SDL_GetError());
         return false;
     }
 
-    std::cout << "Texture " << id << " loaded." << std::endl;
     m_textureMap[id] = texture;
+    Debug::Log("Texture %s loaded.", id);
     return true;
 }
 
@@ -366,11 +368,11 @@ bool Game::LoadFont(const std::string& path, const std::string& id, const int& s
     TTF_Font* font = TTF_OpenFont(path.c_str(), size);
     if (font == nullptr)
     {
-        std::cerr << "Failed to load font! SDL_ttf error: " << TTF_GetError() << std::endl;
+        Debug::LogError("Failed to load font %s! SDL_ttf error:", path, TTF_GetError());
     }
 
-    std::cout << "Font " << id << " loaded." << std::endl;
     m_fontMap[id] = font;
+    Debug::Log("Font %s loaded.", id);
     return true;
 }
 
@@ -379,12 +381,12 @@ bool Game::LoadSound(const std::string& path, const std::string& id)
     Mix_Chunk* sound = Mix_LoadWAV(path.c_str());
     if (sound == nullptr)
     {
-        std::cerr << "Failed to load WAV from " << path << "! SDL_mixer Error: " << Mix_GetError() << std::endl;
+        Debug::LogError("Failed to load WAV from %s! SDL_mixer error: ", path, Mix_GetError());
         return false;
     }
 
-    std::cout << "Sound " << id << " loaded." << std::endl;
     m_soundMap[id] = sound;
+    Debug::Log("Sound %s loaded.", id);
     return true;
 }
 
@@ -409,7 +411,7 @@ void Game::RenderText(const std::string& fontID, const int& x, const int& y, con
     SDL_Surface* surface = TTF_RenderText_Solid(m_fontMap[fontID], text.c_str(), color);
     if (surface == nullptr)
     {
-        std::cerr << "Failed to render font to surface! SDL_ttf error: " << TTF_GetError() << std::endl;
+        Debug::LogError("Failed to render font %s to surface! SDL_ttf error: %s", fontID, TTF_GetError());
     }
 
     SDL_Texture* texture = SDL_CreateTextureFromSurface(m_renderer->GetSDLRenderer(), surface);
@@ -418,7 +420,7 @@ void Game::RenderText(const std::string& fontID, const int& x, const int& y, con
     SDL_QueryTexture(texture, NULL, NULL, &width, &height);
     if (texture == nullptr)
     {
-        std::cout << "Failed to create texture from surface! SDL error: " << SDL_GetError() << std::endl;
+        Debug::LogError("Failed to create font texture from surface! SDL error: ", SDL_GetError());
     }
 
     SDL_Rect srcRect = { 0, 0, width, height };

@@ -15,6 +15,10 @@ int main(int argc, char** argv)
     {
         game.Run();
     }
+    else
+    {
+        Debug::LogError("Game initialization failed.");
+    }
 
     return 0;
 }
