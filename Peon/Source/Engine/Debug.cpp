@@ -6,17 +6,18 @@ bool Debug::m_isEnabled = true;
 /*
     Send some stuff to the debug log, if debugging is enabled.
 */
-void Debug::Log(const std::string format, ...)
+void Debug::Log(const char* format, ...)
 {
     if (!m_isEnabled)
     {
         return;
     }
 
+    const int BUFFER_SIZE = 1024;
+    char buffer[BUFFER_SIZE];
     va_list args;
     va_start(args, format);
-    char buffer[1024];
-    std::vsnprintf(buffer, (sizeof(buffer) / sizeof buffer[0]), format.c_str(), args);
+    std::vsnprintf(buffer, BUFFER_SIZE, format, args);
     va_end(args);
     std::cout << buffer << std::endl;
 }
@@ -24,12 +25,13 @@ void Debug::Log(const std::string format, ...)
 /*
     Send some stuff to the debug log, even if debugging is disabled.
 */
-void Debug::LogError(const std::string format, ...)
+void Debug::LogError(const char* format, ...)
 {
+    const int BUFFER_SIZE = 1024;
+    char buffer[BUFFER_SIZE];
     va_list args;
     va_start(args, format);
-    char buffer[1024];
-    std::vsnprintf(buffer, (sizeof(buffer) / sizeof buffer[0]), format.c_str(), args);
+    std::vsnprintf(buffer, BUFFER_SIZE, format, args);
     va_end(args);
     std::cout << buffer << std::endl;
 }
