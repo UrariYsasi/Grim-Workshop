@@ -81,6 +81,9 @@
     <ClCompile Include="Source\Game\Item\Item.cpp">
       <Filter>Source\Game\Item</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Engine\Debug.cpp">
+      <Filter>Source\Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\PCH.hpp">
@@ -148,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="Source\Game\Item\ItemType.hpp">
       <Filter>Source\Game\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Debug.hpp">
+      <Filter>Source\Engine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
