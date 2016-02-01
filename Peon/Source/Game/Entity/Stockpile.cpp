@@ -23,15 +23,16 @@ void Stockpile::Update(double deltaTime)
 
 void Stockpile::Render()
 {
-    m_game->RenderSprite("bonfire_4", 0, 0, m_position.x, m_position.y, 32, 32);
+    // Tyren Review: Constants good, "32" bad!
+    m_game->RenderSprite("bonfire_4", 0, 0, (int)m_position.x, (int)m_position.y, 32, 32);
 
     // Debug stuff
     std::stringstream ss;
     ss << "Wood: " << m_inventory.ItemCount(ItemType::WOOD);
-    m_game->RenderText("dos", m_position.x, m_position.y + 32, ss.str());
+    m_game->RenderText("dos", (int)m_position.x, (int)m_position.y + 32, ss.str());
     ss.str(" ");
 
     ss << "Stone: " << m_inventory.ItemCount(ItemType::STONE);
-    m_game->RenderText("dos", m_position.x, m_position.y + 48, ss.str());
+    m_game->RenderText("dos", (int)m_position.x, (int)m_position.y + 48, ss.str());
     ss.str(" ");
 }

@@ -19,6 +19,6 @@ void Peon::Update(double deltaTime)
 
 void Peon::Render()
 {
-    m_game->RenderSprite("peon", 0, 0, m_position.x, m_position.y, 32, 32);
+    m_game->RenderSprite("peon", 0, 0, (int)m_position.x, (int)m_position.y, 32, 32);
 }
 
