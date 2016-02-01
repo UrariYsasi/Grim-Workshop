@@ -55,6 +55,6 @@ private:
     std::list<Entity*> m_entities;
     std::list<Peon*> m_selectedPeons;
 
-    // This is here temporarily for debug purposes
+    // This is here TEMPORARILY for debug purposes
     int m_peonCount;
 };

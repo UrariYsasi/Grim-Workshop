@@ -31,8 +31,7 @@ void GatherAction::Update(double deltaTime)
         // We are close enough. We can start gathering.
         if (!m_timer.IsStarted())
         {
-            // Tyren Review: Ick, this should be wrapped in a easier to read class
-            m_gatherTime = std::rand() % 1000 + 700;
+            m_gatherTime = Random::Generate(700, 1500);
             m_timer.Start();
         }
         else

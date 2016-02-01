@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Source\Engine\Input.cpp" />
     <ClCompile Include="Source\Engine\Debug.cpp" />
+    <ClCompile Include="Source\Engine\Random.cpp" />
     <ClCompile Include="Source\Engine\Renderer.cpp" />
     <ClCompile Include="Source\Engine\Timer.cpp" />
     <ClCompile Include="Source\Engine\Window.cpp" />
@@ -47,6 +48,7 @@
   <ItemGroup>
     <ClInclude Include="Source\Engine\Input.hpp" />
     <ClInclude Include="Source\Engine\Debug.hpp" />
+    <ClInclude Include="Source\Engine\Random.hpp" />
     <ClInclude Include="Source\Engine\Renderer.hpp" />
     <ClInclude Include="Source\Engine\Timer.hpp" />
     <ClInclude Include="Source\Engine\Vector2D.hpp" />

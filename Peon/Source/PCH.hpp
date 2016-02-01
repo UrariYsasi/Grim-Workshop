@@ -11,6 +11,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <cmath>
+#include <random>
 
 #if WINDOWS
     #include <SDL.h>
@@ -25,6 +26,7 @@
 #endif
 
 #include "Engine/Debug.hpp"
+#include "Engine/Random.hpp"
 #include "Engine/Vector2D.hpp"
 #include "Engine/Timer.hpp"
 #include "Game/Item/ItemType.hpp"
