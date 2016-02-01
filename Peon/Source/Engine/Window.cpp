@@ -14,7 +14,15 @@ Window::~Window()
 
 int Window::Initialize()
 {
-    m_SDLWindow = SDL_CreateWindow(m_title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_size.x, m_size.y, SDL_WINDOW_SHOWN);
+    // Tyren Review: Wrapped the long line, added casts
+    m_SDLWindow = SDL_CreateWindow(
+        m_title.c_str(),
+        SDL_WINDOWPOS_UNDEFINED,
+        SDL_WINDOWPOS_UNDEFINED,
+        (int)m_size.x,
+        (int)m_size.y,
+        SDL_WINDOW_SHOWN);
+
     if (m_SDLWindow == nullptr)
     {
         SDL_Log("Window could not initialize! SDL error: %s\n", SDL_GetError());
@@ -34,7 +42,7 @@ SDL_Window* Window::GetSDLWindow() const
 void Window::SetSize(const Vector2D& size)
 {
     m_size = size;
-    SDL_SetWindowSize(m_SDLWindow, size.x, size.y);
+    SDL_SetWindowSize(m_SDLWindow, (int)size.x, (int)size.y);
 }
 
 Vector2D Window::GetSize() const

@@ -41,6 +41,7 @@ bool Input::GetKeyRelease(const int& key)
     if (key >= MAX_KEYS)
     {
         SDL_Log("Input::GetKeyRelease() failed! Key %d is out of range.", key);
+        // Tyren Review: And... this will crash! You need to return here!
     }
 
     return m_upKeys[key];
@@ -51,6 +52,7 @@ bool Input::GetMouseButton(const int& button)
     if (button >= MAX_MOUSE_BUTTONS)
     {
         SDL_Log("Input::GetMouseButton() failed! Button %d is out of range.", button);
+        // Tyren Review: And... this will crash! You need to return here!
     }
 
     return m_currentMouseButtons[button];
@@ -61,6 +63,7 @@ bool Input::GetMouseButtonPress(const int& button)
     if (button >= MAX_MOUSE_BUTTONS)
     {
         SDL_Log("Input::GetMouseButtonPress() failed! Button %d is out of range.", button);
+        // Tyren Review: And... this will crash! You need to return here!
     }
 
     return m_downMouseButtons[button];
@@ -71,6 +74,7 @@ bool Input::GetMouseButtonRelease(const int& button)
     if (button >= MAX_MOUSE_BUTTONS)
     {
         SDL_Log("Input::GetMouseButtonRelease() failed! Button %d is out of range.", button);
+        // Tyren Review: And... this will crash! You need to return here!
     }
 
     return m_upMouseButtons[button];
@@ -160,12 +164,15 @@ void Input::Update()
         {
             m_isBoxSelecting = true;
 
-            m_boxSelection.x = m_mousePosition.x;
-            m_boxSelection.y = m_mousePosition.y;
+            // Tyren Review: As before, you are converting from double to int, and this can cause
+            // unintended side effects. Casting isn't evil. It tells me and other devs:
+            // "Trust me, I thought about this and it'll never overflow, or overflow is okay."
+            m_boxSelection.x = (int)m_mousePosition.x;
+            m_boxSelection.y = (int)m_mousePosition.y;
         }
         
-        m_boxSelection.w = m_mousePosition.x - m_boxSelection.x;
-        m_boxSelection.h = m_mousePosition.y - m_boxSelection.y;
+        m_boxSelection.w = (int)m_mousePosition.x - m_boxSelection.x;
+        m_boxSelection.h = (int)m_mousePosition.y - m_boxSelection.y;
     }
 }
 
