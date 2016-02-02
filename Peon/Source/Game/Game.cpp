@@ -180,22 +180,22 @@ void Game::Update(double deltaTime)
     // Camera movement
     Vector2D cameraMovement(0, 0);
 
-    if (m_input->GetKey(SDLK_w))
+    if (m_input->GetKey(SDL_SCANCODE_W))
     {
         cameraMovement.y = -1;
     }
 
-    if (m_input->GetKey(SDLK_a))
+    if (m_input->GetKey(SDL_SCANCODE_A))
     {
         cameraMovement.x = -1;
     }
 
-    if (m_input->GetKey(SDLK_s))
+    if (m_input->GetKey(SDL_SCANCODE_S))
     {
         cameraMovement.y = 1;
     }
 
-    if (m_input->GetKey(SDLK_d))
+    if (m_input->GetKey(SDL_SCANCODE_D))
     {
         cameraMovement.x = 1;
     }

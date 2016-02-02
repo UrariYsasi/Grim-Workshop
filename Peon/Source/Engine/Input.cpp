@@ -116,11 +116,12 @@ void Input::Update()
     SDL_Event event;
     while (SDL_PollEvent(&event) != 0)
     {
-        int key = event.key.keysym.sym;
+        int key = event.key.keysym.scancode;
         int mouseButton = event.button.button;
 
         if (event.type == SDL_KEYDOWN)
         {
+            Debug::Log("%d", key);
             if (!m_currentKeys[key])
             {
                 m_downKeys[key] = true;
