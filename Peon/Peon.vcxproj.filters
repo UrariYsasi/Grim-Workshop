@@ -19,6 +19,9 @@
     <Filter Include="Source\Game\Item">
       <UniqueIdentifier>{80ef557c-5b9c-468b-b067-2f726e1e87a4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Game\Terrain">
+      <UniqueIdentifier>{a9b8fb87-80c8-4d00-b7ff-a2938b0e5594}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -89,6 +92,15 @@
     </ClCompile>
     <ClCompile Include="Source\Game\Entity\Rock.cpp">
       <Filter>Source\Game\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Terrain\Tile.cpp">
+      <Filter>Source\Game\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Terrain\GrassTile.cpp">
+      <Filter>Source\Game\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Camera.cpp">
+      <Filter>Source\Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +178,15 @@
     </ClInclude>
     <ClInclude Include="Source\Game\Entity\Rock.hpp">
       <Filter>Source\Game\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Terrain\Tile.hpp">
+      <Filter>Source\Game\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Terrain\GrassTile.hpp">
+      <Filter>Source\Game\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Camera.hpp">
+      <Filter>Source\Engine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

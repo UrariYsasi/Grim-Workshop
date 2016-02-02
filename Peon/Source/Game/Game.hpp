@@ -6,6 +6,8 @@ class Input;
 class Entity;
 class Peon;
 class Stockpile;
+class Tile;
+class Camera;
 
 class Game
 {
@@ -31,6 +33,7 @@ private:
     void CleanEntities();
     void SpawnPeon();
     void IssueCommand(Entity* ent);
+    void GenerateMap();
 
     bool LoadTexture(const std::string& path, const std::string& id);
     bool LoadFont(const std::string& path, const std::string& id, const int& size = 16);
@@ -41,6 +44,7 @@ private:
     std::unique_ptr<Window> m_window;
     std::unique_ptr<Renderer> m_renderer;
     std::unique_ptr<Input> m_input;
+    std::unique_ptr<Camera> m_camera;
 
     // Textures
     std::map<std::string, SDL_Texture*> m_textureMap;
@@ -54,6 +58,10 @@ private:
     // Entities
     std::list<Entity*> m_entities;
     std::list<Peon*> m_selectedPeons;
+
+    // Terrain
+    const static int MAP_SIZE = 100;
+    std::list< std::unique_ptr<Tile> > m_terrain;
 
     // This is here TEMPORARILY for debug purposes
     int m_peonCount;

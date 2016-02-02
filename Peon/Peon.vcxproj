@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Engine\Camera.cpp" />
     <ClCompile Include="Source\Engine\Input.cpp" />
     <ClCompile Include="Source\Engine\Debug.cpp" />
     <ClCompile Include="Source\Engine\Random.cpp" />
@@ -41,12 +42,15 @@
     <ClCompile Include="Source\Game\Game.cpp" />
     <ClCompile Include="Source\Game\Item\Inventory.cpp" />
     <ClCompile Include="Source\Game\Item\Item.cpp" />
+    <ClCompile Include="Source\Game\Terrain\GrassTile.cpp" />
+    <ClCompile Include="Source\Game\Terrain\Tile.cpp" />
     <ClCompile Include="Source\Main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PCH.hpp</PrecompiledHeaderFile>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Engine\Camera.hpp" />
     <ClInclude Include="Source\Engine\Input.hpp" />
     <ClInclude Include="Source\Engine\Debug.hpp" />
     <ClInclude Include="Source\Engine\Random.hpp" />
@@ -71,6 +75,8 @@
     <ClInclude Include="Source\Game\Item\Inventory.hpp" />
     <ClInclude Include="Source\Game\Item\Item.hpp" />
     <ClInclude Include="Source\Game\Item\ItemType.hpp" />
+    <ClInclude Include="Source\Game\Terrain\GrassTile.hpp" />
+    <ClInclude Include="Source\Game\Terrain\Tile.hpp" />
     <ClInclude Include="Source\PCH.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

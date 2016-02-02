@@ -17,6 +17,5 @@ void Tree::Update(double deltaTime)
 
 void Tree::Render()
 {
-    // Tyren Review: Constants good, "32" bad
-    m_game->RenderSprite("resource", 0, 0, (int)m_position.x, (int)m_position.y, 64, 64);
+    m_game->RenderSprite("resource", 0, 0, (int)m_position.x, (int)m_position.y, (int)SPRITE_SIZE.x * 2, (int)SPRITE_SIZE.y * 2);
 }

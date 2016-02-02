@@ -4,7 +4,8 @@
 Entity::Entity(Game* game, Vector2D position) :
     m_game(game),
     m_position(position),
-    m_isDeleted(false)
+    m_isDeleted(false),
+    SPRITE_SIZE(Vector2D(32, 32))
 {
 }
 

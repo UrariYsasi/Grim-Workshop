@@ -3,11 +3,13 @@
 #include "../Engine/Window.hpp"
 #include "../Engine/Renderer.hpp"
 #include "../Engine/Input.hpp"
+#include "../Engine/Camera.hpp"
 #include "Entity/Peon.hpp"
 #include "Entity/Tree.hpp"
 #include "Entity/Stockpile.hpp"
 #include "Entity/Action/MoveAction.hpp"
 #include "Entity/Action/GatherAction.hpp"
+#include "Terrain/GrassTile.hpp"
 
 Game::Game() :
     m_peonCount(0),
@@ -87,10 +89,12 @@ int Game::Initialize()
 
     m_renderer = std::make_unique<Renderer>(m_window.get());
     m_input = std::make_unique<Input>(this);
+    m_camera = std::make_unique<Camera>(Vector2D(0, 0));
 
     // Load Textures
     LoadTexture("Resources/Textures/peon.png", "peon");
     LoadTexture("Resources/Textures/resource.png", "resource");
+    LoadTexture("Resources/Textures/terrain.png", "terrain");
     LoadTexture("Resources/Textures/man.png", "man");
     LoadTexture("Resources/Textures/man_2.png", "man2");
     LoadTexture("Resources/Textures/man_3.png", "man3");
@@ -123,18 +127,8 @@ int Game::Initialize()
     LoadSound("Resources/Sounds/death_00.wav", "death_00");
 
     // Setup the game
-    Tree* tree = new Tree(this, Vector2D(200, 200));
-    m_entities.push_back(tree);
-
-    Tree* tree2 = new Tree(this, Vector2D(400, 150));
-    m_entities.push_back(tree2);
-
-    Tree* tree3 = new Tree(this, Vector2D(300, 400));
-    m_entities.push_back(tree3);
-
-    Stockpile* stockpile = new Stockpile(this, Vector2D(304, 224));
-    m_entities.push_back(stockpile);
-
+    GenerateMap();
+    
     SpawnPeon();
     SpawnPeon();
     SpawnPeon();
@@ -182,6 +176,34 @@ void Game::Update(double deltaTime)
     {
         SpawnPeon();
     }
+
+    // Camera movement
+    Vector2D cameraMovement(0, 0);
+
+    if (m_input->GetKey(SDLK_w))
+    {
+        cameraMovement.y = -1;
+    }
+
+    if (m_input->GetKey(SDLK_a))
+    {
+        cameraMovement.x = -1;
+    }
+
+    if (m_input->GetKey(SDLK_s))
+    {
+        cameraMovement.y = 1;
+    }
+
+    if (m_input->GetKey(SDLK_d))
+    {
+        cameraMovement.x = 1;
+    }
+    
+    cameraMovement *= 512;
+    cameraMovement *= deltaTime;
+
+    m_camera->Move(cameraMovement);
 
     // Peon selection
     if(m_input->GetMouseButtonPress(SDL_BUTTON_LEFT))
@@ -242,14 +264,22 @@ void Game::Render()
     m_renderer->SetDrawColor(SDL_Color{ 255, 255, 255, 255 });
     m_renderer->Clear();
 
+    //RenderSprite("resource", 2, 0, 128, 128, 32, 32);
+
+    // Render terrain
+    for (auto it = m_terrain.begin(); it != m_terrain.end(); it++)
+    {
+        (*it)->Render();
+    }
+
     // Render entities
-    for(std::list<Entity*>::const_iterator it = m_entities.begin(); it != m_entities.end(); it++)
+    for(auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
         (*it)->Render();
     }
 
     // Render GUI
-    for(std::list<Peon*>::const_iterator it = m_selectedPeons.begin(); it != m_selectedPeons.end(); it++)
+    for(auto it = m_selectedPeons.begin(); it != m_selectedPeons.end(); it++)
     {
         //SDL_Rect outlineRect = { static_cast<int>((*it)->GetPosition().GetX()), static_cast<int>((*it)->GetPosition().GetY()), 32, 32};
         //RenderRect(outlineRect);
@@ -319,6 +349,32 @@ void Game::IssueCommand(Entity* ent)
             peon->PushAction(std::make_unique<MoveAction>(peon, m_input->GetMousePosition()));
         }
     }
+}
+
+void Game::GenerateMap()
+{
+    // Generate terrain
+    for (int x = -(MAP_SIZE / 2); x < (MAP_SIZE / 2); x++)
+    {
+        for (int y = -(MAP_SIZE / 2); y < (MAP_SIZE / 2); y++)
+        {
+            std::unique_ptr<GrassTile> tile = std::make_unique<GrassTile>(this, Vector2D(x * 32, y * 32));
+            m_terrain.push_back(std::move(tile));
+        }
+    }
+
+    // Generate props
+    Tree* tree = new Tree(this, Vector2D(200, 200));
+    m_entities.push_back(tree);
+
+    Tree* tree2 = new Tree(this, Vector2D(400, 150));
+    m_entities.push_back(tree2);
+
+    Tree* tree3 = new Tree(this, Vector2D(300, 400));
+    m_entities.push_back(tree3);
+
+    Stockpile* stockpile = new Stockpile(this, Vector2D(304, 224));
+    m_entities.push_back(stockpile);
 }
 
 /*
@@ -393,22 +449,40 @@ bool Game::LoadSound(const std::string& path, const std::string& id)
 
 void Game::RenderTexture(const std::string& id, const int& x, const int& y, const int& width, const int& height)
 {
+    if (m_textureMap[id] == nullptr)
+    {
+        Debug::LogError("Texture %s can't be rendered, as it does not exist!", id.c_str());
+        return;
+    }
+
     SDL_Rect srcRect = { 0, 0, 32, 32 };
-    SDL_Rect destRect = { x, y, width, height };
+    SDL_Rect destRect = { x - (int)m_camera->GetPosition().x, y - (int)m_camera->GetPosition().y, width, height };
 
     SDL_RenderCopyEx(m_renderer->GetSDLRenderer(), m_textureMap[id], &srcRect, &destRect, 0, 0, SDL_FLIP_NONE);
 }
 
 void Game::RenderSprite(const std::string& id, const int& col, const int& row, const int& x, const int& y, const int& width, const int& height)
 {
+    if (m_textureMap[id] == nullptr)
+    {
+        Debug::LogError("Spritesheet %s can't be rendered, as it does not exist!", id.c_str());
+        return;
+    }
+
     SDL_Rect srcRect = { col * width, row * height, width, height };
-    SDL_Rect destRect = { x, y, width, height };
+    SDL_Rect destRect = { x - (int)m_camera->GetPosition().x, y - (int)m_camera->GetPosition().y, width, height };
 
     SDL_RenderCopyEx(m_renderer->GetSDLRenderer(), m_textureMap[id], &srcRect, &destRect, 0, 0, SDL_FLIP_NONE);
 }
 
 void Game::RenderText(const std::string& fontID, const int& x, const int& y, const std::string& text, const SDL_Color& color)
 {
+    if (m_fontMap[fontID] == nullptr)
+    {
+        Debug::LogError("Font %s can't be rendered, as it does not exist!", fontID.c_str());
+        return;
+    }
+
     SDL_Surface* surface = TTF_RenderText_Solid(m_fontMap[fontID], text.c_str(), color);
     if (surface == nullptr)
     {
@@ -425,7 +499,7 @@ void Game::RenderText(const std::string& fontID, const int& x, const int& y, con
     }
 
     SDL_Rect srcRect = { 0, 0, width, height };
-    SDL_Rect destRect = { x, y, width, height };
+    SDL_Rect destRect = { x - (int)m_camera->GetPosition().x, y - (int)m_camera->GetPosition().y, width, height };
 
     SDL_RenderCopyEx(m_renderer->GetSDLRenderer(), texture, &srcRect, &destRect, 0, 0, SDL_FLIP_NONE);
 
@@ -441,5 +515,10 @@ void Game::RenderRect(const SDL_Rect& rect, const SDL_Color& color)
 
 void Game::PlaySound(const std::string& id)
 {
+    if (m_soundMap[id] == nullptr)
+    {
+        Debug::LogError("Sound %s can't be played, as it doesn't exist!", id.c_str());
+    }
+
     Mix_PlayChannel(-1, m_soundMap[id], 0);
 }

@@ -20,6 +20,8 @@ public:
     bool IsCollidingWithRect(const SDL_Rect& rect) const;
 
 protected:
+    const Vector2D SPRITE_SIZE; // TODO: Do something with this
+
     Game* m_game;
     Vector2D m_position;
     bool m_isDeleted;
