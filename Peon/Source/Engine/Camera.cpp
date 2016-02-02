@@ -1,7 +1,9 @@
 #include "PCH.hpp"
 #include "Camera.hpp"
+#include "Renderer.hpp"
 
-Camera::Camera(const Vector2D& position) :
+Camera::Camera(Renderer* renderer, const Vector2D& position) :
+    m_renderer(renderer),
     m_position(position)
 {
 }
@@ -18,6 +20,11 @@ void Camera::SetPosition(const Vector2D& position)
 Vector2D Camera::GetPosition() const
 {
     return m_position;
+}
+
+void Camera::Activate()
+{
+    m_renderer->SetActiveCamera(this);
 }
 
 void Camera::Move(const Vector2D& movement)

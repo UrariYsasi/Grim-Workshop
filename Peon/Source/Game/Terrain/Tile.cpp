@@ -1,6 +1,7 @@
 #include "PCH.hpp"
 #include "Tile.hpp"
 #include "../Game.hpp"
+#include "../../Engine/Renderer.hpp"
 
 Tile::Tile(Game* game, const Vector2D& position, const int& spriteColumn, const int& spriteRow) :
     m_game(game),
@@ -27,5 +28,6 @@ Vector2D Tile::GetPosition() const
 
 void Tile::Render()
 {
-    m_game->RenderSprite(m_spritesheet, m_spriteColumn, m_spriteRow, (int)m_position.x, (int)m_position.y, TILE_SIZE, TILE_SIZE);
+    Renderer* renderer = m_game->GetRenderer();
+    renderer->RenderSprite(m_spritesheet, m_spriteColumn, m_spriteRow, (int)m_position.x, (int)m_position.y, TILE_SIZE, TILE_SIZE);
 }

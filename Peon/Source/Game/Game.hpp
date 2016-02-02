@@ -15,15 +15,15 @@ public:
     Game();
     ~Game();
 
+    Renderer* GetRenderer();
+
     int Initialize();
     void Run();
     void Terminate();
     Stockpile* FindStockpile();
 
-    void RenderTexture(const std::string& id, const int& x, const int& y, const int& width, const int& height);
-    void RenderSprite(const std::string& id, const int& col, const int& row, const int& x, const int& y, const int& width, const int& height);
-    void RenderText(const std::string& fontID, const int& x, const int& y, const std::string& text, const SDL_Color& color = { 0, 0, 0, 255 });
-    void RenderRect(const SDL_Rect& rect, const SDL_Color& color = { 0, 0, 0, 255 });
+    SDL_Texture* GetTexture(const std::string& id);
+    TTF_Font* GetFont(const std::string& id);
 
     void PlaySound(const std::string& id);
 
@@ -44,7 +44,8 @@ private:
     std::unique_ptr<Window> m_window;
     std::unique_ptr<Renderer> m_renderer;
     std::unique_ptr<Input> m_input;
-    std::unique_ptr<Camera> m_camera;
+    std::unique_ptr<Camera> m_mainCamera;
+    std::unique_ptr<Camera> m_GUICamera;
 
     // Textures
     std::map<std::string, SDL_Texture*> m_textureMap;

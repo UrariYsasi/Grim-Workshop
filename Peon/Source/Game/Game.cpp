@@ -49,6 +49,11 @@ Game::~Game()
     TTF_Quit();
 }
 
+Renderer* Game::GetRenderer()
+{
+    return m_renderer.get();
+}
+
 int Game::Initialize()
 {
     //Debug::Disable();
@@ -87,9 +92,10 @@ int Game::Initialize()
         return FAILURE;
     }
 
-    m_renderer = std::make_unique<Renderer>(m_window.get());
+    m_renderer = std::make_unique<Renderer>(this, m_window.get());
     m_input = std::make_unique<Input>(this);
-    m_camera = std::make_unique<Camera>(Vector2D(0, 0));
+    m_mainCamera = std::make_unique<Camera>(m_renderer.get(), Vector2D(0, 0));
+    m_GUICamera = std::make_unique<Camera>(m_renderer.get(), Vector2D(0, 0));
 
     // Load Textures
     LoadTexture("Resources/Textures/peon.png", "peon");
@@ -203,7 +209,7 @@ void Game::Update(double deltaTime)
     cameraMovement *= 512;
     cameraMovement *= deltaTime;
 
-    m_camera->Move(cameraMovement);
+    m_mainCamera->Move(cameraMovement);
 
     // Peon selection
     if(m_input->GetMouseButtonPress(SDL_BUTTON_LEFT))
@@ -270,7 +276,8 @@ void Game::Render()
     m_renderer->SetDrawColor(SDL_Color{ 255, 255, 255, 255 });
     m_renderer->Clear();
 
-    //RenderSprite("resource", 2, 0, 128, 128, 32, 32);
+    // Render Game
+    m_mainCamera->Activate();
 
     // Render terrain
     for (auto it = m_terrain.begin(); it != m_terrain.end(); it++)
@@ -284,25 +291,24 @@ void Game::Render()
         (*it)->Render();
     }
 
-    // Render GUI
-    for(auto it = m_selectedPeons.begin(); it != m_selectedPeons.end(); it++)
+    for (auto it = m_selectedPeons.begin(); it != m_selectedPeons.end(); it++)
     {
-        //SDL_Rect outlineRect = { static_cast<int>((*it)->GetPosition().GetX()), static_cast<int>((*it)->GetPosition().GetY()), 32, 32};
-        //RenderRect(outlineRect);
-
-        RenderTexture("selection", static_cast<int>((*it)->GetPosition().x), static_cast<int>((*it)->GetPosition().y), 32, 32);
+        m_renderer->RenderTexture("selection", static_cast<int>((*it)->GetPosition().x), static_cast<int>((*it)->GetPosition().y), 32, 32);
     }
+
+    // Render GUI
+    m_GUICamera->Activate();
 
     if(m_input->IsBoxSelecting())
     {
         SDL_Rect selectionRect = m_input->GetBoxSelection();
-        RenderRect(selectionRect);
+        m_renderer->RenderRect(selectionRect);
     }
 
     // Debug stuff
     std::stringstream ss;
     ss << "Peons: " << m_peonCount;
-    RenderText("dos", 10, 10, ss.str());
+    m_renderer->RenderText("dos", 10, 10, ss.str());
     ss.str(" ");
 
     m_renderer->Present();
@@ -453,70 +459,14 @@ bool Game::LoadSound(const std::string& path, const std::string& id)
     return true;
 }
 
-void Game::RenderTexture(const std::string& id, const int& x, const int& y, const int& width, const int& height)
+SDL_Texture* Game::GetTexture(const std::string& id)
 {
-    if (m_textureMap[id] == nullptr)
-    {
-        Debug::LogError("Texture %s can't be rendered, as it does not exist!", id.c_str());
-        return;
-    }
-
-    SDL_Rect srcRect = { 0, 0, 32, 32 };
-    SDL_Rect destRect = { x - (int)m_camera->GetPosition().x, y - (int)m_camera->GetPosition().y, width, height };
-
-    SDL_RenderCopyEx(m_renderer->GetSDLRenderer(), m_textureMap[id], &srcRect, &destRect, 0, 0, SDL_FLIP_NONE);
+    return m_textureMap[id];
 }
 
-void Game::RenderSprite(const std::string& id, const int& col, const int& row, const int& x, const int& y, const int& width, const int& height)
+TTF_Font* Game::GetFont(const std::string& id)
 {
-    if (m_textureMap[id] == nullptr)
-    {
-        Debug::LogError("Spritesheet %s can't be rendered, as it does not exist!", id.c_str());
-        return;
-    }
-
-    SDL_Rect srcRect = { col * width, row * height, width, height };
-    SDL_Rect destRect = { x - (int)m_camera->GetPosition().x, y - (int)m_camera->GetPosition().y, width, height };
-
-    SDL_RenderCopyEx(m_renderer->GetSDLRenderer(), m_textureMap[id], &srcRect, &destRect, 0, 0, SDL_FLIP_NONE);
-}
-
-void Game::RenderText(const std::string& fontID, const int& x, const int& y, const std::string& text, const SDL_Color& color)
-{
-    if (m_fontMap[fontID] == nullptr)
-    {
-        Debug::LogError("Font %s can't be rendered, as it does not exist!", fontID.c_str());
-        return;
-    }
-
-    SDL_Surface* surface = TTF_RenderText_Solid(m_fontMap[fontID], text.c_str(), color);
-    if (surface == nullptr)
-    {
-        Debug::LogError("Failed to render font %s to surface! SDL_ttf error: %s", fontID.c_str(), TTF_GetError());
-    }
-
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(m_renderer->GetSDLRenderer(), surface);
-    int width;
-    int height;
-    SDL_QueryTexture(texture, NULL, NULL, &width, &height);
-    if (texture == nullptr)
-    {
-        Debug::LogError("Failed to create font texture from surface! SDL error: ", SDL_GetError());
-    }
-
-    SDL_Rect srcRect = { 0, 0, width, height };
-    SDL_Rect destRect = { x - (int)m_camera->GetPosition().x, y - (int)m_camera->GetPosition().y, width, height };
-
-    SDL_RenderCopyEx(m_renderer->GetSDLRenderer(), texture, &srcRect, &destRect, 0, 0, SDL_FLIP_NONE);
-
-    SDL_FreeSurface(surface);
-    SDL_DestroyTexture(texture);
-}
-
-void Game::RenderRect(const SDL_Rect& rect, const SDL_Color& color)
-{
-    m_renderer->SetDrawColor(SDL_Color{ 0, 0, 0, 255 });
-    SDL_RenderDrawRect(m_renderer->GetSDLRenderer(), &rect);
+    return m_fontMap[id];
 }
 
 void Game::PlaySound(const std::string& id)
