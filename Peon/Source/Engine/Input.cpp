@@ -16,67 +16,31 @@ Input::~Input()
 
 bool Input::GetKey(const int& key)
 {
-    if (key >= MAX_KEYS)
-    {
-        SDL_Log("Input::GetKey() failed! Key %d is out of range.", key);
-        return false;
-    }
-
     return m_currentKeys[key];
 }
 
 bool Input::GetKeyPress(const int& key)
 {
-    if (key >= MAX_KEYS)
-    {
-        SDL_Log("Input::GetKeyPress() failed! Key %d is out of range.", key);
-        return false;
-    }
-
     return m_downKeys[key];
 }
 
 bool Input::GetKeyRelease(const int& key)
 {
-    if (key >= MAX_KEYS)
-    {
-        SDL_Log("Input::GetKeyRelease() failed! Key %d is out of range.", key);
-        return false;
-    }
-
     return m_upKeys[key];
 }
 
 bool Input::GetMouseButton(const int& button)
 {
-    if (button >= MAX_MOUSE_BUTTONS)
-    {
-        SDL_Log("Input::GetMouseButton() failed! Button %d is out of range.", button);
-        return false;
-    }
-
     return m_currentMouseButtons[button];
 }
 
 bool Input::GetMouseButtonPress(const int& button)
 {
-    if (button >= MAX_MOUSE_BUTTONS)
-    {
-        SDL_Log("Input::GetMouseButtonPress() failed! Button %d is out of range.", button);
-        return false;
-    }
-
     return m_downMouseButtons[button];
 }
 
 bool Input::GetMouseButtonRelease(const int& button)
 {
-    if (button >= MAX_MOUSE_BUTTONS)
-    {
-        SDL_Log("Input::GetMouseButtonRelease() failed! Button %d is out of range.", button);
-        return false;
-    }
-
     return m_upMouseButtons[button];
 }
 
@@ -116,12 +80,11 @@ void Input::Update()
     SDL_Event event;
     while (SDL_PollEvent(&event) != 0)
     {
-        int key = event.key.keysym.scancode;
+        int key = event.key.keysym.sym;
         int mouseButton = event.button.button;
 
         if (event.type == SDL_KEYDOWN)
         {
-            Debug::Log("%d", key);
             if (!m_currentKeys[key])
             {
                 m_downKeys[key] = true;
@@ -152,11 +115,6 @@ void Input::Update()
         {
             m_game->Terminate();
         }
-    }
-
-    if(GetKeyPress(SDLK_ESCAPE))
-    {
-        m_game->Terminate();
     }
 
     if (GetMouseButton(SDL_BUTTON_LEFT))

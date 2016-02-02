@@ -180,22 +180,22 @@ void Game::Update(double deltaTime)
     // Camera movement
     Vector2D cameraMovement(0, 0);
 
-    if (m_input->GetKey(SDL_SCANCODE_W))
+    if (m_input->GetKey(SDLK_w))
     {
         cameraMovement.y = -1;
     }
 
-    if (m_input->GetKey(SDL_SCANCODE_A))
+    if (m_input->GetKey(SDLK_a))
     {
         cameraMovement.x = -1;
     }
 
-    if (m_input->GetKey(SDL_SCANCODE_S))
+    if (m_input->GetKey(SDLK_s))
     {
         cameraMovement.y = 1;
     }
 
-    if (m_input->GetKey(SDL_SCANCODE_D))
+    if (m_input->GetKey(SDLK_d))
     {
         cameraMovement.x = 1;
     }
@@ -250,6 +250,12 @@ void Game::Update(double deltaTime)
         }
 
         IssueCommand(ent);
+    }
+
+    // Game closing
+    if (m_input->GetKeyPress(SDLK_ESCAPE))
+    {
+        Terminate();
     }
 
     // Update entities
