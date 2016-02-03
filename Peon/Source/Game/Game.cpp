@@ -220,14 +220,10 @@ void Game::Update(double deltaTime)
 
         Vector2D mousePositionScreen = m_input->GetMousePosition();
         Vector2D mousePositionWorld = m_mainCamera->ConvertToWorld(mousePositionScreen);
-        //Rectangle test(mousePositionWorld.x, mousePositionWorld.y, 32.0, 32.0);
-        //m_renderer->RenderRect(test);
 
         m_isBoxSelecting = true;
         m_boxSelection.x = mousePositionWorld.x;
         m_boxSelection.y = mousePositionWorld.y;
-        Debug::Log("SCREEN %f, %f", mousePositionScreen.x, mousePositionScreen.y);
-        Debug::Log("WORLD %f, %f", mousePositionWorld.x, mousePositionWorld.y);
     }
 
     if (m_isBoxSelecting)
@@ -240,7 +236,6 @@ void Game::Update(double deltaTime)
 
     if(m_input->GetMouseButtonRelease(SDL_BUTTON_LEFT))
     {
-        //Debug::Log("Rectangle(%f, %f, %f, %f)", m_boxSelection.x, m_boxSelection.y, m_boxSelection.width, m_boxSelection.height);
         if (m_isBoxSelecting)
         {
             for (auto it = m_entities.begin(); it != m_entities.end(); it++)
@@ -268,7 +263,7 @@ void Game::Update(double deltaTime)
         {
             Vector2D mousePositionScreen = m_input->GetMousePosition();
             Vector2D mousePositionWorld = m_mainCamera->ConvertToWorld(mousePositionScreen);
-            Rectangle mouseRect(mousePositionWorld.x - 5, mousePositionWorld.y - 5, 10, 10);
+            Rectangle mouseRect(mousePositionWorld.x - 2, mousePositionWorld.y - 2, 2, 2);
             if((*it)->IsCollidingWithRect(mouseRect))
             {
                 ent = (*it);
@@ -285,7 +280,7 @@ void Game::Update(double deltaTime)
     }
 
     // Update entities
-    for(std::list<Entity*>::const_iterator it = m_entities.begin(); it != m_entities.end(); it++)
+    for(auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
         (*it)->Update(deltaTime);
     }
@@ -338,7 +333,7 @@ void Game::Render()
 */
 void Game::CleanEntities()
 {
-    for(std::list<Entity*>::const_iterator it = m_entities.begin(); it != m_entities.end(); it++)
+    for(auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
         if((*it)->IsDeleted())
         {
@@ -359,7 +354,7 @@ void Game::SpawnPeon()
 void Game::IssueCommand(Entity* ent)
 {
     // Loop through all selected peons
-    for(std::list<Peon*>::const_iterator it = m_selectedPeons.begin(); it != m_selectedPeons.end(); it++)
+    for(auto it = m_selectedPeons.begin(); it != m_selectedPeons.end(); it++)
     {
         Peon* peon = (*it);
 
@@ -415,7 +410,7 @@ void Game::GenerateMap()
 */
 Stockpile* Game::FindStockpile()
 {
-    for (std::list<Entity*>::const_iterator it = m_entities.begin(); it != m_entities.end(); it++)
+    for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
         Stockpile* stockpile = dynamic_cast<Stockpile*>(*it);
         if (stockpile != nullptr)
