@@ -70,4 +70,7 @@ private:
 
     // This is here TEMPORARILY for debug purposes
     int m_peonCount;
+    double m_frameCount;
+    double m_frameRate;
+    double m_gameStartTime;
 };

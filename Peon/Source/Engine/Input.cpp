@@ -14,38 +14,32 @@ Input::~Input()
 
 bool Input::GetKey(const int& key)
 {
-    // Is it currently set?
-    return (m_currentKeyboardState[SDL_GetScancodeFromKey(key)] == 1);
+    return m_currentKeys[SDL_GetScancodeFromKey(key)];
 }
 
 bool Input::GetKeyPress(const int& key)
 {
-    // Not set before, but is set now?
-    return (m_lastKeyboardState[SDL_GetScancodeFromKey(key)] == 0) && GetKey(key);
+    return m_downKeys[SDL_GetScancodeFromKey(key)];
 }
 
 bool Input::GetKeyRelease(const int& key)
 {
-    // Set before, but not set now?
-    return (m_lastKeyboardState[SDL_GetScancodeFromKey(key)] == 1) && !GetKey(key);
+    return m_upKeys[SDL_GetScancodeFromKey(key)];
 }
 
 bool Input::GetMouseButton(const int& button)
 {
-    // Is this button down?
-    return ((SDL_BUTTON(button) & m_currentMouseState) != 0);
+    return m_currentMouseButtons[button];
 }
 
 bool Input::GetMouseButtonPress(const int& button)
 {
-    // Not down before, but down now?
-    return ((SDL_BUTTON(button) & m_lastMouseState) == 0) && GetMouseButton(button);
+    return m_downMouseButtons[button];
 }
 
 bool Input::GetMouseButtonRelease(const int& button)
 {
-    // Down before, but not down now?
-    return ((SDL_BUTTON(button) & m_lastMouseState) != 0) && !GetMouseButton(button);
+    return m_upMouseButtons[button];
 }
 
 Vector2D Input::GetMousePosition() const
@@ -56,26 +50,58 @@ Vector2D Input::GetMousePosition() const
 void Input::Update()
 {
     int x, y;
-
-    // This calls SDL_PumpEvents for us, but will tell is if a quit event is received
-    if (SDL_QuitRequested())
-    {
-        m_game->Terminate();
-        return;
-    }
-
-    // Save last state, get current state and position
-    m_lastMouseState = m_currentMouseState;
-    m_currentMouseState = SDL_GetMouseState(&x, &y);
+    SDL_GetMouseState(&x, &y);
     m_mousePosition = Vector2D(x, y);
 
-    // Save last state, get current state
-    m_lastKeyboardState = m_currentKeyboardState;
-    m_currentKeyboardState = SDL_GetKeyboardState(NULL);
-
-    // If this is our first time we don't have a last state, that isn't fun
-    if (m_lastKeyboardState == nullptr)
+    for (int i = 0; i < MAX_KEYBOARD_KEYS; i++)
     {
-        m_lastKeyboardState = m_currentKeyboardState;
+        m_downKeys[i] = false;
+        m_upKeys[i] = false;
+    }
+
+    for (int i = 0; i < MAX_MOUSE_BUTTONS; i++)
+    {
+        m_downMouseButtons[i] = false;
+        m_upMouseButtons[i] = false;
+    }
+
+    SDL_Event event;
+    while (SDL_PollEvent(&event) != 0)
+    {
+        int key = event.key.keysym.sym;
+        int mouseButton = event.button.button;
+
+        if (event.type == SDL_KEYDOWN)
+        {
+            if (!m_currentKeys[SDL_GetScancodeFromKey(key)])
+            {
+                m_downKeys[SDL_GetScancodeFromKey(key)] = true;
+            }
+
+            m_currentKeys[SDL_GetScancodeFromKey(key)] = true;
+        }
+        else if (event.type == SDL_KEYUP)
+        {
+            m_upKeys[SDL_GetScancodeFromKey(key)] = true;
+            m_currentKeys[SDL_GetScancodeFromKey(key)] = false;
+        }
+        else if (event.type == SDL_MOUSEBUTTONDOWN)
+        {
+            if (!m_currentMouseButtons[mouseButton])
+            {
+                m_downMouseButtons[mouseButton] = true;
+            }
+
+            m_currentMouseButtons[mouseButton] = true;
+        }
+        else if (event.type == SDL_MOUSEBUTTONUP)
+        {
+            m_upMouseButtons[mouseButton] = true;
+            m_currentMouseButtons[mouseButton] = false;
+        }
+        else if (event.type == SDL_QUIT)
+        {
+            m_game->Terminate();
+        }
     }
 }

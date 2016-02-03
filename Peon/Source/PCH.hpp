@@ -12,6 +12,7 @@
 #include <ctime>
 #include <cmath>
 #include <random>
+#include <algorithm>
 
 #if WINDOWS
     #include <SDL.h>

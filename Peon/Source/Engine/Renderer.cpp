@@ -12,6 +12,8 @@ Renderer::Renderer(Game* game, const Window* window) :
     {
         std::cerr << "Renderer could not be created! SDL error: " << SDL_GetError() << std::endl;
     }
+
+    SDL_SetRenderDrawBlendMode(m_SDLRenderer, SDL_BLENDMODE_BLEND);
 }
 
 Renderer::~Renderer()
@@ -48,7 +50,6 @@ void Renderer::Present()
 {
     SDL_RenderPresent(m_SDLRenderer);
 }
-
 
 void Renderer::RenderTexture(const std::string& id, const int& x, const int& y, const int& width, const int& height)
 {
@@ -113,12 +114,22 @@ void Renderer::RenderText(const std::string& id, const int& x, const int& y, con
     SDL_DestroyTexture(texture);
 }
 
-void Renderer::RenderRect(const Rectangle& rect, const SDL_Color& color)
+void Renderer::RenderOutlineRect(const Rectangle& rect, const SDL_Color& color)
 {
-    SetDrawColor(SDL_Color{ 0, 0, 0, 255 });
+    SetDrawColor(color);
     Vector2D pos(rect.x, rect.y);
     Vector2D screenPos = m_activeCamera->ConvertToScreen(pos);
 
     SDL_Rect r = {(int)screenPos.x, (int)screenPos.y, (int)rect.width, (int)rect.height};
     SDL_RenderDrawRect(m_SDLRenderer, &r);
+}
+
+void Renderer::RenderFillRect(const Rectangle& rect, const SDL_Color& color)
+{
+    SetDrawColor(color);
+    Vector2D pos(rect.x, rect.y);
+    Vector2D screenPos = m_activeCamera->ConvertToScreen(pos);
+
+    SDL_Rect r = { (int)screenPos.x, (int)screenPos.y, (int)rect.width, (int)rect.height };
+    SDL_RenderFillRect(m_SDLRenderer, &r);
 }

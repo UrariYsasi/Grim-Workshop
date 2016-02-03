@@ -13,6 +13,9 @@
 
 Game::Game() :
     m_peonCount(0),
+    m_frameCount(0),
+    m_frameRate(0),
+    m_gameStartTime(0),
     m_isRunning(false),
     m_isBoxSelecting(false),
     m_boxSelection(0, 0, 0, 0)
@@ -22,7 +25,7 @@ Game::Game() :
 Game::~Game()
 {
     // Entity deletion
-    while(!m_entities.empty())
+    while (!m_entities.empty())
     {
         delete m_entities.front();
         m_entities.pop_front();
@@ -88,7 +91,7 @@ int Game::Initialize()
         return FAILURE;
     }
 
-    m_window = std::make_unique<Window>(640, 480, "Peon");
+    m_window = std::make_unique<Window>(1024, 768, "Peon");
     if (m_window->Initialize() == FAILURE)
     {
         return FAILURE;
@@ -136,7 +139,7 @@ int Game::Initialize()
 
     // Setup the game
     GenerateMap();
-    
+
     SpawnPeon();
     SpawnPeon();
     SpawnPeon();
@@ -154,6 +157,7 @@ void Game::Run()
     else
     {
         m_isRunning = true;
+        m_gameStartTime = SDL_GetTicks();
     }
 
     double frameStartTime = 0.0;
@@ -167,6 +171,9 @@ void Game::Run()
         m_input->Update();
         Update(deltaTime);
         Render();
+
+        m_frameCount++;
+        m_frameRate = (m_frameCount / (SDL_GetTicks() - m_gameStartTime)) * 1000;
     }
 }
 
@@ -180,41 +187,53 @@ void Game::Update(double deltaTime)
     CleanEntities();
 
     // Debugging
-    if (m_input->GetKey(SDLK_p))
+    if (m_input->GetKeyPress(SDLK_p))
     {
         SpawnPeon();
+    }
+
+    if (m_input->GetKeyPress(SDLK_o))
+    {
+        if (Debug::IsEnabled())
+        {
+            Debug::Disable();
+        }
+        else
+        {
+            Debug::Enable();
+        }
     }
 
     // Camera movement
     Vector2D cameraMovement(0, 0);
 
-    if (m_input->GetKey(SDLK_w))
+    if (m_input->GetKey(SDLK_w) || m_input->GetKey(SDLK_UP))
     {
-        cameraMovement.y = -1;
+        cameraMovement += Vector2D(0, -1);
     }
 
-    if (m_input->GetKey(SDLK_a))
+    if (m_input->GetKey(SDLK_a) || m_input->GetKey(SDLK_LEFT))
     {
-        cameraMovement.x = -1;
+        cameraMovement += Vector2D(-1, 0);
     }
 
-    if (m_input->GetKey(SDLK_s))
+    if (m_input->GetKey(SDLK_s) || m_input->GetKey(SDLK_DOWN))
     {
-        cameraMovement.y = 1;
+        cameraMovement += Vector2D(0, 1);
     }
 
-    if (m_input->GetKey(SDLK_d))
+    if (m_input->GetKey(SDLK_d) || m_input->GetKey(SDLK_RIGHT))
     {
-        cameraMovement.x = 1;
+        cameraMovement += Vector2D(1, 0);
     }
-    
+
     cameraMovement *= 512;
     cameraMovement *= deltaTime;
 
     m_mainCamera->Move(cameraMovement);
 
     // Peon selection
-    if(m_input->GetMouseButtonPress(SDL_BUTTON_LEFT))
+    if (m_input->GetMouseButtonPress(SDL_BUTTON_LEFT))
     {
         m_selectedPeons.clear();
 
@@ -234,7 +253,7 @@ void Game::Update(double deltaTime)
         m_boxSelection.height = mousePositionWorld.y - m_boxSelection.y;
     }
 
-    if(m_input->GetMouseButtonRelease(SDL_BUTTON_LEFT))
+    if (m_input->GetMouseButtonRelease(SDL_BUTTON_LEFT))
     {
         if (m_isBoxSelecting)
         {
@@ -255,16 +274,16 @@ void Game::Update(double deltaTime)
     }
 
     // Peon commanding with right click
-    if(m_input->GetMouseButtonPress(SDL_BUTTON_RIGHT))
+    if (m_input->GetMouseButtonPress(SDL_BUTTON_RIGHT))
     {
         // If we right clicked on a Resource, command the peon to start working on it.
         Entity* ent = nullptr;
-        for(std::list<Entity*>::const_iterator it = m_entities.begin(); it != m_entities.end(); it++)
+        for (auto it = m_entities.begin(); it != m_entities.end(); it++)
         {
             Vector2D mousePositionScreen = m_input->GetMousePosition();
             Vector2D mousePositionWorld = m_mainCamera->ConvertToWorld(mousePositionScreen);
             Rectangle mouseRect(mousePositionWorld.x - 2, mousePositionWorld.y - 2, 2, 2);
-            if((*it)->IsCollidingWithRect(mouseRect))
+            if ((*it)->IsCollidingWithRect(mouseRect))
             {
                 ent = (*it);
             }
@@ -280,7 +299,7 @@ void Game::Update(double deltaTime)
     }
 
     // Update entities
-    for(auto it = m_entities.begin(); it != m_entities.end(); it++)
+    for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
         (*it)->Update(deltaTime);
     }
@@ -301,7 +320,7 @@ void Game::Render()
     }
 
     // Render entities
-    for(auto it = m_entities.begin(); it != m_entities.end(); it++)
+    for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
         (*it)->Render();
     }
@@ -313,17 +332,50 @@ void Game::Render()
 
     if (m_isBoxSelecting)
     {
-        m_renderer->RenderRect(m_boxSelection);
+        m_renderer->RenderOutlineRect(m_boxSelection);
     }
 
     // Render GUI
     m_GUICamera->Activate();
 
-    // Debug stuff
-    std::stringstream ss;
-    ss << "Peons: " << m_peonCount;
-    m_renderer->RenderText("dos", 10, 10, ss.str());
-    ss.str(" ");
+    if (Debug::IsEnabled())
+    {
+        // Debug stuff
+        Rectangle container(5, 5, 340, 125);
+        m_renderer->RenderFillRect(container, SDL_Color{ 128, 128, 128, 128 });
+
+        std::stringstream ss;
+        ss << "Framerate: " << (int)m_frameRate;
+        m_renderer->RenderText("dos", 10, 10, ss.str());
+        ss.str(" ");
+
+        ss << "Peon Count: " << m_peonCount;
+        m_renderer->RenderText("dos", 10, 25, ss.str());
+        ss.str(" ");
+
+        Vector2D mouseScreenPosition = m_input->GetMousePosition();
+        ss << "Mouse Position(Screen): " << "(" << (int)mouseScreenPosition.x << "," << (int)mouseScreenPosition.y << ")";
+        m_renderer->RenderText("dos", 10, 40, ss.str());
+        ss.str(" ");
+
+        Vector2D mouseWorldPosition = m_mainCamera->ConvertToWorld(mouseScreenPosition);
+        ss << "Mouse Position(World): " << "(" << (int)mouseWorldPosition.x << "," << (int)mouseWorldPosition.y << ")";
+        m_renderer->RenderText("dos", 10, 55, ss.str());
+        ss.str(" ");
+
+        Vector2D cameraPosition = m_mainCamera->GetPosition();
+        ss << "Camera Position: " << "(" << (int)cameraPosition.x << "," << (int)cameraPosition.y << ")";
+        m_renderer->RenderText("dos", 10, 70, ss.str());
+        ss.str(" ");
+
+        ss << "P - Spawn peon";
+        m_renderer->RenderText("dos", 10, 95, ss.str());
+        ss.str(" ");
+
+        ss << "O - Toggle debug";
+        m_renderer->RenderText("dos", 10, 110, ss.str());
+        ss.str(" ");
+    }
 
     m_renderer->Present();
 }
@@ -333,9 +385,9 @@ void Game::Render()
 */
 void Game::CleanEntities()
 {
-    for(auto it = m_entities.begin(); it != m_entities.end(); it++)
+    for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
-        if((*it)->IsDeleted())
+        if ((*it)->IsDeleted())
         {
             delete (*it);
             m_entities.erase(it++);
@@ -354,15 +406,15 @@ void Game::SpawnPeon()
 void Game::IssueCommand(Entity* ent)
 {
     // Loop through all selected peons
-    for(auto it = m_selectedPeons.begin(); it != m_selectedPeons.end(); it++)
+    for (auto it = m_selectedPeons.begin(); it != m_selectedPeons.end(); it++)
     {
         Peon* peon = (*it);
 
-        if(ent != nullptr)
+        if (ent != nullptr)
         {
             // If we commanded them to a resource, they will begin working on that resource
             Resource* resource = dynamic_cast<Resource*>(ent);
-            if(resource != nullptr)
+            if (resource != nullptr)
             {
                 peon->ClearActions();
                 peon->PushAction(std::make_unique<GatherAction>(peon, resource));
