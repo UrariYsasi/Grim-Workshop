@@ -28,6 +28,7 @@
 #include "Engine/Debug.hpp"
 #include "Engine/Random.hpp"
 #include "Engine/Vector2D.hpp"
+#include "Engine/Rectangle.hpp"
 #include "Engine/Timer.hpp"
 
 #include "Game/Item/ItemType.hpp"

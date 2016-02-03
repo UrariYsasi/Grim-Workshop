@@ -13,6 +13,8 @@ public:
 
     void Activate();
     void Move(const Vector2D& movement);
+    Vector2D ConvertToWorld(const Vector2D& coord);
+    Vector2D ConvertToScreen(const Vector2D& coord);
 
 private:
     Renderer* m_renderer;

@@ -49,47 +49,49 @@ void Entity::Delete()
 /*
     Check if this entity is colliding with the given rectangle.
 */
-bool Entity::IsCollidingWithRect(const SDL_Rect& rect) const
+bool Entity::IsCollidingWithRect(const Rectangle& rect) const
 {
-    SDL_Rect hitbox = { static_cast<int>(m_position.x), static_cast<int>(m_position.y), 32, 32 };
+    // TODO
+    // Actual hitboxes
+    Rectangle hitbox(m_position.x, m_position.y, 32, 32);
 
     // Calculate the rectangle bounds
-    int leftA = hitbox.x;
-    int rightA = hitbox.x + hitbox.w;
-    int topA = hitbox.y;
-    int bottomA = hitbox.y + hitbox.h;
+    double leftA = hitbox.x;
+    double rightA = hitbox.x + hitbox.width;
+    double topA = hitbox.y;
+    double bottomA = hitbox.y + hitbox.height;
 
-    int leftB = rect.x;
-    int rightB = rect.x + rect.w;
-    int topB = rect.y;
-    int bottomB = rect.y + rect.h;
+    double leftB = rect.x;
+    double rightB = rect.x + rect.width;
+    double topB = rect.y;
+    double bottomB = rect.y + rect.height;
 
     // "Correct" the rectangle
     // This is needed for the mouse selection rectangle
     if (rightA < leftA)
     {
-        int temp = leftA;
+        double temp = leftA;
         leftA = rightA;
         rightA = temp;
     }
 
     if (rightB < leftB)
     {
-        int temp = leftB;
+        double temp = leftB;
         leftB = rightB;
         rightB = temp;
     }
 
     if (bottomA < topA)
     {
-        int temp = topA;
+        double temp = topA;
         topA = bottomA;
         bottomA = temp;
     }
 
     if (bottomB < topB)
     {
-        int temp = topB;
+        double temp = topB;
         topB = bottomB;
         bottomB = temp;
     }

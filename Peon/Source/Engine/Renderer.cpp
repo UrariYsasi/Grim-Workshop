@@ -113,8 +113,12 @@ void Renderer::RenderText(const std::string& id, const int& x, const int& y, con
     SDL_DestroyTexture(texture);
 }
 
-void Renderer::RenderRect(const SDL_Rect& rect, const SDL_Color& color)
+void Renderer::RenderRect(const Rectangle& rect, const SDL_Color& color)
 {
     SetDrawColor(SDL_Color{ 0, 0, 0, 255 });
-    SDL_RenderDrawRect(m_SDLRenderer, &rect);
+    Vector2D pos(rect.x, rect.y);
+    Vector2D screenPos = m_activeCamera->ConvertToScreen(pos);
+
+    SDL_Rect r = {(int)screenPos.x, (int)screenPos.y, (int)rect.width, (int)rect.height};
+    SDL_RenderDrawRect(m_SDLRenderer, &r);
 }

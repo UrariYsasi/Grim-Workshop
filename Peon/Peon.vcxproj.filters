@@ -188,5 +188,8 @@
     <ClInclude Include="Source\Engine\Camera.hpp">
       <Filter>Source\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Engine\Rectangle.hpp">
+      <Filter>Source\Engine</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

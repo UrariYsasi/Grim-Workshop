@@ -4,9 +4,7 @@
 
 Input::Input(Game* const game) :
     m_game(game),
-    m_mousePosition(0, 0),
-    m_isBoxSelecting(false),
-    m_boxSelection(SDL_Rect{0, 0, 0, 0})
+    m_mousePosition(0, 0)
 {
 }
 
@@ -49,33 +47,16 @@ Vector2D Input::GetMousePosition() const
     return m_mousePosition;
 }
 
-bool Input::IsBoxSelecting() const
-{
-    return m_isBoxSelecting;
-}
-
-SDL_Rect Input::GetBoxSelection() const
-{
-    return m_boxSelection;
-}
-
 void Input::Update()
 {
     int x, y;
     SDL_GetMouseState(&x, &y);
     m_mousePosition = Vector2D(x, y);
 
-    for (int i = 0; i < MAX_KEYS; i++)
-    {
-        m_downKeys[i] = false;
-        m_upKeys[i] = false;
-    }
-
-    for (int i = 0; i < MAX_MOUSE_BUTTONS; i++)
-    {
-        m_downMouseButtons[i] = false;
-        m_upMouseButtons[i] = false;
-    }
+    m_downKeys.clear();
+    m_upKeys.clear();
+    m_downMouseButtons.clear();
+    m_upMouseButtons.clear();
 
     SDL_Event event;
     while (SDL_PollEvent(&event) != 0)
@@ -116,23 +97,4 @@ void Input::Update()
             m_game->Terminate();
         }
     }
-
-    if (GetMouseButton(SDL_BUTTON_LEFT))
-    {
-        if (!m_isBoxSelecting)
-        {
-            m_isBoxSelecting = true;
-
-            m_boxSelection.x = (int)m_mousePosition.x;
-            m_boxSelection.y = (int)m_mousePosition.y;
-        }
-        
-        m_boxSelection.w = (int)m_mousePosition.x - m_boxSelection.x;
-        m_boxSelection.h = (int)m_mousePosition.y - m_boxSelection.y;
-    }
-}
-
-void Input::EndBoxSelection()
-{
-    m_isBoxSelecting = false;
 }
