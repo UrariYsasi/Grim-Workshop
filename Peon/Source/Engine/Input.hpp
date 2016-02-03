@@ -26,12 +26,10 @@ class Input
         const static int MAX_MOUSE_BUTTONS = 5;
 
         Game* m_game;
-        std::map<int, bool> m_currentKeys;
-        std::map<int, bool> m_downKeys;
-        std::map<int, bool> m_upKeys;
-        std::map<int, bool> m_currentMouseButtons;
-        std::map<int, bool> m_downMouseButtons;
-        std::map<int, bool> m_upMouseButtons;
+        const Uint8* m_lastKeyboardState;
+        const Uint8* m_currentKeyboardState;
+        Uint32 m_lastMouseState;
+        Uint32 m_currentMouseState;
         Vector2D m_mousePosition;
         bool m_isBoxSelecting;
         SDL_Rect m_boxSelection;
