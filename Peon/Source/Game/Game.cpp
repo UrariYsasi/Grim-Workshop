@@ -266,7 +266,9 @@ void Game::Update(double deltaTime)
         Entity* ent = nullptr;
         for(std::list<Entity*>::const_iterator it = m_entities.begin(); it != m_entities.end(); it++)
         {
-            Rectangle mouseRect(m_input->GetMousePosition().x - 5, m_input->GetMousePosition().y - 5, 10, 10);
+            Vector2D mousePositionScreen = m_input->GetMousePosition();
+            Vector2D mousePositionWorld = m_mainCamera->ConvertToWorld(mousePositionScreen);
+            Rectangle mouseRect(mousePositionWorld.x - 5, mousePositionWorld.y - 5, 10, 10);
             if((*it)->IsCollidingWithRect(mouseRect))
             {
                 ent = (*it);
