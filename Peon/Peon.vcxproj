@@ -54,6 +54,7 @@
     <ClInclude Include="Source\Engine\Input.hpp" />
     <ClInclude Include="Source\Engine\Debug.hpp" />
     <ClInclude Include="Source\Engine\Random.hpp" />
+    <ClInclude Include="Source\Engine\Rectangle.hpp" />
     <ClInclude Include="Source\Engine\Renderer.hpp" />
     <ClInclude Include="Source\Engine\Timer.hpp" />
     <ClInclude Include="Source\Engine\Vector2D.hpp" />

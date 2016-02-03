@@ -194,6 +194,16 @@ inline bool Vector2D::operator!=(const Vector2D& other) const
     return (x != other.x || y != other.y);
 }
 
+inline void Vector2D::Rotate(const double& degrees)
+{
+    double radians = degrees * (M_PI / 180.0);
+    double newX = x * cos(radians) - y * sin(radians);
+    double newY = x * sin(radians) + y * cos(radians);
+
+    x = newX;
+    y = newY;
+}
+
 inline void Vector2D::Normalize()
 {
     double magnitude = Vector2D::Magnitude(*this);

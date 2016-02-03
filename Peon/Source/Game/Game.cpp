@@ -13,7 +13,9 @@
 
 Game::Game() :
     m_peonCount(0),
-    m_isRunning(false)
+    m_isRunning(false),
+    m_isBoxSelecting(false),
+    m_boxSelection(0, 0, 0, 0)
 {
 }
 
@@ -215,30 +217,46 @@ void Game::Update(double deltaTime)
     if(m_input->GetMouseButtonPress(SDL_BUTTON_LEFT))
     {
         m_selectedPeons.clear();
+
+        Vector2D mousePositionScreen = m_input->GetMousePosition();
+        Vector2D mousePositionWorld = m_mainCamera->ConvertToWorld(mousePositionScreen);
+        //Rectangle test(mousePositionWorld.x, mousePositionWorld.y, 32.0, 32.0);
+        //m_renderer->RenderRect(test);
+
+        m_isBoxSelecting = true;
+        m_boxSelection.x = mousePositionWorld.x;
+        m_boxSelection.y = mousePositionWorld.y;
+        Debug::Log("SCREEN %f, %f", mousePositionScreen.x, mousePositionScreen.y);
+        Debug::Log("WORLD %f, %f", mousePositionWorld.x, mousePositionWorld.y);
+    }
+
+    if (m_isBoxSelecting)
+    {
+        Vector2D mousePositionScreen = m_input->GetMousePosition();
+        Vector2D mousePositionWorld = m_mainCamera->ConvertToWorld(mousePositionScreen);
+        m_boxSelection.width = mousePositionWorld.x - m_boxSelection.x;
+        m_boxSelection.height = mousePositionWorld.y - m_boxSelection.y;
     }
 
     if(m_input->GetMouseButtonRelease(SDL_BUTTON_LEFT))
     {
-        // If we are currently box selecting
-        if (m_input->IsBoxSelecting())
+        //Debug::Log("Rectangle(%f, %f, %f, %f)", m_boxSelection.x, m_boxSelection.y, m_boxSelection.width, m_boxSelection.height);
+        if (m_isBoxSelecting)
         {
-            // Select all the peons that are within the selection box
-            for (std::list<Entity*>::const_iterator it = m_entities.begin(); it != m_entities.end(); it++)
+            for (auto it = m_entities.begin(); it != m_entities.end(); it++)
             {
                 Peon* peon = dynamic_cast<Peon*>(*it);
                 if (peon != nullptr)
                 {
-                    SDL_Rect selectionRect = m_input->GetBoxSelection();
-                    if (peon->IsCollidingWithRect(selectionRect))
+                    if (peon->IsCollidingWithRect(m_boxSelection))
                     {
                         m_selectedPeons.push_back(peon);
                     }
                 }
             }
-        }
 
-        // We can end the selection box now.
-        m_input->EndBoxSelection();
+            m_isBoxSelecting = false;
+        }
     }
 
     // Peon commanding with right click
@@ -248,7 +266,7 @@ void Game::Update(double deltaTime)
         Entity* ent = nullptr;
         for(std::list<Entity*>::const_iterator it = m_entities.begin(); it != m_entities.end(); it++)
         {
-            SDL_Rect mouseRect = { static_cast<int>(m_input->GetMousePosition().x) - 5,  static_cast<int>(m_input->GetMousePosition().y) - 5, 10, 10 };
+            Rectangle mouseRect(m_input->GetMousePosition().x - 5, m_input->GetMousePosition().y - 5, 10, 10);
             if((*it)->IsCollidingWithRect(mouseRect))
             {
                 ent = (*it);
@@ -296,14 +314,13 @@ void Game::Render()
         m_renderer->RenderTexture("selection", static_cast<int>((*it)->GetPosition().x), static_cast<int>((*it)->GetPosition().y), 32, 32);
     }
 
+    if (m_isBoxSelecting)
+    {
+        m_renderer->RenderRect(m_boxSelection);
+    }
+
     // Render GUI
     m_GUICamera->Activate();
-
-    if(m_input->IsBoxSelecting())
-    {
-        SDL_Rect selectionRect = m_input->GetBoxSelection();
-        m_renderer->RenderRect(selectionRect);
-    }
 
     // Debug stuff
     std::stringstream ss;
@@ -358,7 +375,8 @@ void Game::IssueCommand(Entity* ent)
         {
             // If we commanded them to empty space, they will just walk to the clicked position
             peon->ClearActions();
-            peon->PushAction(std::make_unique<MoveAction>(peon, m_input->GetMousePosition()));
+            Vector2D position = m_mainCamera->ConvertToWorld(m_input->GetMousePosition());
+            peon->PushAction(std::make_unique<MoveAction>(peon, position));
         }
     }
 }

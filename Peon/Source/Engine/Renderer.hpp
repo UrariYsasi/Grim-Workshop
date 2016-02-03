@@ -21,7 +21,7 @@ class Renderer
         void RenderTexture(const std::string& id, const int& x, const int& y, const int& width, const int& height);
         void RenderSprite(const std::string& id, const int& col, const int& row, const int& x, const int& y, const int& width, const int& height);
         void RenderText(const std::string& id, const int& x, const int& y, const std::string& text, const SDL_Color& color = { 0, 0, 0, 255 });
-        void RenderRect(const SDL_Rect& rect, const SDL_Color& color = { 0, 0, 0, 255 });
+        void RenderRect(const Rectangle& rect, const SDL_Color& color = { 0, 0, 0, 255 });
 
     private:
         Game* m_game;

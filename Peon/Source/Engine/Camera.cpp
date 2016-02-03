@@ -31,3 +31,13 @@ void Camera::Move(const Vector2D& movement)
 {
     m_position += movement;
 }
+
+Vector2D Camera::ConvertToWorld(const Vector2D& coord)
+{
+    return (coord + m_position);
+}
+
+Vector2D Camera::ConvertToScreen(const Vector2D& coord)
+{
+    return (coord - m_position);
+}

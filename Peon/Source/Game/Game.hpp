@@ -64,6 +64,10 @@ private:
     const static int MAP_SIZE = 100;
     std::list< std::unique_ptr<Tile> > m_terrain;
 
+    // Mouse selection
+    bool m_isBoxSelecting;
+    Rectangle m_boxSelection;
+
     // This is here TEMPORARILY for debug purposes
     int m_peonCount;
 };

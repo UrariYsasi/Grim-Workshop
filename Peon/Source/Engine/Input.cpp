@@ -4,9 +4,7 @@
 
 Input::Input(Game* const game) :
     m_game(game),
-    m_mousePosition(0, 0),
-    m_isBoxSelecting(false),
-    m_boxSelection(SDL_Rect{0, 0, 0, 0})
+    m_mousePosition(0, 0)
 {
 }
 
@@ -55,16 +53,6 @@ Vector2D Input::GetMousePosition() const
     return m_mousePosition;
 }
 
-bool Input::IsBoxSelecting() const
-{
-    return m_isBoxSelecting;
-}
-
-SDL_Rect Input::GetBoxSelection() const
-{
-    return m_boxSelection;
-}
-
 void Input::Update()
 {
     int x, y;
@@ -90,24 +78,4 @@ void Input::Update()
     {
         m_lastKeyboardState = m_currentKeyboardState;
     }
-
-    // If the left mouse button is down
-    if (GetMouseButton(SDL_BUTTON_LEFT))
-    {
-        if (!m_isBoxSelecting)
-        {
-            m_isBoxSelecting = true;
-
-            m_boxSelection.x = (int)m_mousePosition.x;
-            m_boxSelection.y = (int)m_mousePosition.y;
-        }
-        
-        m_boxSelection.w = (int)m_mousePosition.x - m_boxSelection.x;
-        m_boxSelection.h = (int)m_mousePosition.y - m_boxSelection.y;
-    }
-}
-
-void Input::EndBoxSelection()
-{
-    m_isBoxSelecting = false;
 }

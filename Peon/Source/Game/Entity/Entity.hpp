@@ -17,7 +17,7 @@ public:
     virtual void Update(double deltaTime) = 0;
     virtual void Render() = 0;
     void Delete();
-    bool IsCollidingWithRect(const SDL_Rect& rect) const;
+    bool IsCollidingWithRect(const Rectangle& rect) const;
 
 protected:
     const Vector2D SPRITE_SIZE; // TODO: Do something with this
