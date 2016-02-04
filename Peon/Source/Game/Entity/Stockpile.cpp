@@ -36,4 +36,16 @@ void Stockpile::Render()
     ss << "Stone: " << m_inventory.ItemCount(ItemType::STONE);
     renderer->RenderText("dos", (int)m_position.x, (int)m_position.y + 48, ss.str());
     ss.str(" ");
+
+    ss << "Coal: " << m_inventory.ItemCount(ItemType::COAL);
+    renderer->RenderText("dos", (int)m_position.x, (int)m_position.y + 64, ss.str());
+    ss.str(" ");
+
+    ss << "Iron Ore: " << m_inventory.ItemCount(ItemType::IRON_ORE);
+    renderer->RenderText("dos", (int)m_position.x, (int)m_position.y + 80, ss.str());
+    ss.str(" ");
+
+    ss << "Iron Bar: " << m_inventory.ItemCount(ItemType::IRON_BAR);
+    renderer->RenderText("dos", (int)m_position.x, (int)m_position.y + 96, ss.str());
+    ss.str(" ");
 }

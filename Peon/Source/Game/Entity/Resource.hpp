@@ -4,16 +4,14 @@
 class Resource : public Prop
 {
 public:
-    enum Type { NONE, TREE, ROCK };
-
-    Resource(Game* game, Vector2D position, Type type);
+    Resource(Game* game, Vector2D position, ItemType type);
     virtual ~Resource();
 
-    Type GetType() const;
+    ItemType GetType() const;
 
     virtual void Update(double deltaTime) = 0;
     virtual void Render() = 0;
 
 protected:
-    Type m_type;
+    ItemType m_type;
 };

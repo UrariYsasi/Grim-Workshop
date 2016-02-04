@@ -6,6 +6,7 @@
 #include "../Engine/Camera.hpp"
 #include "Entity/Peon.hpp"
 #include "Entity/Tree.hpp"
+#include "Entity/Rock.hpp"
 #include "Entity/Stockpile.hpp"
 #include "Entity/Action/MoveAction.hpp"
 #include "Entity/Action/GatherAction.hpp"
@@ -430,6 +431,9 @@ void Game::IssueCommand(Entity* ent)
     }
 }
 
+/*
+    Generate the terrain and then place resources on it.
+*/
 void Game::GenerateMap()
 {
     // Generate terrain
@@ -443,14 +447,20 @@ void Game::GenerateMap()
     }
 
     // Generate props
-    Tree* tree = new Tree(this, Vector2D(200, 200));
-    m_entities.push_back(tree);
+    for (int i = 0; i < 10; i++)
+    {
+        Vector2D position(Random::Generate(-400, 1000), Random::Generate(-200, 800));
+        Tree* tree = new Tree(this, position);
+        m_entities.push_back(tree);
+    }
 
-    Tree* tree2 = new Tree(this, Vector2D(400, 150));
-    m_entities.push_back(tree2);
+    for (int i = 0; i < 5; i++)
+    {
+        Vector2D position(Random::Generate(-400, 1000), Random::Generate(-200, 800));
+        Rock* rock = new Rock(this, position);
+        m_entities.push_back(rock);
+    }
 
-    Tree* tree3 = new Tree(this, Vector2D(300, 400));
-    m_entities.push_back(tree3);
 
     Stockpile* stockpile = new Stockpile(this, Vector2D(304, 224));
     m_entities.push_back(stockpile);

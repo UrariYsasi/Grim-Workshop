@@ -39,9 +39,12 @@ void GatherAction::Update(double deltaTime)
             if (m_timer.GetTime() > m_gatherTime)
             {
                 m_timer.Stop();
-                m_owner->GetGame()->PlaySound("woodcutting_00");
-                m_owner->GetInventory()->AddItem(ItemType::WOOD, 3);
-                m_owner->PushAction(std::make_unique<DumpAction>(m_owner));
+
+                ItemType itemType = m_target->GetType();
+
+                m_owner->GetGame()->PlaySound("woodcutting_00"); // TODO different sounds
+                m_owner->GetInventory()->AddItem(itemType, (int)Random::Generate(1, 5));
+                m_owner->PushAction(std::make_unique<DumpAction>(m_owner, itemType));
             }
         }
     }
