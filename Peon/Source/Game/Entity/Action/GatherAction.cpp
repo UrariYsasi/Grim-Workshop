@@ -6,7 +6,6 @@
 #include "../Monster.hpp"
 #include "../Resource.hpp"
 #include "../../Item/Inventory.hpp"
-#include "../../Item/Item.hpp"
 
 GatherAction::GatherAction(Monster* owner, Resource* target) :
     Action(owner, "Gather"),
@@ -40,11 +39,9 @@ void GatherAction::Update(double deltaTime)
             {
                 m_timer.Stop();
 
-                ItemType itemType = m_target->GetType();
-
                 m_owner->GetGame()->PlaySound("woodcutting_00"); // TODO different sounds
-                m_owner->GetInventory()->AddItem(itemType, (int)Random::Generate(1, 5));
-                m_owner->PushAction(std::make_unique<DumpAction>(m_owner, itemType));
+                m_owner->GetInventory()->GiveItem(ItemType::WOOD, (int)Random::Generate(1, 5));
+                m_owner->PushAction(std::make_unique<DumpAction>(m_owner));
             }
         }
     }

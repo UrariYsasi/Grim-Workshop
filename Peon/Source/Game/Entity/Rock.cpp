@@ -4,7 +4,7 @@
 #include "../../Engine/Renderer.hpp"
 
 Rock::Rock(Game* game, Vector2D position) :
-    Resource(game, position, ItemType::STONE)
+    Resource(game, position)
 {
 }
 

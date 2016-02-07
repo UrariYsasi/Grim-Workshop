@@ -1,17 +1,14 @@
 #pragma once
 #include "Prop.hpp"
 
+class Monster;
+
 class Resource : public Prop
 {
 public:
-    Resource(Game* game, Vector2D position, ItemType type);
+    Resource(Game* game, Vector2D position);
     virtual ~Resource();
-
-    ItemType GetType() const;
 
     virtual void Update(double deltaTime) = 0;
     virtual void Render() = 0;
-
-protected:
-    ItemType m_type;
 };

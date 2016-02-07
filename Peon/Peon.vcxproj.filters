@@ -81,9 +81,6 @@
     <ClCompile Include="Source\Game\Item\Inventory.cpp">
       <Filter>Source\Game\Item</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\Item\Item.cpp">
-      <Filter>Source\Game\Item</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Engine\Debug.cpp">
       <Filter>Source\Engine</Filter>
     </ClCompile>
@@ -164,12 +161,6 @@
     <ClInclude Include="Source\Game\Item\Inventory.hpp">
       <Filter>Source\Game\Item</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\Item\Item.hpp">
-      <Filter>Source\Game\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Item\ItemType.hpp">
-      <Filter>Source\Game\Item</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Engine\Debug.hpp">
       <Filter>Source\Engine</Filter>
     </ClInclude>
@@ -190,6 +181,9 @@
     </ClInclude>
     <ClInclude Include="Source\Engine\Rectangle.hpp">
       <Filter>Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Item\ItemType.hpp">
+      <Filter>Source\Game\Item</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

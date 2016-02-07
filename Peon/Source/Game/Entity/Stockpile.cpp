@@ -1,7 +1,6 @@
 #include "PCH.hpp"
 #include "Stockpile.hpp"
 #include "../Game.hpp"
-#include "../Item/Item.hpp"
 #include "../../Engine/Renderer.hpp"
 
 Stockpile::Stockpile(Game* game, Vector2D position) :
@@ -29,23 +28,23 @@ void Stockpile::Render()
 
     // Debug stuff
     std::stringstream ss;
-    ss << "Wood: " << m_inventory.ItemCount(ItemType::WOOD);
+    ss << "Wood: " << m_inventory.CountItem(ItemType::WOOD);
     renderer->RenderText("dos", (int)m_position.x, (int)m_position.y + 32, ss.str());
     ss.str(" ");
 
-    ss << "Stone: " << m_inventory.ItemCount(ItemType::STONE);
+    ss << "Stone: " << m_inventory.CountItem(ItemType::STONE);
     renderer->RenderText("dos", (int)m_position.x, (int)m_position.y + 48, ss.str());
     ss.str(" ");
 
-    ss << "Coal: " << m_inventory.ItemCount(ItemType::COAL);
+    ss << "Coal: " << m_inventory.CountItem(ItemType::COAL);
     renderer->RenderText("dos", (int)m_position.x, (int)m_position.y + 64, ss.str());
     ss.str(" ");
 
-    ss << "Iron Ore: " << m_inventory.ItemCount(ItemType::IRON_ORE);
+    ss << "Iron Ore: " << m_inventory.CountItem(ItemType::IRON_ORE);
     renderer->RenderText("dos", (int)m_position.x, (int)m_position.y + 80, ss.str());
     ss.str(" ");
 
-    ss << "Iron Bar: " << m_inventory.ItemCount(ItemType::IRON_BAR);
+    ss << "Iron Bar: " << m_inventory.CountItem(ItemType::IRON_BAR);
     renderer->RenderText("dos", (int)m_position.x, (int)m_position.y + 96, ss.str());
     ss.str(" ");
 }

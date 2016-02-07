@@ -8,10 +8,10 @@ public:
     Inventory();
     ~Inventory();
 
-    void AddItem(const ItemType& type, const int& quantity = 1);
-    void RemoveItem(const ItemType& type, const int& quantity = 1);
-    int ItemCount(const ItemType& type);
+    void GiveItem(ItemType type, const int& quantity = 1);
+    bool RemoveItem(ItemType type, const int& quantity = 1);
+    int CountItem(ItemType type);
 
 private:
-    std::list< std::unique_ptr<Item> > m_items;
+    std::map<ItemType, int> m_items;
 };

@@ -41,7 +41,6 @@
     <ClCompile Include="Source\Game\Entity\Tree.cpp" />
     <ClCompile Include="Source\Game\Game.cpp" />
     <ClCompile Include="Source\Game\Item\Inventory.cpp" />
-    <ClCompile Include="Source\Game\Item\Item.cpp" />
     <ClCompile Include="Source\Game\Terrain\GrassTile.cpp" />
     <ClCompile Include="Source\Game\Terrain\Tile.cpp" />
     <ClCompile Include="Source\Main.cpp">
@@ -74,7 +73,6 @@
     <ClInclude Include="Source\Game\Entity\Tree.hpp" />
     <ClInclude Include="Source\Game\Game.hpp" />
     <ClInclude Include="Source\Game\Item\Inventory.hpp" />
-    <ClInclude Include="Source\Game\Item\Item.hpp" />
     <ClInclude Include="Source\Game\Item\ItemType.hpp" />
     <ClInclude Include="Source\Game\Terrain\GrassTile.hpp" />
     <ClInclude Include="Source\Game\Terrain\Tile.hpp" />

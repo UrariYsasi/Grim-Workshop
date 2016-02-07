@@ -4,7 +4,7 @@
 #include "../../Engine/Renderer.hpp"
 
 Tree::Tree(Game* game, Vector2D position) :
-    Resource(game, position, ItemType::WOOD)
+    Resource(game, position)
 {
 }
 

@@ -3,13 +3,11 @@
 #include "../Monster.hpp"
 #include "../../Game.hpp"
 #include "MoveAction.hpp"
-#include "../../Item/Item.hpp"
 #include "../../Item/Inventory.hpp"
 #include "../Stockpile.hpp"
 
-DumpAction::DumpAction(Monster* owner, const ItemType& dumpType) :
-    Action(owner, "Dump"),
-    m_dumpType(dumpType)
+DumpAction::DumpAction(Monster* owner) :
+    Action(owner, "Dump")
 {
 }
 
@@ -40,9 +38,11 @@ void DumpAction::Update(double deltaTime)
         if (distance <= MIN_DUMP_DISTANCE)
         {
             // Add resources to the stockpile
-            int resourceCount = m_owner->GetInventory()->ItemCount(m_dumpType);
-            m_owner->GetInventory()->RemoveItem(m_dumpType, resourceCount);
-            m_target->GetInventory()->AddItem(m_dumpType, resourceCount);
+            int count = m_owner->GetInventory()->CountItem(ItemType::WOOD);
+            if (m_owner->GetInventory()->RemoveItem(ItemType::WOOD, count))
+            {
+                m_target->GetInventory()->GiveItem(ItemType::WOOD, count);
+            }
 
             // Complete the action
             Complete();
