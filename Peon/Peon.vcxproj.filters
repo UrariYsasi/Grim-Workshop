@@ -99,6 +99,9 @@
     <ClCompile Include="Source\Game\Entity\Action\DepositAction.cpp">
       <Filter>Source\Game\Entity\Action</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\Entity\Action\WithdrawAction.cpp">
+      <Filter>Source\Game\Entity\Action</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\PCH.hpp">
@@ -183,6 +186,9 @@
       <Filter>Source\Game\Item</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\Entity\Action\DepositAction.hpp">
+      <Filter>Source\Game\Entity\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Entity\Action\WithdrawAction.hpp">
       <Filter>Source\Game\Entity\Action</Filter>
     </ClInclude>
   </ItemGroup>

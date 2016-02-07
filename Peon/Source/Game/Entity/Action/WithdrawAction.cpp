@@ -1,22 +1,23 @@
 #include "PCH.hpp"
-#include "DepositAction.hpp"
+#include "WithdrawAction.hpp"
 #include "../Monster.hpp"
 #include "../../Game.hpp"
 #include "MoveAction.hpp"
 #include "../../Item/Inventory.hpp"
 #include "../Stockpile.hpp"
 
-DepositAction::DepositAction(Monster* owner, ItemType dumpItem) :
-    Action(owner, "Deposit"),
-    m_dumpItem(dumpItem)
+WithdrawAction::WithdrawAction(Monster* owner, ItemType withdrawItem, const int& quantity) :
+    Action(owner, "Withdraw"),
+    m_quantity(quantity),
+    m_withdrawItem(withdrawItem)
 {
 }
 
-DepositAction::~DepositAction()
+WithdrawAction::~WithdrawAction()
 {
 }
 
-void DepositAction::Update(double deltaTime)
+void WithdrawAction::Update(double deltaTime)
 {
     // If we don't have a target stockpile, find one
     if (m_target == nullptr)
@@ -36,13 +37,11 @@ void DepositAction::Update(double deltaTime)
         Vector2D monsterCenter = m_owner->GetPositionCenter();
         double distance = Vector2D::Distance(monsterCenter, targetCenter);
 
-        if (distance <= MIN_DUMP_DISTANCE)
+        if (distance <= MIN_DISTANCE)
         {
-            // Add resources to the stockpile
-            int count = m_owner->GetInventory()->CountItem(m_dumpItem);
-            if (m_owner->GetInventory()->RemoveItem(m_dumpItem, count))
+            if (m_target->GetInventory()->RemoveItem(m_withdrawItem, m_quantity))
             {
-                m_target->GetInventory()->GiveItem(m_dumpItem, count);
+                m_owner->GetInventory()->GiveItem(m_withdrawItem, m_quantity);
             }
 
             // Complete the action
@@ -50,7 +49,7 @@ void DepositAction::Update(double deltaTime)
         }
         else
         {
-            // We aren't close enough. Move to the resource.
+            // We aren't close enough. Move to the stockpile.
             m_owner->PushAction(std::make_unique<MoveAction>(m_owner, m_target->GetPosition()));
         }
     }

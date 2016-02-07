@@ -31,6 +31,7 @@
     <ClCompile Include="Source\Game\Entity\Action\GatherAction.cpp" />
     <ClCompile Include="Source\Game\Entity\Action\IdleAction.cpp" />
     <ClCompile Include="Source\Game\Entity\Action\MoveAction.cpp" />
+    <ClCompile Include="Source\Game\Entity\Action\WithdrawAction.cpp" />
     <ClCompile Include="Source\Game\Entity\Entity.cpp" />
     <ClCompile Include="Source\Game\Entity\Monster.cpp" />
     <ClCompile Include="Source\Game\Entity\Peon.cpp" />
@@ -63,6 +64,7 @@
     <ClInclude Include="Source\Game\Entity\Action\GatherAction.hpp" />
     <ClInclude Include="Source\Game\Entity\Action\IdleAction.hpp" />
     <ClInclude Include="Source\Game\Entity\Action\MoveAction.hpp" />
+    <ClInclude Include="Source\Game\Entity\Action\WithdrawAction.hpp" />
     <ClInclude Include="Source\Game\Entity\Entity.hpp" />
     <ClInclude Include="Source\Game\Entity\Monster.hpp" />
     <ClInclude Include="Source\Game\Entity\Peon.hpp" />
