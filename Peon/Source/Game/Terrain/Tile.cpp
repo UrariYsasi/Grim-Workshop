@@ -30,4 +30,12 @@ void Tile::Render()
 {
     Renderer* renderer = m_game->GetRenderer();
     renderer->RenderSprite(m_spritesheet, m_spriteColumn, m_spriteRow, (int)m_position.x, (int)m_position.y, TILE_SIZE, TILE_SIZE);
+
+    /*
+    if (Debug::IsEnabled())
+    {
+        Rectangle outline((int)m_position.x, (int)m_position.y, TILE_SIZE, TILE_SIZE);
+        renderer->RenderOutlineRect(outline, SDL_Color{ 0, 0, 0, 64 });
+    }
+    */
 }

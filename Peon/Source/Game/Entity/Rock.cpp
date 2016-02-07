@@ -15,18 +15,15 @@ Rock::~Rock()
 ItemType Rock::GetItem() const
 {
     int rand = (int)Random::Generate(0.0, 100.0);
-    if (rand > 90)
+    if (rand > 95)
     {
-        Debug::Log("iron ore");
         return ItemType::IRON_ORE;
     }
-    else if (rand > 70)
+    else if (rand > 80)
     {
-        Debug::Log("coal");
         return ItemType::COAL;
     }
 
-    Debug::Log("stone");
     return m_item;
 }
 

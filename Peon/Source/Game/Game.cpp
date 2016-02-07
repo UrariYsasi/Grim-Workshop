@@ -100,13 +100,16 @@ int Game::Initialize()
 
     m_renderer = std::make_unique<Renderer>(this, m_window.get());
     m_input = std::make_unique<Input>(this);
-    m_mainCamera = std::make_unique<Camera>(m_renderer.get(), Vector2D(0, 0));
+    m_mainCamera = std::make_unique<Camera>(m_renderer.get(), Vector2D(-512, -384));
     m_GUICamera = std::make_unique<Camera>(m_renderer.get(), Vector2D(0, 0));
 
     // Load Textures
     LoadTexture("Resources/Textures/peon.png", "peon");
     LoadTexture("Resources/Textures/resource.png", "resource");
     LoadTexture("Resources/Textures/terrain.png", "terrain");
+    LoadTexture("Resources/Textures/structure.png", "structure");
+
+    // legacy textures
     LoadTexture("Resources/Textures/man.png", "man");
     LoadTexture("Resources/Textures/man_2.png", "man2");
     LoadTexture("Resources/Textures/man_3.png", "man3");
@@ -228,7 +231,7 @@ void Game::Update(double deltaTime)
         cameraMovement += Vector2D(1, 0);
     }
 
-    cameraMovement *= 512;
+    cameraMovement *= 1024;
     cameraMovement *= deltaTime;
 
     m_mainCamera->Move(cameraMovement);
@@ -339,13 +342,26 @@ void Game::Render()
     // Render GUI
     m_GUICamera->Activate();
 
+    Rectangle bottomBar(0, m_window->GetSize().y - 16, m_window->GetSize().x, 16);
+    m_renderer->RenderFillRect(bottomBar, SDL_Color{ 128, 128, 128, 128 });
+
+    Inventory* stock = FindStockpile()->GetInventory();
+
+    std::stringstream ss;
+    ss << "Wood: " << stock->CountItem(ItemType::WOOD) << "         ";
+    ss << "Stone: " << stock->CountItem(ItemType::STONE) << "         ";
+    ss << "Coal: " << stock->CountItem(ItemType::COAL) << "         ";
+    ss << "Iron Ore: " << stock->CountItem(ItemType::IRON_ORE) << "         ";
+    ss << "Iron Bar: " << stock->CountItem(ItemType::IRON_BAR) << "         ";
+    m_renderer->RenderText("dos", 5, (int)m_window->GetSize().y - 16, ss.str());
+    ss.str(" ");
+
+    // Debug stuff
     if (Debug::IsEnabled())
     {
-        // Debug stuff
         Rectangle container(5, 5, 340, 125);
         m_renderer->RenderFillRect(container, SDL_Color{ 128, 128, 128, 128 });
 
-        std::stringstream ss;
         ss << "Framerate: " << (int)m_frameRate;
         m_renderer->RenderText("dos", 10, 10, ss.str());
         ss.str(" ");
@@ -432,7 +448,7 @@ void Game::IssueCommand(Entity* ent)
 }
 
 /*
-    Generate the terrain and then place resources on it.
+    Generate the terrain and the props on top of it.
 */
 void Game::GenerateMap()
 {
@@ -447,22 +463,21 @@ void Game::GenerateMap()
     }
 
     // Generate props
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 20; i++)
     {
-        Vector2D position(Random::Generate(-400, 1000), Random::Generate(-200, 800));
-        Tree* tree = new Tree(this, position);
+        Vector2D position((int)Random::Generate(-(MAP_SIZE / 2), (MAP_SIZE / 2)), (int)Random::Generate(-(MAP_SIZE / 2), (MAP_SIZE / 2)));
+        Tree* tree = new Tree(this, position * 32);
         m_entities.push_back(tree);
     }
 
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 10; i++)
     {
-        Vector2D position(Random::Generate(-400, 1000), Random::Generate(-200, 800));
-        Rock* rock = new Rock(this, position);
+        Vector2D position((int)Random::Generate(-(MAP_SIZE / 2), (MAP_SIZE / 2)), (int)Random::Generate(-(MAP_SIZE / 2), (MAP_SIZE / 2)));
+        Rock* rock = new Rock(this, position * 32);
         m_entities.push_back(rock);
     }
 
-
-    Stockpile* stockpile = new Stockpile(this, Vector2D(304, 224));
+    Stockpile* stockpile = new Stockpile(this, Vector2D(0, 0));
     m_entities.push_back(stockpile);
 }
 

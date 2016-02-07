@@ -24,5 +24,5 @@ void Tree::Update(double deltaTime)
 void Tree::Render()
 {
     Renderer* renderer = m_game->GetRenderer();
-    renderer->RenderSprite("resource", 0, 0, (int)m_position.x, (int)m_position.y, (int)SPRITE_SIZE.x * 2, (int)SPRITE_SIZE.y * 2);
+    renderer->RenderSprite("resource", 0, 0, (int)m_position.x, (int)m_position.y, (int)SPRITE_SIZE.x, (int)SPRITE_SIZE.y);
 }

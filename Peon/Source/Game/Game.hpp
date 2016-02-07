@@ -61,7 +61,7 @@ private:
     std::list<Peon*> m_selectedPeons;
 
     // Terrain
-    const static int MAP_SIZE = 100;
+    const static int MAP_SIZE = 40;
     std::list< std::unique_ptr<Tile> > m_terrain;
 
     // Mouse selection
