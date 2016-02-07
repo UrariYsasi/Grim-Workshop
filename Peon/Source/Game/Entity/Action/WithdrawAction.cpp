@@ -43,6 +43,11 @@ void WithdrawAction::Update(double deltaTime)
             {
                 m_owner->GetInventory()->GiveItem(m_withdrawItem, m_quantity);
             }
+            else
+            {
+                // There wasn't any of the item to take.
+                m_owner->ClearActions();
+            }
 
             // Complete the action
             Complete();
@@ -51,6 +56,7 @@ void WithdrawAction::Update(double deltaTime)
         {
             // We aren't close enough. Move to the stockpile.
             m_owner->PushAction(std::make_unique<MoveAction>(m_owner, m_target->GetPosition()));
+            return;
         }
     }
 }

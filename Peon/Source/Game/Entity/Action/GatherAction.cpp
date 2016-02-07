@@ -42,7 +42,7 @@ void GatherAction::Update(double deltaTime)
                 m_owner->GetGame()->PlaySound("woodcutting_00"); // TODO different sounds
                 ItemType item = m_target->GetItem();
                 m_owner->GetInventory()->GiveItem(item, (int)Random::Generate(1, 5));
-                m_owner->PushAction(std::make_unique<DepositAction>(m_owner, item));
+                m_owner->PushAction(std::make_unique<DepositAction>(m_owner, item, -1));
             }
         }
     }

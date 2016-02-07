@@ -8,8 +8,10 @@
 #include "Entity/Tree.hpp"
 #include "Entity/Rock.hpp"
 #include "Entity/Stockpile.hpp"
+#include "Entity/Forge.hpp"
 #include "Entity/Action/MoveAction.hpp"
 #include "Entity/Action/GatherAction.hpp"
+#include "Entity/Action/SmeltAction.hpp"
 #include "Terrain/GrassTile.hpp"
 
 Game::Game() :
@@ -435,6 +437,13 @@ void Game::IssueCommand(Entity* ent)
                 peon->ClearActions();
                 peon->PushAction(std::make_unique<GatherAction>(peon, resource));
             }
+
+            Forge* forge = dynamic_cast<Forge*>(ent);
+            if (forge != nullptr)
+            {
+                peon->ClearActions();
+                peon->PushAction(std::make_unique<SmeltAction>(peon, forge));
+            }
         }
         else
         {
@@ -478,6 +487,9 @@ void Game::GenerateMap()
 
     Stockpile* stockpile = new Stockpile(this, Vector2D(0, 0));
     m_entities.push_back(stockpile);
+
+    Forge* forge = new Forge(this, Vector2D(128, 0));
+    m_entities.push_back(forge);
 }
 
 /*

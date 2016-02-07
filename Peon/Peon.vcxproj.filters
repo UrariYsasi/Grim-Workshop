@@ -102,6 +102,12 @@
     <ClCompile Include="Source\Game\Entity\Action\WithdrawAction.cpp">
       <Filter>Source\Game\Entity\Action</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\Entity\Action\SmeltAction.cpp">
+      <Filter>Source\Game\Entity\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Entity\Forge.cpp">
+      <Filter>Source\Game\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\PCH.hpp">
@@ -190,6 +196,12 @@
     </ClInclude>
     <ClInclude Include="Source\Game\Entity\Action\WithdrawAction.hpp">
       <Filter>Source\Game\Entity\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Entity\Action\SmeltAction.hpp">
+      <Filter>Source\Game\Entity\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Entity\Forge.hpp">
+      <Filter>Source\Game\Entity</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

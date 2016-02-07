@@ -6,8 +6,9 @@
 #include "../../Item/Inventory.hpp"
 #include "../Stockpile.hpp"
 
-DepositAction::DepositAction(Monster* owner, ItemType dumpItem) :
+DepositAction::DepositAction(Monster* owner, ItemType dumpItem, const int& quantity) :
     Action(owner, "Deposit"),
+    m_quantity(quantity),
     m_dumpItem(dumpItem)
 {
 }
@@ -36,10 +37,20 @@ void DepositAction::Update(double deltaTime)
         Vector2D monsterCenter = m_owner->GetPositionCenter();
         double distance = Vector2D::Distance(monsterCenter, targetCenter);
 
-        if (distance <= MIN_DUMP_DISTANCE)
+        if (distance <= MIN_DISTANCE)
         {
+            // If we gave a negative quantity, that means to deposit all of that item
+            int count;
+            if (m_quantity < 0)
+            {
+                count = m_owner->GetInventory()->CountItem(m_dumpItem);
+            }
+            else
+            {
+                count = m_quantity;
+            }
+
             // Add resources to the stockpile
-            int count = m_owner->GetInventory()->CountItem(m_dumpItem);
             if (m_owner->GetInventory()->RemoveItem(m_dumpItem, count))
             {
                 m_target->GetInventory()->GiveItem(m_dumpItem, count);
