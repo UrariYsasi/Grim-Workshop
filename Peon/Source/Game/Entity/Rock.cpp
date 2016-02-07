@@ -4,12 +4,30 @@
 #include "../../Engine/Renderer.hpp"
 
 Rock::Rock(Game* game, Vector2D position) :
-    Resource(game, position)
+    Resource(game, position, ItemType::STONE)
 {
 }
 
 Rock::~Rock()
 {
+}
+
+ItemType Rock::GetItem() const
+{
+    int rand = (int)Random::Generate(0.0, 100.0);
+    if (rand > 90)
+    {
+        Debug::Log("iron ore");
+        return ItemType::IRON_ORE;
+    }
+    else if (rand > 70)
+    {
+        Debug::Log("coal");
+        return ItemType::COAL;
+    }
+
+    Debug::Log("stone");
+    return m_item;
 }
 
 void Rock::Update(double deltaTime)

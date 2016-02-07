@@ -4,12 +4,17 @@
 #include "../../Engine/Renderer.hpp"
 
 Tree::Tree(Game* game, Vector2D position) :
-    Resource(game, position)
+    Resource(game, position, ItemType::WOOD)
 {
 }
 
 Tree::~Tree()
 {
+}
+
+ItemType Tree::GetItem() const
+{
+    return m_item;
 }
 
 void Tree::Update(double deltaTime)

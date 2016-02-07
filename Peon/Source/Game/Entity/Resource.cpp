@@ -2,8 +2,9 @@
 #include "Resource.hpp"
 #include "Monster.hpp"
 
-Resource::Resource(Game* game, Vector2D position) :
-    Prop(game, position)
+Resource::Resource(Game* game, Vector2D position, ItemType item) :
+    Prop(game, position),
+    m_item(item)
 {
 }
 

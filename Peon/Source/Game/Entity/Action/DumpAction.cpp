@@ -6,8 +6,9 @@
 #include "../../Item/Inventory.hpp"
 #include "../Stockpile.hpp"
 
-DumpAction::DumpAction(Monster* owner) :
-    Action(owner, "Dump")
+DumpAction::DumpAction(Monster* owner, ItemType dumpItem) :
+    Action(owner, "Dump"),
+    m_dumpItem(dumpItem)
 {
 }
 
@@ -38,10 +39,10 @@ void DumpAction::Update(double deltaTime)
         if (distance <= MIN_DUMP_DISTANCE)
         {
             // Add resources to the stockpile
-            int count = m_owner->GetInventory()->CountItem(ItemType::WOOD);
-            if (m_owner->GetInventory()->RemoveItem(ItemType::WOOD, count))
+            int count = m_owner->GetInventory()->CountItem(m_dumpItem);
+            if (m_owner->GetInventory()->RemoveItem(m_dumpItem, count))
             {
-                m_target->GetInventory()->GiveItem(ItemType::WOOD, count);
+                m_target->GetInventory()->GiveItem(m_dumpItem, count);
             }
 
             // Complete the action
