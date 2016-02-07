@@ -344,7 +344,6 @@ void Game::Render()
 
     Rectangle bottomBar(0, m_window->GetSize().y - 16, m_window->GetSize().x, 16);
     m_renderer->RenderFillRect(bottomBar, SDL_Color{ 128, 128, 128, 128 });
-
     Inventory* stock = FindStockpile()->GetInventory();
 
     std::stringstream ss;

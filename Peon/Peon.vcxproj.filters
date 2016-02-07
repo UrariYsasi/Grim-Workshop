@@ -75,9 +75,6 @@
     <ClCompile Include="Source\Game\Entity\Action\GatherAction.cpp">
       <Filter>Source\Game\Entity\Action</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\Entity\Action\DumpAction.cpp">
-      <Filter>Source\Game\Entity\Action</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Game\Item\Inventory.cpp">
       <Filter>Source\Game\Item</Filter>
     </ClCompile>
@@ -98,6 +95,9 @@
     </ClCompile>
     <ClCompile Include="Source\Engine\Camera.cpp">
       <Filter>Source\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Entity\Action\DepositAction.cpp">
+      <Filter>Source\Game\Entity\Action</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,9 +155,6 @@
     <ClInclude Include="Source\Game\Entity\Action\GatherAction.hpp">
       <Filter>Source\Game\Entity\Action</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\Entity\Action\DumpAction.hpp">
-      <Filter>Source\Game\Entity\Action</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Game\Item\Inventory.hpp">
       <Filter>Source\Game\Item</Filter>
     </ClInclude>
@@ -184,6 +181,9 @@
     </ClInclude>
     <ClInclude Include="Source\Game\Item\ItemType.hpp">
       <Filter>Source\Game\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Entity\Action\DepositAction.hpp">
+      <Filter>Source\Game\Entity\Action</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

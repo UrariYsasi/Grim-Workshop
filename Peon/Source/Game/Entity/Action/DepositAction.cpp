@@ -1,22 +1,22 @@
 #include "PCH.hpp"
-#include "DumpAction.hpp"
+#include "DepositAction.hpp"
 #include "../Monster.hpp"
 #include "../../Game.hpp"
 #include "MoveAction.hpp"
 #include "../../Item/Inventory.hpp"
 #include "../Stockpile.hpp"
 
-DumpAction::DumpAction(Monster* owner, ItemType dumpItem) :
+DepositAction::DepositAction(Monster* owner, ItemType dumpItem) :
     Action(owner, "Dump"),
     m_dumpItem(dumpItem)
 {
 }
 
-DumpAction::~DumpAction()
+DepositAction::~DepositAction()
 {
 }
 
-void DumpAction::Update(double deltaTime)
+void DepositAction::Update(double deltaTime)
 {
     // If we don't have a target stockpile, find one
     if (m_target == nullptr)

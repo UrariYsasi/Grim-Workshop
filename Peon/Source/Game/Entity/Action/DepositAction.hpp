@@ -3,11 +3,11 @@
 
 class Stockpile;
 
-class DumpAction : public Action
+class DepositAction : public Action
 {
 public:
-    DumpAction(Monster* owner, ItemType dumpItem);
-    virtual ~DumpAction();
+    DepositAction(Monster* owner, ItemType dumpItem);
+    virtual ~DepositAction();
 
     virtual void Update(double deltaTime);
 

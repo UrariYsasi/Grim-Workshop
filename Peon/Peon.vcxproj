@@ -27,7 +27,7 @@
     <ClCompile Include="Source\Engine\Timer.cpp" />
     <ClCompile Include="Source\Engine\Window.cpp" />
     <ClCompile Include="Source\Game\Entity\Action\Action.cpp" />
-    <ClCompile Include="Source\Game\Entity\Action\DumpAction.cpp" />
+    <ClCompile Include="Source\Game\Entity\Action\DepositAction.cpp" />
     <ClCompile Include="Source\Game\Entity\Action\GatherAction.cpp" />
     <ClCompile Include="Source\Game\Entity\Action\IdleAction.cpp" />
     <ClCompile Include="Source\Game\Entity\Action\MoveAction.cpp" />
@@ -59,7 +59,7 @@
     <ClInclude Include="Source\Engine\Vector2D.hpp" />
     <ClInclude Include="Source\Engine\Window.hpp" />
     <ClInclude Include="Source\Game\Entity\Action\Action.hpp" />
-    <ClInclude Include="Source\Game\Entity\Action\DumpAction.hpp" />
+    <ClInclude Include="Source\Game\Entity\Action\DepositAction.hpp" />
     <ClInclude Include="Source\Game\Entity\Action\GatherAction.hpp" />
     <ClInclude Include="Source\Game\Entity\Action\IdleAction.hpp" />
     <ClInclude Include="Source\Game\Entity\Action\MoveAction.hpp" />
