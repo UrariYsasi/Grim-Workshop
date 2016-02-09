@@ -4,8 +4,10 @@
 Entity::Entity(Game* game, Vector2D position) :
     m_game(game),
     m_position(position),
+    m_positionOffset(0, 0),
     m_isDeleted(false),
-    SPRITE_SIZE(Vector2D(32, 32))
+    m_hitBox(0, 0, 32, 32),
+    SPRITE_SIZE(32, 32)
 {
 }
 
@@ -23,6 +25,11 @@ Vector2D Entity::GetPosition() const
     return m_position;
 }
 
+Vector2D Entity::GetPositionOffset() const
+{
+    return m_positionOffset;
+}
+
 Vector2D Entity::GetPositionCenter() const
 {
     return m_position + Vector2D(16, 16);
@@ -33,9 +40,19 @@ void Entity::SetPosition(const Vector2D& position)
     m_position = position;
 }
 
+void Entity::SetPositionOffset(const Vector2D& positionOffset)
+{
+    m_positionOffset = positionOffset;
+}
+
 bool Entity::IsDeleted() const
 {
     return m_isDeleted;
+}
+
+Rectangle Entity::GetHitBox() const
+{
+    return Rectangle(m_position.x + m_hitBox.x, m_position.y + m_hitBox.y, m_hitBox.width, m_hitBox.height);
 }
 
 /*

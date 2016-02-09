@@ -14,6 +14,7 @@ public:
 
     virtual void Update(double deltaTime);
     virtual void Render() = 0;
+
     void PushAction(std::unique_ptr<Action> action);
     void ClearActions();
 

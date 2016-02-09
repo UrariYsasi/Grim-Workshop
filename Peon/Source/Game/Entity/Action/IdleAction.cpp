@@ -27,8 +27,8 @@ void IdleAction::Update(double deltaTime)
         {
             m_timer.Stop();
 
-            double randX = Random::Generate(-64, 64);;
-            double randY = Random::Generate(-64, 64);;
+            double randX = Random::Generate(-32, 32);
+            double randY = Random::Generate(-32, 32);
             Vector2D wanderDestination = m_owner->GetPosition() + Vector2D(randX, randY);
 
             m_owner->PushAction(std::make_unique<MoveAction>(m_owner, wanderDestination));

@@ -192,12 +192,6 @@ void Game::Update(double deltaTime)
 {
     CleanEntities();
 
-    // Debugging
-    if (m_input->GetKeyPress(SDLK_p))
-    {
-        SpawnPeon();
-    }
-
     if (m_input->GetKeyPress(SDLK_o))
     {
         if (Debug::IsEnabled())
@@ -207,6 +201,21 @@ void Game::Update(double deltaTime)
         else
         {
             Debug::Enable();
+        }
+    }
+
+    if (Debug::IsEnabled())
+    {
+        if (m_input->GetKeyPress(SDLK_p))
+        {
+            SpawnPeon();
+        }
+
+        if (m_input->GetKeyPress(SDLK_t))
+        {
+            Vector2D position = m_mainCamera->ConvertToWorld(m_input->GetMousePosition());
+            Tree* tree = new Tree(this, position);
+            m_entities.push_back(tree);
         }
     }
 
@@ -313,7 +322,7 @@ void Game::Update(double deltaTime)
 
 void Game::Render()
 {
-    m_renderer->SetDrawColor(SDL_Color{ 255, 255, 255, 255 });
+    m_renderer->SetDrawColor(SDL_Color{ 0, 0, 0, 255 });
     m_renderer->Clear();
 
     // Render Game
@@ -325,10 +334,26 @@ void Game::Render()
         (*it)->Render();
     }
 
+    // Z sort entities
+    m_entities.sort([](Entity* a, Entity* b)
+    {
+        Rectangle aHit = a->GetHitBox();
+        Rectangle bHit = b->GetHitBox();
+
+        return (aHit.y + aHit.height) < (bHit.y + bHit.height);
+    });
+  
+
     // Render entities
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
         (*it)->Render();
+
+        if (Debug::IsEnabled())
+        {
+            Rectangle hitBox = (*it)->GetHitBox();
+            m_renderer->RenderOutlineRect(hitBox, SDL_Color{ 255, 0, 0, 255 });
+        }
     }
 
     for (auto it = m_selectedPeons.begin(); it != m_selectedPeons.end(); it++)
@@ -360,7 +385,7 @@ void Game::Render()
     // Debug stuff
     if (Debug::IsEnabled())
     {
-        Rectangle container(5, 5, 340, 125);
+        Rectangle container(5, 5, 340, 140);
         m_renderer->RenderFillRect(container, SDL_Color{ 128, 128, 128, 128 });
 
         ss << "Framerate: " << (int)m_frameRate;
@@ -390,8 +415,12 @@ void Game::Render()
         m_renderer->RenderText("dos", 10, 95, ss.str());
         ss.str(" ");
 
-        ss << "O - Toggle debug";
+        ss << "T - Spawn tree";
         m_renderer->RenderText("dos", 10, 110, ss.str());
+        ss.str(" ");
+
+        ss << "O - Toggle debug";
+        m_renderer->RenderText("dos", 10, 125, ss.str());
         ss.str(" ");
     }
 
