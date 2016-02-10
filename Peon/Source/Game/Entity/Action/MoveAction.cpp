@@ -8,8 +8,8 @@ MoveAction::MoveAction(Monster* owner, const Vector2D& destination) :
     m_destination(destination),
     m_hopOffset(0),
     m_hopIndex(0),
-    m_hopAmp(3),
-    m_hopFreq(30)
+    m_hopAmp(6),
+    m_hopFreq(15)
 {
 }
 
@@ -27,8 +27,8 @@ Vector2D MoveAction::GetDestination() const
 void MoveAction::Update(double deltaTime)
 {
     m_hopIndex += deltaTime;
-    m_hopOffset = sin(m_hopIndex * m_hopFreq) * m_hopAmp;
-    m_owner->SetPositionOffset(Vector2D(0, m_hopOffset));
+    m_hopOffset = abs(sin(m_hopIndex * m_hopFreq) * m_hopAmp);
+    m_owner->SetPositionOffset(Vector2D(0, -m_hopOffset));
 
     Vector2D position = m_owner->GetPosition();
     if (position != m_destination)
