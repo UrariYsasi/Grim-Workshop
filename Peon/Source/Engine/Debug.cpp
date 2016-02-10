@@ -1,14 +1,14 @@
 #include "PCH.hpp"
 #include "Debug.hpp"
 
-bool Debug::m_isEnabled = true;
+uint8_t Debug::m_flags = 0;
 
 /*
     Send some stuff to the debug log, if debugging is enabled.
 */
 void Debug::Log(const char* format, ...)
 {
-    if (!m_isEnabled)
+    if (!IsFlagEnabled(LOGGING))
     {
         return;
     }
@@ -36,17 +36,29 @@ void Debug::LogError(const char* format, ...)
     std::cout << buffer << std::endl;
 }
 
-void Debug::Enable()
+void Debug::EnableFlag(uint8_t flag)
 {
-    Debug::m_isEnabled = true;
+    m_flags |= flag;
 }
 
-void Debug::Disable()
+void Debug::DisableFlag(uint8_t flag)
 {
-    Debug::m_isEnabled = false;
+    m_flags &= ~flag;
 }
 
-bool Debug::IsEnabled()
+void Debug::ToggleFlag(uint8_t flag)
 {
-    return Debug::m_isEnabled;
+    m_flags ^= flag;
+}
+
+bool Debug::IsFlagEnabled(uint8_t flag)
+{
+    if (m_flags & flag)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }

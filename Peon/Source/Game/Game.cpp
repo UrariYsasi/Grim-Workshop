@@ -64,7 +64,10 @@ Renderer* Game::GetRenderer()
 
 int Game::Initialize()
 {
-    //Debug::Disable();
+    // Enable Debugging
+    Debug::EnableFlag(LOGGING);
+    Debug::EnableFlag(SHOW_MENU);
+    Debug::EnableFlag(CHEAT);
 
     // Initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -192,30 +195,38 @@ void Game::Update(double deltaTime)
 {
     CleanEntities();
 
-    if (m_input->GetKeyPress(SDLK_o))
+    if (m_input->GetKeyPress(SDLK_i))
     {
-        if (Debug::IsEnabled())
-        {
-            Debug::Disable();
-        }
-        else
-        {
-            Debug::Enable();
-        }
+        Debug::ToggleFlag(SHOW_MENU);
     }
 
-    if (Debug::IsEnabled())
+    if (Debug::IsFlagEnabled(CHEAT))
     {
-        if (m_input->GetKeyPress(SDLK_p))
+        if (m_input->GetKeyPress(SDLK_y))
         {
             SpawnPeon();
         }
 
-        if (m_input->GetKeyPress(SDLK_t))
+        if (m_input->GetKeyPress(SDLK_u))
         {
             Vector2D position = m_mainCamera->ConvertToWorld(m_input->GetMousePosition());
             Tree* tree = new Tree(this, position);
             m_entities.push_back(tree);
+        }
+
+        if (m_input->GetKeyPress(SDLK_p))
+        {
+            Debug::ToggleFlag(RENDER_HITBOXES);
+        }
+
+        if (m_input->GetKeyPress(SDLK_k))
+        {
+            Debug::ToggleFlag(RENDER_TILE_OUTLINES);
+        }
+
+        if (m_input->GetKeyPress(SDLK_l))
+        {
+            Debug::ToggleFlag(RENDER_ORIGINS);
         }
     }
 
@@ -349,10 +360,17 @@ void Game::Render()
     {
         (*it)->Render();
 
-        if (Debug::IsEnabled())
+        if (Debug::IsFlagEnabled(RENDER_HITBOXES))
         {
             Rectangle hitBox = (*it)->GetHitBox();
             m_renderer->RenderOutlineRect(hitBox, SDL_Color{ 255, 0, 0, 255 });
+        }
+
+        if (Debug::IsFlagEnabled(RENDER_ORIGINS))
+        {
+            Vector2D origin = (*it)->GetPosition();
+            Rectangle originRect((int)origin.x, (int)origin.y, 2, 2);
+            m_renderer->RenderFillRect(originRect, SDL_Color{ 255, 0, 0, 255 });
         }
     }
 
@@ -363,7 +381,7 @@ void Game::Render()
 
     if (m_isBoxSelecting)
     {
-        m_renderer->RenderOutlineRect(m_boxSelection);
+        m_renderer->RenderOutlineRect(m_boxSelection, SDL_Color{0, 0, 0, 100});
     }
 
     // Render GUI
@@ -383,9 +401,9 @@ void Game::Render()
     ss.str(" ");
 
     // Debug stuff
-    if (Debug::IsEnabled())
+    if (Debug::IsFlagEnabled(SHOW_MENU))
     {
-        Rectangle container(5, 5, 340, 140);
+        Rectangle container(5, 5, 340, 180);
         m_renderer->RenderFillRect(container, SDL_Color{ 128, 128, 128, 128 });
 
         ss << "Framerate: " << (int)m_frameRate;
@@ -411,16 +429,28 @@ void Game::Render()
         m_renderer->RenderText("dos", 10, 70, ss.str());
         ss.str(" ");
 
-        ss << "P - Spawn peon";
+        ss << "I - Toggle debug menu";
         m_renderer->RenderText("dos", 10, 95, ss.str());
         ss.str(" ");
 
-        ss << "T - Spawn tree";
+        ss << "Y - Spawn peon";
         m_renderer->RenderText("dos", 10, 110, ss.str());
         ss.str(" ");
 
-        ss << "O - Toggle debug";
+        ss << "U - Spawn tree";
         m_renderer->RenderText("dos", 10, 125, ss.str());
+        ss.str(" ");
+
+        ss << "P - Render hit boxes";
+        m_renderer->RenderText("dos", 10, 140, ss.str());
+        ss.str(" ");
+
+        ss << "K - Render tile outlines";
+        m_renderer->RenderText("dos", 10, 155, ss.str());
+        ss.str(" ");
+
+        ss << "L - Render origins";
+        m_renderer->RenderText("dos", 10, 170, ss.str());
         ss.str(" ");
     }
 
@@ -444,7 +474,7 @@ void Game::CleanEntities()
 
 void Game::SpawnPeon()
 {
-    Vector2D position(rand() % 600, rand() % 400);
+    Vector2D position(Random::Generate(-300, 300), Random::Generate(-300, 300));
     Peon* peon = new Peon(this, position);
     m_entities.push_back(peon);
     m_peonCount++;
@@ -494,7 +524,8 @@ void Game::GenerateMap()
     {
         for (int y = -(MAP_SIZE / 2); y < (MAP_SIZE / 2); y++)
         {
-            std::unique_ptr<GrassTile> tile = std::make_unique<GrassTile>(this, Vector2D(x * 32, y * 32));
+            Vector2D position(x * 32, y * 32);
+            std::unique_ptr<GrassTile> tile = std::make_unique<GrassTile>(this, position);
             m_terrain.push_back(std::move(tile));
         }
     }
@@ -507,18 +538,22 @@ void Game::GenerateMap()
         m_entities.push_back(tree);
     }
 
+    /*
     for (int i = 0; i < 10; i++)
     {
         Vector2D position((int)Random::Generate(-(MAP_SIZE / 2), (MAP_SIZE / 2)), (int)Random::Generate(-(MAP_SIZE / 2), (MAP_SIZE / 2)));
         Rock* rock = new Rock(this, position * 32);
         m_entities.push_back(rock);
     }
+    */
 
     Stockpile* stockpile = new Stockpile(this, Vector2D(0, 0));
     m_entities.push_back(stockpile);
 
+    /*
     Forge* forge = new Forge(this, Vector2D(128, 0));
     m_entities.push_back(forge);
+    */
 }
 
 /*

@@ -6,6 +6,7 @@
 Tree::Tree(Game* game, Vector2D position) :
     Resource(game, position, ItemType::WOOD)
 {
+    m_hitBox = Rectangle(0, 32, 32, 32);
 }
 
 Tree::~Tree()
@@ -24,5 +25,5 @@ void Tree::Update(double deltaTime)
 void Tree::Render()
 {
     Renderer* renderer = m_game->GetRenderer();
-    renderer->RenderSprite("resource", 0, 0, (int)m_position.x, (int)m_position.y, (int)SPRITE_SIZE.x, (int)SPRITE_SIZE.y);
+    renderer->RenderSprite("resource", 0, 0, (int)m_position.x, (int)m_position.y, (int)SPRITE_SIZE.x, (int)SPRITE_SIZE.y * 2);
 }
