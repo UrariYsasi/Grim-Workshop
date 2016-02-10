@@ -3,6 +3,7 @@
 
 Entity::Entity(Game* game, Vector2D position) :
     m_game(game),
+    m_origin(0, 0),
     m_position(position),
     m_positionOffset(0, 0),
     m_isDeleted(false),

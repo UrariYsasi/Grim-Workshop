@@ -28,6 +28,7 @@ protected:
 
     Game* m_game;
     Vector2D m_position;
+    Vector2D m_origin;
     Vector2D m_positionOffset;
     bool m_isDeleted;
     Rectangle m_hitBox;
