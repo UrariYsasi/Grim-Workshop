@@ -376,7 +376,10 @@ void Game::Render()
 
     for (auto it = m_selectedPeons.begin(); it != m_selectedPeons.end(); it++)
     {
-        m_renderer->RenderTexture("selection", static_cast<int>((*it)->GetPosition().x), static_cast<int>((*it)->GetPosition().y), 32, 32);
+        Vector2D position = (*it)->GetPosition();
+        Rectangle box(position.x - 8, position.y - 4, 16, 20);
+        m_renderer->RenderOutlineRect(box);
+        //m_renderer->RenderTexture("selection", static_cast<int>((*it)->GetPosition().x), static_cast<int>((*it)->GetPosition().y), 32, 32);
     }
 
     if (m_isBoxSelecting)

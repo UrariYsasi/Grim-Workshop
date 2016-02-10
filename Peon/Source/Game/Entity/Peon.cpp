@@ -7,8 +7,8 @@
 Peon::Peon(Game* game, Vector2D position) :
     Monster(game, position)
 {
-    m_origin = Vector2D(0, 0);
-    m_hitBox = Rectangle(8, 16, 16, 16);
+    m_origin = Vector2D(16, 16);
+    m_hitBox = Rectangle(-4, 0, 8, 16);
 }
 
 Peon::~Peon()

@@ -7,7 +7,7 @@ Entity::Entity(Game* game, Vector2D position) :
     m_position(position),
     m_positionOffset(0, 0),
     m_isDeleted(false),
-    m_hitBox(0, 0, 32, 32),
+    m_hitBox(-16, -16, 16, 16),
     SPRITE_SIZE(32, 32)
 {
 }
@@ -69,15 +69,13 @@ void Entity::Delete()
 */
 bool Entity::IsCollidingWithRect(const Rectangle& rect) const
 {
-    // TODO
-    // Actual hitboxes
-    Rectangle hitbox(m_position.x, m_position.y, 32, 32);
+    Rectangle hitBox = GetHitBox();
 
     // Calculate the rectangle bounds
-    double leftA = hitbox.x;
-    double rightA = hitbox.x + hitbox.width;
-    double topA = hitbox.y;
-    double bottomA = hitbox.y + hitbox.height;
+    double leftA = hitBox.x;
+    double rightA = hitBox.x + hitBox.width;
+    double topA = hitBox.y;
+    double bottomA = hitBox.y + hitBox.height;
 
     double leftB = rect.x;
     double rightB = rect.x + rect.width;

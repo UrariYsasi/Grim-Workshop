@@ -7,7 +7,7 @@ Tree::Tree(Game* game, Vector2D position) :
     Resource(game, position, ItemType::WOOD)
 {
     m_origin = Vector2D(16, 48);
-    m_hitBox = Rectangle(0, 32, 32, 32);
+    m_hitBox = Rectangle(-16, -16, 32, 32);
 }
 
 Tree::~Tree()
