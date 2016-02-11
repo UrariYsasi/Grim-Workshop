@@ -1,5 +1,6 @@
 #pragma once
 
+// Standard Library Includes
 #include <iostream>
 #include <memory>
 #include <map>
@@ -14,6 +15,7 @@
 #include <random>
 #include <algorithm>
 
+// SDL2 Includes
 #if WINDOWS
     #include <SDL.h>
     #include <SDL_image.h>
@@ -26,13 +28,16 @@
     #include <SDL2_mixer/SDL_mixer.h>
 #endif
 
+// Engine Includes
 #include "Engine/Debug.hpp"
 #include "Engine/Random.hpp"
 #include "Engine/Vector2D.hpp"
 #include "Engine/Rectangle.hpp"
 #include "Engine/Timer.hpp"
 
+// Game Includes
 #include "Game/Item/ItemType.hpp"
 
 const int SUCCESS = 1;
 const int FAILURE = 0;
+typedef unsigned char byte;
