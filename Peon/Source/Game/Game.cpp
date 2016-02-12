@@ -13,6 +13,7 @@
 #include "Entity/Action/GatherAction.hpp"
 #include "Entity/Action/SmeltAction.hpp"
 #include "Terrain/GrassTile.hpp"
+#include "Map/Map.hpp"
 
 Game::Game() :
     m_peonCount(0),
@@ -27,8 +28,6 @@ Game::Game() :
 
 Game::~Game()
 {
-    delete[] heightmap;
-
     // Entity deletion
     while (!m_entities.empty())
     {
@@ -110,6 +109,8 @@ int Game::Initialize()
     m_mainCamera = std::make_unique<Camera>(m_renderer.get(), Vector2D(-512, -384));
     m_GUICamera = std::make_unique<Camera>(m_renderer.get(), Vector2D(0, 0));
 
+    m_map = std::make_unique<Map>(this);
+
     // Load Textures
     LoadTexture("Resources/Textures/peon.png", "peon");
     LoadTexture("Resources/Textures/resource.png", "resource");
@@ -149,32 +150,12 @@ int Game::Initialize()
     LoadSound("Resources/Sounds/death_00.wav", "death_00");
 
     // Setup the game
-    GenerateMap();
+    //GenerateMap();
+    m_map->Generate();
 
-    SpawnPeon();
-    SpawnPeon();
-    SpawnPeon();
-
-    heightmap = new double[512 * 512];
-    for (int y = 0; y < 512; y++)
-    {
-        for (int x = 0; x < 512; x++)
-        {
-            double val = GeneratePerlin2D((double)(x + offsetX) / 512.0 * scale, (double)(y + offsetY) / 512.0 * scale);
-            val = (val + 1) / 2.0;
-
-            if (val > 1.0)
-            {
-                val = 1.0;
-            } 
-            else if (val < 0.0)
-            {
-                val = 0.0;
-            }
-
-            heightmap[(y * 512) + x] = val;
-        }
-    }
+    //SpawnPeon();
+    //SpawnPeon();
+    //SpawnPeon();
 
     return SUCCESS;
 }
@@ -347,41 +328,16 @@ void Game::Update(double deltaTime)
         Terminate();
     }
 
-    if (m_input->GetKeyPress(SDLK_c))
-    {
-        offsetX++;
-    }
-
-    if (m_input->GetKeyPress(SDLK_x))
-    {
-        offsetX--;
-    }
-
-    if (m_input->GetKeyPress(SDLK_m))
-    {
-        octaves++;
-    }
-
-    if (m_input->GetKeyPress(SDLK_n))
-    {
-        octaves--;
-    }
-
-    if (m_input->GetKeyPress(SDLK_b))
-    {
-        persistence /= 2;
-    }
-
-    if (m_input->GetKeyPress(SDLK_v))
-    {
-        persistence *= 2;
-    }
-
     // Update entities
+    /*
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
         (*it)->Update(deltaTime);
     }
+    */
+
+    // Update map
+    m_map->Update(deltaTime);
 }
 
 void Game::Render()
@@ -389,10 +345,14 @@ void Game::Render()
     m_renderer->SetDrawColor(SDL_Color{ 0, 0, 0, 255 });
     m_renderer->Clear();
 
-    // Render Game
+    // Activate main camera
     m_mainCamera->Activate();
 
+    // Render map
+    m_map->Render();
+
     // Render terrain
+    /*
     for (auto it = m_terrain.begin(); it != m_terrain.end(); it++)
     {
         (*it)->Render();
@@ -439,7 +399,7 @@ void Game::Render()
     {
         m_renderer->RenderOutlineRect(m_boxSelection, SDL_Color{0, 0, 0, 100});
     }
-
+    */
     /*
     for (int y = 0; y < 32; y++)
     {
@@ -465,6 +425,7 @@ void Game::Render()
     // Render GUI
     m_GUICamera->Activate();
 
+    /*
     Rectangle bottomBar(0, m_window->GetSize().y - 16, m_window->GetSize().x, 16);
     m_renderer->RenderFillRect(bottomBar, SDL_Color{ 128, 128, 128, 128 });
     Inventory* stock = FindStockpile()->GetInventory();
@@ -531,7 +492,7 @@ void Game::Render()
         m_renderer->RenderText("dos", 10, 170, ss.str());
         ss.str(" ");
     }
-
+    */
     m_renderer->Present();
 }
 
@@ -609,6 +570,7 @@ void Game::GenerateMap()
     }
 
     // Generate props
+    /*
     for (int x = -(MAP_SIZE / 2); x < (MAP_SIZE / 2); x++)
     {
         for (int y = -(MAP_SIZE / 2); y < (MAP_SIZE / 2); y++)
@@ -633,6 +595,7 @@ void Game::GenerateMap()
             }
         }
     }
+    */
     /*
     for (int i = 0; i < 40; i++)
     {
@@ -746,66 +709,4 @@ void Game::PlaySound(const std::string& id)
     }
 
     Mix_PlayChannel(-1, m_soundMap[id], 0);
-}
-
-double Game::GeneratePerlin2D(const double& x, const double& y)
-{
-    double total = 0;
-
-    for (int i = 0; i < octaves; i++)
-    {
-        double frequency = pow(2, i);
-        double amplitude = pow(persistence, i);
-
-        total += InterpolatedNoise(x * frequency, y * frequency) * amplitude;
-    }
-    
-    return total;
-}
-
-double Game::InterpolatedNoise(const double& x, const double& y)
-{
-    int intX = (int)x;
-    double fractionX = x - intX;
-
-    int intY = (int)y;
-    double fractionY = y - intY;
-
-    // Get the smoothed noise values for each corner
-    double s = SmoothNoise(intX, intY);         // Bottom left
-    double t = SmoothNoise(intX + 1, intY);     // Bottom right
-    double u = SmoothNoise(intX, intY + 1);     // Top left
-    double v = SmoothNoise(intX + 1, intY + 1); // Top right
-
-    // Interpolate the corner values to get the middle values
-    double i = Interpolate(s, t, fractionX);    // Bottom middle
-    double ii = Interpolate(u, v, fractionX);   // Top middle
-
-    // Interpolate the middle values to get the center value
-    return Interpolate(i, ii, fractionY);
-}
-
-double Game::SmoothNoise(const int& x, const int& y)
-{
-    double corners = (Noise(x - 1, y - 1) + Noise(x + 1, y - 1) + Noise(x - 1, y + 1) + Noise(x + 1, y + 1)) / 16;
-    double sides = (Noise(x - 1, y) + Noise(x + 1, y) + Noise(x, y - 1) + Noise(x, y + 1)) / 8;
-    double center = Noise(x, y) / 4;
-
-    return corners + sides + center;
-}
-
-double Game::Interpolate(const double& a, const double& b, const double& w)
-{
-    // Cosine interpolation
-    double ft = w * M_PI;
-    double f = (1 - cos(ft)) * 0.5;
-
-    return a * (1 - f) + b * f;
-}
-
-double Game::Noise(const int& x, const int& y)
-{
-    int n = x + y * 57;
-    n = (n << 13) ^ n;
-    return (double)(1.0 - ((n * (n * n * 15731 + 789221) + 1376312589) & 0x7fffffff) / 1073741824.0);
 }

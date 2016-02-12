@@ -22,6 +22,9 @@
     <Filter Include="Source\Game\Terrain">
       <UniqueIdentifier>{a9b8fb87-80c8-4d00-b7ff-a2938b0e5594}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Game\Map">
+      <UniqueIdentifier>{93b5f330-137c-41a0-b8e3-2d2cbc844cb5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -107,6 +110,15 @@
     </ClCompile>
     <ClCompile Include="Source\Game\Entity\Forge.cpp">
       <Filter>Source\Game\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Map\Chunk.cpp">
+      <Filter>Source\Game\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Map\Map.cpp">
+      <Filter>Source\Game\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\PerlinGenerator.cpp">
+      <Filter>Source\Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -202,6 +214,15 @@
     </ClInclude>
     <ClInclude Include="Source\Game\Entity\Forge.hpp">
       <Filter>Source\Game\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Map\Chunk.hpp">
+      <Filter>Source\Game\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Map\Map.hpp">
+      <Filter>Source\Game\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\PerlinGenerator.hpp">
+      <Filter>Source\Engine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

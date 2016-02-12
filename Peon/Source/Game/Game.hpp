@@ -8,6 +8,7 @@ class Peon;
 class Stockpile;
 class Tile;
 class Camera;
+class Map;
 
 class Game
 {
@@ -26,19 +27,6 @@ public:
     TTF_Font* GetFont(const std::string& id);
 
     void PlaySound(const std::string& id);
-
-    double GeneratePerlin2D(const double& x, const double& y);
-    double InterpolatedNoise(const double& x, const double& y);
-    double SmoothNoise(const int& x, const int& y);
-    double Interpolate(const double& a, const double& b, const double& w);
-    double Noise(const int& x, const int& y);
-
-    int offsetX = 20;
-    int offsetY = 0;
-    double persistence = .50;
-    double octaves = 6;
-    double scale = 30;
-    double* heightmap;
 
 private:
     void Update(double deltaTime);
@@ -74,8 +62,9 @@ private:
     std::list<Peon*> m_selectedPeons;
 
     // Terrain
-    const static int MAP_SIZE = 40;
+    const static int MAP_SIZE = 32;
     std::list< std::unique_ptr<Tile> > m_terrain;
+    std::unique_ptr<Map> m_map;
 
     // Mouse selection
     bool m_isBoxSelecting;

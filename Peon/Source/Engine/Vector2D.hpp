@@ -220,3 +220,16 @@ inline double Vector2D::Magnitude(Vector2D vec)
 {
     return sqrt((vec.x * vec.x) + (vec.y * vec.y));
 }
+
+// Hash
+namespace std {
+    template <>
+    struct hash<Vector2D>
+    {
+        inline std::size_t operator()(const Vector2D& vec) const
+        {
+            return ((hash<double>()(vec.x)
+                ^ (hash<double>()(vec.y) << 1)) >> 1);
+        }
+    };
+}
