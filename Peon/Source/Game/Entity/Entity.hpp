@@ -18,7 +18,7 @@ public:
     Rectangle GetHitBox() const;
 
     virtual void Update(double deltaTime) = 0;
-    virtual void Render() = 0;
+    virtual void Render();
 
     void Delete();
     bool IsCollidingWithRect(const Rectangle& rect) const;

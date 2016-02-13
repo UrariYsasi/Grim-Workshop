@@ -1,5 +1,7 @@
 #include "PCH.hpp"
 #include "Entity.hpp"
+#include "../Game.hpp"
+#include "../../Engine/Renderer.hpp"
 
 Entity::Entity(Game* game, Vector2D position) :
     m_game(game),
@@ -54,6 +56,21 @@ bool Entity::IsDeleted() const
 Rectangle Entity::GetHitBox() const
 {
     return Rectangle(m_position.x + m_hitBox.x, m_position.y + m_hitBox.y, m_hitBox.width, m_hitBox.height);
+}
+
+void Entity::Render()
+{
+    if (Debug::IsFlagEnabled(RENDER_HITBOXES))
+    {
+        Rectangle hitBox = GetHitBox();
+        m_game->GetRenderer()->RenderOutlineRect(hitBox, SDL_Color{ 255, 0, 0, 255 });
+    }
+
+    if (Debug::IsFlagEnabled(RENDER_ORIGINS))
+    {
+        Rectangle originRect((int)m_position.x - 1, (int)m_position.y - 1, 3, 3);
+        m_game->GetRenderer()->RenderFillRect(originRect, SDL_Color{ 255, 0, 0, 255 });
+    }
 }
 
 /*

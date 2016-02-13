@@ -28,13 +28,6 @@ Game::Game() :
 
 Game::~Game()
 {
-    // Entity deletion
-    while (!m_entities.empty())
-    {
-        delete m_entities.front();
-        m_entities.pop_front();
-    }
-
     // Texture deletion
     for (auto texIt = m_textureMap.begin(); texIt != m_textureMap.end(); texIt++)
     {
@@ -151,12 +144,7 @@ int Game::Initialize()
     LoadSound("Resources/Sounds/death_00.wav", "death_00");
 
     // Setup the game
-    //GenerateMap();
     m_map->Generate();
-
-    //SpawnPeon();
-    //SpawnPeon();
-    //SpawnPeon();
 
     return SUCCESS;
 }
@@ -198,8 +186,6 @@ void Game::Terminate()
 
 void Game::Update(double deltaTime)
 {
-    CleanEntities();
-
     if (m_input->GetKeyPress(SDLK_i))
     {
         Debug::ToggleFlag(SHOW_MENU);
@@ -209,14 +195,7 @@ void Game::Update(double deltaTime)
     {
         if (m_input->GetKeyPress(SDLK_y))
         {
-            //SpawnPeon();
-        }
-
-        if (m_input->GetKeyPress(SDLK_u))
-        {
-            Vector2D position = m_mainCamera->ConvertToWorld(m_input->GetMousePosition());
-            Tree* tree = new Tree(this, position);
-            m_entities.push_back(tree);
+            m_map->SpawnPeon();
         }
 
         if (m_input->GetKeyPress(SDLK_p))
@@ -266,12 +245,13 @@ void Game::Update(double deltaTime)
     // Peon selection
     if (m_input->GetMouseButtonPress(SDL_BUTTON_LEFT))
     {
-        m_selectedPeons.clear();
+        //m_selectedPeons.clear();
+
+        m_isBoxSelecting = true;
 
         Vector2D mousePositionScreen = m_input->GetMousePosition();
         Vector2D mousePositionWorld = m_mainCamera->ConvertToWorld(mousePositionScreen);
 
-        m_isBoxSelecting = true;
         m_boxSelection.x = mousePositionWorld.x;
         m_boxSelection.y = mousePositionWorld.y;
     }
@@ -288,6 +268,7 @@ void Game::Update(double deltaTime)
     {
         if (m_isBoxSelecting)
         {
+            /*
             for (auto it = m_entities.begin(); it != m_entities.end(); it++)
             {
                 Peon* peon = dynamic_cast<Peon*>(*it);
@@ -299,6 +280,7 @@ void Game::Update(double deltaTime)
                     }
                 }
             }
+            */
 
             m_isBoxSelecting = false;
         }
@@ -308,6 +290,7 @@ void Game::Update(double deltaTime)
     if (m_input->GetMouseButtonPress(SDL_BUTTON_RIGHT))
     {
         // If we right clicked on a Resource, command the peon to start working on it.
+        /*
         Entity* ent = nullptr;
         for (auto it = m_entities.begin(); it != m_entities.end(); it++)
         {
@@ -321,6 +304,7 @@ void Game::Update(double deltaTime)
         }
 
         IssueCommand(ent);
+        */
     }
 
     // Game closing
@@ -328,14 +312,6 @@ void Game::Update(double deltaTime)
     {
         Terminate();
     }
-
-    // Update entities
-    /*
-    for (auto it = m_entities.begin(); it != m_entities.end(); it++)
-    {
-        (*it)->Update(deltaTime);
-    }
-    */
 
     // Update map
     m_map->Update(deltaTime);
@@ -352,33 +328,8 @@ void Game::Render()
     // Render map
     m_map->Render();
     m_renderer->RenderSprite("obelisk", 0, 0, 0, 0, 96, 352);
-
-    // Render terrain
-    /*
-    for (auto it = m_terrain.begin(); it != m_terrain.end(); it++)
-    {
-        (*it)->Render();
-    }
  
-    // Render entities
-    for (auto it = m_entities.begin(); it != m_entities.end(); it++)
-    {
-        (*it)->Render();
-
-        if (Debug::IsFlagEnabled(RENDER_HITBOXES))
-        {
-            Rectangle hitBox = (*it)->GetHitBox();
-            m_renderer->RenderOutlineRect(hitBox, SDL_Color{ 255, 0, 0, 255 });
-        }
-
-        if (Debug::IsFlagEnabled(RENDER_ORIGINS))
-        {
-            Vector2D origin = (*it)->GetPosition();
-            Rectangle originRect((int)origin.x, (int)origin.y, 2, 2);
-            m_renderer->RenderFillRect(originRect, SDL_Color{ 255, 0, 0, 255 });
-        }
-    }
-
+    /*
     for (auto it = m_selectedPeons.begin(); it != m_selectedPeons.end(); it++)
     {
         Vector2D position = (*it)->GetPosition();
@@ -386,48 +337,26 @@ void Game::Render()
         m_renderer->RenderOutlineRect(box);
         //m_renderer->RenderTexture("selection", static_cast<int>((*it)->GetPosition().x), static_cast<int>((*it)->GetPosition().y), 32, 32);
     }
+    */
 
     if (m_isBoxSelecting)
     {
         m_renderer->RenderOutlineRect(m_boxSelection, SDL_Color{0, 0, 0, 100});
     }
-    */
-    /*
-    for (int y = 0; y < 32; y++)
-    {
-        for (int x = 0; x < 32; x++)
-        {
-            double val = heightmap[(y * 512) + (x + offsetX)];
-            Rectangle rect(x, y, 1.0, 1.0);
-            SDL_Color color{(Uint8)(val * 255), (Uint8)(val * 255), (Uint8)(val * 255), 255};
-            //SDL_Color color = SDL_Color{0, 0, 0, 255};
-            
-            //.4 <= val <= .6`
-            //if (val >= 0.5 || val <= 0.4)
-            if (val <= 0.4)
-            {
-                //color = SDL_Color{64, (Uint8)(val * 255), 64, 255};
-            }
-
-            m_renderer->RenderFillRect(rect, color);
-        }
-    }
-    */
 
     // Render GUI
     m_GUICamera->Activate();
 
-    /*
     Rectangle bottomBar(0, m_window->GetSize().y - 16, m_window->GetSize().x, 16);
     m_renderer->RenderFillRect(bottomBar, SDL_Color{ 128, 128, 128, 128 });
     Inventory* stock = FindStockpile()->GetInventory();
 
     std::stringstream ss;
-    ss << "Wood: " << stock->CountItem(ItemType::WOOD) << "         ";
-    ss << "Stone: " << stock->CountItem(ItemType::STONE) << "         ";
-    ss << "Coal: " << stock->CountItem(ItemType::COAL) << "         ";
-    ss << "Iron Ore: " << stock->CountItem(ItemType::IRON_ORE) << "         ";
-    ss << "Iron Bar: " << stock->CountItem(ItemType::IRON_BAR) << "         ";
+    ss << "Wood: " << 0 << "         ";
+    ss << "Stone: " << 0 << "         ";
+    ss << "Coal: " << 0 << "         ";
+    ss << "Iron Ore: " << 0 << "         ";
+    ss << "Iron Bar: " << 0 << "         ";
     m_renderer->RenderText("dos", 5, (int)m_window->GetSize().y - 16, ss.str());
     ss.str(" ");
 
@@ -484,29 +413,14 @@ void Game::Render()
         m_renderer->RenderText("dos", 10, 170, ss.str());
         ss.str(" ");
     }
-    */
 
     m_renderer->Present();
-}
-
-/*
-    Delete all entities that have been marked for deletion in the previous frame.
-*/
-void Game::CleanEntities()
-{
-    for (auto it = m_entities.begin(); it != m_entities.end(); it++)
-    {
-        if ((*it)->IsDeleted())
-        {
-            delete (*it);
-            m_entities.erase(it++);
-        }
-    }
 }
 
 void Game::IssueCommand(Entity* ent)
 {
     // Loop through all selected peons
+    /*
     for (auto it = m_selectedPeons.begin(); it != m_selectedPeons.end(); it++)
     {
         Peon* peon = (*it);
@@ -536,6 +450,7 @@ void Game::IssueCommand(Entity* ent)
             peon->PushAction(std::make_unique<MoveAction>(peon, position));
         }
     }
+    */
 }
 
 /*
@@ -544,6 +459,7 @@ void Game::IssueCommand(Entity* ent)
 */
 Stockpile* Game::FindStockpile()
 {
+    /*
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
         Stockpile* stockpile = dynamic_cast<Stockpile*>(*it);
@@ -552,6 +468,7 @@ Stockpile* Game::FindStockpile()
             return stockpile;
         }
     }
+    */
 
     return nullptr;
 }

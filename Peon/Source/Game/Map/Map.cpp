@@ -23,6 +23,8 @@ Game* Map::GetGame()
 
 void Map::Update(double deltaTime)
 {
+    CleanEntities();
+
     // Entities
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
@@ -76,7 +78,7 @@ void Map::Generate()
     {
         for (int y = -(MAP_SIZE / 2); y < (MAP_SIZE / 2); y++)
         {
-            double val = m_generator.GeneratePerlin2D((double)(x + 59) / MAP_SIZE * 25, (double)(y + 64) / MAP_SIZE * 25);
+            double val = m_generator.GeneratePerlin2D((double)(x + 59) / MAP_SIZE * 25, (double)(y + 73) / MAP_SIZE * 25);
             val = (val + 1) / 2.0;
 
             if (val > 1.0)
@@ -106,11 +108,28 @@ void Map::Generate()
     m_entities.push_back(std::make_unique<Stockpile>(m_game, Vector2D(-64, 0)));
 
     // Peons
-    SpawnPeon(30);
+    SpawnPeon(3);
 
     Debug::Log("Map generation complete.");
 }
 
+/*
+    Delete all entities that have been marked for deletion in the previous frame.
+*/
+void Map::CleanEntities()
+{
+    for (auto it = m_entities.begin(); it != m_entities.end(); it++)
+    {
+        if ((*it)->IsDeleted())
+        {
+            m_entities.erase(it++);
+        }
+    }
+}
+
+/*
+    Create some peons on the map.
+*/
 void Map::SpawnPeon(int quantity)
 {
     for (int i = 0; i < quantity; i++)

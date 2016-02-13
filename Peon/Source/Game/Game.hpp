@@ -31,7 +31,6 @@ public:
 private:
     void Update(double deltaTime);
     void Render();
-    void CleanEntities();
     void IssueCommand(Entity* ent);
 
     bool LoadTexture(const std::string& path, const std::string& id);
@@ -55,13 +54,6 @@ private:
     // Sounds
     std::map<std::string, Mix_Chunk*> m_soundMap;
 
-    // Entities
-    std::list<Entity*> m_entities;
-    std::list<Peon*> m_selectedPeons;
-
-    // Terrain
-    const static int MAP_SIZE = 32;
-    std::list< std::unique_ptr<Tile> > m_terrain;
     std::unique_ptr<Map> m_map;
 
     // Mouse selection

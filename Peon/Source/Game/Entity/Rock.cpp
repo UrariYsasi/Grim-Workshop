@@ -34,6 +34,8 @@ void Rock::Update(double deltaTime)
 
 void Rock::Render()
 {
+    Entity::Render();
+
     Renderer* renderer = m_game->GetRenderer();
     renderer->RenderSprite("resource", 2, 0, (int)m_position.x, (int)m_position.y, (int)SPRITE_SIZE.x, (int)SPRITE_SIZE.y);
 }

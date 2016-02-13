@@ -22,6 +22,8 @@ void Peon::Update(double deltaTime)
 
 void Peon::Render()
 {
+    Entity::Render();
+
     Renderer* renderer = m_game->GetRenderer();
     renderer->RenderSprite("peon", 0, 0, (int)(m_position.x + m_positionOffset.x - m_origin.x), (int)(m_position.y + m_positionOffset.y - m_origin.y), 32, 32);
 

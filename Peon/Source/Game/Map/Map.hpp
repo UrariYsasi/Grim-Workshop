@@ -17,8 +17,10 @@ public:
     void Update(double deltaTime);
     void Render();
     void Generate();
-
     void SpawnPeon(int quantity = 1);
+
+private:
+    void CleanEntities();
 
 private:
     const static int MAP_SIZE = 64; // The map size, in tiles.
