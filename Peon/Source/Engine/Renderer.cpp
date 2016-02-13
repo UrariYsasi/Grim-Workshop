@@ -75,7 +75,7 @@ void Renderer::RenderSprite(const std::string& id, const int& col, const int& ro
         return;
     }
 
-    SDL_Rect srcRect = { col * width, row * height, width, height };
+    SDL_Rect srcRect = { col * 32, row * 32, width, height };
     SDL_Rect destRect = { x - (int)m_activeCamera->GetPosition().x, y - (int)m_activeCamera->GetPosition().y, width, height };
 
     SDL_RenderCopyEx(m_SDLRenderer, texture, &srcRect, &destRect, 0, 0, SDL_FLIP_NONE);

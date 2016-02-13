@@ -116,6 +116,7 @@ int Game::Initialize()
     LoadTexture("Resources/Textures/resource.png", "resource");
     LoadTexture("Resources/Textures/terrain.png", "terrain");
     LoadTexture("Resources/Textures/structure.png", "structure");
+    LoadTexture("Resources/Textures/obelisk.png", "obelisk");
 
     // legacy textures
     LoadTexture("Resources/Textures/man.png", "man");
@@ -208,7 +209,7 @@ void Game::Update(double deltaTime)
     {
         if (m_input->GetKeyPress(SDLK_y))
         {
-            SpawnPeon();
+            //SpawnPeon();
         }
 
         if (m_input->GetKeyPress(SDLK_u))
@@ -350,6 +351,7 @@ void Game::Render()
 
     // Render map
     m_map->Render();
+    m_renderer->RenderSprite("obelisk", 0, 0, 0, 0, 96, 352);
 
     // Render terrain
     /*
@@ -357,17 +359,7 @@ void Game::Render()
     {
         (*it)->Render();
     }
-
-    // Z sort entities
-    m_entities.sort([](Entity* a, Entity* b)
-    {
-        Rectangle aHit = a->GetHitBox();
-        Rectangle bHit = b->GetHitBox();
-
-        return (aHit.y + aHit.height) < (bHit.y + bHit.height);
-    });
-  
-
+ 
     // Render entities
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
@@ -493,6 +485,7 @@ void Game::Render()
         ss.str(" ");
     }
     */
+
     m_renderer->Present();
 }
 
@@ -509,14 +502,6 @@ void Game::CleanEntities()
             m_entities.erase(it++);
         }
     }
-}
-
-void Game::SpawnPeon()
-{
-    Vector2D position(Random::Generate(-300, 300), Random::Generate(-300, 300));
-    Peon* peon = new Peon(this, position);
-    m_entities.push_back(peon);
-    m_peonCount++;
 }
 
 void Game::IssueCommand(Entity* ent)
@@ -551,74 +536,6 @@ void Game::IssueCommand(Entity* ent)
             peon->PushAction(std::make_unique<MoveAction>(peon, position));
         }
     }
-}
-
-/*
-    Generate the terrain and the props on top of it.
-*/
-void Game::GenerateMap()
-{
-    // Generate terrain
-    for (int x = -(MAP_SIZE / 2); x < (MAP_SIZE / 2); x++)
-    {
-        for (int y = -(MAP_SIZE / 2); y < (MAP_SIZE / 2); y++)
-        {
-            Vector2D position(x * 32, y * 32);
-            std::unique_ptr<GrassTile> tile = std::make_unique<GrassTile>(this, position);
-            m_terrain.push_back(std::move(tile));
-        }
-    }
-
-    // Generate props
-    /*
-    for (int x = -(MAP_SIZE / 2); x < (MAP_SIZE / 2); x++)
-    {
-        for (int y = -(MAP_SIZE / 2); y < (MAP_SIZE / 2); y++)
-        {
-            double val = GeneratePerlin2D((double)(x + offsetX) / 512.0 * scale, (double)(y + offsetY) / 512.0 * scale);
-            val = (val + 1) / 2.0;
-
-            if (val > 1.0)
-            {
-                val = 1.0;
-            }
-            else if (val < 0.0)
-            {
-                val = 0.0;
-            }
-
-            if (val > .5)
-            {
-                Vector2D position(x, y);
-                Tree* tree = new Tree(this, position * 32);
-                m_entities.push_back(tree);
-            }
-        }
-    }
-    */
-    /*
-    for (int i = 0; i < 40; i++)
-    {
-        Vector2D position((int)Random::Generate(-(MAP_SIZE / 2), (MAP_SIZE / 2)), (int)Random::Generate(-(MAP_SIZE / 2), (MAP_SIZE / 2)));
-        Tree* tree = new Tree(this, position * 32);
-        m_entities.push_back(tree);
-    }
-
-    for (int i = 0; i < 10; i++)
-    {
-        Vector2D position((int)Random::Generate(-(MAP_SIZE / 2), (MAP_SIZE / 2)), (int)Random::Generate(-(MAP_SIZE / 2), (MAP_SIZE / 2)));
-        Rock* rock = new Rock(this, position * 32);
-        m_entities.push_back(rock);
-    }
-    */
-
-    Stockpile* stockpile = new Stockpile(this, Vector2D(0, 0));
-    m_entities.push_back(stockpile);
-
-    /*
-    Forge* forge = new Forge(this, Vector2D(128, 0));
-    m_entities.push_back(forge);
-    */
 }
 
 /*

@@ -32,9 +32,7 @@ private:
     void Update(double deltaTime);
     void Render();
     void CleanEntities();
-    void SpawnPeon();
     void IssueCommand(Entity* ent);
-    void GenerateMap();
 
     bool LoadTexture(const std::string& path, const std::string& id);
     bool LoadFont(const std::string& path, const std::string& id, const int& size = 16);

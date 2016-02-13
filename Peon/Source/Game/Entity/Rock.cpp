@@ -6,6 +6,7 @@
 Rock::Rock(Game* game, Vector2D position) :
     Resource(game, position, ItemType::STONE)
 {
+    m_origin = Vector2D(16, 16);
 }
 
 Rock::~Rock()
