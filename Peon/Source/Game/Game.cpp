@@ -111,24 +111,6 @@ int Game::Initialize()
     LoadTexture("Resources/Textures/structure.png", "structure");
     LoadTexture("Resources/Textures/obelisk.png", "obelisk");
 
-    // legacy textures
-    LoadTexture("Resources/Textures/man.png", "man");
-    LoadTexture("Resources/Textures/man_2.png", "man2");
-    LoadTexture("Resources/Textures/man_3.png", "man3");
-    LoadTexture("Resources/Textures/man_4.png", "man4");
-    LoadTexture("Resources/Textures/tree.png", "tree");
-    LoadTexture("Resources/Textures/log.png", "log");
-    LoadTexture("Resources/Textures/stone.png", "stone");
-    LoadTexture("Resources/Textures/rock.png", "rock");
-    LoadTexture("Resources/Textures/selection.png", "selection");
-    LoadTexture("Resources/Textures/bonfire_0.png", "bonfire_0");
-    LoadTexture("Resources/Textures/bonfire_1.png", "bonfire_1");
-    LoadTexture("Resources/Textures/bonfire_2.png", "bonfire_2");
-    LoadTexture("Resources/Textures/bonfire_3.png", "bonfire_3");
-    LoadTexture("Resources/Textures/bonfire_4.png", "bonfire_4");
-    LoadTexture("Resources/Textures/fire.png", "fire");
-    LoadTexture("Resources/Textures/grass.png", "grass");
-
     // Load fonts
     LoadFont("Resources/Fonts/dos.ttf", "dos");
 
@@ -327,8 +309,7 @@ void Game::Render()
 
     // Render map
     m_map->Render();
-    m_renderer->RenderSprite("obelisk", 0, 0, 0, 0, 96, 352);
- 
+
     /*
     for (auto it = m_selectedPeons.begin(); it != m_selectedPeons.end(); it++)
     {

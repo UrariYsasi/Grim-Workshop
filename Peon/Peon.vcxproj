@@ -37,6 +37,7 @@
     <ClCompile Include="Source\Game\Entity\Entity.cpp" />
     <ClCompile Include="Source\Game\Entity\Forge.cpp" />
     <ClCompile Include="Source\Game\Entity\Monster.cpp" />
+    <ClCompile Include="Source\Game\Entity\Obelisk.cpp" />
     <ClCompile Include="Source\Game\Entity\Peon.cpp" />
     <ClCompile Include="Source\Game\Entity\Prop.cpp" />
     <ClCompile Include="Source\Game\Entity\Resource.cpp" />
@@ -74,6 +75,7 @@
     <ClInclude Include="Source\Game\Entity\Entity.hpp" />
     <ClInclude Include="Source\Game\Entity\Forge.hpp" />
     <ClInclude Include="Source\Game\Entity\Monster.hpp" />
+    <ClInclude Include="Source\Game\Entity\Obelisk.hpp" />
     <ClInclude Include="Source\Game\Entity\Peon.hpp" />
     <ClInclude Include="Source\Game\Entity\Prop.hpp" />
     <ClInclude Include="Source\Game\Entity\Resource.hpp" />
