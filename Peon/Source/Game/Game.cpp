@@ -14,15 +14,14 @@
 #include "Entity/Action/SmeltAction.hpp"
 #include "Terrain/GrassTile.hpp"
 #include "Map/Map.hpp"
+#include "Player.hpp"
 
 Game::Game() :
     m_peonCount(0),
     m_frameCount(0),
     m_frameRate(0),
     m_gameStartTime(0),
-    m_isRunning(false),
-    m_isBoxSelecting(false),
-    m_boxSelection(0, 0, 0, 0)
+    m_isRunning(false)
 {
 }
 
@@ -54,6 +53,16 @@ Game::~Game()
 Renderer* Game::GetRenderer()
 {
     return m_renderer.get();
+}
+
+Input* Game::GetInput()
+{
+    return m_input.get();
+}
+
+Camera* Game::GetMainCamera()
+{
+    return m_mainCamera.get();
 }
 
 int Game::Initialize()
@@ -103,6 +112,7 @@ int Game::Initialize()
     m_GUICamera = std::make_unique<Camera>(m_renderer.get(), Vector2D(0, 0));
 
     m_map = std::make_unique<Map>(this);
+    m_player = std::make_unique<Player>(this);
 
     // Load Textures
     LoadTexture("Resources/Textures/peon.png", "peon");
@@ -138,11 +148,9 @@ void Game::Run()
         Debug::LogError("Game::Run() cannot be called, Game is already running!");
         return;
     }
-    else
-    {
-        m_isRunning = true;
-        m_gameStartTime = SDL_GetTicks();
-    }
+
+    m_isRunning = true;
+    m_gameStartTime = SDL_GetTicks();
 
     double frameStartTime = 0.0;
     double frameEndTime = 0.0;
@@ -168,6 +176,11 @@ void Game::Terminate()
 
 void Game::Update(double deltaTime)
 {
+    if (m_input->GetKey(SDLK_ESCAPE))
+    {
+        Terminate();
+    }
+
     if (m_input->GetKeyPress(SDLK_i))
     {
         Debug::ToggleFlag(SHOW_MENU);
@@ -196,107 +209,8 @@ void Game::Update(double deltaTime)
         }
     }
 
-    // Camera movement
-    Vector2D cameraMovement(0, 0);
-
-    if (m_input->GetKey(SDLK_w) || m_input->GetKey(SDLK_UP))
-    {
-        cameraMovement += Vector2D(0, -1);
-    }
-
-    if (m_input->GetKey(SDLK_a) || m_input->GetKey(SDLK_LEFT))
-    {
-        cameraMovement += Vector2D(-1, 0);
-    }
-
-    if (m_input->GetKey(SDLK_s) || m_input->GetKey(SDLK_DOWN))
-    {
-        cameraMovement += Vector2D(0, 1);
-    }
-
-    if (m_input->GetKey(SDLK_d) || m_input->GetKey(SDLK_RIGHT))
-    {
-        cameraMovement += Vector2D(1, 0);
-    }
-
-    cameraMovement *= 1024;
-    cameraMovement *= deltaTime;
-
-    m_mainCamera->Move(cameraMovement);
-
-    // Peon selection
-    if (m_input->GetMouseButtonPress(SDL_BUTTON_LEFT))
-    {
-        //m_selectedPeons.clear();
-
-        m_isBoxSelecting = true;
-
-        Vector2D mousePositionScreen = m_input->GetMousePosition();
-        Vector2D mousePositionWorld = m_mainCamera->ConvertToWorld(mousePositionScreen);
-
-        m_boxSelection.x = mousePositionWorld.x;
-        m_boxSelection.y = mousePositionWorld.y;
-    }
-
-    if (m_isBoxSelecting)
-    {
-        Vector2D mousePositionScreen = m_input->GetMousePosition();
-        Vector2D mousePositionWorld = m_mainCamera->ConvertToWorld(mousePositionScreen);
-        m_boxSelection.width = mousePositionWorld.x - m_boxSelection.x;
-        m_boxSelection.height = mousePositionWorld.y - m_boxSelection.y;
-    }
-
-    if (m_input->GetMouseButtonRelease(SDL_BUTTON_LEFT))
-    {
-        if (m_isBoxSelecting)
-        {
-            /*
-            for (auto it = m_entities.begin(); it != m_entities.end(); it++)
-            {
-                Peon* peon = dynamic_cast<Peon*>(*it);
-                if (peon != nullptr)
-                {
-                    if (peon->IsCollidingWithRect(m_boxSelection))
-                    {
-                        m_selectedPeons.push_back(peon);
-                    }
-                }
-            }
-            */
-
-            m_isBoxSelecting = false;
-        }
-    }
-
-    // Peon commanding with right click
-    if (m_input->GetMouseButtonPress(SDL_BUTTON_RIGHT))
-    {
-        // If we right clicked on a Resource, command the peon to start working on it.
-        /*
-        Entity* ent = nullptr;
-        for (auto it = m_entities.begin(); it != m_entities.end(); it++)
-        {
-            Vector2D mousePositionScreen = m_input->GetMousePosition();
-            Vector2D mousePositionWorld = m_mainCamera->ConvertToWorld(mousePositionScreen);
-            Rectangle mouseRect(mousePositionWorld.x - 2, mousePositionWorld.y - 2, 2, 2);
-            if ((*it)->IsCollidingWithRect(mouseRect))
-            {
-                ent = (*it);
-            }
-        }
-
-        IssueCommand(ent);
-        */
-    }
-
-    // Game closing
-    if (m_input->GetKey(SDLK_ESCAPE))
-    {
-        Terminate();
-    }
-
-    // Update map
     m_map->Update(deltaTime);
+    m_player->Update(deltaTime);
 }
 
 void Game::Render()
@@ -304,11 +218,10 @@ void Game::Render()
     m_renderer->SetDrawColor(SDL_Color{ 0, 0, 0, 255 });
     m_renderer->Clear();
 
-    // Activate main camera
     m_mainCamera->Activate();
 
-    // Render map
     m_map->Render();
+    m_player->Render();
 
     /*
     for (auto it = m_selectedPeons.begin(); it != m_selectedPeons.end(); it++)
@@ -319,11 +232,6 @@ void Game::Render()
         //m_renderer->RenderTexture("selection", static_cast<int>((*it)->GetPosition().x), static_cast<int>((*it)->GetPosition().y), 32, 32);
     }
     */
-
-    if (m_isBoxSelecting)
-    {
-        m_renderer->RenderOutlineRect(m_boxSelection, SDL_Color{0, 0, 0, 100});
-    }
 
     // Render GUI
     m_GUICamera->Activate();

@@ -47,6 +47,7 @@
     <ClCompile Include="Source\Game\Game.cpp" />
     <ClCompile Include="Source\Game\Item\Inventory.cpp" />
     <ClCompile Include="Source\Game\Map\Map.cpp" />
+    <ClCompile Include="Source\Game\Player.cpp" />
     <ClCompile Include="Source\Game\Terrain\GrassTile.cpp" />
     <ClCompile Include="Source\Game\Terrain\Tile.cpp" />
     <ClCompile Include="Source\Main.cpp">
@@ -86,6 +87,7 @@
     <ClInclude Include="Source\Game\Item\Inventory.hpp" />
     <ClInclude Include="Source\Game\Item\ItemType.hpp" />
     <ClInclude Include="Source\Game\Map\Map.hpp" />
+    <ClInclude Include="Source\Game\Player.hpp" />
     <ClInclude Include="Source\Game\Terrain\GrassTile.hpp" />
     <ClInclude Include="Source\Game\Terrain\Tile.hpp" />
     <ClInclude Include="Source\PCH.hpp" />

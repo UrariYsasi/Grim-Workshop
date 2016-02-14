@@ -9,6 +9,7 @@ class Stockpile;
 class Tile;
 class Camera;
 class Map;
+class Player;
 
 class Game
 {
@@ -17,6 +18,8 @@ public:
     ~Game();
 
     Renderer* GetRenderer();
+    Input* GetInput();
+    Camera* GetMainCamera();
 
     int Initialize();
     void Run();
@@ -55,10 +58,7 @@ private:
     std::map<std::string, Mix_Chunk*> m_soundMap;
 
     std::unique_ptr<Map> m_map;
-
-    // Mouse selection
-    bool m_isBoxSelecting;
-    Rectangle m_boxSelection;
+    std::unique_ptr<Player> m_player;
 
     // This is here TEMPORARILY for debug purposes
     int m_peonCount;

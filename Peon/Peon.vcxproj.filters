@@ -120,6 +120,9 @@
     <ClCompile Include="Source\Game\Entity\Obelisk.cpp">
       <Filter>Source\Game\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\Player.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\PCH.hpp">
@@ -223,6 +226,9 @@
     </ClInclude>
     <ClInclude Include="Source\Game\Entity\Obelisk.hpp">
       <Filter>Source\Game\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Player.hpp">
+      <Filter>Source\Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
