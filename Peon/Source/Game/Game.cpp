@@ -65,12 +65,14 @@ Camera* Game::GetMainCamera()
     return m_mainCamera.get();
 }
 
+Map* Game::GetMap()
+{
+    return m_map.get();
+}
+
 int Game::Initialize()
 {
-    // Enable Debugging
-    Debug::EnableFlag(LOGGING);
-    Debug::EnableFlag(SHOW_MENU);
-    Debug::EnableFlag(CHEAT);
+    Debug::EnableFlag(LOGGING | CHEAT);
 
     // Initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0)

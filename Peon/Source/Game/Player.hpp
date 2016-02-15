@@ -4,6 +4,8 @@ class Game;
 class Input;
 class Camera;
 class Renderer;
+class Peon;
+class Map;
 
 class Player
 {
@@ -22,8 +24,10 @@ private:
     Input* m_gameInput;
     Camera* m_gameCamera;
     Renderer* m_gameRenderer;
+    Map* m_gameMap;
 
     int m_cameraSpeed;
     bool m_isBoxSelecting;
     Rectangle m_boxSelection;
+    std::list<Peon*> m_selectedPeons;
 };

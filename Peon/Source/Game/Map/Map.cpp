@@ -142,3 +142,24 @@ void Map::SpawnPeon(int quantity)
         m_entities.push_back(std::make_unique<Peon>(m_game, position));
     }
 }
+
+/*
+    Gets all the Peons that are inside or colliding with the given rectangle.
+*/
+std::list<Peon*> Map::GetPeonsInRectangle(Rectangle rect)
+{
+    std::list<Peon*> peons;
+    for (auto it = m_entities.begin(); it != m_entities.end(); it++)
+    {
+        Peon* peon = dynamic_cast<Peon*>((*it).get());
+        if (peon != nullptr)
+        {
+            if (peon->IsCollidingWithRect(rect))
+            {
+                peons.push_back(peon);
+            }
+        }
+    }
+
+    return peons;
+}

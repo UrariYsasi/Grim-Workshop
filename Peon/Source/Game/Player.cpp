@@ -5,6 +5,7 @@
 #include "../Engine/Input.hpp"
 #include "../Engine/Renderer.hpp"
 #include "../Engine/Rectangle.hpp"
+#include "Map/Map.hpp"
 
 Player::Player(Game* game) :
     m_game(game),
@@ -28,6 +29,11 @@ void Player::Update(double deltaTime)
     if (m_gameCamera == nullptr)
     {
         m_gameCamera = m_game->GetMainCamera();
+    }
+
+    if (m_gameMap == nullptr)
+    {
+        m_gameMap = m_game->GetMap();
     }
 
     Vector2D cameraMovement(0, 0);
@@ -65,10 +71,31 @@ void Player::Update(double deltaTime)
     cameraMovement *= deltaTime;
 
     m_gameCamera->Move(cameraMovement);
+    
+    Vector2D cameraPosition = m_gameCamera->GetPosition();
+    if (cameraPosition.y < -1000)
+    {
+        cameraPosition.y = -1000;
+    }
+    else if (cameraPosition.y + 768 > 1000)
+    {
+        cameraPosition.y = 1000 - 768;
+    }
+
+    if (cameraPosition.x < -1000)
+    {
+        cameraPosition.x = -1000;
+    }
+    else if (cameraPosition.x + 1024 > 1000)
+    {
+        cameraPosition.x = 1000 - 1024;
+    }
+
+    m_gameCamera->SetPosition(cameraPosition);
 
     if (m_gameInput->GetMouseButtonPress(SDL_BUTTON_LEFT))
     {
-        //m_selectedPeons.clear();
+        m_selectedPeons.clear();
 
         m_isBoxSelecting = true;
 
@@ -91,21 +118,8 @@ void Player::Update(double deltaTime)
     {
         if (m_isBoxSelecting)
         {
-            /*
-            for (auto it = m_entities.begin(); it != m_entities.end(); it++)
-            {
-            Peon* peon = dynamic_cast<Peon*>(*it);
-            if (peon != nullptr)
-            {
-            if (peon->IsCollidingWithRect(m_boxSelection))
-            {
-            m_selectedPeons.push_back(peon);
-            }
-            }
-            }
-            */
-
             m_isBoxSelecting = false;
+            m_selectedPeons = m_gameMap->GetPeonsInRectangle(m_boxSelection);
         }
     }
 

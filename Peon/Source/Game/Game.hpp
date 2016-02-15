@@ -20,6 +20,7 @@ public:
     Renderer* GetRenderer();
     Input* GetInput();
     Camera* GetMainCamera();
+    Map* GetMap();
 
     int Initialize();
     void Run();

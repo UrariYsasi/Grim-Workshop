@@ -18,6 +18,7 @@ public:
     void Render();
     void Generate();
     void SpawnPeon(int quantity = 1);
+    std::list<Peon*> GetPeonsInRectangle(Rectangle rect);
 
 private:
     void CleanEntities();
