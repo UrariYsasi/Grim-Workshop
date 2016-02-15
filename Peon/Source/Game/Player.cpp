@@ -160,7 +160,10 @@ void Player::IssueCommand(Vector2D position)
     for (auto peon : m_selectedPeons)
     {
         Vector2D worldPosition = m_gameCamera->ConvertToWorld(position);
-        worldPosition += Vector2D(Random::Generate(-20, 20), Random::Generate(-20, 20));
+        double radius = 32;
+        double angle = Random::Generate(0, 1) * M_PI * 2;
+        double distance = Random::Generate(0, 1) * radius;
+        worldPosition += Vector2D(distance * cos(angle), distance * sin(angle));
         peon->ClearActions();
         peon->PushAction(std::make_unique<MoveAction>(peon, worldPosition));
     }
