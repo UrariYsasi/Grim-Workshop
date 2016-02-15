@@ -35,7 +35,6 @@ public:
 private:
     void Update(double deltaTime);
     void Render();
-    void IssueCommand(Entity* ent);
 
     bool LoadTexture(const std::string& path, const std::string& id);
     bool LoadFont(const std::string& path, const std::string& id, const int& size = 16);

@@ -106,7 +106,7 @@ void Map::Generate()
     }
 
     // Stockpile
-    m_entities.push_back(std::make_unique<Stockpile>(m_game, Vector2D(-64, 0)));
+    //m_entities.push_back(std::make_unique<Stockpile>(m_game, Vector2D(-64, 0)));
 
     // Obelisk
     m_entities.push_back(std::make_unique<Obelisk>(m_game, Vector2D(0, 0)));

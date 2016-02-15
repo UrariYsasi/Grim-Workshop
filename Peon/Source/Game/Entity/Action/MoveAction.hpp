@@ -12,8 +12,6 @@ public:
     virtual void Update(double deltaTime);
 
 private:
-    const int MOVE_SPEED = 64;
-
     Vector2D m_destination;
 
     double m_hopOffset;

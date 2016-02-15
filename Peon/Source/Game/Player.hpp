@@ -17,6 +17,10 @@ public:
     void Render();
 
 private:
+    void IssueCommand(Vector2D position);
+
+private:
+    const int CAMERA_SPEED_SLOW = 256;
     const int CAMERA_SPEED_NORMAL = 1024;
     const int CAMERA_SPEED_FAST = 1792;
 

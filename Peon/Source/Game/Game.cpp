@@ -239,7 +239,7 @@ void Game::Render()
     m_GUICamera->Activate();
 
     Rectangle bottomBar(0, m_window->GetSize().y - 16, m_window->GetSize().x, 16);
-    m_renderer->RenderFillRect(bottomBar, SDL_Color{ 128, 128, 128, 128 });
+    //m_renderer->RenderFillRect(bottomBar, SDL_Color{ 128, 128, 128, 128 });
     Inventory* stock = FindStockpile()->GetInventory();
 
     std::stringstream ss;
@@ -248,7 +248,7 @@ void Game::Render()
     ss << "Coal: " << 0 << "         ";
     ss << "Iron Ore: " << 0 << "         ";
     ss << "Iron Bar: " << 0 << "         ";
-    m_renderer->RenderText("dos", 5, (int)m_window->GetSize().y - 16, ss.str());
+    //m_renderer->RenderText("dos", 5, (int)m_window->GetSize().y - 16, ss.str());
     ss.str(" ");
 
     // Debug stuff
@@ -306,42 +306,6 @@ void Game::Render()
     }
 
     m_renderer->Present();
-}
-
-void Game::IssueCommand(Entity* ent)
-{
-    // Loop through all selected peons
-    /*
-    for (auto it = m_selectedPeons.begin(); it != m_selectedPeons.end(); it++)
-    {
-        Peon* peon = (*it);
-
-        if (ent != nullptr)
-        {
-            // If we commanded them to a resource, they will begin working on that resource
-            Resource* resource = dynamic_cast<Resource*>(ent);
-            if (resource != nullptr)
-            {
-                peon->ClearActions();
-                peon->PushAction(std::make_unique<GatherAction>(peon, resource));
-            }
-
-            Forge* forge = dynamic_cast<Forge*>(ent);
-            if (forge != nullptr)
-            {
-                peon->ClearActions();
-                peon->PushAction(std::make_unique<SmeltAction>(peon, forge));
-            }
-        }
-        else
-        {
-            // If we commanded them to empty space, they will just walk to the clicked position
-            peon->ClearActions();
-            Vector2D position = m_mainCamera->ConvertToWorld(m_input->GetMousePosition());
-            peon->PushAction(std::make_unique<MoveAction>(peon, position));
-        }
-    }
-    */
 }
 
 /*

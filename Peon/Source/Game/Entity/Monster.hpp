@@ -11,6 +11,7 @@ public:
     virtual ~Monster();
 
     Inventory* GetInventory();
+    int GetMoveSpeed();
 
     virtual void Update(double deltaTime);
     virtual void Render() = 0;
@@ -21,4 +22,5 @@ public:
 protected:
     std::list< std::unique_ptr<Action> > m_actionStack;
     Inventory m_inventory;
+    int m_moveSpeed;
 };

@@ -4,8 +4,10 @@
 #include "Action/IdleAction.hpp"
 
 Monster::Monster(Game* game, Vector2D position) :
-    Entity(game, position)
+    Entity(game, position),
+    m_moveSpeed(64)
 {
+    m_moveSpeed += (int)Random::Generate(-10, 10);
 }
 
 Monster::~Monster()
@@ -19,6 +21,10 @@ Inventory* Monster::GetInventory()
     return &m_inventory;
 }
 
+int Monster::GetMoveSpeed()
+{
+    return m_moveSpeed;
+}
 
 void Monster::Update(double deltaTime)
 {

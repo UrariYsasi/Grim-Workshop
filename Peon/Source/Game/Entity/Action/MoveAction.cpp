@@ -11,6 +11,7 @@ MoveAction::MoveAction(Monster* owner, const Vector2D& destination) :
     m_hopAmp(6),
     m_hopFreq(15)
 {
+    m_hopFreq += Random::Generate(-3, 3);
 }
 
 MoveAction::~MoveAction()
@@ -38,7 +39,7 @@ void MoveAction::Update(double deltaTime)
         Vector2D direction = m_destination - start;
         direction.Normalize();
 
-        position += direction * (MOVE_SPEED * deltaTime);
+        position += direction * (m_owner->GetMoveSpeed() * deltaTime);
         if (Vector2D::Distance(start, position) > distance)
         {
             position = m_destination;

@@ -6,6 +6,8 @@
 #include "../Engine/Renderer.hpp"
 #include "../Engine/Rectangle.hpp"
 #include "Map/Map.hpp"
+#include "Entity/Peon.hpp"
+#include "Entity/Action/MoveAction.hpp"
 
 Player::Player(Game* game) :
     m_game(game),
@@ -61,6 +63,10 @@ void Player::Update(double deltaTime)
     if (m_gameInput->GetKey(SDLK_LSHIFT) || m_gameInput->GetKey(SDLK_RSHIFT))
     {
         m_cameraSpeed = CAMERA_SPEED_FAST;
+    }
+    else if (m_gameInput->GetKey(SDLK_LCTRL))
+    {
+        m_cameraSpeed = CAMERA_SPEED_SLOW;
     }
     else
     {
@@ -125,22 +131,7 @@ void Player::Update(double deltaTime)
 
     if (m_gameInput->GetMouseButtonPress(SDL_BUTTON_RIGHT))
     {
-        // If we right clicked on a Resource, command the peon to start working on it.
-        /*
-        Entity* ent = nullptr;
-        for (auto it = m_entities.begin(); it != m_entities.end(); it++)
-        {
-        Vector2D mousePositionScreen = m_input->GetMousePosition();
-        Vector2D mousePositionWorld = m_mainCamera->ConvertToWorld(mousePositionScreen);
-        Rectangle mouseRect(mousePositionWorld.x - 2, mousePositionWorld.y - 2, 2, 2);
-        if ((*it)->IsCollidingWithRect(mouseRect))
-        {
-        ent = (*it);
-        }
-        }
-
-        IssueCommand(ent);
-        */
+        IssueCommand(m_gameInput->GetMousePosition());
     }
 }
 
@@ -155,4 +146,55 @@ void Player::Render()
     {
         m_gameRenderer->RenderOutlineRect(m_boxSelection, SDL_Color{ 0, 0, 0, 100 });
     }
+
+    for (auto peon : m_selectedPeons)
+    {
+        Vector2D position = peon->GetPosition();
+        Rectangle outline(position.x - 8, position.y, 16, 22);
+        m_gameRenderer->RenderOutlineRect(outline, SDL_Color{ 0, 0, 0, 100 });
+    }
+}
+
+void Player::IssueCommand(Vector2D position)
+{
+    for (auto peon : m_selectedPeons)
+    {
+        Vector2D worldPosition = m_gameCamera->ConvertToWorld(position);
+        worldPosition += Vector2D(Random::Generate(-20, 20), Random::Generate(-20, 20));
+        peon->ClearActions();
+        peon->PushAction(std::make_unique<MoveAction>(peon, worldPosition));
+    }
+
+    // Loop through all selected peons
+    /*
+    for (auto it = m_selectedPeons.begin(); it != m_selectedPeons.end(); it++)
+    {
+    Peon* peon = (*it);
+
+    if (ent != nullptr)
+    {
+    // If we commanded them to a resource, they will begin working on that resource
+    Resource* resource = dynamic_cast<Resource*>(ent);
+    if (resource != nullptr)
+    {
+    peon->ClearActions();
+    peon->PushAction(std::make_unique<GatherAction>(peon, resource));
+    }
+
+    Forge* forge = dynamic_cast<Forge*>(ent);
+    if (forge != nullptr)
+    {
+    peon->ClearActions();
+    peon->PushAction(std::make_unique<SmeltAction>(peon, forge));
+    }
+    }
+    else
+    {
+    // If we commanded them to empty space, they will just walk to the clicked position
+    peon->ClearActions();
+    Vector2D position = m_mainCamera->ConvertToWorld(m_input->GetMousePosition());
+    peon->PushAction(std::make_unique<MoveAction>(peon, position));
+    }
+    }
+    */
 }
