@@ -1,8 +1,9 @@
 #include "PCH.hpp"
 #include "IdleAction.hpp"
-#include "../../../Engine/Vector2D.hpp"
 #include "MoveAction.hpp"
 #include "../Monster.hpp"
+#include "../../Game.hpp"
+#include "../../Map/Map.hpp"
 
 IdleAction::IdleAction(Monster* owner) :
     Action(owner, "Idle"),
@@ -30,8 +31,10 @@ void IdleAction::Update(double deltaTime)
             double randX = Random::Generate(-32, 32);
             double randY = Random::Generate(-32, 32);
             Vector2D wanderDestination = m_owner->GetPosition() + Vector2D(randX, randY);
-
-            m_owner->PushAction(std::make_unique<MoveAction>(m_owner, wanderDestination));
+            if (m_owner->GetGame()->GetMap()->IsPassable(wanderDestination))
+            {
+                m_owner->PushAction(std::make_unique<MoveAction>(m_owner, wanderDestination));
+            }
         }
     }
 }
