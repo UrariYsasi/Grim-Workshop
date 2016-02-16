@@ -160,12 +160,25 @@ void Player::IssueCommand(Vector2D position)
     for (auto peon : m_selectedPeons)
     {
         Vector2D worldPosition = m_gameCamera->ConvertToWorld(position);
-        double radius = 32;
-        double angle = Random::Generate(0, 1) * M_PI * 2;
-        double distance = Random::Generate(0, 1) * radius;
-        worldPosition += Vector2D(distance * cos(angle), distance * sin(angle));
-        peon->ClearActions();
-        peon->PushAction(std::make_unique<MoveAction>(peon, worldPosition));
+
+        if (m_gameMap->IsPassable(worldPosition))
+        {
+            double radius = 32;
+            double angle = Random::Generate(0, 1) * M_PI * 2;
+            double distance = Random::Generate(0, 1) * radius;
+            Vector2D offset = Vector2D(distance * cos(angle), distance * sin(angle));
+            if (m_gameMap->IsPassable(worldPosition + offset))
+            {
+                worldPosition += offset;
+            }
+
+            peon->ClearActions();
+            peon->PushAction(std::make_unique<MoveAction>(peon, worldPosition));
+        }
+        else
+        {
+            Debug::LogError("Not passable!");
+        }
     }
 
     // Loop through all selected peons

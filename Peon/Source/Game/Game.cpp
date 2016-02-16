@@ -12,7 +12,7 @@
 #include "Entity/Action/MoveAction.hpp"
 #include "Entity/Action/GatherAction.hpp"
 #include "Entity/Action/SmeltAction.hpp"
-#include "Terrain/GrassTile.hpp"
+#include "Terrain/TerrainTile.hpp"
 #include "Map/Map.hpp"
 #include "Player.hpp"
 

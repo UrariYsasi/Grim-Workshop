@@ -2,7 +2,7 @@
 #include "../../Engine/PerlinGenerator.hpp"
 
 class Game;
-class Tile;
+class TerrainTile;
 class Entity;
 class Peon;
 
@@ -18,6 +18,7 @@ public:
     void Render();
     void Generate();
     void SpawnPeon(int quantity = 1);
+    bool IsPassable(const Vector2D& point);
     std::list<Peon*> GetPeonsInRectangle(Rectangle rect);
 
 private:
@@ -29,7 +30,7 @@ private:
     Game* m_game;
     PerlinGenerator m_generator;
 
-    std::unordered_map<Vector2D, std::unique_ptr<Tile> > m_terrain;
+    std::unordered_map<Vector2D, std::unique_ptr<TerrainTile> > m_terrain;
     std::list< std::unique_ptr<Entity> > m_entities;
     std::list<Peon*> m_selectedPeons;
 };

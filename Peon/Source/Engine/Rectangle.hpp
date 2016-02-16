@@ -14,4 +14,18 @@ struct Rectangle
         height(height)
     {
     }
+
+    inline bool ContainsPoint(const Vector2D& point);
 };
+
+inline bool Rectangle::ContainsPoint(const Vector2D& point)
+{
+    double left = x;
+    double right = x + width;
+    double top = y;
+    double bottom = y + height;
+
+    return (point.x >= left) && (point.x <= right) && (point.y >= top) && (point.y <= bottom);
+
+    return false;
+}

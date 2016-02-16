@@ -4,7 +4,7 @@ static const uint8_t LOGGING = 0x01;              // Log messages to the console
 static const uint8_t SHOW_MENU = 0x02;            // Display the debug menu in the game
 static const uint8_t CHEAT = 0x04;                // Enable cheat keys
 static const uint8_t RENDER_HITBOXES = 0x08;      // Render hit boxes
-static const uint8_t RENDER_TILE_OUTLINES = 0x10; // Render Tile outlines
+static const uint8_t RENDER_TILE_OUTLINES = 0x10; // Render TerrainTile outlines
 static const uint8_t RENDER_ORIGINS = 0x20;       // Render origin points
 
 class Debug

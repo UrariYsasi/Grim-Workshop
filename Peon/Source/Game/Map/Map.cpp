@@ -1,12 +1,12 @@
 #include "PCH.hpp"
 #include "Map.hpp"
 #include "../Game.hpp"
-#include "../Terrain/GrassTile.hpp"
 #include "../Entity/Tree.hpp"
 #include "../Entity/Rock.hpp"
 #include "../Entity/Stockpile.hpp"
 #include "../Entity/Peon.hpp"
 #include "../Entity/Obelisk.hpp"
+#include "../Terrain/TerrainTile.hpp"
 
 Map::Map(Game* game) :
     m_game(game)
@@ -39,7 +39,7 @@ void Map::Render()
     // Terrain
     for (auto it = m_terrain.begin(); it != m_terrain.end(); it++)
     {
-        Tile* t = (it->second).get();
+        TerrainTile* t = (it->second).get();
         t->Render();
     }
 
@@ -70,7 +70,7 @@ void Map::Generate()
         for (int y = -(MAP_SIZE / 2); y < (MAP_SIZE / 2); y++)
         {
             Vector2D position(x, y);
-            m_terrain[position] = std::make_unique<GrassTile>(m_game, position * 32);
+            m_terrain[position] = std::make_unique<TerrainTile>(m_game, position * 32);
         }
     }
 
@@ -93,7 +93,7 @@ void Map::Generate()
 
             if (val > .5)
             {
-                Vector2D position(x * 32, y * 32);
+                Vector2D position(x * 32, y * 32);               
                 m_entities.push_back(std::make_unique<Tree>(m_game, position));
             }
 
@@ -141,6 +141,30 @@ void Map::SpawnPeon(int quantity)
         Vector2D position(Random::Generate(-128, 128), Random::Generate(-128, 128));
         m_entities.push_back(std::make_unique<Peon>(m_game, position));
     }
+}
+
+/*
+    Checks whether a point on the map is passable or not.
+*/
+bool Map::IsPassable(const Vector2D& point)
+{
+    for (auto it = m_entities.begin(); it != m_entities.end(); it++)
+    {
+        /*
+        Rectangle mouseRect(point.x, point.y, 1, 1);
+        if ((*it)->IsCollidingWithRect(mouseRect))
+        {
+            return false;
+        }
+        */
+
+        Rectangle hitBox = (*it)->GetHitBox();
+        if (hitBox.ContainsPoint(point))
+        {
+            return false;
+        }
+    }
+    return true;
 }
 
 /*

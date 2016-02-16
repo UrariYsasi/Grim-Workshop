@@ -1,19 +1,22 @@
 #pragma once
 
 class Game;
+class Prop;
 
-class Tile
+class TerrainTile
 {
 public:
-    Tile(Game* game, const Vector2D& position, const int& spriteColumn, const int& spriteRow);
-    virtual ~Tile();
+    TerrainTile(Game* game, const Vector2D& position);
+    ~TerrainTile();
 
     void SetPosition(const Vector2D& position);
     Vector2D GetPosition() const;
+    void SetProp(Prop* prop);
+    Prop* GetProp();
 
-    virtual void Render() = 0;
+    void Render();
 
-protected:
+private:
     const static int TILE_SIZE = 32;
 
     Game* m_game;

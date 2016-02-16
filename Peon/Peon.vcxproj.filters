@@ -90,12 +90,6 @@
     <ClCompile Include="Source\Game\Entity\Rock.cpp">
       <Filter>Source\Game\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\Terrain\Tile.cpp">
-      <Filter>Source\Game\Terrain</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\Terrain\GrassTile.cpp">
-      <Filter>Source\Game\Terrain</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Engine\Camera.cpp">
       <Filter>Source\Engine</Filter>
     </ClCompile>
@@ -122,6 +116,9 @@
     </ClCompile>
     <ClCompile Include="Source\Game\Player.cpp">
       <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Terrain\TerrainTile.cpp">
+      <Filter>Source\Game\Terrain</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -191,12 +188,6 @@
     <ClInclude Include="Source\Game\Entity\Rock.hpp">
       <Filter>Source\Game\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\Terrain\Tile.hpp">
-      <Filter>Source\Game\Terrain</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Terrain\GrassTile.hpp">
-      <Filter>Source\Game\Terrain</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Engine\Camera.hpp">
       <Filter>Source\Engine</Filter>
     </ClInclude>
@@ -229,6 +220,9 @@
     </ClInclude>
     <ClInclude Include="Source\Game\Player.hpp">
       <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Terrain\TerrainTile.hpp">
+      <Filter>Source\Game\Terrain</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

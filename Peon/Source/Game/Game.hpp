@@ -6,7 +6,7 @@ class Input;
 class Entity;
 class Peon;
 class Stockpile;
-class Tile;
+class TerrainTile;
 class Camera;
 class Map;
 class Player;

@@ -1,34 +1,35 @@
 #include "PCH.hpp"
-#include "Tile.hpp"
+#include "TerrainTile.hpp"
 #include "../Game.hpp"
+#include "../Entity/Prop.hpp"
 #include "../../Engine/Renderer.hpp"
 #include "../../Engine/Camera.hpp"
 
-Tile::Tile(Game* game, const Vector2D& position, const int& spriteColumn, const int& spriteRow) :
+TerrainTile::TerrainTile(Game* game, const Vector2D& position) :
     m_game(game),
     m_origin(16, 16),
     m_position(position),
     m_spritesheet("terrain"),
-    m_spriteColumn(spriteColumn),
-    m_spriteRow(spriteRow)
+    m_spriteColumn(0),
+    m_spriteRow(0)
 {
 }
 
-Tile::~Tile()
+TerrainTile::~TerrainTile()
 {
 }
 
-void Tile::SetPosition(const Vector2D& position)
+void TerrainTile::SetPosition(const Vector2D& position)
 {
     m_position = position;
 }
 
-Vector2D Tile::GetPosition() const
+Vector2D TerrainTile::GetPosition() const
 {
     return m_position;
 }
 
-void Tile::Render()
+void TerrainTile::Render()
 {
     Renderer* renderer = m_game->GetRenderer();
     renderer->RenderSprite(m_spritesheet, m_spriteColumn, m_spriteRow, (int)(m_position.x - m_origin.x), (int)(m_position.y - m_origin.y), TILE_SIZE, TILE_SIZE);
