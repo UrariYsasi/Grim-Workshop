@@ -7,10 +7,10 @@ FRAMEWORK_PATH = /Library/Frameworks/SDL2
 FRAMEWORKS = -framework SDL2 -framework SDL2_ttf -framework SDL2_mixer -framework SDL2_image
 BIN_NAME = peon
 BUILD_NAME = "Peon"
-C_FLAGS = -Wall -std=c++14
-VPATH = Peon/Source/Game Peon/Source Peon/Source/Engine Peon/Source/Game/Entity Peon/Source/Game/Entity/Action
+C_FLAGS = -Wall -std=c++14 -IPeon/Source
+VPATH = Peon/Source/Game Peon/Source Peon/Source/Engine Peon/Source/Game/Entity Peon/Source/Game/Entity/Action Peon/Source/Game/Item Peon/Source/Game/Map Peon/Source/Game/Terrain
 
-DIRS = Peon/Source Peon/Source/Engine Peon/Source/Game Peon/Source/Game/Entity Peon/Source/Game/Entity/Action
+DIRS = Peon/Source Peon/Source/Engine Peon/Source/Game Peon/Source/Game/Entity Peon/Source/Game/Entity/Action Peon/Source/Game/Item Peon/Source/Game/Map Peon/Source/Game/Terrain
 SEARCH_CPP := $(addsuffix /*.cpp ,$(DIRS))
 SRC_FILES := $(wildcard $(SEARCH_CPP))
 

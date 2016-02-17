@@ -32,11 +32,11 @@ Vector2D TerrainTile::GetPosition() const
 void TerrainTile::Render()
 {
     Renderer* renderer = m_game->GetRenderer();
-    renderer->RenderSprite(m_spritesheet, m_spriteColumn, m_spriteRow, (int)(m_position.x - m_origin.x), (int)(m_position.y - m_origin.y), TILE_SIZE, TILE_SIZE);
+    renderer->RenderSprite(m_spritesheet, m_spriteColumn, m_spriteRow, (int)(m_position.x - m_origin.x), (int)(m_position.y - m_origin.y), 32, 32);
 
     if (Debug::IsFlagEnabled(RENDER_TILE_OUTLINES))
     {
-        Rectangle outline((int)(m_position.x - m_origin.x), (int)(m_position.y - m_origin.y), TILE_SIZE, TILE_SIZE);
+        Rectangle outline((int)(m_position.x - m_origin.x), (int)(m_position.y - m_origin.y), 32, 32);
         renderer->RenderOutlineRect(outline, SDL_Color{ 0, 0, 0, 15 });
     }
 }
