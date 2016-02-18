@@ -11,9 +11,11 @@ public:
 
     virtual ItemType GetItem() const = 0;
     bool IsFull();
+    bool IsDead();
 
     virtual void Update(double deltaTime) = 0;
     virtual void Render() = 0;
+    void Damage();
     void AddPeon();
     void RemovePeon();
 
@@ -21,6 +23,7 @@ protected:
     const static int PEON_LIMIT = 3;
 
     ItemType m_item;
+    int m_health;
     int m_peonCount;
     int m_peonLimit;
 };

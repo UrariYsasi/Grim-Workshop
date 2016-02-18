@@ -37,6 +37,11 @@ void GatherAction::Update(double deltaTime)
         return;
     }
 
+    if (m_target->IsDead())
+    {
+        return;
+    }
+
     // Check if we are in range of the resource
     Vector2D targetCenter = m_target->GetPositionCenter();
     Vector2D monsterCenter = m_owner->GetPositionCenter();
@@ -54,6 +59,7 @@ void GatherAction::Update(double deltaTime)
         {
             if (m_timer.GetTime() > m_gatherTime)
             {
+                m_target->Damage();
                 m_timer.Stop();
 
                 m_owner->GetGame()->PlaySound("woodcutting_00"); // TODO different sounds
