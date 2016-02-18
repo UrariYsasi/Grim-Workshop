@@ -5,6 +5,7 @@
 #include "MoveAction.hpp"
 #include "../../Item/Inventory.hpp"
 #include "../Stockpile.hpp"
+#include "../../Map/Map.hpp"
 
 DepositAction::DepositAction(Monster* owner, ItemType dumpItem, const int& quantity) :
     Action(owner, "Deposit"),
@@ -22,7 +23,7 @@ void DepositAction::Update(double deltaTime)
     // If we don't have a target stockpile, find one
     if (m_target == nullptr)
     {
-        m_target = m_owner->GetGame()->FindStockpile();
+        m_target = m_owner->GetGame()->GetMap()->FindStockpile();
         
         if (m_target == nullptr)
         {

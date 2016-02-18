@@ -25,7 +25,6 @@ public:
     int Initialize();
     void Run();
     void Terminate();
-    Stockpile* FindStockpile();
 
     SDL_Texture* GetTexture(const std::string& id);
     TTF_Font* GetFont(const std::string& id);

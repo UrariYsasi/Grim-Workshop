@@ -5,6 +5,7 @@ class Game;
 class TerrainTile;
 class Entity;
 class Peon;
+class Stockpile;
 
 class Map
 {
@@ -19,7 +20,10 @@ public:
     void Generate();
     void SpawnPeon(int quantity = 1);
     bool IsPassable(const Vector2D& point);
+    Entity* GetEntityAtPoint(const Vector2D& point);
+    TerrainTile* GetTerrainAtPoint(const Vector2D& point);
     std::list<Peon*> GetPeonsInRectangle(Rectangle rect);
+    Stockpile* FindStockpile();
 
 private:
     void CleanEntities();

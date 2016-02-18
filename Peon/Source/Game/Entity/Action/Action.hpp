@@ -12,7 +12,7 @@ public:
     bool IsComplete() const;
 
     virtual void Update(double deltaTime) = 0;
-    void Complete();
+    virtual void Complete();
 
 protected:
     Monster* m_owner;

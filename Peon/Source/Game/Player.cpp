@@ -6,8 +6,11 @@
 #include "../Engine/Renderer.hpp"
 #include "../Engine/Rectangle.hpp"
 #include "Map/Map.hpp"
+#include "Terrain/TerrainTile.hpp"
 #include "Entity/Peon.hpp"
+#include "Entity/Tree.hpp"
 #include "Entity/Action/MoveAction.hpp"
+#include "Entity/Action/GatherAction.hpp"
 
 Player::Player(Game* game) :
     m_game(game),
@@ -161,23 +164,33 @@ void Player::IssueCommand(Vector2D position)
     {
         Vector2D worldPosition = m_gameCamera->ConvertToWorld(position);
 
-        if (m_gameMap->IsPassable(worldPosition))
+        Entity* ent = m_gameMap->GetEntityAtPoint(worldPosition);
+        if (ent != nullptr)
         {
-            double radius = 32;
-            double angle = Random::Generate(0, 1) * M_PI * 2;
-            double distance = Random::Generate(0, 1) * radius;
-            Vector2D offset = Vector2D(distance * cos(angle), distance * sin(angle));
-            if (m_gameMap->IsPassable(worldPosition + offset))
+            Resource* resource = dynamic_cast<Resource*>(ent);
+            if (resource != nullptr)
             {
-                worldPosition += offset;
+                peon->ClearActions();
+                peon->PushAction(std::make_unique<GatherAction>(peon, resource));
             }
-
-            peon->ClearActions();
-            peon->PushAction(std::make_unique<MoveAction>(peon, worldPosition));
         }
         else
         {
-            Debug::LogError("Not passable!");
+            // TODO move this into MoveAction
+            if (m_gameMap->IsPassable(worldPosition))
+            {
+                double radius = 32;
+                double angle = Random::Generate(0, 1) * M_PI * 2;
+                double distance = Random::Generate(0, 1) * radius;
+                Vector2D offset = Vector2D(distance * cos(angle), distance * sin(angle));
+                if (m_gameMap->IsPassable(worldPosition + offset))
+                {
+                    worldPosition += offset;
+                }
+
+                peon->ClearActions();
+                peon->PushAction(std::make_unique<MoveAction>(peon, worldPosition));
+            }
         }
     }
 

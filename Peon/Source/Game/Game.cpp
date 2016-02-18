@@ -239,16 +239,16 @@ void Game::Render()
     m_GUICamera->Activate();
 
     Rectangle bottomBar(0, m_window->GetSize().y - 16, m_window->GetSize().x, 16);
-    //m_renderer->RenderFillRect(bottomBar, SDL_Color{ 128, 128, 128, 128 });
-    Inventory* stock = FindStockpile()->GetInventory();
+    m_renderer->RenderFillRect(bottomBar, SDL_Color{ 128, 128, 128, 128 });
+    Inventory* stock = m_map->FindStockpile()->GetInventory();
 
     std::stringstream ss;
-    ss << "Wood: " << 0 << "         ";
-    ss << "Stone: " << 0 << "         ";
-    ss << "Coal: " << 0 << "         ";
-    ss << "Iron Ore: " << 0 << "         ";
-    ss << "Iron Bar: " << 0 << "         ";
-    //m_renderer->RenderText("dos", 5, (int)m_window->GetSize().y - 16, ss.str());
+    ss << "Wood: " << stock->CountItem(ItemType::WOOD) << "         ";
+    ss << "Stone: " << stock->CountItem(ItemType::STONE) << "         ";
+    ss << "Coal: " << stock->CountItem(ItemType::COAL) << "         ";
+    ss << "Iron Ore: " << stock->CountItem(ItemType::IRON_ORE) << "         ";
+    ss << "Iron Bar: " << stock->CountItem(ItemType::IRON_BAR) << "         ";
+    m_renderer->RenderText("dos", 5, (int)m_window->GetSize().y - 16, ss.str());
     ss.str(" ");
 
     // Debug stuff
@@ -306,26 +306,6 @@ void Game::Render()
     }
 
     m_renderer->Present();
-}
-
-/*
-    Search for a Stockpile.
-    TODO: Refactor this into a template of some sort?
-*/
-Stockpile* Game::FindStockpile()
-{
-    /*
-    for (auto it = m_entities.begin(); it != m_entities.end(); it++)
-    {
-        Stockpile* stockpile = dynamic_cast<Stockpile*>(*it);
-        if (stockpile != nullptr)
-        {
-            return stockpile;
-        }
-    }
-    */
-
-    return nullptr;
 }
 
 bool Game::LoadTexture(const std::string& path, const std::string& id)

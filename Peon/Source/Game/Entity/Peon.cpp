@@ -25,6 +25,11 @@ void Peon::Render()
     Renderer* renderer = m_game->GetRenderer();
     renderer->RenderSprite("peon", 0, 0, (int)(m_position.x + m_positionOffset.x - m_origin.x), (int)(m_position.y + m_positionOffset.y - m_origin.y), 32, 32);
 
+    if (m_inventory.CountItem(ItemType::WOOD) > 0)
+    {
+        renderer->RenderSprite("peon", 1, 2, (int)(m_position.x - m_origin.x), (int)(m_position.y - m_origin.y), 32, 32);
+    }
+
     Entity::Render();
 }
 

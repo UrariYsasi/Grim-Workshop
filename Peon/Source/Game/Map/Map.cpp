@@ -93,7 +93,7 @@ void Map::Generate()
 
             if (val > .5)
             {
-                Vector2D position(x * 32, y * 32);               
+                Vector2D position(x * 32, y * 32);
                 m_entities.push_back(std::make_unique<Tree>(m_game, position));
             }
 
@@ -106,7 +106,7 @@ void Map::Generate()
     }
 
     // Stockpile
-    //m_entities.push_back(std::make_unique<Stockpile>(m_game, Vector2D(-64, 0)));
+    m_entities.push_back(std::make_unique<Stockpile>(m_game, Vector2D(-128, 0)));
 
     // Obelisk
     m_entities.push_back(std::make_unique<Obelisk>(m_game, Vector2D(0, 0)));
@@ -150,14 +150,6 @@ bool Map::IsPassable(const Vector2D& point)
 {
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
-        /*
-        Rectangle mouseRect(point.x, point.y, 1, 1);
-        if ((*it)->IsCollidingWithRect(mouseRect))
-        {
-            return false;
-        }
-        */
-
         Rectangle hitBox = (*it)->GetHitBox();
         if (hitBox.ContainsPoint(point))
         {
@@ -165,6 +157,28 @@ bool Map::IsPassable(const Vector2D& point)
         }
     }
     return true;
+}
+
+Entity* Map::GetEntityAtPoint(const Vector2D& point)
+{
+    Entity* ent = nullptr;
+    for (auto it = m_entities.begin(); it != m_entities.end(); it++)
+    {
+        ent = (*it).get();
+        Rectangle hitBox = ent->GetHitBox();
+        if (hitBox.ContainsPoint(point))
+        {
+            return ent;
+        }
+    }
+
+    return nullptr;
+}
+
+TerrainTile* Map::GetTerrainAtPoint(const Vector2D& point)
+{
+    Vector2D tilePosition = Vector2D(round(point.x / 32), round(point.y / 32));
+    return m_terrain.at(tilePosition).get();
 }
 
 /*
@@ -186,4 +200,18 @@ std::list<Peon*> Map::GetPeonsInRectangle(Rectangle rect)
     }
 
     return peons;
+}
+
+Stockpile* Map::FindStockpile()
+{
+    for (auto it = m_entities.begin(); it != m_entities.end(); it++)
+    {
+        Stockpile* stockpile = dynamic_cast<Stockpile*>((*it).get());
+        if (stockpile != nullptr)
+        {
+            return stockpile;
+        }
+    }
+
+    return nullptr;
 }
