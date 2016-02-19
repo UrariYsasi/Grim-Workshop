@@ -16,15 +16,19 @@ GatherAction::GatherAction(Monster* owner, Resource* target) :
 {
     m_ownerInventory = m_owner->GetInventory();
 
-    if (m_target->IsFull())
+    if (m_target == nullptr)
     {
-        FindNode();
+        Complete();
+        return;
     }
-    else
+
+    if (m_target->IsFull() || m_target->IsDead())
     {
-        // Add this peon to the target resource peon count
-        m_target->AddPeon();
+        Complete();
+        return;
     }
+
+    m_target->AddPeon();
 }
 
 GatherAction::~GatherAction()
@@ -84,42 +88,11 @@ void GatherAction::Update(double deltaTime)
 
 void GatherAction::Complete()
 {
-    if (m_target != nullptr)
-    {
-        m_target->RemovePeon();
-    }
-
     Action::Complete();
 }
 
 void GatherAction::FindNode()
 {
-    // TODO make this not bad
-    int entityID = m_target->GetEntityID();
-    Vector2D point = m_target->GetPosition();
-    std::list<Entity*> ents = m_owner->GetGame()->GetMap()->FindEntitiesInRange(entityID, point, 100);
-
-    ents.sort([point](Entity* a, Entity* b)
-    {
-        double distanceA = Vector2D::Distance(a->GetPosition(), point);
-        double distanceB = Vector2D::Distance(b->GetPosition(), point);
-
-        return distanceA < distanceB;
-    });
-
-    for (auto it = ents.begin(); it != ents.end(); it++)
-    {
-        Resource* resource = dynamic_cast<Resource*>((*it));
-        if (resource != nullptr)
-        {
-            if (!resource->IsDead() && !resource->IsFull())
-            {
-                m_target = resource;
-                return;
-            }
-        }
-    }
-
-
+    // For now, this just completes the action.
     Complete();
 }

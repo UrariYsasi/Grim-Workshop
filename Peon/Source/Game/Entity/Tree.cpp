@@ -31,5 +31,12 @@ void Tree::Render()
     int spriteRow = 0;
     renderer->RenderSprite("resource", spriteCol, spriteRow, (int)(m_position.x - m_origin.x + m_positionOffset.x), (int)(m_position.y - m_origin.y + m_positionOffset.y), (int)SPRITE_SIZE.x, (int)SPRITE_SIZE.y * 2);
 
+    if (m_peonCount > 0)
+    {
+        std::stringstream ss;
+        ss << m_peonCount << "/" << m_peonLimit;
+        renderer->RenderText("dos", (int)(m_position.x), (int)(m_position.y), ss.str());
+    }
+
     Entity::Render();
 }

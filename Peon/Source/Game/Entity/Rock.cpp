@@ -7,6 +7,7 @@ Rock::Rock(Game* game, Vector2D position) :
     Resource(game, position, ROCK, ItemType::STONE)
 {
     m_origin = Vector2D(16, 16);
+    m_hitBox = Rectangle(-16, -16, 32, 32);
 }
 
 Rock::~Rock()
@@ -35,7 +36,11 @@ void Rock::Update(double deltaTime)
 void Rock::Render()
 {
     Renderer* renderer = m_game->GetRenderer();
-    renderer->RenderSprite("resource", 2, 0, (int)m_position.x, (int)m_position.y, (int)SPRITE_SIZE.x, (int)SPRITE_SIZE.y);
+
+    if (!IsDead())
+    {
+        renderer->RenderSprite("resource", 2, 0, (int)(m_position.x - m_origin.x), (int)(m_position.y - m_origin.y), (int)SPRITE_SIZE.x, (int)SPRITE_SIZE.y);
+    }
 
     Entity::Render();
 }
