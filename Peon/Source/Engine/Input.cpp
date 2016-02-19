@@ -14,32 +14,62 @@ Input::~Input()
 
 bool Input::GetKey(const int& key)
 {
-    return m_currentKeys[SDL_GetScancodeFromKey(key)];
+    if(m_currentKeys[SDL_GetScancodeFromKey(key)])
+    {
+        return m_currentKeys[SDL_GetScancodeFromKey(key)];
+    }
+
+    return false;
 }
 
 bool Input::GetKeyPress(const int& key)
 {
-    return m_downKeys[SDL_GetScancodeFromKey(key)];
+    if(m_downKeys[SDL_GetScancodeFromKey(key)])
+    {
+        return m_downKeys[SDL_GetScancodeFromKey(key)];
+    }
+
+    return false;
 }
 
 bool Input::GetKeyRelease(const int& key)
 {
-    return m_upKeys[SDL_GetScancodeFromKey(key)];
+    if(m_upKeys[SDL_GetScancodeFromKey(key)])
+    {
+        return m_upKeys[SDL_GetScancodeFromKey(key)];
+    }
+
+    return false;
 }
 
 bool Input::GetMouseButton(const int& button)
 {
-    return m_currentMouseButtons[button];
+    if(m_currentMouseButtons[button])
+    {
+        return m_currentMouseButtons[button];
+    }
+
+    return false;
 }
 
 bool Input::GetMouseButtonPress(const int& button)
 {
-    return m_downMouseButtons[button];
+    if(m_downMouseButtons[button])
+    {
+        return m_downMouseButtons[button];
+    }
+
+    return false;
 }
 
 bool Input::GetMouseButtonRelease(const int& button)
 {
-    return m_upMouseButtons[button];
+    if(m_upMouseButtons[button])
+    {
+        return m_upMouseButtons[button];
+    }
+
+    return false;
 }
 
 Vector2D Input::GetMousePosition() const
