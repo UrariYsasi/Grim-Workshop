@@ -25,6 +25,11 @@ public:
     std::list<Peon*> GetPeonsInRectangle(Rectangle rect);
     Stockpile* FindStockpile();
 
+    /*
+        Find Entities with the given ID that are near the given point.
+    */
+    std::list<Entity*> FindEntitiesInRange(int entityID, const Vector2D& point, int range);
+
 private:
     void CleanEntities();
 

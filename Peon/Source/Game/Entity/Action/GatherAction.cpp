@@ -6,6 +6,7 @@
 #include "../Monster.hpp"
 #include "../Resource.hpp"
 #include "../../Item/Inventory.hpp"
+#include "../../Map/Map.hpp"
 
 GatherAction::GatherAction(Monster* owner, Resource* target) :
     Action(owner, "Gather"),
@@ -17,7 +18,7 @@ GatherAction::GatherAction(Monster* owner, Resource* target) :
 
     if (m_target->IsFull())
     {
-        m_target = nullptr;
+        FindNode();
     }
     else
     {
@@ -34,13 +35,19 @@ void GatherAction::Update(double deltaTime)
 {
     if (m_target == nullptr)
     {
+        // The target is null, which isn't supposed to happen. Just complete the action.
+        Complete();
         return;
     }
 
     if (m_target->IsDead())
     {
+        // The target resource node is already dead. Find a new node.
+        FindNode();
         return;
     }
+
+    ItemType item = m_target->GetItem();
 
     // Check if we are in range of the resource
     Vector2D targetCenter = m_target->GetPositionCenter();
@@ -52,7 +59,7 @@ void GatherAction::Update(double deltaTime)
         // We are close enough. We can start gathering.
         if (!m_timer.IsStarted())
         {
-            m_gatherTime = Random::Generate(700, 1500);
+            m_gatherTime = Random::Generate(5000, 10000);
             m_timer.Start();
         }
         else
@@ -63,8 +70,7 @@ void GatherAction::Update(double deltaTime)
                 m_timer.Stop();
 
                 m_owner->GetGame()->PlaySound("woodcutting_00"); // TODO different sounds
-                ItemType item = m_target->GetItem();
-                m_ownerInventory->GiveItem(item, (int)Random::Generate(1, 5));
+                m_ownerInventory->GiveItem(item, (int)Random::Generate(1, 3));
                 m_owner->PushAction(std::make_unique<DepositAction>(m_owner, item, -1));
             }
         }
@@ -84,4 +90,36 @@ void GatherAction::Complete()
     }
 
     Action::Complete();
+}
+
+void GatherAction::FindNode()
+{
+    // TODO make this not bad
+    int entityID = m_target->GetEntityID();
+    Vector2D point = m_target->GetPosition();
+    std::list<Entity*> ents = m_owner->GetGame()->GetMap()->FindEntitiesInRange(entityID, point, 100);
+
+    ents.sort([point](Entity* a, Entity* b)
+    {
+        double distanceA = Vector2D::Distance(a->GetPosition(), point);
+        double distanceB = Vector2D::Distance(b->GetPosition(), point);
+
+        return distanceA < distanceB;
+    });
+
+    for (auto it = ents.begin(); it != ents.end(); it++)
+    {
+        Resource* resource = dynamic_cast<Resource*>((*it));
+        if (resource != nullptr)
+        {
+            if (!resource->IsDead() && !resource->IsFull())
+            {
+                m_target = resource;
+                return;
+            }
+        }
+    }
+
+
+    Complete();
 }

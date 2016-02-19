@@ -73,6 +73,7 @@
     <ClInclude Include="Source\Game\Entity\Action\SmeltAction.hpp" />
     <ClInclude Include="Source\Game\Entity\Action\WithdrawAction.hpp" />
     <ClInclude Include="Source\Game\Entity\Entity.hpp" />
+    <ClInclude Include="Source\Game\Entity\EntityID.hpp" />
     <ClInclude Include="Source\Game\Entity\Forge.hpp" />
     <ClInclude Include="Source\Game\Entity\Monster.hpp" />
     <ClInclude Include="Source\Game\Entity\Obelisk.hpp" />

@@ -170,7 +170,7 @@ void Player::IssueCommand(Vector2D position)
             Resource* resource = dynamic_cast<Resource*>(ent);
             if (resource != nullptr)
             {
-                peon->ClearActions();
+                peon->ClearActionStack();
                 peon->PushAction(std::make_unique<GatherAction>(peon, resource));
             }
         }
@@ -188,7 +188,7 @@ void Player::IssueCommand(Vector2D position)
                     worldPosition += offset;
                 }
 
-                peon->ClearActions();
+                peon->ClearActionStack();
                 peon->PushAction(std::make_unique<MoveAction>(peon, worldPosition));
             }
         }
@@ -206,21 +206,21 @@ void Player::IssueCommand(Vector2D position)
     Resource* resource = dynamic_cast<Resource*>(ent);
     if (resource != nullptr)
     {
-    peon->ClearActions();
+    peon->ClearActionStack();
     peon->PushAction(std::make_unique<GatherAction>(peon, resource));
     }
 
     Forge* forge = dynamic_cast<Forge*>(ent);
     if (forge != nullptr)
     {
-    peon->ClearActions();
+    peon->ClearActionStack();
     peon->PushAction(std::make_unique<SmeltAction>(peon, forge));
     }
     }
     else
     {
     // If we commanded them to empty space, they will just walk to the clicked position
-    peon->ClearActions();
+    peon->ClearActionStack();
     Vector2D position = m_mainCamera->ConvertToWorld(m_input->GetMousePosition());
     peon->PushAction(std::make_unique<MoveAction>(peon, position));
     }

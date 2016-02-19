@@ -5,10 +5,11 @@ class Game;
 class Entity
 {
 public:
-    Entity(Game* game, Vector2D position);
+    Entity(Game* game, const Vector2D& position, int entityID);
     virtual ~Entity();
 
     Game* GetGame();
+    int GetEntityID();
     Vector2D GetPosition() const;
     Vector2D GetPositionOffset() const;
     Vector2D GetPositionCenter() const;
@@ -27,6 +28,7 @@ protected:
     const Vector2D SPRITE_SIZE; // TODO: Do something with this
 
     Game* m_game;
+    int m_entityID;
     Vector2D m_position;
     Vector2D m_origin;
     Vector2D m_positionOffset;

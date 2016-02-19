@@ -215,3 +215,18 @@ Stockpile* Map::FindStockpile()
 
     return nullptr;
 }
+
+std::list<Entity*> Map::FindEntitiesInRange(int entityID, const Vector2D& point, int range)
+{
+    std::list<Entity*> ents;
+    for (auto it = m_entities.begin(); it != m_entities.end(); it++)
+    {
+        double distance = Vector2D::Distance(point, (*it)->GetPosition());
+        if (distance <= range)
+        {
+            ents.push_back((*it).get());
+        }
+    }
+
+    return ents;
+}

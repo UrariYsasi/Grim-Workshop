@@ -28,7 +28,7 @@ void DepositAction::Update(double deltaTime)
         if (m_target == nullptr)
         {
             // There was no stockpile found. Stop working.
-            m_owner->ClearActions();
+            m_owner->ClearActionStack();
         }
     }
     else

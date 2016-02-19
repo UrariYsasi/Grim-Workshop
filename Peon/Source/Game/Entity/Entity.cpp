@@ -3,8 +3,9 @@
 #include "../Game.hpp"
 #include "../../Engine/Renderer.hpp"
 
-Entity::Entity(Game* game, Vector2D position) :
+Entity::Entity(Game* game, const Vector2D& position, int entityID) :
     m_game(game),
+    m_entityID(entityID),
     m_origin(0, 0),
     m_position(position),
     m_positionOffset(0, 0),
@@ -21,6 +22,11 @@ Entity::~Entity()
 Game* Entity::GetGame()
 {
     return m_game;
+}
+
+int Entity::GetEntityID()
+{
+    return m_entityID;
 }
 
 Vector2D Entity::GetPosition() const

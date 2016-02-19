@@ -3,8 +3,8 @@
 #include "../Game.hpp"
 #include "Action/IdleAction.hpp"
 
-Monster::Monster(Game* game, Vector2D position) :
-    Entity(game, position),
+Monster::Monster(Game* game, Vector2D position, int entityID) :
+    Entity(game, position, entityID),
     m_moveSpeed(64)
 {
     m_moveSpeed += (int)Random::Generate(-10, 10);
@@ -12,7 +12,6 @@ Monster::Monster(Game* game, Vector2D position) :
 
 Monster::~Monster()
 {
-    // Free the action stack
     m_actionStack.clear();
 }
 
@@ -28,15 +27,7 @@ int Monster::GetMoveSpeed()
 
 void Monster::Update(double deltaTime)
 {
-    // Remove any completed actions from the stack
-    std::list< std::unique_ptr<Action> >::const_iterator it;
-    for (it = m_actionStack.begin(); it != m_actionStack.end(); it++)
-    {
-        if ((*it)->IsComplete())
-        {
-            m_actionStack.erase(it++);
-        }
-    }
+    CleanActionStack();
 
     // If this Monster has no actions, add an IdleAction.
     if(m_actionStack.size() == 0)
@@ -48,31 +39,34 @@ void Monster::Update(double deltaTime)
     // Update the current action
     if(m_actionStack.back() != nullptr)
     {
-        m_actionStack.back()->Update(deltaTime);
-
-        if(m_actionStack.back()->IsComplete())
+        if (!m_actionStack.back()->IsComplete())
         {
-            m_actionStack.pop_back();
+            m_actionStack.back()->Update(deltaTime);
         }
     }
 }
 
-/*
-    Push an action onto this Monster's action stack.
-*/
 void Monster::PushAction(std::unique_ptr<Action> action)
 {
     m_actionStack.push_back(std::move(action));
 }
 
-/*
-    Clear all this Monster's actions. This is used when commanding them.
-*/
-void Monster::ClearActions()
+void Monster::ClearActionStack()
 {
     std::list< std::unique_ptr<Action> >::const_iterator it;
     for (it = m_actionStack.begin(); it != m_actionStack.end(); it++)
     {
         (*it)->Complete();
+    }
+}
+
+void Monster::CleanActionStack()
+{
+    for (auto it = m_actionStack.begin(); it != m_actionStack.end(); it++)
+    {
+        if ((*it)->IsComplete())
+        {
+            m_actionStack.erase(it++);
+        }
     }
 }

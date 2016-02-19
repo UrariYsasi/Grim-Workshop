@@ -28,7 +28,7 @@ void WithdrawAction::Update(double deltaTime)
         if (m_target == nullptr)
         {
             // There was no stockpile found. Stop working.
-            m_owner->ClearActions();
+            m_owner->ClearActionStack();
         }
     }
     else
@@ -47,7 +47,7 @@ void WithdrawAction::Update(double deltaTime)
             else
             {
                 // There wasn't any of the item to take.
-                m_owner->ClearActions();
+                m_owner->ClearActionStack();
             }
 
             // Complete the action

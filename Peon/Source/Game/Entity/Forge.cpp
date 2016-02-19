@@ -4,7 +4,7 @@
 #include "../../Engine/Renderer.hpp"
 
 Forge::Forge(Game* game, const Vector2D& position) :
-    Prop(game, position)
+    Prop(game, position, NONE)
 {
 }
 

@@ -4,7 +4,7 @@
 #include "../../Engine/Renderer.hpp"
 
 Tree::Tree(Game* game, Vector2D position) :
-    Resource(game, position, ItemType::WOOD)
+    Resource(game, position, TREE, ItemType::WOOD)
 {
     m_origin = Vector2D(16, 48);
     m_hitBox = Rectangle(-16, -16, 32, 32);

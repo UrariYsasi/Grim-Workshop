@@ -224,5 +224,8 @@
     <ClInclude Include="Source\Game\Terrain\TerrainTile.hpp">
       <Filter>Source\Game\Terrain</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\Entity\EntityID.hpp">
+      <Filter>Source\Game\Entity</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

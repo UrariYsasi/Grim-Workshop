@@ -2,10 +2,10 @@
 #include "Resource.hpp"
 #include "Monster.hpp"
 
-Resource::Resource(Game* game, Vector2D position, ItemType item) :
-    Prop(game, position),
+Resource::Resource(Game* game, Vector2D position, int entityID, ItemType item) :
+    Prop(game, position, entityID),
     m_item(item),
-    m_health(5),
+    m_health(15),
     m_peonCount(0),
     m_peonLimit(3)
 {

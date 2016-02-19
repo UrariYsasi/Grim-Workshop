@@ -6,7 +6,7 @@ class Monster;
 class Resource : public Prop
 {
 public:
-    Resource(Game* game, Vector2D position, ItemType item);
+    Resource(Game* game, Vector2D position, int entityID, ItemType item);
     virtual ~Resource();
 
     virtual ItemType GetItem() const = 0;
