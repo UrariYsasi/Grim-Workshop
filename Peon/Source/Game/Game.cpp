@@ -118,6 +118,7 @@ int Game::Initialize()
 
     // Load Textures
     LoadTexture("Resources/Textures/peon.png", "peon");
+    LoadTexture("Resources/Textures/goblin.png", "goblin");
     LoadTexture("Resources/Textures/resource.png", "resource");
     LoadTexture("Resources/Textures/terrain.png", "terrain");
     LoadTexture("Resources/Textures/structure.png", "structure");
