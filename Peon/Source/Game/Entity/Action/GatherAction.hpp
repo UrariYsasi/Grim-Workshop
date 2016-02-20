@@ -12,6 +12,7 @@ public:
 
     virtual void Update(double deltaTime);
     virtual void Complete();
+    void Abort();
 
     /*
         Find a new resource node to gather.

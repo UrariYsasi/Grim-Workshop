@@ -16,18 +16,21 @@ GatherAction::GatherAction(Monster* owner, Resource* target) :
 {
     m_ownerInventory = m_owner->GetInventory();
 
+    // If the target resource doesn't exist, just complete the action.
     if (m_target == nullptr)
     {
-        Complete();
+        Abort();
         return;
     }
 
+    // If the target resource is full or dead, just complete the action.
     if (m_target->IsFull() || m_target->IsDead())
     {
-        Complete();
+        Abort();
         return;
     }
 
+    // We are clear to begin the GatherAction. Add this peon to the target resource.
     m_target->AddPeon();
 }
 
@@ -39,15 +42,14 @@ void GatherAction::Update(double deltaTime)
 {
     if (m_target == nullptr)
     {
-        // The target is null, which isn't supposed to happen. Just complete the action.
-        Complete();
+        // The target is null, which isn't supposed to happen. Abort.
+        Abort();
         return;
     }
 
     if (m_target->IsDead())
     {
-        // The target resource node is already dead. Find a new node.
-        FindNode();
+        Complete();
         return;
     }
 
@@ -88,11 +90,21 @@ void GatherAction::Update(double deltaTime)
 
 void GatherAction::Complete()
 {
+    // If the target resource exists, remove this peon from it.
+    if (m_target != nullptr)
+    {
+        m_target->RemovePeon();
+    }
+
+    Action::Complete();
+}
+
+void GatherAction::Abort()
+{
     Action::Complete();
 }
 
 void GatherAction::FindNode()
 {
-    // For now, this just completes the action.
-    Complete();
+    // Get any adjacent resource entities
 }

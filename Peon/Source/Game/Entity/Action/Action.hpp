@@ -12,6 +12,14 @@ public:
     bool IsComplete() const;
 
     virtual void Update(double deltaTime) = 0;
+
+    /*
+        Mark the finished Action as complete so it can be pushed off the stack.
+
+        This function should be called when an Action has been completed
+        SUCCESSFULLY. Any behavior that happens when an Action is successfully
+        complete should be put into this function.
+    */
     virtual void Complete();
 
 protected:
