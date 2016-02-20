@@ -14,13 +14,6 @@ public:
     virtual void Complete();
     void Abort();
 
-    /*
-        Find a new resource node to gather.
-
-        This is called when the target node has either reached its peon cap or died.
-    */
-    void FindNode();
-
 private:
     const double MIN_GATHER_DISTANCE = 10.0;
 

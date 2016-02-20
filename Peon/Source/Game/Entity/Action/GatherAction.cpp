@@ -16,11 +16,10 @@ GatherAction::GatherAction(Monster* owner, Resource* target) :
 {
     m_ownerInventory = m_owner->GetInventory();
 
-    // If the target resource is full or dead, find a new node.
+    // If the target resource is full or dead, abort.
     if (m_target->IsFull() || m_target->IsDead())
     {
         Abort();
-        FindNode();
         return;
     }
 
@@ -37,7 +36,6 @@ void GatherAction::Update(double deltaTime)
     if (m_target->IsDead())
     {
         Complete();
-        FindNode();
         return;
     }
 
@@ -78,11 +76,7 @@ void GatherAction::Update(double deltaTime)
 
 void GatherAction::Complete()
 {
-    // If the target resource exists, remove this peon from it.
-    if (m_target != nullptr)
-    {
-        m_target->RemovePeon();
-    }
+    m_target->RemovePeon();
 
     Action::Complete();
 }
@@ -90,28 +84,4 @@ void GatherAction::Complete()
 void GatherAction::Abort()
 {
     Action::Complete();
-}
-
-void GatherAction::FindNode()
-{
-    // TODO: This is really bad an unoptimized. I don't know of another way to do it, though.
-
-    // Get all adjacent resource entities
-    Map* map = m_owner->GetGame()->GetMap();
-    std::list<Entity*> adjacent = map->FindAdjacentEntities(m_target->GetEntityID(), m_target);
-
-    // TODO: Remove entities that are not accessible
-
-    // Randomly choose one
-    int rand = (int)Random::Generate(0, adjacent.size());
-    auto it = std::next(adjacent.begin(), rand);
-    Resource* newTarget = dynamic_cast<Resource*>(*it);
-
-    if (newTarget == nullptr)
-    {
-        Abort();
-        return;
-    }
-
-    m_owner->PushAction(std::make_unique<GatherAction>(m_owner, newTarget));
 }

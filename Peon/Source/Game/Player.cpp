@@ -170,8 +170,11 @@ void Player::IssueCommand(Vector2D position)
             Resource* resource = dynamic_cast<Resource*>(ent);
             if (resource != nullptr)
             {
-                peon->ClearActionStack();
-                peon->PushAction(std::make_unique<GatherAction>(peon, resource));
+                if (!resource->IsFull() && !resource->IsDead())
+                {
+                    peon->ClearActionStack();
+                    peon->PushAction(std::make_unique<GatherAction>(peon, resource));
+                }
             }
         }
         else
