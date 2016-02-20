@@ -26,7 +26,16 @@ public:
     Stockpile* FindStockpile();
 
     /*
+        Finds Entities with the given ID that are adjacent to the given Entity.
+
+        If the given ID is NONE, then it will search for ALL Entities.
+    */
+    std::list<Entity*> FindAdjacentEntities(int entityID, Entity* ent);
+
+    /*
         Find Entities with the given ID that are near the given point.
+
+        If the given ID is NONE, then it will search for ALL Entities.
     */
     std::list<Entity*> FindEntitiesInRange(int entityID, const Vector2D& point, int range);
 

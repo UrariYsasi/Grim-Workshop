@@ -216,6 +216,46 @@ Stockpile* Map::FindStockpile()
     return nullptr;
 }
 
+std::list<Entity*> Map::FindAdjacentEntities(int entityID, Entity* ent)
+{
+    std::list<Entity*> ents;
+    Vector2D position = ent->GetPosition();
+    Entity* right = GetEntityAtPoint(position + Vector2D(32, 0));
+    Entity* left = GetEntityAtPoint(position + Vector2D(-32, 0));
+    Entity* bottom = GetEntityAtPoint(position + Vector2D(0, 32));
+    Entity* top = GetEntityAtPoint(position + Vector2D(0, -32));
+
+    if (right != nullptr)
+    {
+        if (right->GetEntityID() == entityID)
+        {
+            ents.push_back(right);
+        }
+    }
+    if (left != nullptr)
+    {
+        if (left->GetEntityID() == entityID)
+        {
+            ents.push_back(left);
+        }
+    }
+    if (bottom != nullptr)
+    {
+        if (bottom->GetEntityID() == entityID)
+        {
+            ents.push_back(bottom);
+        }
+    }
+    if (top != nullptr)
+    {
+        if (top->GetEntityID() == entityID)
+        {
+            ents.push_back(top);
+        }
+    }
+    return ents;
+}
+
 std::list<Entity*> Map::FindEntitiesInRange(int entityID, const Vector2D& point, int range)
 {
     std::list<Entity*> ents;
