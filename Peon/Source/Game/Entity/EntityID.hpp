@@ -5,6 +5,7 @@ enum EntityID
     ROCK,
     STOCKPILE,
     PEON,
-    GOBLIN,
-    OBELISK
+    ORC,
+    OBELISK,
+    ALTAR
 };

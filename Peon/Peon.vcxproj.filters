@@ -126,6 +126,12 @@
     <ClCompile Include="Source\Game\Entity\Orc.cpp">
       <Filter>Source\Game\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\Entity\Altar.cpp">
+      <Filter>Source\Game\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Entity\Action\PickUpAction.cpp">
+      <Filter>Source\Game\Entity\Action</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\PCH.hpp">
@@ -240,6 +246,12 @@
       <Filter>Source\Game\Entity</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\Entity\Action\ActionID.hpp">
+      <Filter>Source\Game\Entity\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Entity\Altar.hpp">
+      <Filter>Source\Game\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Entity\Action\PickUpAction.hpp">
       <Filter>Source\Game\Entity\Action</Filter>
     </ClInclude>
   </ItemGroup>

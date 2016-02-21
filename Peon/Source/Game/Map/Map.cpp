@@ -4,6 +4,7 @@
 #include "../Entity/Tree.hpp"
 #include "../Entity/Rock.hpp"
 #include "../Entity/Stockpile.hpp"
+#include "../Entity/Altar.hpp"
 #include "../Entity/Peon.hpp"
 #include "../Entity/Orc.hpp"
 #include "../Entity/Obelisk.hpp"
@@ -108,6 +109,9 @@ void Map::Generate()
         }
     }
 
+    // Altar
+    m_entities.push_back(std::make_unique<Altar>(m_game, Vector2D(-256, -128)));
+
     // Stockpile
     m_entities.push_back(std::make_unique<Stockpile>(m_game, Vector2D(-128, 0)));
 
@@ -198,32 +202,29 @@ TerrainTile* Map::GetTerrainAtPoint(const Vector2D& point)
     return m_terrain.at(tilePosition).get();
 }
 
-/*
-    Gets all the Peons that are inside or colliding with the given rectangle.
-*/
-std::list<Peon*> Map::GetPeonsInRectangle(Rectangle rect)
+std::list<Entity*> Map::GetEntitiesInRectangle(int entityID, Rectangle rect)
 {
-    std::list<Peon*> peons;
+    std::list<Entity*> ents;
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
-        Peon* peon = dynamic_cast<Peon*>((*it).get());
-        if (peon != nullptr)
+        Entity* ent = (*it).get();
+        if (ent->GetEntityID() == entityID || entityID == NONE)
         {
-            if (peon->IsCollidingWithRect(rect) && !peon->IsDead())
+            if (ent->IsCollidingWithRect(rect) && !ent->IsDead())
             {
-                peons.push_back(peon);
+                ents.push_back(ent);
             }
         }
     }
 
-    return peons;
+    return ents;
 }
 
 Entity* Map::FindEntity(int entityID)
 {
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
-        if ((*it)->GetEntityID() == entityID)
+        if ((*it)->GetEntityID() == entityID || entityID == NONE)
         {
             return (*it).get();
         }
@@ -243,28 +244,28 @@ std::list<Entity*> Map::FindAdjacentEntities(int entityID, Entity* ent)
 
     if (right != nullptr)
     {
-        if (right->GetEntityID() == entityID)
+        if (right->GetEntityID() == entityID || entityID == NONE)
         {
             ents.push_back(right);
         }
     }
     if (left != nullptr)
     {
-        if (left->GetEntityID() == entityID)
+        if (left->GetEntityID() == entityID || entityID == NONE)
         {
             ents.push_back(left);
         }
     }
     if (bottom != nullptr)
     {
-        if (bottom->GetEntityID() == entityID)
+        if (bottom->GetEntityID() == entityID || entityID == NONE)
         {
             ents.push_back(bottom);
         }
     }
     if (top != nullptr)
     {
-        if (top->GetEntityID() == entityID)
+        if (top->GetEntityID() == entityID || entityID == NONE)
         {
             ents.push_back(top);
         }
@@ -277,10 +278,14 @@ std::list<Entity*> Map::FindEntitiesInRange(int entityID, const Vector2D& point,
     std::list<Entity*> ents;
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
-        double distance = Vector2D::Distance(point, (*it)->GetPosition());
-        if (distance <= range)
+        Entity* ent = (*it).get();
+        if (ent->GetEntityID() == entityID || entityID == NONE)
         {
-            ents.push_back((*it).get());
+            double distance = Vector2D::Distance(point, ent->GetPosition());
+            if (distance <= range)
+            {
+                ents.push_back(ent);
+            }
         }
     }
 

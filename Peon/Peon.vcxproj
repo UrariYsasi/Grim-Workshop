@@ -33,8 +33,10 @@
     <ClCompile Include="Source\Game\Entity\Action\GatherAction.cpp" />
     <ClCompile Include="Source\Game\Entity\Action\IdleAction.cpp" />
     <ClCompile Include="Source\Game\Entity\Action\MoveAction.cpp" />
+    <ClCompile Include="Source\Game\Entity\Action\PickUpAction.cpp" />
     <ClCompile Include="Source\Game\Entity\Action\SmeltAction.cpp" />
     <ClCompile Include="Source\Game\Entity\Action\WithdrawAction.cpp" />
+    <ClCompile Include="Source\Game\Entity\Altar.cpp" />
     <ClCompile Include="Source\Game\Entity\Entity.cpp" />
     <ClCompile Include="Source\Game\Entity\Forge.cpp" />
     <ClCompile Include="Source\Game\Entity\Orc.cpp" />
@@ -74,8 +76,10 @@
     <ClInclude Include="Source\Game\Entity\Action\GatherAction.hpp" />
     <ClInclude Include="Source\Game\Entity\Action\IdleAction.hpp" />
     <ClInclude Include="Source\Game\Entity\Action\MoveAction.hpp" />
+    <ClInclude Include="Source\Game\Entity\Action\PickUpAction.hpp" />
     <ClInclude Include="Source\Game\Entity\Action\SmeltAction.hpp" />
     <ClInclude Include="Source\Game\Entity\Action\WithdrawAction.hpp" />
+    <ClInclude Include="Source\Game\Entity\Altar.hpp" />
     <ClInclude Include="Source\Game\Entity\Entity.hpp" />
     <ClInclude Include="Source\Game\Entity\EntityID.hpp" />
     <ClInclude Include="Source\Game\Entity\Forge.hpp" />

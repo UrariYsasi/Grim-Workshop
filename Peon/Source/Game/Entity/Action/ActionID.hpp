@@ -7,5 +7,6 @@ enum ActionID
     GATHER_ACTION,
     IDLE_ACTION,
     MOVE_ACTION,
-    SMELT_ACTION
+    SMELT_ACTION,
+    PICK_UP_ACTION
 };

@@ -23,7 +23,14 @@ public:
     bool IsPassable(const Vector2D& point);
     Entity* GetEntityAtPoint(const Vector2D& point);
     TerrainTile* GetTerrainAtPoint(const Vector2D& point);
-    std::list<Peon*> GetPeonsInRectangle(Rectangle rect);
+
+    /*
+        Finds and returns all Entities with the given ID that are contained
+        in the given Rectangle.
+
+        If the ID given is NONE, it will return all Entity types.
+    */
+    std::list<Entity*> GetEntitiesInRectangle(int entityID, Rectangle rect);
 
     /*
         Finds and returns the first Entity with the given ID.
@@ -57,5 +64,4 @@ private:
 
     std::unordered_map<Vector2D, std::unique_ptr<TerrainTile> > m_terrain;
     std::list< std::unique_ptr<Entity> > m_entities;
-    std::list<Peon*> m_selectedPeons;
 };

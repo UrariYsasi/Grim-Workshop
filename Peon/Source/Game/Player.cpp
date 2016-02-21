@@ -8,10 +8,12 @@
 #include "Map/Map.hpp"
 #include "Terrain/TerrainTile.hpp"
 #include "Entity/Peon.hpp"
+#include "Entity/Orc.hpp"
 #include "Entity/Tree.hpp"
 #include "Entity/Action/MoveAction.hpp"
 #include "Entity/Action/GatherAction.hpp"
 #include "Entity/Action/AttackAction.hpp"
+#include "Entity/Action/PickUpAction.hpp"
 
 Player::Player(Game* game) :
     m_game(game),
@@ -129,7 +131,7 @@ void Player::Update(double deltaTime)
         if (m_isBoxSelecting)
         {
             m_isBoxSelecting = false;
-            m_selectedPeons = m_gameMap->GetPeonsInRectangle(m_boxSelection);
+            m_selectedPeons = m_gameMap->GetEntitiesInRectangle(PEON, m_boxSelection);
         }
     }
 
@@ -161,14 +163,14 @@ void Player::Render()
 
 void Player::IssueCommand(Vector2D position)
 {
-    for (auto peon : m_selectedPeons)
+    for (auto it : m_selectedPeons)
     {
+        Peon* peon = dynamic_cast<Peon*>(it);
         Vector2D worldPosition = m_gameCamera->ConvertToWorld(position);
 
         Entity* ent = m_gameMap->GetEntityAtPoint(worldPosition);
         if (ent != nullptr)
         {
-            //peon->PushAction(std::make_unique<AttackAction>(peon, ent));
             Resource* resource = dynamic_cast<Resource*>(ent);
             if (resource != nullptr)
             {
@@ -176,6 +178,18 @@ void Player::IssueCommand(Vector2D position)
                 {
                     peon->ClearActionStack();
                     peon->PushAction(std::make_unique<GatherAction>(peon, resource));
+                    continue;
+                }
+            }
+
+            Orc* orc = dynamic_cast<Orc*>(ent);
+            if (orc != nullptr)
+            {
+                if (orc->IsDead())
+                {
+                    peon->ClearActionStack();
+                    peon->PushAction(std::make_unique<PickUpAction>(peon, orc));
+                    continue;
                 }
             }
         }

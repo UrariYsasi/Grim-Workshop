@@ -4,7 +4,7 @@ class Game;
 class Input;
 class Camera;
 class Renderer;
-class Peon;
+class Entity;
 class Map;
 
 class Player
@@ -33,5 +33,5 @@ private:
     int m_cameraSpeed;
     bool m_isBoxSelecting;
     Rectangle m_boxSelection;
-    std::list<Peon*> m_selectedPeons;
+    std::list<Entity*> m_selectedPeons;
 };

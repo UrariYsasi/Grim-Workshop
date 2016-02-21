@@ -16,6 +16,10 @@ Obelisk::~Obelisk()
 
 void Obelisk::Update(double deltaTime)
 {
+    if (IsDead())
+    {
+        Debug::Log("Obelisk is dead. Game over.");
+    }
 }
 
 void Obelisk::Render()

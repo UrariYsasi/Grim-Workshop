@@ -40,14 +40,6 @@ void MoveAction::Update(double deltaTime)
     m_owner->SetPositionOffset(Vector2D(0, -m_hopOffset));
 
     Vector2D position = m_owner->GetPosition();
-    
-    /*
-    if (position == m_destination)
-    {
-        Complete();
-        return;
-    }
-    */
 
     Vector2D start = position;
     double distance = Vector2D::Distance(start, m_destination);

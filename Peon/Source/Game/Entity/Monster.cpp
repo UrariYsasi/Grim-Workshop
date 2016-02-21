@@ -28,12 +28,18 @@ int Monster::GetMoveSpeed()
 
 void Monster::Update(double deltaTime)
 {
-    if (m_hp <= 0)
+    if (IsDead())
     {
         return;
     }
 
     CleanActionStack();
+
+    if (m_actionStack.size() == 0)
+    {
+        std::unique_ptr<Action> action = std::make_unique<IdleAction>(this);
+        m_actionStack.push_back(std::move(action));
+    }
 
     // Update the current action
     if(m_actionStack.back() != nullptr)
@@ -42,6 +48,11 @@ void Monster::Update(double deltaTime)
         {
             m_actionStack.back()->Update(deltaTime);
         }
+    }
+
+    if (m_heldEntity != nullptr)
+    {
+        m_heldEntity->SetPosition(m_position + Vector2D(0, -12));
     }
 }
 
@@ -82,4 +93,15 @@ Action* Monster::FindAction(int actionID)
     }
 
     return nullptr;
+}
+
+
+void Monster::SetHeldEntity(Entity* ent)
+{
+    m_heldEntity = ent;
+}
+
+void Monster::DropHeldEntity()
+{
+    m_heldEntity = nullptr;
 }

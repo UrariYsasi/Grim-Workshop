@@ -33,7 +33,7 @@ void AttackAction::Update(double deltaTime)
     {
         auto moveAction = std::make_unique<MoveAction>(m_owner);
         moveAction->SetFollowTarget(m_target);
-        moveAction->SetMinimumRange((int)MIN_ATTACK_DISTANCE);
+        moveAction->SetMinimumRange((int)MIN_ATTACK_DISTANCE - 5);
         m_owner->PushAction(std::move(moveAction));
 
         return;

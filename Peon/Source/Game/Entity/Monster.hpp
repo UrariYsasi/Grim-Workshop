@@ -44,6 +44,19 @@ public:
     */
     Action* FindAction(int actionID);
 
+    /*
+        Sets the Monsters held Entity.
+
+        This is used when carrying entites around the map. Use a 
+        PickUpAction to pick up an Entity.
+    */
+    void SetHeldEntity(Entity* ent);
+
+    /*
+        Drops the currently held Entity on the ground.
+    */
+    void DropHeldEntity();
+
 private:
 
     /*
@@ -53,6 +66,9 @@ private:
         that were completed during the last frame are properly deleted.
     */
     void CleanActionStack();
+
+private:
+    Entity* m_heldEntity;
 
 protected:
     std::list< std::unique_ptr<Action> > m_actionStack;
