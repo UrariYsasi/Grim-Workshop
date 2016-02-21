@@ -118,7 +118,7 @@ int Game::Initialize()
 
     // Load Textures
     LoadTexture("Resources/Textures/peon.png", "peon");
-    LoadTexture("Resources/Textures/goblin.png", "goblin");
+    LoadTexture("Resources/Textures/orc.png", "orc");
     LoadTexture("Resources/Textures/resource.png", "resource");
     LoadTexture("Resources/Textures/terrain.png", "terrain");
     LoadTexture("Resources/Textures/structure.png", "structure");
@@ -137,6 +137,7 @@ int Game::Initialize()
     LoadSound("Resources/Sounds/drop_00.wav", "drop_00");
     LoadSound("Resources/Sounds/drop_01.wav", "drop_01");
     LoadSound("Resources/Sounds/death_00.wav", "death_00");
+    LoadSound("Resources/Sounds/punch_00.wav", "punch_00");
 
     // Setup the game
     m_map->Generate();
@@ -196,6 +197,11 @@ void Game::Update(double deltaTime)
             m_map->SpawnPeon();
         }
 
+        if (m_input->GetKeyPress(SDLK_u))
+        {
+            m_map->SpawnOrc();
+        }
+
         if (m_input->GetKeyPress(SDLK_p))
         {
             Debug::ToggleFlag(RENDER_HITBOXES);
@@ -226,22 +232,13 @@ void Game::Render()
     m_map->Render();
     m_player->Render();
 
-    /*
-    for (auto it = m_selectedPeons.begin(); it != m_selectedPeons.end(); it++)
-    {
-        Vector2D position = (*it)->GetPosition();
-        Rectangle box(position.x - 8, position.y - 4, 16, 20);
-        m_renderer->RenderOutlineRect(box);
-        //m_renderer->RenderTexture("selection", static_cast<int>((*it)->GetPosition().x), static_cast<int>((*it)->GetPosition().y), 32, 32);
-    }
-    */
-
     // Render GUI
     m_GUICamera->Activate();
 
     Rectangle bottomBar(0, m_window->GetSize().y - 16, m_window->GetSize().x, 16);
     m_renderer->RenderFillRect(bottomBar, SDL_Color{ 128, 128, 128, 128 });
-    Inventory* stock = m_map->FindStockpile()->GetInventory();
+    Stockpile* stockpile = dynamic_cast<Stockpile*>(m_map->FindEntity(STOCKPILE));
+    Inventory* stock = stockpile->GetInventory();
 
     std::stringstream ss;
     ss << "Wood: " << stock->CountItem(ItemType::WOOD) << "         ";
@@ -289,7 +286,7 @@ void Game::Render()
         m_renderer->RenderText("dos", 10, 110, ss.str());
         ss.str(" ");
 
-        ss << "U - Spawn tree";
+        ss << "U - Spawn goblin";
         m_renderer->RenderText("dos", 10, 125, ss.str());
         ss.str(" ");
 

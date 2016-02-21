@@ -11,7 +11,8 @@ Entity::Entity(Game* game, const Vector2D& position, int entityID) :
     m_positionOffset(0, 0),
     m_isDeleted(false),
     m_hitBox(-16, -16, 16, 16),
-    SPRITE_SIZE(32, 32)
+    SPRITE_SIZE(32, 32),
+    m_hp(5)
 {
 }
 
@@ -77,6 +78,13 @@ void Entity::Render()
         Rectangle originRect((int)m_position.x - 1, (int)m_position.y - 1, 3, 3);
         m_game->GetRenderer()->RenderFillRect(originRect, SDL_Color{ 255, 0, 0, 255 });
     }
+
+    /*
+    if (m_hp < 5)
+    {
+        m_game->GetRenderer()->RenderText("dos", (int)m_position.x, (int)m_position.y, std::to_string(m_hp));
+    }
+    */
 }
 
 /*
@@ -145,4 +153,19 @@ bool Entity::IsCollidingWithRect(const Rectangle& rect) const
     }
 
     return false;
+}
+
+void Entity::Damage(int damage)
+{
+    m_hp -= damage;
+
+    if (IsDead())
+    {
+        m_hp = 0;
+    }
+}
+
+bool Entity::IsDead()
+{
+    return (m_hp <= 0);
 }

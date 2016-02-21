@@ -5,8 +5,11 @@
 #include "../Entity/Rock.hpp"
 #include "../Entity/Stockpile.hpp"
 #include "../Entity/Peon.hpp"
+#include "../Entity/Orc.hpp"
 #include "../Entity/Obelisk.hpp"
 #include "../Terrain/TerrainTile.hpp"
+#include "../../Engine/Input.hpp"
+#include "../../Engine/Camera.hpp"
 
 Map::Map(Game* game) :
     m_game(game)
@@ -144,6 +147,20 @@ void Map::SpawnPeon(int quantity)
 }
 
 /*
+    Create some orcs on the map.
+*/
+void Map::SpawnOrc(int quantity)
+{
+    for (int i = 0; i < quantity; i++)
+    {
+        Vector2D position = m_game->GetInput()->GetMousePosition();
+        position = m_game->GetMainCamera()->ConvertToWorld(position);
+        //position += Vector2D(Random::Generate(-32, 32), Random::Generate(-32, 32));
+        m_entities.push_back(std::make_unique<Orc>(m_game, position));
+    }
+}
+
+/*
     Checks whether a point on the map is passable or not.
 */
 bool Map::IsPassable(const Vector2D& point)
@@ -192,7 +209,7 @@ std::list<Peon*> Map::GetPeonsInRectangle(Rectangle rect)
         Peon* peon = dynamic_cast<Peon*>((*it).get());
         if (peon != nullptr)
         {
-            if (peon->IsCollidingWithRect(rect))
+            if (peon->IsCollidingWithRect(rect) && !peon->IsDead())
             {
                 peons.push_back(peon);
             }
@@ -202,14 +219,13 @@ std::list<Peon*> Map::GetPeonsInRectangle(Rectangle rect)
     return peons;
 }
 
-Stockpile* Map::FindStockpile()
+Entity* Map::FindEntity(int entityID)
 {
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
-        Stockpile* stockpile = dynamic_cast<Stockpile*>((*it).get());
-        if (stockpile != nullptr)
+        if ((*it)->GetEntityID() == entityID)
         {
-            return stockpile;
+            return (*it).get();
         }
     }
 

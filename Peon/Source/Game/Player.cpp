@@ -11,6 +11,7 @@
 #include "Entity/Tree.hpp"
 #include "Entity/Action/MoveAction.hpp"
 #include "Entity/Action/GatherAction.hpp"
+#include "Entity/Action/AttackAction.hpp"
 
 Player::Player(Game* game) :
     m_game(game),
@@ -167,6 +168,7 @@ void Player::IssueCommand(Vector2D position)
         Entity* ent = m_gameMap->GetEntityAtPoint(worldPosition);
         if (ent != nullptr)
         {
+            //peon->PushAction(std::make_unique<AttackAction>(peon, ent));
             Resource* resource = dynamic_cast<Resource*>(ent);
             if (resource != nullptr)
             {

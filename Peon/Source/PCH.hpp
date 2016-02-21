@@ -39,6 +39,7 @@
 // Game Includes
 #include "Game/Item/ItemType.hpp"
 #include "Game/Entity/EntityID.hpp"
+#include "Game/Entity/Action/ActionID.hpp"
 
 const int SUCCESS = 1;
 const int FAILURE = 0;

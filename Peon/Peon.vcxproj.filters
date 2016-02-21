@@ -120,6 +120,12 @@
     <ClCompile Include="Source\Game\Terrain\TerrainTile.cpp">
       <Filter>Source\Game\Terrain</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\Entity\Action\AttackAction.cpp">
+      <Filter>Source\Game\Entity\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Entity\Orc.cpp">
+      <Filter>Source\Game\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\PCH.hpp">
@@ -226,6 +232,15 @@
     </ClInclude>
     <ClInclude Include="Source\Game\Entity\EntityID.hpp">
       <Filter>Source\Game\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Entity\Action\AttackAction.hpp">
+      <Filter>Source\Game\Entity\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Entity\Orc.hpp">
+      <Filter>Source\Game\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Entity\Action\ActionID.hpp">
+      <Filter>Source\Game\Entity\Action</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

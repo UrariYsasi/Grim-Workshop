@@ -9,7 +9,7 @@
 #include "../../Map/Map.hpp"
 
 GatherAction::GatherAction(Monster* owner, Resource* target) :
-    Action(owner, "Gather"),
+    Action(owner, GATHER_ACTION, "Gather"),
     m_target(target),
     m_gatherTime(3),
     m_ownerInventory(nullptr)

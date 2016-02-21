@@ -8,7 +8,7 @@
 #include "../../Map/Map.hpp"
 
 DepositAction::DepositAction(Monster* owner, ItemType dumpItem, const int& quantity) :
-    Action(owner, "Deposit"),
+    Action(owner, DEPOSIT_ACTION, "Deposit"),
     m_quantity(quantity),
     m_dumpItem(dumpItem)
 {
@@ -23,7 +23,8 @@ void DepositAction::Update(double deltaTime)
     // If we don't have a target stockpile, find one
     if (m_target == nullptr)
     {
-        m_target = m_owner->GetGame()->GetMap()->FindStockpile();
+        Entity* ent = m_owner->GetGame()->GetMap()->FindEntity(STOCKPILE);
+        m_target = dynamic_cast<Stockpile*>(ent);
         
         if (m_target == nullptr)
         {

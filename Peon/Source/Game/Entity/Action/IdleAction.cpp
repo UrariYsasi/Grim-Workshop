@@ -6,7 +6,7 @@
 #include "../../Map/Map.hpp"
 
 IdleAction::IdleAction(Monster* owner) :
-    Action(owner, "Idle"),
+    Action(owner, IDLE_ACTION, "Idle"),
     m_waitTime(5)
 {
 }

@@ -2,8 +2,9 @@
 #include "Action.hpp"
 #include "../Monster.hpp"
 
-Action::Action(Monster* owner, const std::string& name) :
+Action::Action(Monster* owner, int actionID, const std::string& name) :
     m_owner(owner),
+    m_actionID(actionID),
     m_name(name),
     m_isComplete(false)
 {
@@ -11,6 +12,11 @@ Action::Action(Monster* owner, const std::string& name) :
 
 Action::~Action()
 {
+}
+
+int Action::GetActionID() const
+{
+    return m_actionID;
 }
 
 std::string Action::GetName() const

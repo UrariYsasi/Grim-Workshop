@@ -5,9 +5,10 @@ class Monster;
 class Action
 {
 public:
-    Action(Monster* owner, const std::string& name);
+    Action(Monster* owner, int actionID, const std::string& name);
     virtual ~Action();
 
+    int GetActionID() const;
     std::string GetName() const;
     bool IsComplete() const;
 
@@ -24,6 +25,7 @@ public:
 
 protected:
     Monster* m_owner;
+    int m_actionID;
     std::string m_name;
 
 private:

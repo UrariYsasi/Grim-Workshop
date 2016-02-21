@@ -19,11 +19,18 @@ public:
     void Render();
     void Generate();
     void SpawnPeon(int quantity = 1);
+    void SpawnOrc(int quantity = 1);
     bool IsPassable(const Vector2D& point);
     Entity* GetEntityAtPoint(const Vector2D& point);
     TerrainTile* GetTerrainAtPoint(const Vector2D& point);
     std::list<Peon*> GetPeonsInRectangle(Rectangle rect);
-    Stockpile* FindStockpile();
+
+    /*
+        Finds and returns the first Entity with the given ID.
+
+        This is used to find unique Entities, such as the Obelisk.
+    */
+    Entity* FindEntity(int entityID);
 
     /*
         Finds Entities with the given ID that are adjacent to the given Entity.

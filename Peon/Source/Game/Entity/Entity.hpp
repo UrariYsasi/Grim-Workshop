@@ -24,6 +24,20 @@ public:
     void Delete();
     bool IsCollidingWithRect(const Rectangle& rect) const;
 
+    /*
+        Damage the entity.
+
+        Different Entity types should handle this differently.
+    */
+    void Damage(int damage = 1);
+
+    /*
+        Checks if the Entity has died.
+
+        An Entity is dead when its hp is <= 0.
+    */
+    bool IsDead();
+
 protected:
     const Vector2D SPRITE_SIZE; // TODO: Do something with this
 
@@ -34,4 +48,5 @@ protected:
     Vector2D m_positionOffset;
     bool m_isDeleted;
     Rectangle m_hitBox;
+    int m_hp;
 };

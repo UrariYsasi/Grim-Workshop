@@ -2,6 +2,7 @@
 #include "Monster.hpp"
 #include "../Game.hpp"
 #include "Action/IdleAction.hpp"
+#include "Action/AttackAction.hpp"
 
 Monster::Monster(Game* game, Vector2D position, int entityID) :
     Entity(game, position, entityID),
@@ -27,14 +28,12 @@ int Monster::GetMoveSpeed()
 
 void Monster::Update(double deltaTime)
 {
-    CleanActionStack();
-
-    // If this Monster has no actions, add an IdleAction.
-    if(m_actionStack.size() == 0)
+    if (m_hp <= 0)
     {
-        std::unique_ptr<Action> action = std::make_unique<IdleAction>(this);
-        m_actionStack.push_back(std::move(action));
+        return;
     }
+
+    CleanActionStack();
 
     // Update the current action
     if(m_actionStack.back() != nullptr)
@@ -69,4 +68,18 @@ void Monster::CleanActionStack()
             m_actionStack.erase(it++);
         }
     }
+}
+
+Action* Monster::FindAction(int actionID)
+{
+    for (auto it = m_actionStack.begin(); it != m_actionStack.end(); it++)
+    {
+        Action* action = (*it).get();
+        if (action->GetActionID() == actionID)
+        {
+            return action;
+        }
+    }
+
+    return nullptr;
 }

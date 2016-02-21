@@ -9,7 +9,7 @@
 #include "../../Item/Inventory.hpp"
 
 SmeltAction::SmeltAction(Monster* owner, Forge* forge) :
-    Action(owner, "Smelt"),
+    Action(owner, SMELT_ACTION, "Smelt"),
     m_forge(forge),
     m_forgeTime(5)
 {

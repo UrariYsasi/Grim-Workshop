@@ -4,5 +4,7 @@ enum EntityID
     TREE,
     ROCK,
     STOCKPILE,
-    PEON
+    PEON,
+    GOBLIN,
+    OBELISK
 };

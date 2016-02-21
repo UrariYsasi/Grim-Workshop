@@ -3,6 +3,7 @@
 #include "../Item/Inventory.hpp"
 
 class Action;
+class AttackAction;
 
 class Monster : public Entity
 {
@@ -33,6 +34,15 @@ public:
         This function is separate from CleanActionStack().
     */
     void ClearActionStack();
+
+    /*
+        Find an Action with the given ID in the action stack.
+
+        This is used so that you can  check if a Monster has
+        a specific Action and also to check the state of that
+        Action.
+    */
+    Action* FindAction(int actionID);
 
 private:
 
