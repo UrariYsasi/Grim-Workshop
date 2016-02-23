@@ -191,6 +191,12 @@ void Player::IssueCommand(Vector2D position)
                     peon->PushAction(std::make_unique<PickUpAction>(peon, orc));
                     continue;
                 }
+                else
+                {
+                    peon->ClearActionStack();
+                    peon->PushAction(std::make_unique<AttackAction>(peon, orc));
+                    continue;
+                }
             }
         }
         else

@@ -30,6 +30,7 @@
     <ClCompile Include="Source\Game\Entity\Action\Action.cpp" />
     <ClCompile Include="Source\Game\Entity\Action\AttackAction.cpp" />
     <ClCompile Include="Source\Game\Entity\Action\DepositAction.cpp" />
+    <ClCompile Include="Source\Game\Entity\Action\SacrificeAction.cpp" />
     <ClCompile Include="Source\Game\Entity\Action\GatherAction.cpp" />
     <ClCompile Include="Source\Game\Entity\Action\IdleAction.cpp" />
     <ClCompile Include="Source\Game\Entity\Action\MoveAction.cpp" />
@@ -73,6 +74,7 @@
     <ClInclude Include="Source\Game\Entity\Action\ActionID.hpp" />
     <ClInclude Include="Source\Game\Entity\Action\AttackAction.hpp" />
     <ClInclude Include="Source\Game\Entity\Action\DepositAction.hpp" />
+    <ClInclude Include="Source\Game\Entity\Action\SacrificeAction.hpp" />
     <ClInclude Include="Source\Game\Entity\Action\GatherAction.hpp" />
     <ClInclude Include="Source\Game\Entity\Action\IdleAction.hpp" />
     <ClInclude Include="Source\Game\Entity\Action\MoveAction.hpp" />

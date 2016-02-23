@@ -32,11 +32,21 @@ public:
     void Damage(int damage = 1);
 
     /*
-        Checks if the Entity has died.
+        Check if this Entity has died.
 
         An Entity is dead when its hp is <= 0.
     */
     bool IsDead();
+
+    /*
+        Change whether or not this Entity is being held.
+    */
+    void SetHeld(bool isHeld);
+
+    /*
+        Check if this Entity is being held.
+    */
+    bool IsHeld();
 
 protected:
     const Vector2D SPRITE_SIZE; // TODO: Do something with this
@@ -49,4 +59,5 @@ protected:
     bool m_isDeleted;
     Rectangle m_hitBox;
     int m_hp;
+    bool m_isHeld;
 };

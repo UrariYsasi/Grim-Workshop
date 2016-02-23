@@ -16,6 +16,12 @@ PickUpAction::~PickUpAction()
 
 void PickUpAction::Update(double deltaTime)
 {
+    if (m_target->IsHeld())
+    {
+        Complete();
+        return;
+    }
+
     // Check if we are in range of the target
     Vector2D targetPosition = m_target->GetPosition();
     Vector2D monsterPosition = m_owner->GetPosition();
@@ -23,6 +29,7 @@ void PickUpAction::Update(double deltaTime)
 
     if (distance <= MIN_PICK_UP_DISTANCE)
     {
+        m_owner->DropHeldEntity();
         m_owner->SetHeldEntity(m_target);
         Complete();
     }

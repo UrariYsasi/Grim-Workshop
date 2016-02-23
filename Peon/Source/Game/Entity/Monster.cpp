@@ -95,13 +95,17 @@ Action* Monster::FindAction(int actionID)
     return nullptr;
 }
 
-
 void Monster::SetHeldEntity(Entity* ent)
 {
+    ent->SetHeld(true);
     m_heldEntity = ent;
 }
 
 void Monster::DropHeldEntity()
 {
-    m_heldEntity = nullptr;
+    if (m_heldEntity != nullptr)
+    {
+        m_heldEntity->SetHeld(false);
+        m_heldEntity = nullptr;
+    }
 }

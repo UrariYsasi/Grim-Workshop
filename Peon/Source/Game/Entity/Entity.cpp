@@ -12,7 +12,8 @@ Entity::Entity(Game* game, const Vector2D& position, int entityID) :
     m_isDeleted(false),
     m_hitBox(-16, -16, 16, 16),
     SPRITE_SIZE(32, 32),
-    m_hp(5)
+    m_hp(5),
+    m_isHeld(false)
 {
 }
 
@@ -168,4 +169,14 @@ void Entity::Damage(int damage)
 bool Entity::IsDead()
 {
     return (m_hp <= 0);
+}
+
+void Entity::SetHeld(bool isHeld)
+{
+    m_isHeld = isHeld;
+}
+
+bool Entity::IsHeld()
+{
+    return m_isHeld;
 }
