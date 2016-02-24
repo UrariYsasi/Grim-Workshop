@@ -180,7 +180,7 @@ void Game::Terminate()
 
 void Game::Update(double deltaTime)
 {
-    if (m_input->GetKey(SDLK_ESCAPE))
+    if (m_input->GetKeyPress(SDLK_ESCAPE))
     {
         Terminate();
     }

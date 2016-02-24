@@ -2,7 +2,7 @@
 #include "Input.hpp"
 #include "../Game/Game.hpp"
 
-Input::Input(Game* const game) :
+Input::Input(Game* game) :
     m_game(game),
     m_mousePosition(0, 0)
 {
@@ -12,9 +12,9 @@ Input::~Input()
 {
 }
 
-bool Input::GetKey(const int& key)
+bool Input::GetKey(int key)
 {
-    if(m_currentKeys[SDL_GetScancodeFromKey(key)])
+    if(SDL_GetScancodeFromKey(key) < MAX_KEYBOARD_KEYS)
     {
         return m_currentKeys[SDL_GetScancodeFromKey(key)];
     }
@@ -22,7 +22,7 @@ bool Input::GetKey(const int& key)
     return false;
 }
 
-bool Input::GetKeyPress(const int& key)
+bool Input::GetKeyPress(int key)
 {
     if(m_downKeys[SDL_GetScancodeFromKey(key)])
     {
@@ -32,7 +32,7 @@ bool Input::GetKeyPress(const int& key)
     return false;
 }
 
-bool Input::GetKeyRelease(const int& key)
+bool Input::GetKeyRelease(int key)
 {
     if(m_upKeys[SDL_GetScancodeFromKey(key)])
     {
@@ -42,7 +42,7 @@ bool Input::GetKeyRelease(const int& key)
     return false;
 }
 
-bool Input::GetMouseButton(const int& button)
+bool Input::GetMouseButton(int button)
 {
     if(m_currentMouseButtons[button])
     {
@@ -52,7 +52,7 @@ bool Input::GetMouseButton(const int& button)
     return false;
 }
 
-bool Input::GetMouseButtonPress(const int& button)
+bool Input::GetMouseButtonPress(int button)
 {
     if(m_downMouseButtons[button])
     {
@@ -62,7 +62,7 @@ bool Input::GetMouseButtonPress(const int& button)
     return false;
 }
 
-bool Input::GetMouseButtonRelease(const int& button)
+bool Input::GetMouseButtonRelease(int button)
 {
     if(m_upMouseButtons[button])
     {
