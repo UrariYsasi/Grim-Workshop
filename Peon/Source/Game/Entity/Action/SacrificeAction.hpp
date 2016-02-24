@@ -18,8 +18,4 @@ public:
 
 private:
     const double MIN_DISTANCE = 10.0;
-
-    int m_quantity;
-    ItemType m_dumpItem;
-    Stockpile* m_target;
 };
