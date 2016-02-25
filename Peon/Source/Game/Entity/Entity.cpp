@@ -4,6 +4,7 @@
 #include "../../Engine/Renderer.hpp"
 
 Entity::Entity(Game* game, const Vector2D& position, int entityID) :
+    SPRITE_SIZE(32, 32),
     m_game(game),
     m_entityID(entityID),
     m_position(position),
@@ -11,7 +12,6 @@ Entity::Entity(Game* game, const Vector2D& position, int entityID) :
     m_positionOffset(0, 0),
     m_isDeleted(false),
     m_hitBox(-16, -16, 16, 16),
-    SPRITE_SIZE(32, 32),
     m_hp(5),
     m_isHeld(false)
 {
