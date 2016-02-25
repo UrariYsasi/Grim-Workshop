@@ -46,6 +46,8 @@ private:
     std::unique_ptr<Input> m_input;
     std::unique_ptr<Camera> m_mainCamera;
     std::unique_ptr<Camera> m_GUICamera;
+    std::unique_ptr<Map> m_map;
+    std::unique_ptr<Player> m_player;
 
     // Textures
     std::map<std::string, SDL_Texture*> m_textureMap;
@@ -55,9 +57,6 @@ private:
 
     // Sounds
     std::map<std::string, Mix_Chunk*> m_soundMap;
-
-    std::unique_ptr<Map> m_map;
-    std::unique_ptr<Player> m_player;
 
     // This is here TEMPORARILY for debug purposes
     double m_frameCount;

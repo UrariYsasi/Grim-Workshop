@@ -26,27 +26,37 @@ Game::Game() :
 
 Game::~Game()
 {
-    // Texture deletion
-    for (auto texIt = m_textureMap.begin(); texIt != m_textureMap.end(); texIt++)
-    {
-        SDL_DestroyTexture(texIt->second);
-    }
-
-    // Font deletion
-    for (auto fontIt = m_fontMap.begin(); fontIt != m_fontMap.end(); fontIt++)
-    {
-        TTF_CloseFont(fontIt->second);
-    }
-
-    // Sound deletion
     for (auto soundIt = m_soundMap.begin(); soundIt != m_soundMap.end(); soundIt++)
     {
         Mix_FreeChunk(soundIt->second);
     }
 
-    SDL_Quit();
-    Mix_Quit();
+    for (auto fontIt = m_fontMap.begin(); fontIt != m_fontMap.end(); fontIt++)
+    {
+        TTF_CloseFont(fontIt->second);
+    }
+
+    for (auto texIt = m_textureMap.begin(); texIt != m_textureMap.end(); texIt++)
+    {
+        SDL_DestroyTexture(texIt->second);
+    }
+
+    m_soundMap.clear();
+    m_fontMap.clear();
+    m_textureMap.clear();
+
+    m_player.reset();
+    m_map.reset();
+    m_GUICamera.reset();
+    m_mainCamera.reset();
+    m_input.reset();
+    m_renderer.reset();
+    m_window.reset();
+
     TTF_Quit();
+    Mix_Quit();
+    IMG_Quit();
+    SDL_Quit();
 }
 
 Renderer* Game::GetRenderer()
