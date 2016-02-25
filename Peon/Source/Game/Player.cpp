@@ -17,6 +17,10 @@
 
 Player::Player(Game* game) :
     m_game(game),
+    m_gameInput(nullptr),
+    m_gameCamera(nullptr),
+    m_gameRenderer(nullptr),
+    m_gameMap(nullptr),
     m_cameraSpeed(CAMERA_SPEED_NORMAL),
     m_isBoxSelecting(false),
     m_boxSelection(0, 0, 0, 0)

@@ -17,11 +17,10 @@
 #include "Player.hpp"
 
 Game::Game() :
-    m_peonCount(0),
+    m_isRunning(false),
     m_frameCount(0),
     m_frameRate(0),
-    m_gameStartTime(0),
-    m_isRunning(false)
+    m_gameStartTime(0)
 {
 }
 
@@ -259,7 +258,7 @@ void Game::Render()
         m_renderer->RenderText("dos", 10, 10, ss.str());
         ss.str(" ");
 
-        ss << "Peon Count: " << m_peonCount;
+        ss << "Peon Count: " << "UNKNOWN";
         m_renderer->RenderText("dos", 10, 25, ss.str());
         ss.str(" ");
 

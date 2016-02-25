@@ -10,9 +10,9 @@
 
 GatherAction::GatherAction(Monster* owner, Resource* target) :
     Action(owner, GATHER_ACTION, "Gather"),
+    m_ownerInventory(nullptr),
     m_target(target),
-    m_gatherTime(3),
-    m_ownerInventory(nullptr)
+    m_gatherTime(3)
 {
     m_ownerInventory = m_owner->GetInventory();
 

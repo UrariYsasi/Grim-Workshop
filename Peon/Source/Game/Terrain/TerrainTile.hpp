@@ -11,8 +11,6 @@ public:
 
     void SetPosition(const Vector2D& position);
     Vector2D GetPosition() const;
-    void SetProp(Prop* prop);
-    Prop* GetProp();
 
     void Render();
 
@@ -20,8 +18,8 @@ private:
     const static int TILE_SIZE = 32;
 
     Game* m_game;
-    Vector2D m_origin;
     Vector2D m_position;
+    Vector2D m_origin;
     std::string m_spritesheet;
     int m_spriteColumn;
     int m_spriteRow;

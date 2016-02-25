@@ -7,8 +7,8 @@
 
 TerrainTile::TerrainTile(Game* game, const Vector2D& position) :
     m_game(game),
-    m_origin(16, 16),
     m_position(position),
+    m_origin(16, 16),
     m_spritesheet("terrain"),
     m_spriteColumn(0),
     m_spriteRow(0)

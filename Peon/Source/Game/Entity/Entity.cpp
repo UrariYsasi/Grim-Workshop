@@ -6,8 +6,8 @@
 Entity::Entity(Game* game, const Vector2D& position, int entityID) :
     m_game(game),
     m_entityID(entityID),
-    m_origin(0, 0),
     m_position(position),
+    m_origin(0, 0),
     m_positionOffset(0, 0),
     m_isDeleted(false),
     m_hitBox(-16, -16, 16, 16),

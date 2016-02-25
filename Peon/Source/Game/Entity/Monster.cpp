@@ -6,6 +6,7 @@
 
 Monster::Monster(Game* game, Vector2D position, int entityID) :
     Entity(game, position, entityID),
+    m_heldEntity(nullptr),
     m_moveSpeed(64)
 {
     m_moveSpeed += (int)Random::Generate(-10, 10);

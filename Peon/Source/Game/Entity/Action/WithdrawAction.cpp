@@ -10,7 +10,8 @@
 WithdrawAction::WithdrawAction(Monster* owner, ItemType withdrawItem, const int& quantity) :
     Action(owner, WITHDRAW_ACTION, "Withdraw"),
     m_quantity(quantity),
-    m_withdrawItem(withdrawItem)
+    m_withdrawItem(withdrawItem),
+    m_target(nullptr)
 {
 }
 
