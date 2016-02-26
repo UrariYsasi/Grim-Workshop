@@ -389,16 +389,21 @@ bool Game::LoadFont(const std::string& path, const std::string& id, const int& s
 
 bool Game::LoadSound(const std::string& path, const std::string& id)
 {
-    Mix_Chunk* sound = Mix_LoadWAV(path.c_str());
-    if (sound == nullptr)
+    if (Debug::IsFlagEnabled(MIX_AUDIO))
     {
-        Debug::LogError("Failed to load WAV from %s! SDL_mixer error: %s", path.c_str(), Mix_GetError());
-        return false;
+        Mix_Chunk* sound = Mix_LoadWAV(path.c_str());
+        if (sound == nullptr)
+        {
+            Debug::LogError("Failed to load WAV from %s! SDL_mixer error: %s", path.c_str(), Mix_GetError());
+            return false;
+        }
+
+        m_soundMap[id] = sound;
+        Debug::Log("Sound %s loaded.", id.c_str());
+        return true;
     }
 
-    m_soundMap[id] = sound;
-    Debug::Log("Sound %s loaded.", id.c_str());
-    return true;
+    return false;
 }
 
 SDL_Texture* Game::GetTexture(const std::string& id)
