@@ -104,6 +104,9 @@ int Game::Initialize()
         return FAILURE;
     }
 
+    // Set default volume
+    Mix_Volume(-1, MIX_MAX_VOLUME / 3);
+
     //Initialize SDL_ttf
     if (TTF_Init() < 0)
     {
@@ -147,6 +150,9 @@ int Game::Initialize()
     LoadSound("Resources/Sounds/drop_01.wav", "drop_01");
     LoadSound("Resources/Sounds/death_00.wav", "death_00");
     LoadSound("Resources/Sounds/punch_00.wav", "punch_00");
+    LoadSound("Resources/Sounds/monk_spawn.wav", "monk_spawn");
+    LoadSound("Resources/Sounds/damage.wav", "damage");
+    LoadSound("Resources/Sounds/sword.wav", "sword");
 
     // Setup the game
     m_map->Generate();

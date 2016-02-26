@@ -45,12 +45,17 @@ public:
     Action* FindAction(int actionID);
 
     /*
-        Sets the Monsters held Entity.
+        Sets the Monster's held Entity.
 
         This is used when carrying entites around the map. Use a 
         PickUpAction to pick up an Entity.
     */
     void SetHeldEntity(Entity* ent);
+
+    /*
+        Gets the Monster's held Entity.
+    */
+    Entity* GetHeldEntity();
 
     /*
         Drops the currently held Entity on the ground.

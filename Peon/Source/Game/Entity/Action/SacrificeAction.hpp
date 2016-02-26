@@ -8,14 +8,18 @@
 #pragma once
 #include "Action.hpp"
 
+class Altar;
+
 class SacrificeAction : public Action
 {
 public:
-    SacrificeAction(Monster* owner);
+    SacrificeAction(Monster* owner, Altar* altar);
     virtual ~SacrificeAction();
 
     virtual void Update(double deltaTime);
 
 private:
     const double MIN_DISTANCE = 10.0;
+
+    Altar* m_altar;
 };

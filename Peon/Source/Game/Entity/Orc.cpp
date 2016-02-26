@@ -12,7 +12,7 @@ Orc::Orc(Game* game, Vector2D position) :
 {
     m_origin = Vector2D(16, 16);
     m_hitBox = Rectangle(-4, 0, 8, 16);
-    m_hp = 1;
+    m_hp = 6;
 }
 
 Orc::~Orc()

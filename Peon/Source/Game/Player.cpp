@@ -10,10 +10,12 @@
 #include "Entity/Peon.hpp"
 #include "Entity/Orc.hpp"
 #include "Entity/Tree.hpp"
+#include "Entity/Altar.hpp"
 #include "Entity/Action/MoveAction.hpp"
 #include "Entity/Action/GatherAction.hpp"
 #include "Entity/Action/AttackAction.hpp"
 #include "Entity/Action/PickUpAction.hpp"
+#include "Entity/Action/SacrificeAction.hpp"
 
 Player::Player(Game* game) :
     m_game(game),
@@ -202,6 +204,14 @@ void Player::IssueCommand(Vector2D position)
                     continue;
                 }
             }
+
+            Altar* altar = dynamic_cast<Altar*>(ent);
+            if (altar != nullptr)
+            {
+                peon->ClearActionStack();
+                peon->PushAction(std::make_unique<SacrificeAction>(peon, altar));
+                continue;
+            }
         }
         else
         {
@@ -222,37 +232,4 @@ void Player::IssueCommand(Vector2D position)
             }
         }
     }
-
-    // Loop through all selected peons
-    /*
-    for (auto it = m_selectedPeons.begin(); it != m_selectedPeons.end(); it++)
-    {
-    Peon* peon = (*it);
-
-    if (ent != nullptr)
-    {
-    // If we commanded them to a resource, they will begin working on that resource
-    Resource* resource = dynamic_cast<Resource*>(ent);
-    if (resource != nullptr)
-    {
-    peon->ClearActionStack();
-    peon->PushAction(std::make_unique<GatherAction>(peon, resource));
-    }
-
-    Forge* forge = dynamic_cast<Forge*>(ent);
-    if (forge != nullptr)
-    {
-    peon->ClearActionStack();
-    peon->PushAction(std::make_unique<SmeltAction>(peon, forge));
-    }
-    }
-    else
-    {
-    // If we commanded them to empty space, they will just walk to the clicked position
-    peon->ClearActionStack();
-    Vector2D position = m_mainCamera->ConvertToWorld(m_input->GetMousePosition());
-    peon->PushAction(std::make_unique<MoveAction>(peon, position));
-    }
-    }
-    */
 }

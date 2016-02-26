@@ -12,7 +12,6 @@ public:
     int GetEntityID();
     Vector2D GetPosition() const;
     Vector2D GetPositionOffset() const;
-    Vector2D GetPositionCenter() const;
     void SetPosition(const Vector2D& position);
     void SetPositionOffset(const Vector2D& positionOffset);
     bool IsDeleted() const;

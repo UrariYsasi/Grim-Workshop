@@ -18,7 +18,7 @@ public:
     void Update(double deltaTime);
     void Render();
     void Generate();
-    void SpawnPeon(int quantity = 1);
+    void SpawnPeon(int quantity = 1, const Vector2D& position = Vector2D(0, 0));
     void SpawnOrc(int quantity = 1);
     bool IsPassable(const Vector2D& point);
     Entity* GetEntityAtPoint(const Vector2D& point);

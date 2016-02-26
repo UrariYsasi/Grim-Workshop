@@ -13,7 +13,7 @@ public:
     bool IsAttackingPeon();
 
 private:
-    const double MIN_ATTACK_DISTANCE = 10.0;
+    const double MIN_ATTACK_DISTANCE = 20.0;
     const double ATTACK_SPEED = 2000.0;
 
     Entity* m_target;

@@ -48,7 +48,7 @@ void AttackAction::Update(double deltaTime)
     {
         m_timer.Stop();
 
-        m_owner->GetGame()->PlaySound("punch_00");
+        m_owner->GetGame()->PlaySound("sword");
         m_target->Damage();
     }
 }

@@ -102,6 +102,11 @@ void Monster::SetHeldEntity(Entity* ent)
     m_heldEntity = ent;
 }
 
+Entity* Monster::GetHeldEntity()
+{
+    return m_heldEntity;
+}
+
 void Monster::DropHeldEntity()
 {
     if (m_heldEntity != nullptr)

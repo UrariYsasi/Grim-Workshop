@@ -42,8 +42,8 @@ void GatherAction::Update(double deltaTime)
     ItemType item = m_target->GetItem();
 
     // Check if we are in range of the resource
-    Vector2D targetCenter = m_target->GetPositionCenter();
-    Vector2D monsterCenter = m_owner->GetPositionCenter();
+    Vector2D targetCenter = m_target->GetPosition();
+    Vector2D monsterCenter = m_owner->GetPosition();
     double distance = Vector2D::Distance(monsterCenter, targetCenter);
 
     if (distance <= MIN_GATHER_DISTANCE)

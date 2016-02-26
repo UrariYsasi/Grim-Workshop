@@ -25,7 +25,6 @@ void DepositAction::Update(double deltaTime)
     {
         Entity* ent = m_owner->GetGame()->GetMap()->FindEntity(STOCKPILE);
         m_target = dynamic_cast<Stockpile*>(ent);
-        
         if (m_target == nullptr)
         {
             // There was no stockpile found. Stop working.
@@ -35,8 +34,8 @@ void DepositAction::Update(double deltaTime)
     else
     {
         // Check if we are in range of the stockpile
-        Vector2D targetCenter = m_target->GetPositionCenter();
-        Vector2D monsterCenter = m_owner->GetPositionCenter();
+        Vector2D targetCenter = m_target->GetPosition();
+        Vector2D monsterCenter = m_owner->GetPosition();
         double distance = Vector2D::Distance(monsterCenter, targetCenter);
 
         if (distance <= MIN_DISTANCE)

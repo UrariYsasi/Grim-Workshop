@@ -12,7 +12,7 @@ Entity::Entity(Game* game, const Vector2D& position, int entityID) :
     m_isDeleted(false),
     m_hitBox(-16, -16, 16, 16),
     SPRITE_SIZE(32, 32),
-    m_hp(5),
+    m_hp(3),
     m_isHeld(false)
 {
 }
@@ -39,11 +39,6 @@ Vector2D Entity::GetPosition() const
 Vector2D Entity::GetPositionOffset() const
 {
     return m_positionOffset;
-}
-
-Vector2D Entity::GetPositionCenter() const
-{
-    return m_position + Vector2D(16, 16);
 }
 
 void Entity::SetPosition(const Vector2D& position)
@@ -158,10 +153,12 @@ bool Entity::IsCollidingWithRect(const Rectangle& rect) const
 
 void Entity::Damage(int damage)
 {
+    m_game->PlaySound("damage");
     m_hp -= damage;
 
     if (IsDead())
     {
+        m_game->PlaySound("death_00");
         m_hp = 0;
     }
 }

@@ -36,8 +36,8 @@ void WithdrawAction::Update(double deltaTime)
     else
     {
         // Check if we are in range of the stockpile
-        Vector2D targetCenter = m_target->GetPositionCenter();
-        Vector2D monsterCenter = m_owner->GetPositionCenter();
+        Vector2D targetCenter = m_target->GetPosition();
+        Vector2D monsterCenter = m_owner->GetPosition();
         double distance = Vector2D::Distance(monsterCenter, targetCenter);
 
         if (distance <= MIN_DISTANCE)

@@ -141,12 +141,12 @@ void Map::CleanEntities()
 /*
     Create some peons on the map.
 */
-void Map::SpawnPeon(int quantity)
+void Map::SpawnPeon(int quantity, const Vector2D& position)
 {
     for (int i = 0; i < quantity; i++)
     {
-        Vector2D position(Random::Generate(-128, 128), Random::Generate(-128, 128));
-        m_entities.push_back(std::make_unique<Peon>(m_game, position));
+        Vector2D spawnPos = position + Vector2D(Random::Generate(-32, 32), Random::Generate(-32, 32));
+        m_entities.push_back(std::make_unique<Peon>(m_game, spawnPos));
     }
 }
 
