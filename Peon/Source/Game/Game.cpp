@@ -26,11 +26,14 @@ Game::Game() :
 
 Game::~Game()
 {
-    Mix_FreeMusic(m_bgMusic);
-
-    for (auto soundIt = m_soundMap.begin(); soundIt != m_soundMap.end(); soundIt++)
+    if (Debug::IsFlagEnabled(MIX_AUDIO))
     {
-        Mix_FreeChunk(soundIt->second);
+        Mix_FreeMusic(m_bgMusic);
+
+        for (auto soundIt = m_soundMap.begin(); soundIt != m_soundMap.end(); soundIt++)
+        {
+            Mix_FreeChunk(soundIt->second);
+        }
     }
 
     for (auto fontIt = m_fontMap.begin(); fontIt != m_fontMap.end(); fontIt++)
@@ -56,7 +59,13 @@ Game::~Game()
     m_window.reset();
 
     TTF_Quit();
-    Mix_Quit();
+
+    if (Debug::IsFlagEnabled(MIX_AUDIO))
+    {
+        Mix_CloseAudio(); // Close one audio channel (We only have one...)
+        Mix_Quit();
+    }
+
     IMG_Quit();
     SDL_Quit();
 }
@@ -86,7 +95,7 @@ int Game::Initialize()
     Debug::EnableFlag(LOGGING | CHEAT);
 
     // Initialize SDL
-    if (SDL_Init(SDL_INIT_VIDEO) < 0)
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
     {
         Debug::LogError("SDL could not initialize! SDL error: %s", SDL_GetError());
         return FAILURE;
@@ -100,15 +109,18 @@ int Game::Initialize()
     }
 
     //Initialize SDL_mixer
-    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+    if (Debug::IsFlagEnabled(MIX_AUDIO))
     {
-        Debug::LogError("SDL_mixer could not initialize! SDL_mixer error: %s", Mix_GetError());
-        return FAILURE;
-    }
+        if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+        {
+            Debug::LogError("SDL_mixer could not initialize! SDL_mixer error: %s", Mix_GetError());
+            return FAILURE;
+        }
 
-    // Set default volume
-    Mix_Volume(-1, MIX_MAX_VOLUME / 3);
-    Mix_VolumeMusic(MIX_MAX_VOLUME / 3);
+        // Set default volume
+        Mix_Volume(-1, MIX_MAX_VOLUME / 3);
+        Mix_VolumeMusic(MIX_MAX_VOLUME / 3);
+    }
 
     //Initialize SDL_ttf
     if (TTF_Init() < 0)
@@ -165,7 +177,10 @@ int Game::Initialize()
     }
 
     // Start music
-    Mix_PlayMusic(m_bgMusic, -1);
+    if (Debug::IsFlagEnabled(MIX_AUDIO))
+    {
+        Mix_PlayMusic(m_bgMusic, -1);
+    }
 
     // Setup the game
     m_map->Generate();
@@ -398,10 +413,13 @@ TTF_Font* Game::GetFont(const std::string& id)
 
 void Game::PlaySound(const std::string& id)
 {
-    if (m_soundMap[id] == nullptr)
+    if (Debug::IsFlagEnabled(MIX_AUDIO))
     {
-        Debug::LogError("Sound %s can't be played, as it doesn't exist!", id.c_str());
-    }
+        if (m_soundMap[id] == nullptr)
+        {
+            Debug::LogError("Sound %s can't be played, as it doesn't exist!", id.c_str());
+        }
 
-    Mix_PlayChannel(-1, m_soundMap[id], 0);
+        Mix_PlayChannel(-1, m_soundMap[id], 0);
+    }
 }
