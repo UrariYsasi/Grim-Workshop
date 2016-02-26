@@ -20,7 +20,8 @@ Game::Game() :
     m_isRunning(false),
     m_frameCount(0),
     m_frameRate(0),
-    m_gameStartTime(0)
+    m_gameStartTime(0),
+    m_bgMusic(nullptr)
 {
 }
 

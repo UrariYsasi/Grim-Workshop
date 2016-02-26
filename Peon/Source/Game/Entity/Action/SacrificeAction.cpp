@@ -18,6 +18,14 @@ SacrificeAction::~SacrificeAction()
 
 void SacrificeAction::Update(double deltaTime)
 {
+    // Get the offering
+    Entity* offering = m_owner->GetHeldEntity();
+    if (offering == nullptr)
+    {
+        Complete();
+        return;
+    }
+
     // Check if we are in range of the altar
     Vector2D targetCenter = m_altar->GetPosition();
     Vector2D monsterCenter = m_owner->GetPosition();
@@ -25,9 +33,6 @@ void SacrificeAction::Update(double deltaTime)
 
     if (distance <= MIN_DISTANCE)
     {
-        // Get the offering
-        Entity* offering = m_owner->GetHeldEntity();
-
         // Drop the offering
         m_owner->DropHeldEntity();
 

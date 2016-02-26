@@ -186,7 +186,7 @@ void Player::IssueCommand(Vector2D position)
                     peon->PushAction(std::make_unique<GatherAction>(peon, resource));
                     continue;
                 }
-            }
+            } 
 
             Orc* orc = dynamic_cast<Orc*>(ent);
             if (orc != nullptr)
@@ -208,9 +208,12 @@ void Player::IssueCommand(Vector2D position)
             Altar* altar = dynamic_cast<Altar*>(ent);
             if (altar != nullptr)
             {
-                peon->ClearActionStack();
-                peon->PushAction(std::make_unique<SacrificeAction>(peon, altar));
-                continue;
+                if (peon->GetHeldEntity() != nullptr)
+                {
+                    peon->ClearActionStack();
+                    peon->PushAction(std::make_unique<SacrificeAction>(peon, altar));
+                    continue;
+                }
             }
         }
         else
