@@ -7,7 +7,7 @@ int main(int argc, char** argv)
     {
         if (std::string(argv[1]) == "-noAudio")
         {
-            Debug::DisableFlag(MIX_AUDIO);
+            //Debug::DisableFlag(MIX_AUDIO);
             Debug::LogError("-noAudio flag observed.");
         }
     }

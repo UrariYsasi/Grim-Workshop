@@ -169,16 +169,16 @@ int Game::Initialize()
     LoadSound("Resources/Sounds/damage.wav", "damage");
     LoadSound("Resources/Sounds/sword.wav", "sword");
 
-    // Load Music
-    m_bgMusic = Mix_LoadMUS("Resources/Music/jand_bg.mp3");
-    if (!m_bgMusic)
-    {
-        Debug::LogError("Music could not be loaded. SDL_mixer error: %s", Mix_GetError());
-    }
-
-    // Start music
     if (Debug::IsFlagEnabled(MIX_AUDIO))
     {
+        // Load Music
+        m_bgMusic = Mix_LoadMUS("Resources/Music/jand_bg.mp3");
+        if (!m_bgMusic)
+        {
+            Debug::LogError("Music could not be loaded. SDL_mixer error: %s", Mix_GetError());
+        }
+
+        // Start music
         Mix_PlayMusic(m_bgMusic, -1);
     }
 

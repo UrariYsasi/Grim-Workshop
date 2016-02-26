@@ -6,7 +6,7 @@ static const uint8_t CHEAT = 0x04;                // Enable cheat keys
 static const uint8_t RENDER_HITBOXES = 0x08;      // Render hit boxes
 static const uint8_t RENDER_TILE_OUTLINES = 0x10; // Render TerrainTile outlines
 static const uint8_t RENDER_ORIGINS = 0x20;       // Render origin points
-static const uint8_t MIX_AUDIO = 0x30;       // Init and play audio
+static const uint8_t MIX_AUDIO = 0x40;            // Init and play audio
 
 class Debug
 {
