@@ -50,6 +50,7 @@ void AttackAction::Update(double deltaTime)
 
         m_owner->GetGame()->PlaySound("sword");
         m_target->Damage();
+        m_owner->GetGame()->PlaySound("damage");
     }
 }
 

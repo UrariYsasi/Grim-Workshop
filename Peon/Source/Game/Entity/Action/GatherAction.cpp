@@ -12,7 +12,8 @@ GatherAction::GatherAction(Monster* owner, Resource* target) :
     Action(owner, GATHER_ACTION, "Gather"),
     m_ownerInventory(nullptr),
     m_target(target),
-    m_gatherTime(3)
+    m_gatherTime(3),
+    m_totalGathers(0)
 {
     m_ownerInventory = m_owner->GetInventory();
 
@@ -51,20 +52,26 @@ void GatherAction::Update(double deltaTime)
         // We are close enough. We can start gathering.
         if (!m_timer.IsStarted())
         {
-            m_gatherTime = Random::Generate(5000, 10000);
+            m_gatherTime = Random::Generate(1000, 4000);
             m_timer.Start();
         }
         else
         {
             if (m_timer.GetTime() > m_gatherTime)
             {
-                m_target->Damage();
                 m_timer.Stop();
 
                 m_owner->GetGame()->PlaySound("woodcutting_00"); // TODO different sounds
-                m_ownerInventory->GiveItem(item, (int)Random::Generate(1, 3));
-                m_owner->PushAction(std::make_unique<DepositAction>(m_owner, item, -1));
+                m_totalGathers++;
             }
+        }
+
+        if (m_totalGathers >= 3)
+        {
+            m_totalGathers = 0;
+            m_target->Damage();
+            m_ownerInventory->GiveItem(item, (int)Random::Generate(1, 3));
+            m_owner->PushAction(std::make_unique<DepositAction>(m_owner, item, -1));
         }
     }
     else

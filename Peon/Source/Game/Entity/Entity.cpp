@@ -153,12 +153,10 @@ bool Entity::IsCollidingWithRect(const Rectangle& rect) const
 
 void Entity::Damage(int damage)
 {
-    m_game->PlaySound("damage");
     m_hp -= damage;
 
     if (IsDead())
     {
-        m_game->PlaySound("death_00");
         m_hp = 0;
     }
 }

@@ -119,7 +119,7 @@ int Game::Initialize()
         }
 
         // Set default volume
-        Mix_Volume(-1, MIX_MAX_VOLUME / 3);
+        Mix_Volume(-1, MIX_MAX_VOLUME);
         Mix_VolumeMusic(MIX_MAX_VOLUME / 3);
     }
 
