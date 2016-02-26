@@ -7,8 +7,10 @@
 
 AttackAction::AttackAction(Monster* owner, Entity* target) :
     Action(owner, ATTACK_ACTION, "Attack"),
-    m_target(target)
+    m_target(target),
+    m_attackSpeed(2)
 {
+    m_attackSpeed = Random::Generate(0.5, 2.0);
 }
 
 AttackAction::~AttackAction()
@@ -44,11 +46,11 @@ void AttackAction::Update(double deltaTime)
     {
         m_timer.Start();
     }
-    else if (m_timer.GetTime() > ATTACK_SPEED)
+    else if (m_timer.GetTime() > (m_attackSpeed * 1000))
     {
         m_timer.Stop();
 
-        m_owner->GetGame()->PlaySound("sword");
+        m_owner->GetGame()->PlaySound("punch_00");
         m_target->Damage();
         m_owner->GetGame()->PlaySound("damage");
     }

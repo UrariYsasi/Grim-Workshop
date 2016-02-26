@@ -27,7 +27,7 @@ int Window::Initialize()
         SDL_Log("Window could not initialize! SDL error: %s\n", SDL_GetError());
         return FAILURE;
     }
-
+    //SDL_SetWindowFullscreen(m_SDLWindow, SDL_WINDOW_FULLSCREEN);
     return SUCCESS;
 }
 
