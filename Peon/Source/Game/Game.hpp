@@ -62,4 +62,5 @@ private:
     double m_frameCount;
     double m_frameRate;
     double m_gameStartTime;
+    Mix_Music* m_bgMusic;
 };

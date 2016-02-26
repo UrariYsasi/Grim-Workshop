@@ -26,6 +26,8 @@ Game::Game() :
 
 Game::~Game()
 {
+    Mix_FreeMusic(m_bgMusic);
+
     for (auto soundIt = m_soundMap.begin(); soundIt != m_soundMap.end(); soundIt++)
     {
         Mix_FreeChunk(soundIt->second);
@@ -106,6 +108,7 @@ int Game::Initialize()
 
     // Set default volume
     Mix_Volume(-1, MIX_MAX_VOLUME / 3);
+    Mix_VolumeMusic(MIX_MAX_VOLUME / 3);
 
     //Initialize SDL_ttf
     if (TTF_Init() < 0)
@@ -153,6 +156,16 @@ int Game::Initialize()
     LoadSound("Resources/Sounds/monk_spawn.wav", "monk_spawn");
     LoadSound("Resources/Sounds/damage.wav", "damage");
     LoadSound("Resources/Sounds/sword.wav", "sword");
+
+    // Load Music
+    m_bgMusic = Mix_LoadMUS("Resources/Music/jand_bg.mp3");
+    if (!m_bgMusic)
+    {
+        Debug::LogError("Music could not be loaded. SDL_mixer error: %s", Mix_GetError());
+    }
+
+    // Start music
+    Mix_PlayMusic(m_bgMusic, -1);
 
     // Setup the game
     m_map->Generate();
@@ -351,7 +364,7 @@ bool Game::LoadFont(const std::string& path, const std::string& id, const int& s
     TTF_Font* font = TTF_OpenFont(path.c_str(), size);
     if (font == nullptr)
     {
-        Debug::LogError("Failed to load font %s! SDL_ttf error:", path.c_str(), TTF_GetError());
+        Debug::LogError("Failed to load font %s! SDL_ttf error: %s", path.c_str(), TTF_GetError());
     }
 
     m_fontMap[id] = font;
@@ -364,7 +377,7 @@ bool Game::LoadSound(const std::string& path, const std::string& id)
     Mix_Chunk* sound = Mix_LoadWAV(path.c_str());
     if (sound == nullptr)
     {
-        Debug::LogError("Failed to load WAV from %s! SDL_mixer error: ", path.c_str(), Mix_GetError());
+        Debug::LogError("Failed to load WAV from %s! SDL_mixer error: %s", path.c_str(), Mix_GetError());
         return false;
     }
 

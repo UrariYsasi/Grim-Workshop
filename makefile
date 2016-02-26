@@ -7,7 +7,7 @@ FRAMEWORK_PATH = /Library/Frameworks/SDL2
 FRAMEWORKS = -framework SDL2 -framework SDL2_ttf -framework SDL2_mixer -framework SDL2_image
 BIN_NAME = peon
 BUILD_NAME = "Peon"
-C_FLAGS = -Wall -std=c++14 -IPeon/Source
+C_FLAGS = -Wall -std=c++14 -IPeon/Source -O0
 VPATH = Peon/Source/Game Peon/Source Peon/Source/Engine Peon/Source/Game/Entity Peon/Source/Game/Entity/Action Peon/Source/Game/Item Peon/Source/Game/Map Peon/Source/Game/Terrain
 
 DIRS = Peon/Source Peon/Source/Engine Peon/Source/Game Peon/Source/Game/Entity Peon/Source/Game/Entity/Action Peon/Source/Game/Item Peon/Source/Game/Map Peon/Source/Game/Terrain

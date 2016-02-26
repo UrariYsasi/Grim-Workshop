@@ -6,6 +6,12 @@ Input::Input(Game* game) :
     m_game(game),
     m_mousePosition(0, 0)
 {
+    std::fill(m_currentKeys, m_currentKeys + MAX_KEYBOARD_KEYS, false);
+    std::fill(m_downKeys, m_downKeys + MAX_KEYBOARD_KEYS, false);
+    std::fill(m_upKeys, m_upKeys + MAX_KEYBOARD_KEYS, false);
+    std::fill(m_currentMouseButtons, m_currentMouseButtons + MAX_MOUSE_BUTTONS, false);
+    std::fill(m_downMouseButtons, m_downMouseButtons + MAX_MOUSE_BUTTONS, false);
+    std::fill(m_upMouseButtons, m_upMouseButtons + MAX_MOUSE_BUTTONS, false);
 }
 
 Input::~Input()
@@ -14,62 +20,62 @@ Input::~Input()
 
 bool Input::GetKey(int key)
 {
-    if(SDL_GetScancodeFromKey(key) < MAX_KEYBOARD_KEYS)
+    if(SDL_GetScancodeFromKey(key) >= MAX_KEYBOARD_KEYS)
     {
-        return m_currentKeys[SDL_GetScancodeFromKey(key)];
+        return false;
     }
 
-    return false;
+    return m_currentKeys[SDL_GetScancodeFromKey(key)];
 }
 
 bool Input::GetKeyPress(int key)
 {
-    if(m_downKeys[SDL_GetScancodeFromKey(key)])
+    if(SDL_GetScancodeFromKey(key) >= MAX_KEYBOARD_KEYS)
     {
-        return m_downKeys[SDL_GetScancodeFromKey(key)];
+        return false;
     }
 
-    return false;
+    return m_downKeys[SDL_GetScancodeFromKey(key)];
 }
 
 bool Input::GetKeyRelease(int key)
 {
-    if(m_upKeys[SDL_GetScancodeFromKey(key)])
+    if(SDL_GetScancodeFromKey(key) >= MAX_KEYBOARD_KEYS)
     {
-        return m_upKeys[SDL_GetScancodeFromKey(key)];
+        return false;
     }
 
-    return false;
+    return m_upKeys[SDL_GetScancodeFromKey(key)];
 }
 
 bool Input::GetMouseButton(int button)
 {
-    if(m_currentMouseButtons[button])
+    if(SDL_GetScancodeFromKey(button) >= MAX_MOUSE_BUTTONS)
     {
-        return m_currentMouseButtons[button];
+        return false;
     }
 
-    return false;
+    return m_currentMouseButtons[button];
 }
 
 bool Input::GetMouseButtonPress(int button)
 {
-    if(m_downMouseButtons[button])
+    if(SDL_GetScancodeFromKey(button) >= MAX_MOUSE_BUTTONS)
     {
-        return m_downMouseButtons[button];
+        return false;
     }
 
-    return false;
+    return m_downMouseButtons[button];
 }
 
 bool Input::GetMouseButtonRelease(int button)
 {
-    if(m_upMouseButtons[button])
+    if(SDL_GetScancodeFromKey(button) >= MAX_MOUSE_BUTTONS)
     {
-        return m_upMouseButtons[button];
+        return false;
     }
 
-    return false;
+    return m_upMouseButtons[button];
 }
 
 Vector2D Input::GetMousePosition() const
