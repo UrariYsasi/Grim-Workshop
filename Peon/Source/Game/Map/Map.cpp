@@ -180,16 +180,19 @@ bool Map::IsPassable(const Vector2D& point)
     return true;
 }
 
-Entity* Map::GetEntityAtPoint(const Vector2D& point)
+Entity* Map::GetEntityAtPoint(const Vector2D& point, int entityID)
 {
     Entity* ent = nullptr;
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
         ent = (*it).get();
-        Rectangle hitBox = ent->GetHitBox();
-        if (hitBox.ContainsPoint(point))
+        if (ent->GetEntityID() == entityID || entityID == NONE)
         {
-            return ent;
+            Rectangle hitBox = ent->GetHitBox();
+            if (hitBox.ContainsPoint(point))
+            {
+                return ent;
+            }
         }
     }
 

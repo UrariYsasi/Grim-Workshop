@@ -37,6 +37,11 @@ Vector2D Entity::GetPosition() const
     return m_position;
 }
 
+Vector2D Entity::GetOrigin() const
+{
+    return m_origin;
+}
+
 Vector2D Entity::GetPositionOffset() const
 {
     return m_positionOffset;

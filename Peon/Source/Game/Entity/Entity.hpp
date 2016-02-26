@@ -11,6 +11,7 @@ public:
     Game* GetGame();
     int GetEntityID();
     Vector2D GetPosition() const;
+    Vector2D GetOrigin() const;
     Vector2D GetPositionOffset() const;
     void SetPosition(const Vector2D& position);
     void SetPositionOffset(const Vector2D& positionOffset);

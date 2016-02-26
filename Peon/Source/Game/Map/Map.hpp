@@ -21,8 +21,14 @@ public:
     void SpawnPeon(int quantity = 1, const Vector2D& position = Vector2D(0, 0));
     void SpawnOrc(int quantity = 1);
     bool IsPassable(const Vector2D& point);
-    Entity* GetEntityAtPoint(const Vector2D& point);
     TerrainTile* GetTerrainAtPoint(const Vector2D& point);
+
+    /*
+        Gets the Entity with the given ID that is currently colliding with the given point.
+
+        If the give ID is NONE, then it will return any Entity.
+    */
+    Entity* GetEntityAtPoint(const Vector2D& point, int entityID = NONE);
 
     /*
         Finds and returns all Entities with the given ID that are contained

@@ -27,6 +27,9 @@ Player::Player(Game* game) :
     m_isBoxSelecting(false),
     m_boxSelection(0, 0, 0, 0)
 {
+    m_gameInput = m_game->GetInput();
+    m_gameCamera = m_game->GetMainCamera();
+    m_gameMap = m_game->GetMap();
 }
 
 Player::~Player()
@@ -35,21 +38,6 @@ Player::~Player()
 
 void Player::Update(double deltaTime)
 {
-    if (m_gameInput == nullptr)
-    {
-        m_gameInput = m_game->GetInput();
-    }
-
-    if (m_gameCamera == nullptr)
-    {
-        m_gameCamera = m_game->GetMainCamera();
-    }
-
-    if (m_gameMap == nullptr)
-    {
-        m_gameMap = m_game->GetMap();
-    }
-
     Vector2D cameraMovement(0, 0);
 
     if (m_gameInput->GetKey(SDLK_w) || m_gameInput->GetKey(SDLK_UP))
@@ -137,7 +125,20 @@ void Player::Update(double deltaTime)
         if (m_isBoxSelecting)
         {
             m_isBoxSelecting = false;
-            m_selectedPeons = m_gameMap->GetEntitiesInRectangle(PEON, m_boxSelection);
+
+            if (std::abs(m_boxSelection.width) >= 5 || std::abs(m_boxSelection.height) >= 5)
+            {
+                m_selectedPeons = m_gameMap->GetEntitiesInRectangle(PEON, m_boxSelection);
+            }
+            else
+            {
+                Vector2D mousePositionWorld = m_gameCamera->ConvertToWorld(m_gameInput->GetMousePosition());
+                Entity* peon = m_gameMap->GetEntityAtPoint(mousePositionWorld, PEON);
+                if (peon != nullptr)
+                {
+                    m_selectedPeons.push_back(peon);
+                }
+            }
         }
     }
 
@@ -156,14 +157,19 @@ void Player::Render()
 
     if (m_isBoxSelecting)
     {
-        m_gameRenderer->RenderOutlineRect(m_boxSelection, SDL_Color{ 0, 0, 0, 100 });
+        if (std::abs(m_boxSelection.width) >= 5 || std::abs(m_boxSelection.height) >= 5)
+        {
+            m_gameRenderer->RenderOutlineRect(m_boxSelection, SDL_Color{ 0, 0, 0, 100 });
+        }
     }
 
     for (auto peon : m_selectedPeons)
     {
-        Vector2D position = peon->GetPosition();
-        Rectangle outline(position.x - 8, position.y, 16, 22);
-        m_gameRenderer->RenderOutlineRect(outline, SDL_Color{ 0, 0, 0, 100 });
+        Vector2D position = peon->GetPosition() - peon->GetOrigin();
+        position.y += 7;
+        //Rectangle outline(position.x - 8, position.y, 16, 22);
+        //m_gameRenderer->RenderOutlineRect(outline, SDL_Color{ 0, 0, 0, 100 });
+        m_gameRenderer->RenderSprite("peon", 1, 7, (int)position.x, (int)position.y, 32, 32);
     }
 }
 
