@@ -119,7 +119,7 @@ void Map::Generate()
     m_entities.push_back(std::make_unique<Obelisk>(m_game, Vector2D(0, 0)));
 
     // Peons
-    SpawnPeon(3);
+    SpawnPeon(3, Vector2D(-128, 0));
 
     Debug::Log("Map generation complete.");
 }
