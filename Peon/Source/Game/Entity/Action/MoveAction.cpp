@@ -2,12 +2,13 @@
 #include "MoveAction.hpp"
 #include "../Monster.hpp"
 #include "../../Game.hpp"
+#include "../../Map/Map.hpp"
 
 MoveAction::MoveAction(Monster* owner, const Vector2D& destination) :
     Action(owner, MOVE_ACTION, "Move"),
     m_destination(destination),
     m_followTarget(nullptr),
-    m_range(0),
+    m_range(1),
     m_hopOffset(0),
     m_hopIndex(0),
     m_hopAmp(6),
@@ -40,22 +41,49 @@ void MoveAction::Update(double deltaTime)
     m_owner->SetPositionOffset(Vector2D(0, -m_hopOffset));
 
     Vector2D position = m_owner->GetPosition();
-
     Vector2D start = position;
     double distance = Vector2D::Distance(start, m_destination);
     Vector2D direction = m_destination - start;
     direction.Normalize();
 
-    position += direction * (m_owner->GetMoveSpeed() * deltaTime);
+    Vector2D velocity = direction * (m_owner->GetMoveSpeed() * deltaTime);
+
+    // Check for collisions
+    bool xCollision = false;
+    bool yCollision = false;
+    /*
+    Map* map = m_owner->GetGame()->GetMap();
+    std::list<Entity*> ents = map->FindEntitiesInRange(NONE, position + velocity, 64);
+    for (auto it = ents.begin(); it != ents.end(); it++)
+    {
+        if ((*it) != m_owner && !(*it)->IsDead())
+        {
+            Rectangle hitBox = (*it)->GetHitBox();
+            if (hitBox.ContainsPoint(position + Vector2D(velocity.x, 0)))
+            {
+                xCollision = true;
+            }
+
+            if (hitBox.ContainsPoint(position + Vector2D(0, velocity.y)))
+            {
+                yCollision = true;
+            }
+        }
+    }
+    */
+
+    if (!xCollision)
+    {
+        position.x += velocity.x;
+    }
+
+    if (!yCollision)
+    {
+        position.y += velocity.y;
+    }
 
     if (Vector2D::Distance(position, m_destination) <= m_range)
     {
-        Complete();
-    }
-
-    if (Vector2D::Distance(start, position) > distance)
-    {
-        position = m_destination;
         Complete();
     }
         

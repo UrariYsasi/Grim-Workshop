@@ -57,6 +57,7 @@ protected:
     Vector2D m_positionOffset;
     bool m_isDeleted;
     Rectangle m_hitBox;
+    Rectangle m_selectionHitBox;
     int m_hp;
     bool m_isHeld;
 };

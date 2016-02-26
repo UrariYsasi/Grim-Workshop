@@ -12,6 +12,7 @@ Entity::Entity(Game* game, const Vector2D& position, int entityID) :
     m_positionOffset(0, 0),
     m_isDeleted(false),
     m_hitBox(-16, -16, 16, 16),
+    m_selectionHitBox(-16, -16, 16, 16),
     m_hp(3),
     m_isHeld(false)
 {

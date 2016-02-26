@@ -238,7 +238,7 @@ void Game::Update(double deltaTime)
     {
         if (m_input->GetKeyPress(SDLK_y))
         {
-            m_map->SpawnPeon();
+            m_map->SpawnPeon(1, m_mainCamera->ConvertToWorld(m_input->GetMousePosition()));
         }
 
         if (m_input->GetKeyPress(SDLK_u))

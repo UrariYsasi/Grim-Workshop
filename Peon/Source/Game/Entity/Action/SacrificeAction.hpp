@@ -19,7 +19,7 @@ public:
     virtual void Update(double deltaTime);
 
 private:
-    const double MIN_DISTANCE = 10.0;
+    const double MIN_DISTANCE = 30.0;
 
     Altar* m_altar;
 };
