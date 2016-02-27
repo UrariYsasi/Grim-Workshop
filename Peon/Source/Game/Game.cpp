@@ -151,6 +151,7 @@ int Game::Initialize()
     LoadTexture("Resources/Textures/terrain.png", "terrain");
     LoadTexture("Resources/Textures/structure.png", "structure");
     LoadTexture("Resources/Textures/obelisk.png", "obelisk");
+    LoadTexture("Resources/Textures/tree.png", "tree");
 
     // Load fonts
     LoadFont("Resources/Fonts/dos.ttf", "dos");
@@ -291,7 +292,7 @@ void Game::Render()
 
     std::stringstream ss;
     ss << m_map->GetMonth() << " " << m_map->GetDay() << ", Year " << m_map->GetYear();
-    m_renderer->RenderText("dos", (int)(windowSize.x / 2) - 115, (int)10, ss.str());
+    m_renderer->RenderText("dos", (int)(windowSize.x / 2) - 100, (int)10, ss.str());
     ss.str(" ");
 
     ss << "Wood: " << stock->CountItem(ItemType::WOOD) << "         ";

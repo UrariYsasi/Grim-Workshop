@@ -4,7 +4,7 @@ BIN_PATH = Peon/Binaries
 BUILD_PATH := $(BIN_PATH)
 RES_PATH = Peon/Resources
 FRAMEWORK_PATH = /Library/Frameworks/SDL2
-FRAMEWORKS = -framework SDL2 -framework SDL2_ttf -framework SDL2_mixer -framework SDL2_image
+FRAMEWORKS = -framework SDL2 -framework SDL2_ttf -framework SDL2_mixer -framework SDL2_image -framework OpenGL
 BIN_NAME = peon
 BUILD_NAME = "Peon"
 C_FLAGS = -Wall -std=c++14 -IPeon/Source -O0

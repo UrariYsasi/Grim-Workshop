@@ -60,8 +60,8 @@ void Renderer::RenderTexture(const std::string& id, const int& x, const int& y, 
         return;
     }
 
-    SDL_Rect srcRect = { 0, 0, 32, 32 };
-    SDL_Rect destRect = { x - (int)m_activeCamera->GetPosition().x, y - (int)m_activeCamera->GetPosition().y, width, height };
+    SDL_Rect srcRect = { 0, 0, width, height };
+    SDL_Rect destRect = { x - (int)m_activeCamera->GetPosition().x, y - (int)m_activeCamera->GetPosition().y, 32, 64 };
 
     SDL_RenderCopyEx(m_SDLRenderer, texture, &srcRect, &destRect, 0, 0, SDL_FLIP_NONE);
 }
