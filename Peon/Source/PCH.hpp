@@ -27,7 +27,17 @@
     #include <SDL2_image/SDL_image.h>
     #include <SDL2_ttf/SDL_ttf.h>
     #include <SDL2_mixer/SDL_mixer.h>
+    #include <SDL2/SDL_opengl.h>
 #endif
+
+// GLEW Includes
+#include <glew.h>
+
+// SOIL Incluces
+#include <SOIL.h>
+
+// GLM Includes
+#include <glm.hpp>
 
 // Engine Includes
 #include "Engine/Debug.hpp"
@@ -41,6 +51,9 @@
 #include "Game/Entity/EntityID.hpp"
 #include "Game/Entity/Action/ActionID.hpp"
 
+// Constants
 const int SUCCESS = 1;
 const int FAILURE = 0;
+
+// Typedefs
 typedef unsigned char byte;

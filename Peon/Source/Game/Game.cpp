@@ -96,7 +96,7 @@ int Game::Initialize()
     Debug::EnableFlag(LOGGING | CHEAT);
 
     // Initialize SDL
-    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
+    if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
         Debug::LogError("SDL could not initialize! SDL error: %s", SDL_GetError());
         return FAILURE;
