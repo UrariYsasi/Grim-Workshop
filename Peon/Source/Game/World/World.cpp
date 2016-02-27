@@ -1,5 +1,5 @@
 #include "PCH.hpp"
-#include "Map.hpp"
+#include "World.hpp"
 #include "../Game.hpp"
 #include "../Entity/Tree.hpp"
 #include "../Entity/Rock.hpp"
@@ -12,21 +12,21 @@
 #include "../../Engine/Input.hpp"
 #include "../../Engine/Camera.hpp"
 
-Map::Map(Game* game) :
+World::World(Game* game) :
     m_game(game)
 {
 }
 
-Map::~Map()
+World::~World()
 {
 }
 
-Game* Map::GetGame()
+Game* World::GetGame()
 {
     return m_game;
 }
 
-void Map::Update(double deltaTime)
+void World::Update(double deltaTime)
 {
     CleanEntities();
 
@@ -38,7 +38,7 @@ void Map::Update(double deltaTime)
     }
 }
 
-void Map::Render()
+void World::Render()
 {
     // Terrain
     for (auto it = m_terrain.begin(); it != m_terrain.end(); it++)
@@ -64,7 +64,7 @@ void Map::Render()
     }
 }
 
-void Map::Generate()
+void World::Generate()
 {
     Debug::Log("Generating map...");
 
@@ -121,13 +121,13 @@ void Map::Generate()
     // Peons
     SpawnPeon(3, Vector2D(-350, -128));
 
-    Debug::Log("Map generation complete.");
+    Debug::Log("World generation complete.");
 }
 
 /*
     Delete all entities that have been marked for deletion in the previous frame.
 */
-void Map::CleanEntities()
+void World::CleanEntities()
 {
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
@@ -141,7 +141,7 @@ void Map::CleanEntities()
 /*
     Create some peons on the map.
 */
-void Map::SpawnPeon(int quantity, const Vector2D& position)
+void World::SpawnPeon(int quantity, const Vector2D& position)
 {
     for (int i = 0; i < quantity; i++)
     {
@@ -153,7 +153,7 @@ void Map::SpawnPeon(int quantity, const Vector2D& position)
 /*
     Create some orcs on the map.
 */
-void Map::SpawnOrc(int quantity)
+void World::SpawnOrc(int quantity)
 {
     for (int i = 0; i < quantity; i++)
     {
@@ -167,7 +167,7 @@ void Map::SpawnOrc(int quantity)
 /*
     Checks whether a point on the map is passable or not.
 */
-bool Map::IsPassable(const Vector2D& point)
+bool World::IsPassable(const Vector2D& point)
 {
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
@@ -180,7 +180,7 @@ bool Map::IsPassable(const Vector2D& point)
     return true;
 }
 
-Entity* Map::GetEntityAtPoint(const Vector2D& point, int entityID)
+Entity* World::GetEntityAtPoint(const Vector2D& point, int entityID)
 {
     Entity* ent = nullptr;
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
@@ -199,13 +199,13 @@ Entity* Map::GetEntityAtPoint(const Vector2D& point, int entityID)
     return nullptr;
 }
 
-TerrainTile* Map::GetTerrainAtPoint(const Vector2D& point)
+TerrainTile* World::GetTerrainAtPoint(const Vector2D& point)
 {
     Vector2D tilePosition = Vector2D(round(point.x / 32), round(point.y / 32));
     return m_terrain.at(tilePosition).get();
 }
 
-std::list<Entity*> Map::GetEntitiesInRectangle(int entityID, Rectangle rect)
+std::list<Entity*> World::GetEntitiesInRectangle(int entityID, Rectangle rect)
 {
     std::list<Entity*> ents;
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
@@ -223,7 +223,7 @@ std::list<Entity*> Map::GetEntitiesInRectangle(int entityID, Rectangle rect)
     return ents;
 }
 
-Entity* Map::FindEntity(int entityID)
+Entity* World::FindEntity(int entityID)
 {
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
@@ -236,7 +236,7 @@ Entity* Map::FindEntity(int entityID)
     return nullptr;
 }
 
-std::list<Entity*> Map::FindAdjacentEntities(int entityID, Entity* ent)
+std::list<Entity*> World::FindAdjacentEntities(int entityID, Entity* ent)
 {
     std::list<Entity*> ents;
     Vector2D position = ent->GetPosition();
@@ -276,7 +276,7 @@ std::list<Entity*> Map::FindAdjacentEntities(int entityID, Entity* ent)
     return ents;
 }
 
-std::list<Entity*> Map::FindEntitiesInRange(int entityID, const Vector2D& point, int range)
+std::list<Entity*> World::FindEntitiesInRange(int entityID, const Vector2D& point, int range)
 {
     std::list<Entity*> ents;
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)

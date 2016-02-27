@@ -5,7 +5,7 @@ class Input;
 class Camera;
 class Renderer;
 class Entity;
-class Map;
+class World;
 
 class Player
 {
@@ -28,7 +28,7 @@ private:
     Input* m_gameInput;
     Camera* m_gameCamera;
     Renderer* m_gameRenderer;
-    Map* m_gameMap;
+    World* m_gameWorld;
 
     int m_cameraSpeed;
     bool m_isBoxSelecting;

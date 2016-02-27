@@ -5,7 +5,7 @@
 #include "../Engine/Input.hpp"
 #include "../Engine/Renderer.hpp"
 #include "../Engine/Rectangle.hpp"
-#include "Map/Map.hpp"
+#include "World/World.hpp"
 #include "Terrain/TerrainTile.hpp"
 #include "Entity/Peon.hpp"
 #include "Entity/Orc.hpp"
@@ -22,14 +22,14 @@ Player::Player(Game* game) :
     m_gameInput(nullptr),
     m_gameCamera(nullptr),
     m_gameRenderer(nullptr),
-    m_gameMap(nullptr),
+    m_gameWorld(nullptr),
     m_cameraSpeed(CAMERA_SPEED_NORMAL),
     m_isBoxSelecting(false),
     m_boxSelection(0, 0, 0, 0)
 {
     m_gameInput = m_game->GetInput();
     m_gameCamera = m_game->GetMainCamera();
-    m_gameMap = m_game->GetMap();
+    m_gameWorld = m_game->GetWorld();
 }
 
 Player::~Player()
@@ -38,6 +38,14 @@ Player::~Player()
 
 void Player::Update(double deltaTime)
 {
+    for (auto it = m_selectedPeons.begin(); it != m_selectedPeons.end(); it++)
+    {
+        if ((*it)->IsDead())
+        {
+            m_selectedPeons.erase(it++);
+        }
+    }
+
     Vector2D cameraMovement(0, 0);
 
     if (m_gameInput->GetKey(SDLK_w) || m_gameInput->GetKey(SDLK_UP))
@@ -128,15 +136,18 @@ void Player::Update(double deltaTime)
 
             if (std::abs(m_boxSelection.width) >= 5 || std::abs(m_boxSelection.height) >= 5)
             {
-                m_selectedPeons = m_gameMap->GetEntitiesInRectangle(PEON, m_boxSelection);
+                m_selectedPeons = m_gameWorld->GetEntitiesInRectangle(PEON, m_boxSelection);
             }
             else
             {
                 Vector2D mousePositionWorld = m_gameCamera->ConvertToWorld(m_gameInput->GetMousePosition());
-                Entity* peon = m_gameMap->GetEntityAtPoint(mousePositionWorld, PEON);
+                Entity* peon = m_gameWorld->GetEntityAtPoint(mousePositionWorld, PEON);
                 if (peon != nullptr)
                 {
-                    m_selectedPeons.push_back(peon);
+                    if (!peon->IsDead())
+                    {
+                        m_selectedPeons.push_back(peon);
+                    }
                 }
             }
         }
@@ -180,7 +191,7 @@ void Player::IssueCommand(Vector2D position)
         Peon* peon = dynamic_cast<Peon*>(it);
         Vector2D worldPosition = m_gameCamera->ConvertToWorld(position);
 
-        Entity* ent = m_gameMap->GetEntityAtPoint(worldPosition);
+        Entity* ent = m_gameWorld->GetEntityAtPoint(worldPosition);
         if (ent != nullptr)
         {
             Resource* resource = dynamic_cast<Resource*>(ent);
@@ -225,13 +236,13 @@ void Player::IssueCommand(Vector2D position)
         else
         {
             // TODO move this into MoveAction
-            if (m_gameMap->IsPassable(worldPosition))
+            if (m_gameWorld->IsPassable(worldPosition))
             {
                 double radius = 32;
                 double angle = Random::Generate(0, 1) * M_PI * 2;
                 double distance = Random::Generate(0, 1) * radius;
                 Vector2D offset = Vector2D(distance * cos(angle), distance * sin(angle));
-                if (m_gameMap->IsPassable(worldPosition + offset))
+                if (m_gameWorld->IsPassable(worldPosition + offset))
                 {
                     worldPosition += offset;
                 }

@@ -5,7 +5,7 @@
 #include "MoveAction.hpp"
 #include "../../Item/Inventory.hpp"
 #include "../Stockpile.hpp"
-#include "../../Map/Map.hpp"
+#include "../../World/World.hpp"
 
 WithdrawAction::WithdrawAction(Monster* owner, ItemType withdrawItem, const int& quantity) :
     Action(owner, WITHDRAW_ACTION, "Withdraw"),
@@ -24,7 +24,7 @@ void WithdrawAction::Update(double deltaTime)
     // If we don't have a target stockpile, find one
     if (m_target == nullptr)
     {
-        Entity* ent = m_owner->GetGame()->GetMap()->FindEntity(STOCKPILE);
+        Entity* ent = m_owner->GetGame()->GetWorld()->FindEntity(STOCKPILE);
         m_target = dynamic_cast<Stockpile*>(ent);
         
         if (m_target == nullptr)

@@ -6,7 +6,7 @@
 #include "../Monster.hpp"
 #include "../Resource.hpp"
 #include "../../Item/Inventory.hpp"
-#include "../../Map/Map.hpp"
+#include "../../World/World.hpp"
 
 GatherAction::GatherAction(Monster* owner, Resource* target) :
     Action(owner, GATHER_ACTION, "Gather"),

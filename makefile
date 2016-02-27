@@ -8,9 +8,9 @@ FRAMEWORKS = -framework SDL2 -framework SDL2_ttf -framework SDL2_mixer -framewor
 BIN_NAME = peon
 BUILD_NAME = "Peon"
 C_FLAGS = -Wall -std=c++14 -IPeon/Source -O0
-VPATH = Peon/Source/Game Peon/Source Peon/Source/Engine Peon/Source/Game/Entity Peon/Source/Game/Entity/Action Peon/Source/Game/Item Peon/Source/Game/Map Peon/Source/Game/Terrain
+VPATH = Peon/Source/Game Peon/Source Peon/Source/Engine Peon/Source/Game/Entity Peon/Source/Game/Entity/Action Peon/Source/Game/Item Peon/Source/Game/World Peon/Source/Game/Terrain
 
-DIRS = Peon/Source Peon/Source/Engine Peon/Source/Game Peon/Source/Game/Entity Peon/Source/Game/Entity/Action Peon/Source/Game/Item Peon/Source/Game/Map Peon/Source/Game/Terrain
+DIRS = Peon/Source Peon/Source/Engine Peon/Source/Game Peon/Source/Game/Entity Peon/Source/Game/Entity/Action Peon/Source/Game/Item Peon/Source/Game/World Peon/Source/Game/Terrain
 SEARCH_CPP := $(addsuffix /*.cpp ,$(DIRS))
 SRC_FILES := $(wildcard $(SEARCH_CPP))
 

@@ -2,7 +2,7 @@
 #include "MoveAction.hpp"
 #include "../Monster.hpp"
 #include "../../Game.hpp"
-#include "../../Map/Map.hpp"
+#include "../../World/World.hpp"
 
 MoveAction::MoveAction(Monster* owner, const Vector2D& destination) :
     Action(owner, MOVE_ACTION, "Move"),
@@ -52,7 +52,7 @@ void MoveAction::Update(double deltaTime)
     bool xCollision = false;
     bool yCollision = false;
     /*
-    Map* map = m_owner->GetGame()->GetMap();
+    World* map = m_owner->GetGame()->GetWorld();
     std::list<Entity*> ents = map->FindEntitiesInRange(NONE, position + velocity, 64);
     for (auto it = ents.begin(); it != ents.end(); it++)
     {

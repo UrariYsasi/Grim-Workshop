@@ -6,7 +6,7 @@
 #include "Action/AttackAction.hpp"
 #include "../../Engine/Renderer.hpp"
 #include "Orc.hpp"
-#include "../Map/Map.hpp"
+#include "../World/World.hpp"
 
 Peon::Peon(Game* game, Vector2D position) :
     Monster(game, position, PEON)
@@ -23,7 +23,7 @@ void Peon::Update(double deltaTime)
 {
     Monster::Update(deltaTime);
 
-    Map* map = m_game->GetMap();
+    World* world = m_game->GetWorld();
 
     // If we don't have an attack action already
     AttackAction* attackAction = dynamic_cast<AttackAction*>(FindAction(ATTACK_ACTION));
@@ -31,7 +31,7 @@ void Peon::Update(double deltaTime)
     {
         // Search for some Orcs
         Rectangle searchRect(m_position.x - 64, m_position.y - 64, 128, 128);
-        std::list<Entity*> orcs = map->GetEntitiesInRectangle(ORC, searchRect);
+        std::list<Entity*> orcs = world->GetEntitiesInRectangle(ORC, searchRect);
         if (orcs.size() > 0)
         {
             // Found some orcs. Go attack them.

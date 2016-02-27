@@ -13,7 +13,7 @@
 #include "Entity/Action/GatherAction.hpp"
 #include "Entity/Action/SmeltAction.hpp"
 #include "Terrain/TerrainTile.hpp"
-#include "Map/Map.hpp"
+#include "World/World.hpp"
 #include "Player.hpp"
 
 Game::Game() :
@@ -31,25 +31,25 @@ Game::~Game()
     {
         Mix_FreeMusic(m_bgMusic);
 
-        for (auto soundIt = m_soundMap.begin(); soundIt != m_soundMap.end(); soundIt++)
+        for (auto soundIt = m_soundWorld.begin(); soundIt != m_soundWorld.end(); soundIt++)
         {
             Mix_FreeChunk(soundIt->second);
         }
     }
 
-    for (auto fontIt = m_fontMap.begin(); fontIt != m_fontMap.end(); fontIt++)
+    for (auto fontIt = m_fontWorld.begin(); fontIt != m_fontWorld.end(); fontIt++)
     {
         TTF_CloseFont(fontIt->second);
     }
 
-    for (auto texIt = m_textureMap.begin(); texIt != m_textureMap.end(); texIt++)
+    for (auto texIt = m_textureWorld.begin(); texIt != m_textureWorld.end(); texIt++)
     {
         SDL_DestroyTexture(texIt->second);
     }
 
-    m_soundMap.clear();
-    m_fontMap.clear();
-    m_textureMap.clear();
+    m_soundWorld.clear();
+    m_fontWorld.clear();
+    m_textureWorld.clear();
 
     m_player.reset();
     m_map.reset();
@@ -86,7 +86,7 @@ Camera* Game::GetMainCamera()
     return m_mainCamera.get();
 }
 
-Map* Game::GetMap()
+World* Game::GetWorld()
 {
     return m_map.get();
 }
@@ -141,7 +141,7 @@ int Game::Initialize()
     m_mainCamera = std::make_unique<Camera>(m_renderer.get(), Vector2D(-512, -384));
     m_GUICamera = std::make_unique<Camera>(m_renderer.get(), Vector2D(0, 0));
 
-    m_map = std::make_unique<Map>(this);
+    m_map = std::make_unique<World>(this);
     m_player = std::make_unique<Player>(this);
 
     // Load Textures
@@ -166,7 +166,11 @@ int Game::Initialize()
     LoadSound("Resources/Sounds/drop_01.wav", "drop_01");
     LoadSound("Resources/Sounds/death_00.wav", "death_00");
     LoadSound("Resources/Sounds/punch_00.wav", "punch_00");
-    LoadSound("Resources/Sounds/monk_spawn.wav", "monk_spawn");
+    LoadSound("Resources/Sounds/sacrifice_00.wav", "sacrifice_00");
+    LoadSound("Resources/Sounds/sacrifice_01.wav", "sacrifice_01");
+    LoadSound("Resources/Sounds/sacrifice_02.wav", "sacrifice_02");
+    LoadSound("Resources/Sounds/sacrifice_03.wav", "sacrifice_03");
+    LoadSound("Resources/Sounds/sacrifice_04.wav", "sacrifice_04");
     LoadSound("Resources/Sounds/damage.wav", "damage");
     LoadSound("Resources/Sounds/sword.wav", "sword");
 
@@ -370,7 +374,7 @@ bool Game::LoadTexture(const std::string& path, const std::string& id)
         return false;
     }
 
-    m_textureMap[id] = texture;
+    m_textureWorld[id] = texture;
     Debug::Log("Texture %s loaded.", id.c_str());
     return true;
 }
@@ -383,7 +387,7 @@ bool Game::LoadFont(const std::string& path, const std::string& id, const int& s
         Debug::LogError("Failed to load font %s! SDL_ttf error: %s", path.c_str(), TTF_GetError());
     }
 
-    m_fontMap[id] = font;
+    m_fontWorld[id] = font;
     Debug::Log("Font %s loaded.", id.c_str());
     return true;
 }
@@ -399,7 +403,7 @@ bool Game::LoadSound(const std::string& path, const std::string& id)
             return false;
         }
 
-        m_soundMap[id] = sound;
+        m_soundWorld[id] = sound;
         Debug::Log("Sound %s loaded.", id.c_str());
         return true;
     }
@@ -409,23 +413,23 @@ bool Game::LoadSound(const std::string& path, const std::string& id)
 
 SDL_Texture* Game::GetTexture(const std::string& id)
 {
-    return m_textureMap[id];
+    return m_textureWorld[id];
 }
 
 TTF_Font* Game::GetFont(const std::string& id)
 {
-    return m_fontMap[id];
+    return m_fontWorld[id];
 }
 
 void Game::PlaySound(const std::string& id)
 {
     if (Debug::IsFlagEnabled(MIX_AUDIO))
     {
-        if (m_soundMap[id] == nullptr)
+        if (m_soundWorld[id] == nullptr)
         {
             Debug::LogError("Sound %s can't be played, as it doesn't exist!", id.c_str());
         }
 
-        Mix_PlayChannel(-1, m_soundMap[id], 0);
+        Mix_PlayChannel(-1, m_soundWorld[id], 0);
     }
 }

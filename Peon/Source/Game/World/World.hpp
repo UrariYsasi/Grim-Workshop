@@ -7,11 +7,11 @@ class Entity;
 class Peon;
 class Stockpile;
 
-class Map
+class World
 {
 public:
-    Map(Game* game);
-    ~Map();
+    World(Game* game);
+    ~World();
 
     Game* GetGame();
 

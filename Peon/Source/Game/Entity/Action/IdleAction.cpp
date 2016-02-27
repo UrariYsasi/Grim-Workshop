@@ -3,7 +3,7 @@
 #include "MoveAction.hpp"
 #include "../Monster.hpp"
 #include "../../Game.hpp"
-#include "../../Map/Map.hpp"
+#include "../../World/World.hpp"
 
 IdleAction::IdleAction(Monster* owner) :
     Action(owner, IDLE_ACTION, "Idle"),
@@ -31,7 +31,7 @@ void IdleAction::Update(double deltaTime)
             double randX = Random::Generate(-32, 32);
             double randY = Random::Generate(-32, 32);
             Vector2D wanderDestination = m_owner->GetPosition() + Vector2D(randX, randY);
-            if (m_owner->GetGame()->GetMap()->IsPassable(wanderDestination))
+            if (m_owner->GetGame()->GetWorld()->IsPassable(wanderDestination))
             {
                 m_owner->PushAction(std::make_unique<MoveAction>(m_owner, wanderDestination));
             }

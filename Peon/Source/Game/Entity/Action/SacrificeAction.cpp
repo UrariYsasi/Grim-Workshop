@@ -3,7 +3,7 @@
 #include "../Monster.hpp"
 #include "../../Game.hpp"
 #include "MoveAction.hpp"
-#include "../../Map/Map.hpp"
+#include "../../World/World.hpp"
 #include "../Altar.hpp"
 
 SacrificeAction::SacrificeAction(Monster* owner, Altar* altar) :
@@ -38,9 +38,9 @@ void SacrificeAction::Update(double deltaTime)
 
         offering->Delete();
 
-        m_owner->GetGame()->PlaySound("monk_spawn");
+        m_owner->GetGame()->PlaySound("sacrifice_04");
 
-        m_owner->GetGame()->GetMap()->SpawnPeon(2, m_altar->GetPosition());
+        m_owner->GetGame()->GetWorld()->SpawnPeon(2, m_altar->GetPosition());
 
         // Complete the action
         Complete();

@@ -5,7 +5,7 @@
 #include "Action/AttackAction.hpp"
 #include "Peon.hpp"
 #include "../../Engine/Renderer.hpp"
-#include "../Map/Map.hpp"
+#include "../World/World.hpp"
 
 Orc::Orc(Game* game, Vector2D position) :
     Monster(game, position, ORC)
@@ -23,7 +23,7 @@ void Orc::Update(double deltaTime)
 {
     Monster::Update(deltaTime);
 
-    Map* map = m_game->GetMap();
+    World* map = m_game->GetWorld();
 
     // LOOK FOR ORC ATTACK ACTION
     AttackAction* attackAction = dynamic_cast<AttackAction*>(FindAction(ATTACK_ACTION));

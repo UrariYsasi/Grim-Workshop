@@ -8,7 +8,7 @@ class Peon;
 class Stockpile;
 class TerrainTile;
 class Camera;
-class Map;
+class World;
 class Player;
 
 class Game
@@ -20,7 +20,7 @@ public:
     Renderer* GetRenderer();
     Input* GetInput();
     Camera* GetMainCamera();
-    Map* GetMap();
+    World* GetWorld();
 
     int Initialize();
     void Run();
@@ -46,17 +46,17 @@ private:
     std::unique_ptr<Input> m_input;
     std::unique_ptr<Camera> m_mainCamera;
     std::unique_ptr<Camera> m_GUICamera;
-    std::unique_ptr<Map> m_map;
+    std::unique_ptr<World> m_map;
     std::unique_ptr<Player> m_player;
 
     // Textures
-    std::map<std::string, SDL_Texture*> m_textureMap;
+    std::map<std::string, SDL_Texture*> m_textureWorld;
 
     // Fonts
-    std::map<std::string, TTF_Font*> m_fontMap;
+    std::map<std::string, TTF_Font*> m_fontWorld;
 
     // Sounds
-    std::map<std::string, Mix_Chunk*> m_soundMap;
+    std::map<std::string, Mix_Chunk*> m_soundWorld;
 
     // This is here TEMPORARILY for debug purposes
     double m_frameCount;
