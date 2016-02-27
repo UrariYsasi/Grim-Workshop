@@ -8,6 +8,7 @@ Rock::Rock(Game* game, Vector2D position) :
 {
     m_origin = Vector2D(16, 16);
     m_hitBox = Rectangle(-16, -16, 32, 32);
+    m_hp = 10;
 }
 
 Rock::~Rock()
