@@ -287,8 +287,13 @@ void Game::Render()
     m_renderer->RenderFillRect(bottomBar, SDL_Color{ 128, 128, 128, 128 });
     Stockpile* stockpile = dynamic_cast<Stockpile*>(m_map->FindEntity(STOCKPILE));
     Inventory* stock = stockpile->GetInventory();
+    Vector2D windowSize = m_window->GetSize();
 
     std::stringstream ss;
+    ss << m_map->GetMonth() << " " << m_map->GetDay() << ", Year " << m_map->GetYear();
+    m_renderer->RenderText("dos", (int)(windowSize.x / 2) - 115, (int)10, ss.str());
+    ss.str(" ");
+
     ss << "Wood: " << stock->CountItem(ItemType::WOOD) << "         ";
     ss << "Stone: " << stock->CountItem(ItemType::STONE) << "         ";
     ss << "Coal: " << stock->CountItem(ItemType::COAL) << "         ";

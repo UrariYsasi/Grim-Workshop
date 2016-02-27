@@ -13,7 +13,10 @@
 #include "../../Engine/Camera.hpp"
 
 World::World(Game* game) :
-    m_game(game)
+    m_game(game),
+    m_day(1),
+    m_month(1),
+    m_year(1)
 {
 }
 
@@ -26,9 +29,53 @@ Game* World::GetGame()
     return m_game;
 }
 
+int World::GetDay()
+{
+    return m_day;
+}
+
+std::string World::GetMonth()
+{
+    switch (m_month)
+    {
+        case 1:
+            return "Aerokim";
+        case 2:
+            return "Jaipeto";
+        case 3:
+            return "Avoth";
+        case 4:
+            return "Ino";
+        case 5:
+            return "Odan";
+        case 6:
+            return "Jukra";
+        case 7:
+            return "Taeylom";
+        case 8:
+            return "Aelond";
+        case 9:
+            return "Eima";
+        case 10:
+            return "Draev";
+        case 11:
+            return "Jandas";
+        case 12:
+            return "Eraindr";
+        default:
+            return "UNKNOWN";
+    }
+}
+
+int World::GetYear()
+{
+    return m_year;
+}
+
 void World::Update(double deltaTime)
 {
     CleanEntities();
+    ProcessTime();
 
     // Entities
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
@@ -61,6 +108,31 @@ void World::Render()
     {
         Entity* e = (*it).get();
         e->Render();
+    }
+}
+
+void World::ProcessTime()
+{
+    if (!m_worldTimer.IsStarted())
+    {
+        m_worldTimer.Start();
+    }
+    else if (m_worldTimer.GetTime() > 5000)
+    {
+        m_worldTimer.Stop();
+        m_day++;
+        
+        if (m_day > 30)
+        {
+            m_day = 1;
+            m_month++;
+        }
+
+        if (m_month > 12)
+        {
+            m_month = 1;
+            m_year++;
+        }
     }
 }
 

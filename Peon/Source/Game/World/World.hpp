@@ -14,9 +14,13 @@ public:
     ~World();
 
     Game* GetGame();
+    int GetDay();
+    std::string GetMonth();
+    int GetYear();
 
     void Update(double deltaTime);
     void Render();
+    void ProcessTime();
     void Generate();
     void SpawnPeon(int quantity = 1, const Vector2D& position = Vector2D(0, 0));
     void SpawnOrc(int quantity = 1);
@@ -70,4 +74,10 @@ private:
 
     std::unordered_map<Vector2D, std::unique_ptr<TerrainTile> > m_terrain;
     std::list< std::unique_ptr<Entity> > m_entities;
+
+    // Time
+    Timer m_worldTimer;
+    int m_day;
+    int m_month;
+    int m_year;
 };
