@@ -36,7 +36,7 @@ void TerrainTile::Render()
 
     if (Debug::IsFlagEnabled(RENDER_TILE_OUTLINES))
     {
-        Rectangle outline((int)(m_position.x - m_origin.x), (int)(m_position.y - m_origin.y), 32, 32);
+        Rect outline((int)(m_position.x - m_origin.x), (int)(m_position.y - m_origin.y), 32, 32);
         renderer->RenderOutlineRect(outline, SDL_Color{ 0, 0, 0, 15 });
     }
 }

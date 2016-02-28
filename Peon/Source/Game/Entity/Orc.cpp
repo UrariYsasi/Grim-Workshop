@@ -11,7 +11,7 @@ Orc::Orc(Game* game, Vector2D position) :
     Monster(game, position, ORC)
 {
     m_origin = Vector2D(16, 16);
-    m_hitBox = Rectangle(-4, 0, 8, 16);
+    m_hitBox = Rect(-4, 0, 8, 16);
     m_hp = 6;
 }
 
@@ -43,8 +43,8 @@ void Orc::Update(double deltaTime)
         if (!attackAction->IsAttackingPeon())
         {
             // ORC SEARCH FOR PUNY PEONS TO SMASH
-            Rectangle searchRect(m_position.x - 128, m_position.y - 128, 256, 256);
-            std::list<Entity*> peons = map->GetEntitiesInRectangle(PEON, searchRect);
+            Rect searchRect(m_position.x - 128, m_position.y - 128, 256, 256);
+            std::list<Entity*> peons = map->GetEntitiesInRect(PEON, searchRect);
             if (peons.size() > 0)
             {
                 // ORC SEE PEONS. SMASH DEM!
@@ -76,7 +76,7 @@ void Orc::Render()
         renderer->RenderText("dos", (int)(m_position.x), (int)(m_position.y), m_actionStack.back()->GetName());
     }
     */
-    //Rectangle searchRect(m_position.x - 128, m_position.y - 128, 256, 256);
+    //Rect searchRect(m_position.x - 128, m_position.y - 128, 256, 256);
     //renderer->RenderOutlineRect(searchRect);
 
     Entity::Render();

@@ -7,8 +7,8 @@ Technology     | Component
 ---------------|----------
 **C++14**      | Core
 **SDL2**       | Audio/Input/Window handling
-**OpenGL 32.** | Rendering
-**GLEW**       | OpenGL Extension
+**OpenGL 3.2** | Rendering
+**GL3W**       | OpenGL Extension
 **SOIL**       | Image loading
 **GLM**        | Mathematics
 **VS2015**     | Windows compilation

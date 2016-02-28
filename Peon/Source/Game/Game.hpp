@@ -39,6 +39,9 @@ private:
     bool LoadFont(const std::string& path, const std::string& id, const int& size = 16);
     bool LoadSound(const std::string& path, const std::string& id);
 
+    GLuint CompileShader(GLchar* source, GLenum shaderType);
+    GLuint LinkShaders(GLuint vertID, GLuint fragID);
+
 private:
     bool m_isRunning;
     std::unique_ptr<Window> m_window;
@@ -63,4 +66,28 @@ private:
     double m_frameRate;
     double m_gameStartTime;
     Mix_Music* m_bgMusic;
+
+    GLuint vboID;
+    GLuint vertexShaderID;
+    GLuint fragmentShaderID;
+    GLuint shaderProgramID;
+
+    GLuint vaoID;
+
+    GLchar* vertexShaderSource =
+        "#version 150 core\n"
+        "in vec2 inPosition;"
+        "void main()"
+        "{"
+        "    gl_Position = vec4(inPosition, 0.0, 1.0);"
+        "}";
+
+    GLchar* fragmentShaderSource =
+        "#version 150 core\n"
+        "uniform vec3 triangleColor;"
+        "out vec4 outColor;"
+        "void main()"
+        "{"
+        "    outColor = vec4(triangleColor, 1.0);"
+        "}";
 };

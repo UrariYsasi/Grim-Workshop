@@ -16,13 +16,13 @@ public:
     void SetPosition(const Vector2D& position);
     void SetPositionOffset(const Vector2D& positionOffset);
     bool IsDeleted() const;
-    Rectangle GetHitBox() const;
+    Rect GetHitBox() const;
 
     virtual void Update(double deltaTime) = 0;
     virtual void Render();
 
     void Delete();
-    bool IsCollidingWithRect(const Rectangle& rect) const;
+    bool IsCollidingWithRect(const Rect& rect) const;
 
     /*
         Damage the entity.
@@ -57,8 +57,8 @@ protected:
     Vector2D m_origin;
     Vector2D m_positionOffset;
     bool m_isDeleted;
-    Rectangle m_hitBox;
-    Rectangle m_selectionHitBox;
+    Rect m_hitBox;
+    Rect m_selectionHitBox;
     int m_hp;
     bool m_isHeld;
 };

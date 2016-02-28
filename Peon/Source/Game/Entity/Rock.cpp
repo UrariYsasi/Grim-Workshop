@@ -7,7 +7,7 @@ Rock::Rock(Game* game, Vector2D position) :
     Resource(game, position, ROCK, ItemType::STONE)
 {
     m_origin = Vector2D(16, 16);
-    m_hitBox = Rectangle(-16, -16, 32, 32);
+    m_hitBox = Rect(-16, -16, 32, 32);
     m_hp = 10;
 }
 

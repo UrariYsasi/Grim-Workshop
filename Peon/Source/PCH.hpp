@@ -16,6 +16,15 @@
 #include <random>
 #include <algorithm>
 
+// GL3W Includes
+#include <GL/gl3w.h>
+
+// SOIL Incluces
+#include <SOIL.h>
+
+// GLM Includes
+#include <glm.hpp>
+
 // SDL2 Includes
 #if WINDOWS
     #include <SDL.h>
@@ -30,20 +39,11 @@
     #include <SDL2/SDL_opengl.h>
 #endif
 
-// GLEW Includes
-#include <glew.h>
-
-// SOIL Incluces
-#include <SOIL.h>
-
-// GLM Includes
-#include <glm.hpp>
-
 // Engine Includes
 #include "Engine/Debug.hpp"
 #include "Engine/Random.hpp"
 #include "Engine/Vector2D.hpp"
-#include "Engine/Rectangle.hpp"
+#include "Engine/Rect.hpp"
 #include "Engine/Timer.hpp"
 
 // Game Includes

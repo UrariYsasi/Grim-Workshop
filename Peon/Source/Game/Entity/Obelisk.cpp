@@ -7,7 +7,7 @@ Obelisk::Obelisk(Game* game, Vector2D position) :
     Prop(game, position, OBELISK)
 {
     m_origin = Vector2D(48, 240);
-    m_hitBox = Rectangle(-36, -30, 73, 80);
+    m_hitBox = Rect(-36, -30, 73, 80);
 }
 
 Obelisk::~Obelisk()

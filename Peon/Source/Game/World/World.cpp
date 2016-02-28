@@ -97,8 +97,8 @@ void World::Render()
     // Z sort Entities
     m_entities.sort([](std::unique_ptr<Entity> const& a, std::unique_ptr<Entity> const& b)
     {
-        Rectangle aHit = a->GetHitBox();
-        Rectangle bHit = b->GetHitBox();
+        Rect aHit = a->GetHitBox();
+        Rect bHit = b->GetHitBox();
 
         return (aHit.y + aHit.height) < (bHit.y + bHit.height);
     });
@@ -243,7 +243,7 @@ bool World::IsPassable(const Vector2D& point)
 {
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
-        Rectangle hitBox = (*it)->GetHitBox();
+        Rect hitBox = (*it)->GetHitBox();
         if (hitBox.ContainsPoint(point))
         {
             return false;
@@ -260,7 +260,7 @@ Entity* World::GetEntityAtPoint(const Vector2D& point, int entityID)
         ent = (*it).get();
         if (ent->GetEntityID() == entityID || entityID == NONE)
         {
-            Rectangle hitBox = ent->GetHitBox();
+            Rect hitBox = ent->GetHitBox();
             if (hitBox.ContainsPoint(point))
             {
                 return ent;
@@ -277,7 +277,7 @@ TerrainTile* World::GetTerrainAtPoint(const Vector2D& point)
     return m_terrain.at(tilePosition).get();
 }
 
-std::list<Entity*> World::GetEntitiesInRectangle(int entityID, Rectangle rect)
+std::list<Entity*> World::GetEntitiesInRect(int entityID, Rect rect)
 {
     std::list<Entity*> ents;
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)

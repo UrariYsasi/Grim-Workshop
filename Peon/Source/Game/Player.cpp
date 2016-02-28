@@ -4,7 +4,7 @@
 #include "../Engine/Camera.hpp"
 #include "../Engine/Input.hpp"
 #include "../Engine/Renderer.hpp"
-#include "../Engine/Rectangle.hpp"
+#include "../Engine/Rect.hpp"
 #include "World/World.hpp"
 #include "Terrain/TerrainTile.hpp"
 #include "Entity/Peon.hpp"
@@ -136,7 +136,7 @@ void Player::Update(double deltaTime)
 
             if (std::abs(m_boxSelection.width) >= 5 || std::abs(m_boxSelection.height) >= 5)
             {
-                m_selectedPeons = m_gameWorld->GetEntitiesInRectangle(PEON, m_boxSelection);
+                m_selectedPeons = m_gameWorld->GetEntitiesInRect(PEON, m_boxSelection);
             }
             else
             {
@@ -178,7 +178,7 @@ void Player::Render()
     {
         Vector2D position = peon->GetPosition() - peon->GetOrigin();
         position.y += 7;
-        //Rectangle outline(position.x - 8, position.y, 16, 22);
+        //Rect outline(position.x - 8, position.y, 16, 22);
         //m_gameRenderer->RenderOutlineRect(outline, SDL_Color{ 0, 0, 0, 100 });
         m_gameRenderer->RenderSprite("peon", 1, 7, (int)position.x, (int)position.y, 32, 32);
     }

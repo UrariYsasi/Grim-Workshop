@@ -150,6 +150,7 @@ int Game::Initialize()
     m_player = std::make_unique<Player>(this);
 
     // Load Textures
+    Debug::Log("Loading textures...");
     LoadTexture("Resources/Textures/peon.png", "peon");
     LoadTexture("Resources/Textures/orc.png", "orc");
     LoadTexture("Resources/Textures/resource.png", "resource");
@@ -159,9 +160,11 @@ int Game::Initialize()
     LoadTexture("Resources/Textures/tree.png", "tree");
 
     // Load fonts
+    Debug::Log("Loading fonts...");
     LoadFont("Resources/Fonts/dos.ttf", "dos");
 
     // Load Sounds
+    Debug::Log("Loading sounds...");
     LoadSound("Resources/Sounds/woodcutting_00.wav", "woodcutting_00");
     LoadSound("Resources/Sounds/woodcutting_01.wav", "woodcutting_01");
     LoadSound("Resources/Sounds/woodcutting_02.wav", "woodcutting_02");
@@ -195,6 +198,48 @@ int Game::Initialize()
 
     // Setup the game
     m_map->Generate();
+
+    // OPENGL TESTING
+
+    // Create a VAO
+    glGenVertexArrays(1, &vaoID);
+    glBindVertexArray(vaoID);
+
+    // Create a VBO and copy the vertex data to it
+    glGenBuffers(1, &vboID);
+
+    GLfloat vertices[] = {
+        0.0f,  0.5f, // Vertex 1 (X, Y)
+        0.5f, -0.5f, // Vertex 2 (X, Y)
+        -0.5f, -0.5f  // Vertex 3 (X, Y)
+    };
+
+    glBindBuffer(GL_ARRAY_BUFFER, vboID);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    Debug::Log("Loading shaders...");
+    Debug::Log("Compiling shaders...");
+    vertexShaderID = CompileShader(vertexShaderSource, GL_VERTEX_SHADER);
+    fragmentShaderID = CompileShader(fragmentShaderSource, GL_FRAGMENT_SHADER);
+    shaderProgramID = LinkShaders(vertexShaderID, fragmentShaderID);
+
+    if (vertexShaderID == -1)
+    {
+        Debug::LogError("vertex shader failed to compile!");
+    }
+
+    if (fragmentShaderID == -1)
+    {
+        Debug::LogError("fragment shader failed to compile!");
+    }
+
+    Debug::Log("Linking shaders...");
+
+    GLint positionAttribute = glGetAttribLocation(shaderProgramID, "inPosition");
+    glEnableVertexAttribArray(positionAttribute);
+    glVertexAttribPointer(positionAttribute, 2, GL_FLOAT, GL_FALSE, 0, 0);
+
+    glUseProgram(shaderProgramID);
 
     return SUCCESS;
 }
@@ -280,6 +325,15 @@ void Game::Update(double deltaTime)
 
 void Game::Render()
 {
+    glClearColor(.4f, .4f, .4f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    GLint uniColor = glGetUniformLocation(shaderProgramID, "triangleColor");
+    glUniform3f(uniColor, 1.0f, 0.0f, 0.0f);
+
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+
+    /*
     m_renderer->SetDrawColor(SDL_Color{ 0, 0, 0, 255 });
     m_renderer->Clear();
 
@@ -291,7 +345,7 @@ void Game::Render()
     // Render GUI
     m_GUICamera->Activate();
 
-    Rectangle bottomBar(0, m_window->GetSize().y - 16, m_window->GetSize().x, 16);
+    Rect bottomBar(0, m_window->GetSize().y - 16, m_window->GetSize().x, 16);
     m_renderer->RenderFillRect(bottomBar, SDL_Color{ 128, 128, 128, 128 });
     Stockpile* stockpile = dynamic_cast<Stockpile*>(m_map->FindEntity(STOCKPILE));
     Inventory* stock = stockpile->GetInventory();
@@ -313,7 +367,7 @@ void Game::Render()
     // Debug stuff
     if (Debug::IsFlagEnabled(SHOW_MENU))
     {
-        Rectangle container(5, 5, 340, 180);
+        Rect container(5, 5, 340, 180);
         m_renderer->RenderFillRect(container, SDL_Color{ 128, 128, 128, 128 });
 
         ss << "Framerate: " << (int)m_frameRate;
@@ -365,6 +419,7 @@ void Game::Render()
     }
 
     m_renderer->Present();
+    */
 }
 
 bool Game::LoadTexture(const std::string& path, const std::string& id)
@@ -388,7 +443,6 @@ bool Game::LoadTexture(const std::string& path, const std::string& id)
     }
 
     m_textureWorld[id] = texture;
-    Debug::Log("Texture %s loaded.", id.c_str());
     return true;
 }
 
@@ -401,7 +455,6 @@ bool Game::LoadFont(const std::string& path, const std::string& id, const int& s
     }
 
     m_fontWorld[id] = font;
-    Debug::Log("Font %s loaded.", id.c_str());
     return true;
 }
 
@@ -417,7 +470,6 @@ bool Game::LoadSound(const std::string& path, const std::string& id)
         }
 
         m_soundWorld[id] = sound;
-        Debug::Log("Sound %s loaded.", id.c_str());
         return true;
     }
 
@@ -445,4 +497,47 @@ void Game::PlaySound(const std::string& id)
 
         Mix_PlayChannel(-1, m_soundWorld[id], 0);
     }
+}
+
+GLuint Game::CompileShader(GLchar* source, GLenum shaderType)
+{
+    // Create the shader and get an ID
+    GLuint id = glCreateShader(shaderType);
+
+    // Upload the shader source
+    glShaderSource(id, 1, &source, NULL);
+
+    // Compile the shader
+    glCompileShader(id);
+
+    // Check for errors
+    GLint status;
+    glGetShaderiv(id, GL_COMPILE_STATUS, &status);
+    if (status != GL_TRUE)
+    {
+        char buffer[512];
+        glGetShaderInfoLog(id, 512, NULL, buffer);
+        Debug::LogError(buffer);
+        Debug::LogError("Shader failed to compile!");
+        id = -1;
+    }
+
+    return id;
+}
+
+GLuint Game::LinkShaders(GLuint vertID, GLuint fragID)
+{
+    // Create the shader program and get an ID
+    GLuint id = glCreateProgram();
+
+    // Attach the shaders to the program
+    glAttachShader(id, vertID);
+    glAttachShader(id, fragID);
+
+    //glBindFragDataLocation(id, 0, "outColor");
+
+    // Link the program
+    glLinkProgram(id);
+
+    return id;
 }

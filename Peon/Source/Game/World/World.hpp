@@ -36,11 +36,11 @@ public:
 
     /*
         Finds and returns all Entities with the given ID that are contained
-        in the given Rectangle.
+        in the given Rect.
 
         If the ID given is NONE, it will return all Entity types.
     */
-    std::list<Entity*> GetEntitiesInRectangle(int entityID, Rectangle rect);
+    std::list<Entity*> GetEntitiesInRect(int entityID, Rect rect);
 
     /*
         Finds and returns the first Entity with the given ID.

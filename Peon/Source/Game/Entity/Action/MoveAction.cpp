@@ -58,7 +58,7 @@ void MoveAction::Update(double deltaTime)
     {
         if ((*it) != m_owner && !(*it)->IsDead())
         {
-            Rectangle hitBox = (*it)->GetHitBox();
+            Rect hitBox = (*it)->GetHitBox();
             if (hitBox.ContainsPoint(position + Vector2D(velocity.x, 0)))
             {
                 xCollision = true;

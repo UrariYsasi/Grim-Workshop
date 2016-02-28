@@ -32,6 +32,6 @@ private:
 
     int m_cameraSpeed;
     bool m_isBoxSelecting;
-    Rectangle m_boxSelection;
+    Rect m_boxSelection;
     std::list<Entity*> m_selectedPeons;
 };

@@ -12,7 +12,7 @@ Peon::Peon(Game* game, Vector2D position) :
     Monster(game, position, PEON)
 {
     m_origin = Vector2D(16, 16);
-    m_hitBox = Rectangle(-3, 10, 7, 8);
+    m_hitBox = Rect(-3, 10, 7, 8);
 }
 
 Peon::~Peon()
@@ -30,8 +30,8 @@ void Peon::Update(double deltaTime)
     if (attackAction == nullptr)
     {
         // Search for some Orcs
-        Rectangle searchRect(m_position.x - 64, m_position.y - 64, 128, 128);
-        std::list<Entity*> orcs = world->GetEntitiesInRectangle(ORC, searchRect);
+        Rect searchRect(m_position.x - 64, m_position.y - 64, 128, 128);
+        std::list<Entity*> orcs = world->GetEntitiesInRect(ORC, searchRect);
         if (orcs.size() > 0)
         {
             // Found some orcs. Go attack them.

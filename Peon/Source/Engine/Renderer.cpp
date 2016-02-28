@@ -114,7 +114,7 @@ void Renderer::RenderText(const std::string& id, const int& x, const int& y, con
     SDL_DestroyTexture(texture);
 }
 
-void Renderer::RenderOutlineRect(const Rectangle& rect, const SDL_Color& color)
+void Renderer::RenderOutlineRect(const Rect& rect, const SDL_Color& color)
 {
     SetDrawColor(color);
     Vector2D pos(rect.x, rect.y);
@@ -124,7 +124,7 @@ void Renderer::RenderOutlineRect(const Rectangle& rect, const SDL_Color& color)
     SDL_RenderDrawRect(m_SDLRenderer, &r);
 }
 
-void Renderer::RenderFillRect(const Rectangle& rect, const SDL_Color& color)
+void Renderer::RenderFillRect(const Rect& rect, const SDL_Color& color)
 {
     SetDrawColor(color);
     Vector2D pos(rect.x, rect.y);

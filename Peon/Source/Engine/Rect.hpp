@@ -1,13 +1,13 @@
 #pragma once
 
-struct Rectangle
+struct Rect
 {
     double x;
     double y;
     double width;
     double height;
 
-    Rectangle(double x = 0, double y = 0, double width = 0, double height = 0) :
+    Rect(double x = 0, double y = 0, double width = 0, double height = 0) :
         x(x),
         y(y),
         width(width),
@@ -18,7 +18,7 @@ struct Rectangle
     inline bool ContainsPoint(const Vector2D& point);
 };
 
-inline bool Rectangle::ContainsPoint(const Vector2D& point)
+inline bool Rect::ContainsPoint(const Vector2D& point)
 {
     double left = x;
     double right = x + width;

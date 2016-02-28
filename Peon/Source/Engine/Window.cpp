@@ -57,12 +57,24 @@ int Window::Initialize()
 
     if (m_SDLWindow == nullptr)
     {
-        SDL_Log("Window could not initialize! SDL error: %s\n", SDL_GetError());
+        Debug::LogError("Window coult not initialize! SDL error: %s", SDL_GetError());
         return FAILURE;
     }
 
-    // Create the OpenGL Context
+    // Create the OpenGL Context and make it current
     m_glContext = SDL_GL_CreateContext(m_SDLWindow);
+
+    // Initialize GL3W
+    if (gl3wInit()) {
+        Debug::LogError("Gl3W failed to initialize!");
+        return FAILURE;
+    }
+    if (!gl3wIsSupported(3, 2)) {
+        Debug::LogError("OpenGL 3.2 not supported!");
+        return FAILURE;
+    }
+
+    Debug::Log("OpenGL version %s, GLSL version %s", glGetString(GL_VERSION), glGetString(GL_SHADING_LANGUAGE_VERSION));
 
     return SUCCESS;
 }
