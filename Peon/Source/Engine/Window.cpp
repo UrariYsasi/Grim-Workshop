@@ -9,31 +9,13 @@ Window::Window(const int& width, const int& height, const std::string& title) :
 
 Window::~Window()
 {
+    // Delete the OpenGL Context
+    SDL_GL_DeleteContext(m_glContext);
+
+    // Delete the SDL Window
     SDL_DestroyWindow(m_SDLWindow);
 }
 
-int Window::Initialize()
-{
-    m_SDLWindow = SDL_CreateWindow(
-        m_title.c_str(),
-        SDL_WINDOWPOS_UNDEFINED,
-        SDL_WINDOWPOS_UNDEFINED,
-        (int)m_size.x,
-        (int)m_size.y,
-        SDL_WINDOW_SHOWN);
-
-    if (m_SDLWindow == nullptr)
-    {
-        SDL_Log("Window could not initialize! SDL error: %s\n", SDL_GetError());
-        return FAILURE;
-    }
-    //(m_SDLWindow, SDL_WINDOW_FULLSCREEN);
-    return SUCCESS;
-}
-
-// Tyren Review: As said earlier, you should try to hide this.
-//   Suggestion: Add a "CreateRenderer" function to this class instead...
-// TODO: Figure out how to do this
 SDL_Window* Window::GetSDLWindow() const
 {
     return m_SDLWindow;
@@ -59,4 +41,33 @@ void Window::SetTitle(const std::string& title)
 {
     m_title = title;
     SDL_SetWindowTitle(m_SDLWindow, title.c_str());
+}
+
+
+int Window::Initialize()
+{
+    // Create the SDL Window
+    m_SDLWindow = SDL_CreateWindow(
+        m_title.c_str(),
+        SDL_WINDOWPOS_CENTERED,
+        SDL_WINDOWPOS_CENTERED,
+        (int)m_size.x,
+        (int)m_size.y,
+        SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
+
+    if (m_SDLWindow == nullptr)
+    {
+        SDL_Log("Window could not initialize! SDL error: %s\n", SDL_GetError());
+        return FAILURE;
+    }
+
+    // Create the OpenGL Context
+    m_glContext = SDL_GL_CreateContext(m_SDLWindow);
+
+    return SUCCESS;
+}
+
+void Window::SwapWindow()
+{
+    SDL_GL_SwapWindow(m_SDLWindow);
 }

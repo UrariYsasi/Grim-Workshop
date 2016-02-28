@@ -101,6 +101,11 @@ int Game::Initialize()
         Debug::LogError("SDL could not initialize! SDL error: %s", SDL_GetError());
         return FAILURE;
     }
+    
+    // Tell SDL we want a forward compatible OpenGL 3.2 Context
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
 
     // Initialize SDL_image
     if (IMG_Init(IMG_INIT_PNG) < 0)
@@ -219,6 +224,8 @@ void Game::Run()
 
         m_frameCount++;
         m_frameRate = (m_frameCount / (SDL_GetTicks() - m_gameStartTime)) * 1000;
+
+        m_window->SwapWindow();
     }
 }
 
