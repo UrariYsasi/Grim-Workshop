@@ -2,8 +2,6 @@
 
 uniform float time;
 uniform sampler2D texKitten;
-uniform sampler2D texPuppy;
-uniform vec3 overrideColor;
 
 in vec3 color;
 in vec2 texCoord;
@@ -12,5 +10,5 @@ out vec4 outColor;
 
 void main()
 {
-    outColor = vec4(overrideColor, 1.0) * vec4(color, 1.0) * texture(texKitten, texCoord);
+    outColor = vec4(color, 1.0) * texture(texKitten, texCoord);
 }

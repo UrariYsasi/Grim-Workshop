@@ -29,6 +29,8 @@ void ShaderProgram::Use()
 
 GLuint ShaderProgram::CompileShader(const std::string& source, GLenum shaderType)
 {
+    Debug::Log("Compiling shader...");
+
     // Convert the source into data
     const GLchar* data = source.c_str();
 
@@ -57,6 +59,8 @@ GLuint ShaderProgram::CompileShader(const std::string& source, GLenum shaderType
 
 GLuint ShaderProgram::LinkShaders(GLuint vertID, GLuint fragID)
 {
+    Debug::Log("Linking shader program...");
+
     // Create the shader program and get an ID
     GLuint ID = glCreateProgram();
 

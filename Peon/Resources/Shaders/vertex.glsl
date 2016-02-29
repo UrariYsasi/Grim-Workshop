@@ -8,6 +8,7 @@ uniform mat4 proj;
 in vec3 inPosition;
 in vec3 inColor;
 in vec2 inTexCoord;
+
 out vec3 color;
 out vec2 texCoord;
 

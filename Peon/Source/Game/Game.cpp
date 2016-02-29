@@ -184,6 +184,11 @@ int Game::Initialize()
     LoadSound("Resources/Sounds/damage.wav", "damage");
     LoadSound("Resources/Sounds/sword.wav", "sword");
 
+    // Load Shaders
+    Debug::Log("Loading shaders...");
+    LoadShaderProgram("vertex.glsl", "fragment.glsl", "basic_shader");
+    program = GetShaderProgram("basic_shader");
+
     if (Debug::IsFlagEnabled(MIX_AUDIO))
     {
         // Load Music
@@ -213,59 +218,15 @@ int Game::Initialize()
     glGenBuffers(1, &eboID);
 
     GLfloat vertices[] = {
-        -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-        0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-        0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-        0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-        -0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-
-        -0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-        0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-        0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-        0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-        -0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-
-        -0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-
-        0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-        0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-        0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-        0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-        0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-        0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-
-        -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-        0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-        0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-        0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-        -0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-        -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-
-        -0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-        0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-        0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-        0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-
-        - 1.0f, -1.0f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-        1.0f, -1.0f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-        1.0f,  1.0f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-        1.0f,  1.0f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-        -1.0f,  1.0f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-        -1.0f, -1.0f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f
+        -0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // Top-left
+         0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, // Top-right
+         0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, // Bottom-right
+        -0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f  // Bottom-left
     };
 
     GLuint elements[] = {
         0, 1, 2,
-        3, 2, 0
+        2, 3, 0
     };
 
     // Bind the vertex data to the VBO
@@ -275,13 +236,6 @@ int Game::Initialize()
     // Bind the element data to the EBO
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements), elements, GL_STATIC_DRAW);
-
-    Debug::Log("Loading shaders...");
-    Debug::Log("Compiling shaders...");
-    LoadShaderProgram("vertex.glsl", "fragment.glsl", "basic_shader");
-    program = GetShaderProgram("basic_shader");
-
-    Debug::Log("Linking shaders...");
 
     GLint positionAttribute = glGetAttribLocation(program->GetID(), "inPosition");
     GLint colorAttribute = glGetAttribLocation(program->GetID(), "inColor");
@@ -302,7 +256,6 @@ int Game::Initialize()
 
     // Create texture
     glGenTextures(1, &kittenTexID);
-    glGenTextures(1, &puppyTexID);
 
     // Bind the texture
     glActiveTexture(GL_TEXTURE0);
@@ -314,22 +267,6 @@ int Game::Initialize()
     SOIL_free_image_data(image);
     
     glUniform1i(glGetUniformLocation(program->GetID(), "texKitten"), 0);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    // Bind the texture
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, puppyTexID);
-
-    // Upload some data to the texture
-    image = SOIL_load_image("Resources/Textures/puppy.png", &width, &height, 0, SOIL_LOAD_RGB);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-    SOIL_free_image_data(image);
-
-    glUniform1i(glGetUniformLocation(program->GetID(), "texPuppy"), 1);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
@@ -434,26 +371,35 @@ void Game::Render()
     glUniform1f(uniTime, time);
 
     GLuint uniModel = glGetUniformLocation(program->GetID(), "model");
-    glm::mat4 model;
+    glm::mat4 model(1.0);
+
+    /*
     model = glm::rotate(
         model,
         time * glm::radians(45.0f),
         glm::vec3(0.0f, 0.0f, 1.0f)
         );
+    */
 
     //float factor = abs(sin(60.0 + time * 1.0));
     //model = glm::scale(model, glm::vec3(factor, factor, 1.1f));
     glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
 
-    glm::mat4 view = glm::lookAt(
+    glm::mat4 view(1.0);
+    view = glm::rotate(view, time * glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f));
+    /*
+        view = glm::lookAt(
         glm::vec3(2.5f, 2.5f, 2.5f),
         glm::vec3(0.0f, 0.0f, 0.0f),
         glm::vec3(0.0f, 0.0f, 1.0f)
         );
+    */
     GLint uniView = glGetUniformLocation(program->GetID(), "view");
     glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
 
-    glm::mat4 proj = glm::perspective(glm::radians(45.0f), 1024.0f / 768.0f, 1.0f, 10.0f);
+    glm::mat4 proj(1.0);
+    proj = glm::perspective(glm::radians(90.0f), 1024.0f / 768.0f, 0.1f, 100.0f);
     GLint uniProj = glGetUniformLocation(program->GetID(), "proj");
     glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
 
@@ -461,9 +407,10 @@ void Game::Render()
     //glUniform3f(uniColor, 1.0f, 0.0f, 0.0f);
 
     //glDrawArrays(GL_TRIANGLES, 0, 6);
-    //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    glDrawArrays(GL_TRIANGLES, 0, 36);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    //glDrawArrays(GL_TRIANGLES, 0, 36);
 
+    /*
     glEnable(GL_STENCIL_TEST);
 
     // Draw floor
@@ -472,7 +419,7 @@ void Game::Render()
     glStencilMask(0xFF); // Write to stencil buffer
     glDepthMask(GL_FALSE); // Don't write to depth buffer
     glClear(GL_STENCIL_BUFFER_BIT); // Clear the stencil buffer
-    glDrawArrays(GL_TRIANGLES, 36, 6);
+    //glDrawArrays(GL_TRIANGLES, 36, 6);
 
     // Draw cube reflection
     glStencilFunc(GL_EQUAL, 1, 0xFF); // Pass test if stencil value is 1
@@ -485,10 +432,11 @@ void Game::Render()
     glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
 
     glUniform3f(uniColor, 0.3f, 0.3f, 0.3f);
-    glDrawArrays(GL_TRIANGLES, 0, 36);
+    //glDrawArrays(GL_TRIANGLES, 0, 36);
     glUniform3f(uniColor, 1.0f, 1.0f, 1.0f);
 
     glDisable(GL_STENCIL_TEST);
+    */
 
     /*
     m_renderer->SetDrawColor(SDL_Color{ 0, 0, 0, 255 });
