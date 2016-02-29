@@ -1,5 +1,8 @@
 #pragma once
 
+namespace grim
+{
+
 /*
     A shader program that consists of a vertex shader and a fragment shader.
 */
@@ -8,11 +11,11 @@ class ShaderProgram
 public:
     ShaderProgram(grim::Shader* vertexShader, grim::Shader* fragmentShader);
     ~ShaderProgram();
-    
+
     /*
-        Returns the OpenGL ID for this ShaderProgram.
+        Returns the OpenGL handle for this ShaderProgram.
     */
-    GLuint GetID() const;
+    GLuint GetHandle() const;
 
     /*
         Activate the ShaderProgram for usage in the rendering pipeline.
@@ -29,7 +32,9 @@ private:
 
 private:
     /*
-        The OpenGL ID for the shader program.
+        The OpenGL handle for the shader program.
     */
-    GLuint m_ID;
+    GLuint m_handle;
 };
+
+}

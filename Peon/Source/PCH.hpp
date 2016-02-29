@@ -50,6 +50,8 @@
 #include "Engine/Rect.hpp"
 #include "Engine/Timer.hpp"
 #include "Engine/Shader.hpp"
+#include "Engine/ShaderProgram.hpp"
+#include "Engine/Texture.hpp"
 
 // Game Includes
 #include "Game/Item/ItemType.hpp"

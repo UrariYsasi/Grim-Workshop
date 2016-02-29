@@ -4,8 +4,6 @@
 #include "../Engine/Renderer.hpp"
 #include "../Engine/Input.hpp"
 #include "../Engine/Camera.hpp"
-#include "../Engine/Shader.hpp"
-#include "../Engine/ShaderProgram.hpp"
 #include "Entity/Peon.hpp"
 #include "Entity/Tree.hpp"
 #include "Entity/Rock.hpp"
@@ -44,14 +42,11 @@ Game::~Game()
         TTF_CloseFont(fontIt->second);
     }
 
-    for (auto texIt = m_textureMap.begin(); texIt != m_textureMap.end(); texIt++)
-    {
-        SDL_DestroyTexture(texIt->second);
-    }
-
     m_soundMap.clear();
     m_fontMap.clear();
     m_textureMap.clear();
+    m_shaderMap.clear();
+    m_shaderProgramMap.clear();
 
     m_player.reset();
     m_map.reset();
@@ -160,6 +155,7 @@ int Game::Initialize()
     LoadTexture("Resources/Textures/structure.png", "structure");
     LoadTexture("Resources/Textures/obelisk.png", "obelisk");
     LoadTexture("Resources/Textures/tree.png", "tree");
+    LoadTexture("gandalf.png", "gandalf");
 
     // Load fonts
     Debug::Log("Loading fonts...");
@@ -214,6 +210,10 @@ int Game::Initialize()
 
     // OPENGL TESTING
 
+    // Enable alpha blending
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     // Create a VAO
     glGenVertexArrays(1, &vaoID);
     glBindVertexArray(vaoID);
@@ -225,9 +225,9 @@ int Game::Initialize()
     glGenBuffers(1, &eboID);
 
     GLfloat vertices[] = {
-        -0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // Top-left
-         0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, // Top-right
-         0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, // Bottom-right
+        -0.5f,  0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // Top-left
+         0.5f,  0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // Top-right
+         0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, // Bottom-right
         -0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f  // Bottom-left
     };
 
@@ -244,9 +244,9 @@ int Game::Initialize()
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements), elements, GL_STATIC_DRAW);
 
-    GLint positionAttribute = glGetAttribLocation(program->GetID(), "inPosition");
-    GLint colorAttribute = glGetAttribLocation(program->GetID(), "inColor");
-    GLint stAttribute = glGetAttribLocation(program->GetID(), "inTexCoord");
+    GLint positionAttribute = glGetAttribLocation(program->GetHandle(), "inPosition");
+    GLint colorAttribute = glGetAttribLocation(program->GetHandle(), "inColor");
+    GLint stAttribute = glGetAttribLocation(program->GetHandle(), "inTexCoord");
 
     glEnableVertexAttribArray(positionAttribute);
     glEnableVertexAttribArray(colorAttribute);
@@ -256,33 +256,8 @@ int Game::Initialize()
     glVertexAttribPointer(stAttribute, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)(6 * sizeof(GLfloat)));
 
     program->Use();
-    
-    int width = 0;
-    int height = 0;
-    unsigned char* image;
 
-    // Create texture
-    glGenTextures(1, &kittenTexID);
-
-    // Bind the texture
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, kittenTexID);
-
-    // Upload some data to the texture
-    image = SOIL_load_image("Resources/Textures/gandalf.png", &width, &height, 0, SOIL_LOAD_RGB);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-    SOIL_free_image_data(image);
-    
-    glUniform1i(glGetUniformLocation(program->GetID(), "texKitten"), 0);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    startTime = std::chrono::high_resolution_clock::now();
-
-    glEnable(GL_DEPTH_TEST);
+    texture = GetTexture("gandalf");
 
     return SUCCESS;
 }
@@ -297,6 +272,8 @@ void Game::Run()
 
     m_isRunning = true;
     m_gameStartTime = SDL_GetTicks();
+   
+    startTime = std::chrono::high_resolution_clock::now();
 
     double frameStartTime = 0.0;
     double frameEndTime = 0.0;
@@ -324,6 +301,7 @@ void Game::Terminate()
 
 void Game::Update(double deltaTime)
 {
+    /*
     if (m_input->GetKeyPress(SDLK_ESCAPE))
     {
         Terminate();
@@ -364,6 +342,7 @@ void Game::Update(double deltaTime)
 
     m_map->Update(deltaTime);
     m_player->Update(deltaTime);
+    */
 }
 
 void Game::Render()
@@ -371,13 +350,15 @@ void Game::Render()
     glClearColor(.3f, .3f, .3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    GLuint uniColor = glGetUniformLocation(program->GetID(), "overrideColor");
-    GLuint uniTime = glGetUniformLocation(program->GetID(), "time");
+    texture->Bind();
+
+    GLuint uniColor = glGetUniformLocation(program->GetHandle(), "overrideColor");
+    GLuint uniTime = glGetUniformLocation(program->GetHandle(), "time");
     auto timeNow = std::chrono::high_resolution_clock::now();
     float time = std::chrono::duration_cast<std::chrono::duration<float>>(timeNow - startTime).count();
     glUniform1f(uniTime, time);
 
-    GLuint uniModel = glGetUniformLocation(program->GetID(), "model");
+    GLuint uniModel = glGetUniformLocation(program->GetHandle(), "model");
     glm::mat4 model(1.0);
 
     /*
@@ -402,12 +383,12 @@ void Game::Render()
         glm::vec3(0.0f, 0.0f, 1.0f)
         );
     */
-    GLint uniView = glGetUniformLocation(program->GetID(), "view");
+    GLint uniView = glGetUniformLocation(program->GetHandle(), "view");
     glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
 
     glm::mat4 proj(1.0);
     proj = glm::perspective(glm::radians(90.0f), 1024.0f / 768.0f, 0.1f, 100.0f);
-    GLint uniProj = glGetUniformLocation(program->GetID(), "proj");
+    GLint uniProj = glGetUniformLocation(program->GetHandle(), "proj");
     glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
 
     //GLint uniColor = glGetUniformLocation(shaderProgramID, "triangleColor");
@@ -534,24 +515,9 @@ void Game::Render()
     */
 }
 
-bool Game::LoadTexture(const std::string& path, const std::string& id)
+bool Game::LoadTexture(const std::string& textureFileName, const std::string& ID)
 {
-    SDL_Surface* tempSurface = IMG_Load(path.c_str());
-    if (tempSurface == nullptr)
-    {
-        Debug::LogError("Failed to load image %s! SDL_image error: %s", path.c_str(), IMG_GetError());
-        return false;
-    }
-
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(m_renderer->GetSDLRenderer(), tempSurface);
-    SDL_FreeSurface(tempSurface);
-    if (texture == nullptr)
-    {
-        Debug::LogError("Failed to create texture from %s, SDL error: %s", path.c_str(), SDL_GetError());
-        return false;
-    }
-
-    m_textureMap[id] = texture;
+    m_textureMap[ID] = std::make_unique<grim::Texture>(textureFileName);
     return true;
 }
 
@@ -600,13 +566,13 @@ bool Game::LoadShader(const std::string& shaderFileName, const GLenum& shaderTyp
 
 bool Game::CreateShaderProgram(const std::string& vertexShaderID, const std::string& fragmentShaderID, const std::string& ID)
 {
-    m_shaderProgramMap[ID] = std::make_unique<ShaderProgram>(GetShader(vertexShaderID), GetShader(fragmentShaderID));
+    m_shaderProgramMap[ID] = std::make_unique<grim::ShaderProgram>(GetShader(vertexShaderID), GetShader(fragmentShaderID));
     return true;
 }
 
-SDL_Texture* Game::GetTexture(const std::string& id)
+grim::Texture* Game::GetTexture(const std::string& ID)
 {
-    return m_textureMap[id];
+    return m_textureMap[ID].get();
 }
 
 TTF_Font* Game::GetFont(const std::string& id)
@@ -619,7 +585,7 @@ grim::Shader* Game::GetShader(const std::string& ID)
     return m_shaderMap[ID].get();
 }
 
-ShaderProgram* Game::GetShaderProgram(const std::string& ID)
+grim::ShaderProgram* Game::GetShaderProgram(const std::string& ID)
 {
     return m_shaderProgramMap[ID].get();
 }

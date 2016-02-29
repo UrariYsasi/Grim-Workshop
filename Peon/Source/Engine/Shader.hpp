@@ -13,9 +13,9 @@ public:
     ~Shader();
 
     /*
-        Returns the OpenGL ID for this Shader.
+        Returns the OpenGL handle for this Shader.
     */
-    GLuint GetID() const;
+    GLuint GetHandle() const;
 
 private:
 
@@ -26,9 +26,9 @@ private:
 
 private:
     /*
-        The OpenGL ID for the shader.
+        The OpenGL handle for the shader.
     */
-    GLuint m_ID;
+    GLuint m_handle;
 
     /*
         The OpenGL shader type of this shader, such as GL_VERTEX_SHADER or GL_FRAGMENT_SHADER.

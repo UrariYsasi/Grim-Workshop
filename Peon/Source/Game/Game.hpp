@@ -10,7 +10,6 @@ class TerrainTile;
 class Camera;
 class World;
 class Player;
-class ShaderProgram;
 
 class Game
 {
@@ -27,10 +26,10 @@ public:
     void Run();
     void Terminate();
 
-    SDL_Texture* GetTexture(const std::string& id);
+    grim::Texture* GetTexture(const std::string& ID);
     TTF_Font* GetFont(const std::string& id);
     grim::Shader* GetShader(const std::string& ID);
-    ShaderProgram* GetShaderProgram(const std::string& ID);
+    grim::ShaderProgram* GetShaderProgram(const std::string& ID);
 
     void PlaySound(const std::string& id);
 
@@ -38,10 +37,26 @@ private:
     void Update(double deltaTime);
     void Render();
 
-    bool LoadTexture(const std::string& path, const std::string& id);
+    //bool LoadTexture(const std::string& path, const std::string& id);
     bool LoadFont(const std::string& path, const std::string& id, const int& size = 16);
     bool LoadSound(const std::string& path, const std::string& id);
+
+    /*
+        Load a texture with the given file name from the Resources/Textures folder
+        and store it in the texture map with the given ID.
+    */
+    bool LoadTexture(const std::string& textureFileName, const std::string& ID);
+
+    /*
+        Load a shader with the given file name from the Resources/Shaders folder
+        and store it in the shader map with the given ID.
+    */
     bool LoadShader(const std::string& shaderFileName, const GLenum& shaderType, const std::string& ID);
+
+    /*
+        Create a shader program with the given vertex and fragment shader IDs,
+        and store it in the shader program map with the given ID.
+    */
     bool CreateShaderProgram(const std::string& vertexShaderID, const std::string& fragmentShaderID, const std::string& ID);
 
     /*
@@ -60,7 +75,7 @@ private:
     std::unique_ptr<Player> m_player;
 
     // Textures
-    std::map<std::string, SDL_Texture*> m_textureMap;
+    std::map<std::string, std::unique_ptr<grim::Texture>> m_textureMap;
 
     // Fonts
     std::map<std::string, TTF_Font*> m_fontMap;
@@ -70,7 +85,9 @@ private:
 
     // Shaders
     std::map<std::string, std::unique_ptr<grim::Shader>> m_shaderMap;
-    std::map<std::string, std::unique_ptr<ShaderProgram>> m_shaderProgramMap;
+
+    // Shader programs
+    std::map<std::string, std::unique_ptr<grim::ShaderProgram>> m_shaderProgramMap;
 
     // This is here TEMPORARILY for debug purposes
     double m_frameCount;
@@ -84,8 +101,10 @@ private:
     GLuint vboID;
     GLuint eboID;
 
-    ShaderProgram* program;
+    grim::ShaderProgram* program;
 
     GLuint kittenTexID;
     GLuint puppyTexID;
+
+    grim::Texture* texture;
 };

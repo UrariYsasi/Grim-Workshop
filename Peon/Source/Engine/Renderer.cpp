@@ -53,6 +53,7 @@ void Renderer::Present()
 
 void Renderer::RenderTexture(const std::string& id, const int& x, const int& y, const int& width, const int& height)
 {
+    /*
     SDL_Texture* texture = m_game->GetTexture(id);
     if (texture == nullptr)
     {
@@ -64,10 +65,12 @@ void Renderer::RenderTexture(const std::string& id, const int& x, const int& y, 
     SDL_Rect destRect = { x - (int)m_activeCamera->GetPosition().x, y - (int)m_activeCamera->GetPosition().y, 32, 64 };
 
     SDL_RenderCopyEx(m_SDLRenderer, texture, &srcRect, &destRect, 0, 0, SDL_FLIP_NONE);
+    */
 }
 
 void Renderer::RenderSprite(const std::string& id, const int& col, const int& row, const int& x, const int& y, const int& width, const int& height)
 {
+    /*
     SDL_Texture* texture = m_game->GetTexture(id);
     if (texture == nullptr)
     {
@@ -79,6 +82,7 @@ void Renderer::RenderSprite(const std::string& id, const int& col, const int& ro
     SDL_Rect destRect = { x - (int)m_activeCamera->GetPosition().x, y - (int)m_activeCamera->GetPosition().y, width, height };
 
     SDL_RenderCopyEx(m_SDLRenderer, texture, &srcRect, &destRect, 0, 0, SDL_FLIP_NONE);
+    */
 }
 
 void Renderer::RenderText(const std::string& id, const int& x, const int& y, const std::string& text, const SDL_Color& color)
