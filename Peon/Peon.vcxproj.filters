@@ -138,6 +138,12 @@
     <ClCompile Include="Source\Engine\ShaderProgram.cpp">
       <Filter>Source\Engine</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Engine\Texture.cpp">
+      <Filter>Source\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Shader.cpp">
+      <Filter>Source\Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\PCH.hpp">
@@ -264,6 +270,12 @@
       <Filter>Source\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Source\Engine\ShaderProgram.hpp">
+      <Filter>Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Texture.hpp">
+      <Filter>Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Shader.hpp">
       <Filter>Source\Engine</Filter>
     </ClInclude>
   </ItemGroup>

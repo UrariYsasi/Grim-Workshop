@@ -6,13 +6,13 @@
 class ShaderProgram
 {
 public:
-    ShaderProgram(const std::string& vertexShader, const std::string& fragmentShader);
+    ShaderProgram(grim::Shader* vertexShader, grim::Shader* fragmentShader);
     ~ShaderProgram();
     
     /*
         Returns the OpenGL ID for this ShaderProgram.
     */
-    GLuint GetID();
+    GLuint GetID() const;
 
     /*
         Activate the ShaderProgram for usage in the rendering pipeline.
@@ -20,20 +20,12 @@ public:
     void Use();
 
 private:
-
-    /*
-        Compiles a shader, given the source and the type.
-
-        Returns the OpenGL ID for that shader.
-    */
-    GLuint CompileShader(const std::string& source, GLenum shaderType);
-
     /*
         Links the given vertex and fragment shaders into the complete shader program.
 
         Returns the OpenGL ID for the new shader program.
     */
-    GLuint LinkShaders(GLuint vertID, GLuint fragID);
+    void LinkShaders(grim::Shader* vertexShader, grim::Shader* fragmentShader);
 
 private:
     /*

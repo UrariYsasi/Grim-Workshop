@@ -4,6 +4,7 @@
 #include "../Engine/Renderer.hpp"
 #include "../Engine/Input.hpp"
 #include "../Engine/Camera.hpp"
+#include "../Engine/Shader.hpp"
 #include "../Engine/ShaderProgram.hpp"
 #include "Entity/Peon.hpp"
 #include "Entity/Tree.hpp"
@@ -184,14 +185,10 @@ int Game::Initialize()
     LoadSound("Resources/Sounds/damage.wav", "damage");
     LoadSound("Resources/Sounds/sword.wav", "sword");
 
-    // Load Shaders
-    Debug::Log("Loading shaders...");
-    LoadShaderProgram("vertex.glsl", "fragment.glsl", "basic_shader");
-    program = GetShaderProgram("basic_shader");
-
+    // Load Music
+    Debug::Log("Loading music...");
     if (Debug::IsFlagEnabled(MIX_AUDIO))
     {
-        // Load Music
         m_bgMusic = Mix_LoadMUS("Resources/Music/jand_bg.mp3");
         if (!m_bgMusic)
         {
@@ -201,6 +198,16 @@ int Game::Initialize()
         // Start music
         //Mix_PlayMusic(m_bgMusic, -1);
     }
+
+    // Load Shaders
+    Debug::Log("Loading shaders...");
+    LoadShader("vertex.glsl", GL_VERTEX_SHADER, "vertex_textured");
+    LoadShader("fragment.glsl", GL_FRAGMENT_SHADER, "fragment_textured");
+
+    // Create ShaderPrograms
+    Debug::Log("Creating shader programs...");
+    CreateShaderProgram("vertex_textured", "fragment_textured", "basic_shader");
+    program = GetShaderProgram("basic_shader");
 
     // Setup the game
     m_map->Generate();
@@ -386,8 +393,8 @@ void Game::Render()
     glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
 
     glm::mat4 view(1.0);
-    view = glm::rotate(view, time * glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f));
+    //view = glm::rotate(view, time * glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -1.0f));
     /*
         view = glm::lookAt(
         glm::vec3(2.5f, 2.5f, 2.5f),
@@ -578,18 +585,23 @@ bool Game::LoadSound(const std::string& path, const std::string& id)
     return false;
 }
 
-bool Game::LoadShaderProgram(const std::string& vertexShaderPath, const std::string& fragmentShaderPath, const std::string& ID)
+bool Game::LoadShader(const std::string& shaderFileName, const GLenum& shaderType, const std::string& ID)
 {
-    std::string vertexShaderSource = ReadFile("Resources/Shaders/vertex.glsl");
-    std::string fragmentShaderSource = ReadFile("Resources/Shaders/fragment.glsl");
+    std::string shaderSource = ReadFile("Resources/Shaders/" + shaderFileName);
 
-    if (vertexShaderSource != "*FAILURE*" && fragmentShaderSource != "*FAILURE*")
+    if (shaderSource != "*FAILURE*")
     {
-        m_shaderProgramMap[ID] = std::make_unique<ShaderProgram>(vertexShaderSource, fragmentShaderSource);
+        m_shaderMap[ID] = std::make_unique<grim::Shader>(shaderSource, shaderType, ID);
         return true;
     }
 
     return false;
+}
+
+bool Game::CreateShaderProgram(const std::string& vertexShaderID, const std::string& fragmentShaderID, const std::string& ID)
+{
+    m_shaderProgramMap[ID] = std::make_unique<ShaderProgram>(GetShader(vertexShaderID), GetShader(fragmentShaderID));
+    return true;
 }
 
 SDL_Texture* Game::GetTexture(const std::string& id)
@@ -600,6 +612,11 @@ SDL_Texture* Game::GetTexture(const std::string& id)
 TTF_Font* Game::GetFont(const std::string& id)
 {
     return m_fontMap[id];
+}
+
+grim::Shader* Game::GetShader(const std::string& ID)
+{
+    return m_shaderMap[ID].get();
 }
 
 ShaderProgram* Game::GetShaderProgram(const std::string& ID)

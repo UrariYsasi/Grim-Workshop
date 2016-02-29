@@ -49,6 +49,7 @@
 #include "Engine/Vector2D.hpp"
 #include "Engine/Rect.hpp"
 #include "Engine/Timer.hpp"
+#include "Engine/Shader.hpp"
 
 // Game Includes
 #include "Game/Item/ItemType.hpp"

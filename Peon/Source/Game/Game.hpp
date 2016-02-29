@@ -29,6 +29,7 @@ public:
 
     SDL_Texture* GetTexture(const std::string& id);
     TTF_Font* GetFont(const std::string& id);
+    grim::Shader* GetShader(const std::string& ID);
     ShaderProgram* GetShaderProgram(const std::string& ID);
 
     void PlaySound(const std::string& id);
@@ -40,7 +41,8 @@ private:
     bool LoadTexture(const std::string& path, const std::string& id);
     bool LoadFont(const std::string& path, const std::string& id, const int& size = 16);
     bool LoadSound(const std::string& path, const std::string& id);
-    bool LoadShaderProgram(const std::string& vertexShaderPath, const std::string& fragmentShaderPath, const std::string& ID);
+    bool LoadShader(const std::string& shaderFileName, const GLenum& shaderType, const std::string& ID);
+    bool CreateShaderProgram(const std::string& vertexShaderID, const std::string& fragmentShaderID, const std::string& ID);
 
     /*
         Read a file and output its contents in string form.
@@ -67,6 +69,7 @@ private:
     std::map<std::string, Mix_Chunk*> m_soundMap;
 
     // Shaders
+    std::map<std::string, std::unique_ptr<grim::Shader>> m_shaderMap;
     std::map<std::string, std::unique_ptr<ShaderProgram>> m_shaderProgramMap;
 
     // This is here TEMPORARILY for debug purposes
