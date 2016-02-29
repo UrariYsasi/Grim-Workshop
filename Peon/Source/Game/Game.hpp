@@ -67,27 +67,48 @@ private:
     double m_gameStartTime;
     Mix_Music* m_bgMusic;
 
+    std::chrono::high_resolution_clock::time_point startTime;
+
+    GLuint vaoID;
     GLuint vboID;
+    GLuint eboID;
+
     GLuint vertexShaderID;
     GLuint fragmentShaderID;
     GLuint shaderProgramID;
 
-    GLuint vaoID;
+    GLuint kittenTexID;
+    GLuint puppyTexID;
 
     GLchar* vertexShaderSource =
         "#version 150 core\n"
-        "in vec2 inPosition;"
+        "uniform float time;"
+        "in vec3 inPosition;"
+        "in vec3 inColor;"
+        "in vec2 inTexCoord;"
+        "out vec3 color;"
+        "out vec2 texCoord;"
+        "uniform mat4 model;"
+        "uniform mat4 view;"
+        "uniform mat4 proj;"
         "void main()"
         "{"
-        "    gl_Position = vec4(inPosition, 0.0, 1.0);"
+        "    color = inColor;"
+        "    texCoord = inTexCoord;"
+        "    gl_Position = proj * view * model * vec4(inPosition, 1.0);"
         "}";
 
     GLchar* fragmentShaderSource =
         "#version 150 core\n"
-        "uniform vec3 triangleColor;"
+        "uniform float time;"
+        "in vec3 color;"
+        "in vec2 texCoord;"
         "out vec4 outColor;"
+        "uniform sampler2D texKitten;"
+        "uniform sampler2D texPuppy;"
+        "uniform vec3 overrideColor;"
         "void main()"
         "{"
-        "    outColor = vec4(triangleColor, 1.0);"
+        "    outColor = vec4(overrideColor, 1.0) * vec4(color, 1.0) * texture(texKitten, texCoord);"
         "}";
 };

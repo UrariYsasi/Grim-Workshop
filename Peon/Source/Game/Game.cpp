@@ -205,17 +205,75 @@ int Game::Initialize()
     glGenVertexArrays(1, &vaoID);
     glBindVertexArray(vaoID);
 
-    // Create a VBO and copy the vertex data to it
+    // Create a VBO
     glGenBuffers(1, &vboID);
 
+    // Create an EBO
+    glGenBuffers(1, &eboID);
+
     GLfloat vertices[] = {
-        0.0f,  0.5f, // Vertex 1 (X, Y)
-        0.5f, -0.5f, // Vertex 2 (X, Y)
-        -0.5f, -0.5f  // Vertex 3 (X, Y)
+        -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+        0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+        0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+        0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+        -0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+
+        -0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+        0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+        0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+        0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+        -0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+
+        -0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+        -0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+        -0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+
+        0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+        0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+        0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+        0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+        0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+        0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+
+        -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+        0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+        0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+        0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+        -0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+        -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+
+        -0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+        0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+        0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+        0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+        -0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+        -0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+
+        - 1.0f, -1.0f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+        1.0f, -1.0f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+        1.0f,  1.0f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+        1.0f,  1.0f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+        -1.0f,  1.0f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+        -1.0f, -1.0f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f
     };
 
+    GLuint elements[] = {
+        0, 1, 2,
+        3, 2, 0
+    };
+
+    // Bind the vertex data to the VBO
     glBindBuffer(GL_ARRAY_BUFFER, vboID);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    // Bind the element data to the EBO
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements), elements, GL_STATIC_DRAW);
 
     Debug::Log("Loading shaders...");
     Debug::Log("Compiling shaders...");
@@ -236,10 +294,61 @@ int Game::Initialize()
     Debug::Log("Linking shaders...");
 
     GLint positionAttribute = glGetAttribLocation(shaderProgramID, "inPosition");
+    GLint colorAttribute = glGetAttribLocation(shaderProgramID, "inColor");
+    GLint stAttribute = glGetAttribLocation(shaderProgramID, "inTexCoord");
+
     glEnableVertexAttribArray(positionAttribute);
-    glVertexAttribPointer(positionAttribute, 2, GL_FLOAT, GL_FALSE, 0, 0);
+    glEnableVertexAttribArray(colorAttribute);
+    glEnableVertexAttribArray(stAttribute);
+    glVertexAttribPointer(positionAttribute, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), 0);
+    glVertexAttribPointer(colorAttribute, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
+    glVertexAttribPointer(stAttribute, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)(6 * sizeof(GLfloat)));
 
     glUseProgram(shaderProgramID);
+    
+    int width = 0;
+    int height = 0;
+    unsigned char* image;
+
+    // Create texture
+    glGenTextures(1, &kittenTexID);
+    glGenTextures(1, &puppyTexID);
+
+    // Bind the texture
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, kittenTexID);
+
+    // Upload some data to the texture
+    image = SOIL_load_image("Resources/Textures/gandalf.png", &width, &height, 0, SOIL_LOAD_RGB);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+    SOIL_free_image_data(image);
+    
+    glUniform1i(glGetUniformLocation(shaderProgramID, "texKitten"), 0);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    // Bind the texture
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, puppyTexID);
+
+    // Upload some data to the texture
+    image = SOIL_load_image("Resources/Textures/puppy.png", &width, &height, 0, SOIL_LOAD_RGB);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+    SOIL_free_image_data(image);
+
+    glUniform1i(glGetUniformLocation(shaderProgramID, "texPuppy"), 1);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    startTime = std::chrono::high_resolution_clock::now();
+
+    glEnable(GL_DEPTH_TEST);
 
     return SUCCESS;
 }
@@ -325,13 +434,71 @@ void Game::Update(double deltaTime)
 
 void Game::Render()
 {
-    glClearColor(.4f, .4f, .4f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClearColor(.3f, .3f, .3f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    GLint uniColor = glGetUniformLocation(shaderProgramID, "triangleColor");
-    glUniform3f(uniColor, 1.0f, 0.0f, 0.0f);
+    GLuint uniColor = glGetUniformLocation(shaderProgramID, "overrideColor");
+    GLuint uniTime = glGetUniformLocation(shaderProgramID, "time");
+    auto timeNow = std::chrono::high_resolution_clock::now();
+    float time = std::chrono::duration_cast<std::chrono::duration<float>>(timeNow - startTime).count();
+    glUniform1f(uniTime, time);
 
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    GLuint uniModel = glGetUniformLocation(shaderProgramID, "model");
+    glm::mat4 model;
+    model = glm::rotate(
+        model,
+        time * glm::radians(45.0f),
+        glm::vec3(0.0f, 0.0f, 1.0f)
+        );
+
+    //float factor = abs(sin(60.0 + time * 1.0));
+    //model = glm::scale(model, glm::vec3(factor, factor, 1.1f));
+    glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
+
+    glm::mat4 view = glm::lookAt(
+        glm::vec3(2.5f, 2.5f, 2.5f),
+        glm::vec3(0.0f, 0.0f, 0.0f),
+        glm::vec3(0.0f, 0.0f, 1.0f)
+        );
+    GLint uniView = glGetUniformLocation(shaderProgramID, "view");
+    glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
+
+    glm::mat4 proj = glm::perspective(glm::radians(45.0f), 1024.0f / 768.0f, 1.0f, 10.0f);
+    GLint uniProj = glGetUniformLocation(shaderProgramID, "proj");
+    glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
+
+    //GLint uniColor = glGetUniformLocation(shaderProgramID, "triangleColor");
+    //glUniform3f(uniColor, 1.0f, 0.0f, 0.0f);
+
+    //glDrawArrays(GL_TRIANGLES, 0, 6);
+    //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    glDrawArrays(GL_TRIANGLES, 0, 36);
+
+    glEnable(GL_STENCIL_TEST);
+
+    // Draw floor
+    glStencilFunc(GL_ALWAYS, 1, 0xFF); // Set any stencil to 1
+    glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+    glStencilMask(0xFF); // Write to stencil buffer
+    glDepthMask(GL_FALSE); // Don't write to depth buffer
+    glClear(GL_STENCIL_BUFFER_BIT); // Clear the stencil buffer
+    glDrawArrays(GL_TRIANGLES, 36, 6);
+
+    // Draw cube reflection
+    glStencilFunc(GL_EQUAL, 1, 0xFF); // Pass test if stencil value is 1
+    glStencilMask(0x00); // Don't write anything to stencil buffer
+    glDepthMask(GL_TRUE); // Write to depth buffer
+    model = glm::scale(
+        glm::translate(model, glm::vec3(0, 0, -1)),
+        glm::vec3(1, 1, -1)
+        );
+    glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
+
+    glUniform3f(uniColor, 0.3f, 0.3f, 0.3f);
+    glDrawArrays(GL_TRIANGLES, 0, 36);
+    glUniform3f(uniColor, 1.0f, 1.0f, 1.0f);
+
+    glDisable(GL_STENCIL_TEST);
 
     /*
     m_renderer->SetDrawColor(SDL_Color{ 0, 0, 0, 255 });

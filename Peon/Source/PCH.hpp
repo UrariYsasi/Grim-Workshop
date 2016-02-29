@@ -15,6 +15,7 @@
 #include <cmath>
 #include <random>
 #include <algorithm>
+#include <chrono>
 
 // GL3W Includes
 #include <GL/gl3w.h>
@@ -24,6 +25,8 @@
 
 // GLM Includes
 #include <glm.hpp>
+#include <gtc/matrix_transform.hpp>
+#include <gtc/type_ptr.hpp>
 
 // SDL2 Includes
 #if WINDOWS
