@@ -31,25 +31,25 @@ Game::~Game()
     {
         Mix_FreeMusic(m_bgMusic);
 
-        for (auto soundIt = m_soundWorld.begin(); soundIt != m_soundWorld.end(); soundIt++)
+        for (auto soundIt = m_soundMap.begin(); soundIt != m_soundMap.end(); soundIt++)
         {
             Mix_FreeChunk(soundIt->second);
         }
     }
 
-    for (auto fontIt = m_fontWorld.begin(); fontIt != m_fontWorld.end(); fontIt++)
+    for (auto fontIt = m_fontMap.begin(); fontIt != m_fontMap.end(); fontIt++)
     {
         TTF_CloseFont(fontIt->second);
     }
 
-    for (auto texIt = m_textureWorld.begin(); texIt != m_textureWorld.end(); texIt++)
+    for (auto texIt = m_textureMap.begin(); texIt != m_textureMap.end(); texIt++)
     {
         SDL_DestroyTexture(texIt->second);
     }
 
-    m_soundWorld.clear();
-    m_fontWorld.clear();
-    m_textureWorld.clear();
+    m_soundMap.clear();
+    m_fontMap.clear();
+    m_textureMap.clear();
 
     m_player.reset();
     m_map.reset();
@@ -606,7 +606,7 @@ bool Game::LoadTexture(const std::string& path, const std::string& id)
         return false;
     }
 
-    m_textureWorld[id] = texture;
+    m_textureMap[id] = texture;
     return true;
 }
 
@@ -618,7 +618,7 @@ bool Game::LoadFont(const std::string& path, const std::string& id, const int& s
         Debug::LogError("Failed to load font %s! SDL_ttf error: %s", path.c_str(), TTF_GetError());
     }
 
-    m_fontWorld[id] = font;
+    m_fontMap[id] = font;
     return true;
 }
 
@@ -633,7 +633,7 @@ bool Game::LoadSound(const std::string& path, const std::string& id)
             return false;
         }
 
-        m_soundWorld[id] = sound;
+        m_soundMap[id] = sound;
         return true;
     }
 
@@ -642,24 +642,24 @@ bool Game::LoadSound(const std::string& path, const std::string& id)
 
 SDL_Texture* Game::GetTexture(const std::string& id)
 {
-    return m_textureWorld[id];
+    return m_textureMap[id];
 }
 
 TTF_Font* Game::GetFont(const std::string& id)
 {
-    return m_fontWorld[id];
+    return m_fontMap[id];
 }
 
 void Game::PlaySound(const std::string& id)
 {
     if (Debug::IsFlagEnabled(MIX_AUDIO))
     {
-        if (m_soundWorld[id] == nullptr)
+        if (m_soundMap[id] == nullptr)
         {
             Debug::LogError("Sound %s can't be played, as it doesn't exist!", id.c_str());
         }
 
-        Mix_PlayChannel(-1, m_soundWorld[id], 0);
+        Mix_PlayChannel(-1, m_soundMap[id], 0);
     }
 }
 

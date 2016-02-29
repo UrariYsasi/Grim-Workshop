@@ -58,13 +58,16 @@ private:
     std::unique_ptr<Player> m_player;
 
     // Textures
-    std::map<std::string, SDL_Texture*> m_textureWorld;
+    std::map<std::string, SDL_Texture*> m_textureMap;
 
     // Fonts
-    std::map<std::string, TTF_Font*> m_fontWorld;
+    std::map<std::string, TTF_Font*> m_fontMap;
 
     // Sounds
-    std::map<std::string, Mix_Chunk*> m_soundWorld;
+    std::map<std::string, Mix_Chunk*> m_soundMap;
+
+    // Shaders
+
 
     // This is here TEMPORARILY for debug purposes
     double m_frameCount;
