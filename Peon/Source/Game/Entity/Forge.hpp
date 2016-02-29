@@ -1,5 +1,5 @@
 #pragma once
-#include "Resource.hpp"
+#include "Prop.hpp"
 
 class Forge : public Prop
 {

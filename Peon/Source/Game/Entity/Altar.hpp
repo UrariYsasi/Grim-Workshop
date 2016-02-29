@@ -1,6 +1,5 @@
 #pragma once
 #include "Prop.hpp"
-#include "../Item/Inventory.hpp"
 
 class Altar : public Prop
 {
