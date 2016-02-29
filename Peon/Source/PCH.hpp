@@ -9,6 +9,7 @@
 #include <list>
 #include <stack>
 #include <string>
+#include <fstream>
 #include <sstream>
 #include <cstdlib>
 #include <ctime>

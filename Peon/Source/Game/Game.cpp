@@ -277,8 +277,8 @@ int Game::Initialize()
 
     Debug::Log("Loading shaders...");
     Debug::Log("Compiling shaders...");
-    vertexShaderID = CompileShader(vertexShaderSource, GL_VERTEX_SHADER);
-    fragmentShaderID = CompileShader(fragmentShaderSource, GL_FRAGMENT_SHADER);
+    vertexShaderID = CompileShader(ReadFile("Resources/Shaders/vertex.glsl"), GL_VERTEX_SHADER);
+    fragmentShaderID = CompileShader(ReadFile("Resources/Shaders/fragment.glsl"), GL_FRAGMENT_SHADER);
     shaderProgramID = LinkShaders(vertexShaderID, fragmentShaderID);
 
     if (vertexShaderID == -1)
@@ -666,13 +666,30 @@ void Game::PlaySound(const std::string& id)
     }
 }
 
-GLuint Game::CompileShader(GLchar* source, GLenum shaderType)
+std::string Game::ReadFile(const std::string& path)
 {
+    std::ifstream input(path);
+    if (!input.is_open()) {
+        Debug::LogError("Failed to open file %s", path);
+        return nullptr;
+    }
+
+    std::ostringstream ss;  
+    ss << input.rdbuf();
+    
+    return ss.str();
+}
+
+GLuint Game::CompileShader(const std::string& source, GLenum shaderType)
+{
+    // Convert the string
+    const GLchar* data = source.c_str();
+
     // Create the shader and get an ID
     GLuint id = glCreateShader(shaderType);
 
     // Upload the shader source
-    glShaderSource(id, 1, &source, NULL);
+    glShaderSource(id, 1, &data, NULL);
 
     // Compile the shader
     glCompileShader(id);

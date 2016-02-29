@@ -39,7 +39,12 @@ private:
     bool LoadFont(const std::string& path, const std::string& id, const int& size = 16);
     bool LoadSound(const std::string& path, const std::string& id);
 
-    GLuint CompileShader(GLchar* source, GLenum shaderType);
+    /*
+        Read a file and output its contents in string form.
+    */
+    std::string ReadFile(const std::string& path);
+
+    GLuint CompileShader(const std::string& source, GLenum shaderType);
     GLuint LinkShaders(GLuint vertID, GLuint fragID);
 
 private:
@@ -79,36 +84,4 @@ private:
 
     GLuint kittenTexID;
     GLuint puppyTexID;
-
-    GLchar* vertexShaderSource =
-        "#version 150 core\n"
-        "uniform float time;"
-        "in vec3 inPosition;"
-        "in vec3 inColor;"
-        "in vec2 inTexCoord;"
-        "out vec3 color;"
-        "out vec2 texCoord;"
-        "uniform mat4 model;"
-        "uniform mat4 view;"
-        "uniform mat4 proj;"
-        "void main()"
-        "{"
-        "    color = inColor;"
-        "    texCoord = inTexCoord;"
-        "    gl_Position = proj * view * model * vec4(inPosition, 1.0);"
-        "}";
-
-    GLchar* fragmentShaderSource =
-        "#version 150 core\n"
-        "uniform float time;"
-        "in vec3 color;"
-        "in vec2 texCoord;"
-        "out vec4 outColor;"
-        "uniform sampler2D texKitten;"
-        "uniform sampler2D texPuppy;"
-        "uniform vec3 overrideColor;"
-        "void main()"
-        "{"
-        "    outColor = vec4(overrideColor, 1.0) * vec4(color, 1.0) * texture(texKitten, texCoord);"
-        "}";
 };
