@@ -10,6 +10,7 @@ class TerrainTile;
 class Camera;
 class World;
 class Player;
+class ShaderProgram;
 
 class Game
 {
@@ -28,6 +29,7 @@ public:
 
     SDL_Texture* GetTexture(const std::string& id);
     TTF_Font* GetFont(const std::string& id);
+    ShaderProgram* GetShaderProgram(const std::string& ID);
 
     void PlaySound(const std::string& id);
 
@@ -38,14 +40,12 @@ private:
     bool LoadTexture(const std::string& path, const std::string& id);
     bool LoadFont(const std::string& path, const std::string& id, const int& size = 16);
     bool LoadSound(const std::string& path, const std::string& id);
+    bool LoadShaderProgram(const std::string& vertexShaderPath, const std::string& fragmentShaderPath, const std::string& ID);
 
     /*
         Read a file and output its contents in string form.
     */
     std::string ReadFile(const std::string& path);
-
-    GLuint CompileShader(const std::string& source, GLenum shaderType);
-    GLuint LinkShaders(GLuint vertID, GLuint fragID);
 
 private:
     bool m_isRunning;
@@ -67,7 +67,7 @@ private:
     std::map<std::string, Mix_Chunk*> m_soundMap;
 
     // Shaders
-
+    std::map<std::string, std::unique_ptr<ShaderProgram>> m_shaderProgramMap;
 
     // This is here TEMPORARILY for debug purposes
     double m_frameCount;
@@ -81,9 +81,7 @@ private:
     GLuint vboID;
     GLuint eboID;
 
-    GLuint vertexShaderID;
-    GLuint fragmentShaderID;
-    GLuint shaderProgramID;
+    ShaderProgram* program;
 
     GLuint kittenTexID;
     GLuint puppyTexID;

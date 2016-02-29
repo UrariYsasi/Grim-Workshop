@@ -135,6 +135,9 @@
     <ClCompile Include="Source\Game\World\World.cpp">
       <Filter>Source\Game\World</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Engine\ShaderProgram.cpp">
+      <Filter>Source\Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\PCH.hpp">
@@ -258,6 +261,9 @@
       <Filter>Source\Game\World</Filter>
     </ClInclude>
     <ClInclude Include="Source\Engine\Rect.hpp">
+      <Filter>Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\ShaderProgram.hpp">
       <Filter>Source\Engine</Filter>
     </ClInclude>
   </ItemGroup>

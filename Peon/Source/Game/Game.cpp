@@ -4,6 +4,7 @@
 #include "../Engine/Renderer.hpp"
 #include "../Engine/Input.hpp"
 #include "../Engine/Camera.hpp"
+#include "../Engine/ShaderProgram.hpp"
 #include "Entity/Peon.hpp"
 #include "Entity/Tree.hpp"
 #include "Entity/Rock.hpp"
@@ -193,7 +194,7 @@ int Game::Initialize()
         }
 
         // Start music
-        Mix_PlayMusic(m_bgMusic, -1);
+        //Mix_PlayMusic(m_bgMusic, -1);
     }
 
     // Setup the game
@@ -277,25 +278,14 @@ int Game::Initialize()
 
     Debug::Log("Loading shaders...");
     Debug::Log("Compiling shaders...");
-    vertexShaderID = CompileShader(ReadFile("Resources/Shaders/vertex.glsl"), GL_VERTEX_SHADER);
-    fragmentShaderID = CompileShader(ReadFile("Resources/Shaders/fragment.glsl"), GL_FRAGMENT_SHADER);
-    shaderProgramID = LinkShaders(vertexShaderID, fragmentShaderID);
-
-    if (vertexShaderID == -1)
-    {
-        Debug::LogError("vertex shader failed to compile!");
-    }
-
-    if (fragmentShaderID == -1)
-    {
-        Debug::LogError("fragment shader failed to compile!");
-    }
+    LoadShaderProgram("vertex.glsl", "fragment.glsl", "basic_shader");
+    program = GetShaderProgram("basic_shader");
 
     Debug::Log("Linking shaders...");
 
-    GLint positionAttribute = glGetAttribLocation(shaderProgramID, "inPosition");
-    GLint colorAttribute = glGetAttribLocation(shaderProgramID, "inColor");
-    GLint stAttribute = glGetAttribLocation(shaderProgramID, "inTexCoord");
+    GLint positionAttribute = glGetAttribLocation(program->GetID(), "inPosition");
+    GLint colorAttribute = glGetAttribLocation(program->GetID(), "inColor");
+    GLint stAttribute = glGetAttribLocation(program->GetID(), "inTexCoord");
 
     glEnableVertexAttribArray(positionAttribute);
     glEnableVertexAttribArray(colorAttribute);
@@ -304,7 +294,7 @@ int Game::Initialize()
     glVertexAttribPointer(colorAttribute, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
     glVertexAttribPointer(stAttribute, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)(6 * sizeof(GLfloat)));
 
-    glUseProgram(shaderProgramID);
+    program->Use();
     
     int width = 0;
     int height = 0;
@@ -323,7 +313,7 @@ int Game::Initialize()
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
     SOIL_free_image_data(image);
     
-    glUniform1i(glGetUniformLocation(shaderProgramID, "texKitten"), 0);
+    glUniform1i(glGetUniformLocation(program->GetID(), "texKitten"), 0);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
@@ -339,7 +329,7 @@ int Game::Initialize()
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
     SOIL_free_image_data(image);
 
-    glUniform1i(glGetUniformLocation(shaderProgramID, "texPuppy"), 1);
+    glUniform1i(glGetUniformLocation(program->GetID(), "texPuppy"), 1);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
@@ -437,13 +427,13 @@ void Game::Render()
     glClearColor(.3f, .3f, .3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    GLuint uniColor = glGetUniformLocation(shaderProgramID, "overrideColor");
-    GLuint uniTime = glGetUniformLocation(shaderProgramID, "time");
+    GLuint uniColor = glGetUniformLocation(program->GetID(), "overrideColor");
+    GLuint uniTime = glGetUniformLocation(program->GetID(), "time");
     auto timeNow = std::chrono::high_resolution_clock::now();
     float time = std::chrono::duration_cast<std::chrono::duration<float>>(timeNow - startTime).count();
     glUniform1f(uniTime, time);
 
-    GLuint uniModel = glGetUniformLocation(shaderProgramID, "model");
+    GLuint uniModel = glGetUniformLocation(program->GetID(), "model");
     glm::mat4 model;
     model = glm::rotate(
         model,
@@ -460,11 +450,11 @@ void Game::Render()
         glm::vec3(0.0f, 0.0f, 0.0f),
         glm::vec3(0.0f, 0.0f, 1.0f)
         );
-    GLint uniView = glGetUniformLocation(shaderProgramID, "view");
+    GLint uniView = glGetUniformLocation(program->GetID(), "view");
     glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
 
     glm::mat4 proj = glm::perspective(glm::radians(45.0f), 1024.0f / 768.0f, 1.0f, 10.0f);
-    GLint uniProj = glGetUniformLocation(shaderProgramID, "proj");
+    GLint uniProj = glGetUniformLocation(program->GetID(), "proj");
     glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
 
     //GLint uniColor = glGetUniformLocation(shaderProgramID, "triangleColor");
@@ -640,6 +630,20 @@ bool Game::LoadSound(const std::string& path, const std::string& id)
     return false;
 }
 
+bool Game::LoadShaderProgram(const std::string& vertexShaderPath, const std::string& fragmentShaderPath, const std::string& ID)
+{
+    std::string vertexShaderSource = ReadFile("Resources/Shaders/vertex.glsl");
+    std::string fragmentShaderSource = ReadFile("Resources/Shaders/fragment.glsl");
+
+    if (vertexShaderSource != "*FAILURE*" && fragmentShaderSource != "*FAILURE*")
+    {
+        m_shaderProgramMap[ID] = std::make_unique<ShaderProgram>(vertexShaderSource, fragmentShaderSource);
+        return true;
+    }
+
+    return false;
+}
+
 SDL_Texture* Game::GetTexture(const std::string& id)
 {
     return m_textureMap[id];
@@ -648,6 +652,11 @@ SDL_Texture* Game::GetTexture(const std::string& id)
 TTF_Font* Game::GetFont(const std::string& id)
 {
     return m_fontMap[id];
+}
+
+ShaderProgram* Game::GetShaderProgram(const std::string& ID)
+{
+    return m_shaderProgramMap[ID].get();
 }
 
 void Game::PlaySound(const std::string& id)
@@ -668,57 +677,11 @@ std::string Game::ReadFile(const std::string& path)
     std::ifstream input(path);
     if (!input.is_open()) {
         Debug::LogError("Failed to open file %s", path);
-        return nullptr;
+        return "*FAILURE*";
     }
 
     std::ostringstream ss;  
     ss << input.rdbuf();
     
     return ss.str();
-}
-
-GLuint Game::CompileShader(const std::string& source, GLenum shaderType)
-{
-    // Convert the string
-    const GLchar* data = source.c_str();
-
-    // Create the shader and get an ID
-    GLuint id = glCreateShader(shaderType);
-
-    // Upload the shader source
-    glShaderSource(id, 1, &data, NULL);
-
-    // Compile the shader
-    glCompileShader(id);
-
-    // Check for errors
-    GLint status;
-    glGetShaderiv(id, GL_COMPILE_STATUS, &status);
-    if (status != GL_TRUE)
-    {
-        char buffer[512];
-        glGetShaderInfoLog(id, 512, NULL, buffer);
-        Debug::LogError(buffer);
-        Debug::LogError("Shader failed to compile!");
-        id = -1;
-    }
-
-    return id;
-}
-
-GLuint Game::LinkShaders(GLuint vertID, GLuint fragID)
-{
-    // Create the shader program and get an ID
-    GLuint id = glCreateProgram();
-
-    // Attach the shaders to the program
-    glAttachShader(id, vertID);
-    glAttachShader(id, fragID);
-
-    //glBindFragDataLocation(id, 0, "outColor");
-
-    // Link the program
-    glLinkProgram(id);
-
-    return id;
 }
