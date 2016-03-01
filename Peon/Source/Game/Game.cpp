@@ -302,8 +302,6 @@ void Game::Render()
     m_renderer->SetClearColor(grim::Color(0.2, 0.2, 0.2));
     m_renderer->Clear();
 
-    texture->Bind();
-
     auto timeNow = std::chrono::high_resolution_clock::now();
     float time = std::chrono::duration_cast<std::chrono::duration<float>>(timeNow - startTime).count();
 
@@ -312,7 +310,6 @@ void Game::Render()
     glm::mat4 proj(1.0);
 
     GLuint uniTime = glGetUniformLocation(program->GetHandle(), "time");
-    GLuint uniModel = glGetUniformLocation(program->GetHandle(), "model");
     GLint uniView = glGetUniformLocation(program->GetHandle(), "view");
     GLint uniProj = glGetUniformLocation(program->GetHandle(), "proj");
 

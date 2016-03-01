@@ -25,6 +25,9 @@ Sprite::~Sprite()
 
 void Sprite::Render(const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale)
 {
+    // Bind the vertex array for this mesh
+    glBindVertexArray(m_VAOHandle);
+
     // Transform the mesh
     m_modelMatrix = glm::mat4(1.0);
     m_modelMatrix = glm::translate(m_modelMatrix, position);
@@ -45,6 +48,9 @@ void Sprite::Render(const glm::vec3& position, const glm::vec3& rotation, const 
 
     // Render the mesh
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+    // Unbind the vertex array
+    glBindVertexArray(0);
 }
 
 void Sprite::CreateMesh()
@@ -81,14 +87,17 @@ void Sprite::CreateMesh()
 
     GLint positionAttribute = glGetAttribLocation(m_shaderProgram->GetHandle(), "inPosition");
     GLint colorAttribute = glGetAttribLocation(m_shaderProgram->GetHandle(), "inColor");
-    GLint stAttribute = glGetAttribLocation(m_shaderProgram->GetHandle(), "inTexCoord");
+    GLint uvAttribute = glGetAttribLocation(m_shaderProgram->GetHandle(), "inTexCoord");
 
     glEnableVertexAttribArray(positionAttribute);
     glEnableVertexAttribArray(colorAttribute);
-    glEnableVertexAttribArray(stAttribute);
+    glEnableVertexAttribArray(uvAttribute);
     glVertexAttribPointer(positionAttribute, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), 0);
     glVertexAttribPointer(colorAttribute, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
-    glVertexAttribPointer(stAttribute, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)(6 * sizeof(GLfloat)));
+    glVertexAttribPointer(uvAttribute, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)(6 * sizeof(GLfloat)));
+
+    // Unbind the VBO
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 }

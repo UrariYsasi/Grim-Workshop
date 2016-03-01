@@ -3,6 +3,9 @@
 namespace grim
 {
 
+/*
+    An RGBA color.
+*/
 struct Color
 {
     double r;

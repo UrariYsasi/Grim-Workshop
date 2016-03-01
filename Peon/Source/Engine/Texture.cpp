@@ -22,7 +22,7 @@ Texture::Texture(const std::string& textureFileName) :
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_data);
     SOIL_free_image_data(m_data);
 
-    // Generate some mip maps
+    // Generate mipmaps
     glGenerateMipmap(GL_TEXTURE_2D);
 
     // Set the texture parameters
