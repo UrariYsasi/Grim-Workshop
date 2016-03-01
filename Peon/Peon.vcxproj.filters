@@ -278,5 +278,8 @@
     <ClInclude Include="Source\Engine\Shader.hpp">
       <Filter>Source\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Engine\Color.hpp">
+      <Filter>Source\Engine</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

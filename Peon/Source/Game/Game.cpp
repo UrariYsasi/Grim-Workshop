@@ -210,10 +210,6 @@ int Game::Initialize()
 
     // OPENGL TESTING
 
-    // Enable alpha blending
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
     // Create a VAO
     glGenVertexArrays(1, &vaoID);
     glBindVertexArray(vaoID);
@@ -225,15 +221,15 @@ int Game::Initialize()
     glGenBuffers(1, &eboID);
 
     GLfloat vertices[] = {
-        -0.5f,  0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // Top-left
-         0.5f,  0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // Top-right
-         0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, // Bottom-right
-        -0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f  // Bottom-left
+        -0.5f,  -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,    // Top left
+        0.5f,  -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,     // Top right
+        -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,      // Bottom left
+        0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f        // Bottom right
     };
 
     GLuint elements[] = {
-        0, 1, 2,
-        2, 3, 0
+        2, 3, 0,
+        0, 1, 3
     };
 
     // Bind the vertex data to the VBO
@@ -347,8 +343,8 @@ void Game::Update(double deltaTime)
 
 void Game::Render()
 {
-    glClearColor(.3f, .3f, .3f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    m_renderer->SetClearColor(grim::Color(0.2, 0.2, 0.2));
+    m_renderer->Clear();
 
     texture->Bind();
 
@@ -356,26 +352,15 @@ void Game::Render()
     GLuint uniTime = glGetUniformLocation(program->GetHandle(), "time");
     auto timeNow = std::chrono::high_resolution_clock::now();
     float time = std::chrono::duration_cast<std::chrono::duration<float>>(timeNow - startTime).count();
-    glUniform1f(uniTime, time);
 
     GLuint uniModel = glGetUniformLocation(program->GetHandle(), "model");
     glm::mat4 model(1.0);
 
-    /*
-    model = glm::rotate(
-        model,
-        time * glm::radians(45.0f),
-        glm::vec3(0.0f, 0.0f, 1.0f)
-        );
-    */
-
     //float factor = abs(sin(60.0 + time * 1.0));
-    //model = glm::scale(model, glm::vec3(factor, factor, 1.1f));
-    glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
 
     glm::mat4 view(1.0);
     //view = glm::rotate(view, time * glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -1.0f));
+    //view = glm::translate(view, glm::vec3(0.0f, 0.0f, 0.0f));
     /*
         view = glm::lookAt(
         glm::vec3(2.5f, 2.5f, 2.5f),
@@ -384,18 +369,34 @@ void Game::Render()
         );
     */
     GLint uniView = glGetUniformLocation(program->GetHandle(), "view");
-    glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
 
     glm::mat4 proj(1.0);
-    proj = glm::perspective(glm::radians(90.0f), 1024.0f / 768.0f, 0.1f, 100.0f);
+    //proj = glm::perspective(glm::radians(90.0f), 1024.0f / 768.0f, 0.1f, 100.0f);
+    proj = glm::ortho(0.0f, 1024.0f, 768.0f, 0.0f, -1.0f, 1.0f);
     GLint uniProj = glGetUniformLocation(program->GetHandle(), "proj");
-    glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
 
     //GLint uniColor = glGetUniformLocation(shaderProgramID, "triangleColor");
     //glUniform3f(uniColor, 1.0f, 0.0f, 0.0f);
 
     //glDrawArrays(GL_TRIANGLES, 0, 6);
+    model = glm::translate(model, glm::vec3(150.0f, 150.0f, 0.0f));
+    model = glm::scale(model, glm::vec3(32.0f, 32.0f, 1.0f));
+
+    //model = glm::rotate(
+    //    model,
+    //    time * glm::radians(45.0f),
+    //    glm::vec3(0.0f, 0.0f, 1.0f)
+    //    );
+
+    glUniform1f(uniTime, time);
+    glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
+    glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
+    glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
+
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+    //model = glm::translate(model, glm::vec3(1.0f, 0.0f, 0.0f));
+    //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     //glDrawArrays(GL_TRIANGLES, 0, 36);
 
     /*

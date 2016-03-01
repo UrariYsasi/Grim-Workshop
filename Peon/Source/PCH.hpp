@@ -47,6 +47,7 @@
 #include "Engine/Debug.hpp"
 #include "Engine/Random.hpp"
 #include "Engine/Vector2D.hpp"
+#include "Engine/Color.hpp"
 #include "Engine/Rect.hpp"
 #include "Engine/Timer.hpp"
 #include "Engine/Shader.hpp"

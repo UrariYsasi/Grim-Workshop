@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Engine\Camera.hpp" />
+    <ClInclude Include="Source\Engine\Color.hpp" />
     <ClInclude Include="Source\Engine\Input.hpp" />
     <ClInclude Include="Source\Engine\Debug.hpp" />
     <ClInclude Include="Source\Engine\PerlinGenerator.hpp" />
