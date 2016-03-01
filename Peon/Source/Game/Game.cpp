@@ -208,52 +208,8 @@ int Game::Initialize()
     // Setup the game
     m_map->Generate();
 
-    // OPENGL TESTING
-
-    // Create a VAO
-    glGenVertexArrays(1, &vaoID);
-    glBindVertexArray(vaoID);
-
-    // Create a VBO
-    glGenBuffers(1, &vboID);
-
-    // Create an EBO
-    glGenBuffers(1, &eboID);
-
-    GLfloat vertices[] = {
-        -0.5f,  -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,    // Top left
-        0.5f,  -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,     // Top right
-        -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,      // Bottom left
-        0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f        // Bottom right
-    };
-
-    GLuint elements[] = {
-        2, 3, 0,
-        0, 1, 3
-    };
-
-    // Bind the vertex data to the VBO
-    glBindBuffer(GL_ARRAY_BUFFER, vboID);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    // Bind the element data to the EBO
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements), elements, GL_STATIC_DRAW);
-
-    GLint positionAttribute = glGetAttribLocation(program->GetHandle(), "inPosition");
-    GLint colorAttribute = glGetAttribLocation(program->GetHandle(), "inColor");
-    GLint stAttribute = glGetAttribLocation(program->GetHandle(), "inTexCoord");
-
-    glEnableVertexAttribArray(positionAttribute);
-    glEnableVertexAttribArray(colorAttribute);
-    glEnableVertexAttribArray(stAttribute);
-    glVertexAttribPointer(positionAttribute, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), 0);
-    glVertexAttribPointer(colorAttribute, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
-    glVertexAttribPointer(stAttribute, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)(6 * sizeof(GLfloat)));
-
-    program->Use();
-
     texture = GetTexture("gandalf");
+    sprite = std::make_unique<grim::Sprite>(texture, program);
 
     return SUCCESS;
 }
@@ -348,84 +304,29 @@ void Game::Render()
 
     texture->Bind();
 
-    GLuint uniColor = glGetUniformLocation(program->GetHandle(), "overrideColor");
-    GLuint uniTime = glGetUniformLocation(program->GetHandle(), "time");
     auto timeNow = std::chrono::high_resolution_clock::now();
     float time = std::chrono::duration_cast<std::chrono::duration<float>>(timeNow - startTime).count();
 
-    GLuint uniModel = glGetUniformLocation(program->GetHandle(), "model");
     glm::mat4 model(1.0);
-
-    //float factor = abs(sin(60.0 + time * 1.0));
-
     glm::mat4 view(1.0);
-    //view = glm::rotate(view, time * glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-    //view = glm::translate(view, glm::vec3(0.0f, 0.0f, 0.0f));
-    /*
-        view = glm::lookAt(
-        glm::vec3(2.5f, 2.5f, 2.5f),
-        glm::vec3(0.0f, 0.0f, 0.0f),
-        glm::vec3(0.0f, 0.0f, 1.0f)
-        );
-    */
-    GLint uniView = glGetUniformLocation(program->GetHandle(), "view");
-
     glm::mat4 proj(1.0);
-    //proj = glm::perspective(glm::radians(90.0f), 1024.0f / 768.0f, 0.1f, 100.0f);
-    proj = glm::ortho(0.0f, 1024.0f, 768.0f, 0.0f, -1.0f, 1.0f);
+
+    GLuint uniTime = glGetUniformLocation(program->GetHandle(), "time");
+    GLuint uniModel = glGetUniformLocation(program->GetHandle(), "model");
+    GLint uniView = glGetUniformLocation(program->GetHandle(), "view");
     GLint uniProj = glGetUniformLocation(program->GetHandle(), "proj");
 
-    //GLint uniColor = glGetUniformLocation(shaderProgramID, "triangleColor");
-    //glUniform3f(uniColor, 1.0f, 0.0f, 0.0f);
+    proj = glm::ortho(0.0f, 1024.0f, 768.0f, 0.0f, -1.0f, 1.0f);
 
-    //glDrawArrays(GL_TRIANGLES, 0, 6);
     model = glm::translate(model, glm::vec3(150.0f, 150.0f, 0.0f));
     model = glm::scale(model, glm::vec3(32.0f, 32.0f, 1.0f));
-
-    //model = glm::rotate(
-    //    model,
-    //    time * glm::radians(45.0f),
-    //    glm::vec3(0.0f, 0.0f, 1.0f)
-    //    );
+    model = glm::rotate(model, time * glm::radians(45.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 
     glUniform1f(uniTime, time);
-    glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
     glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
     glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
 
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
-    //model = glm::translate(model, glm::vec3(1.0f, 0.0f, 0.0f));
-    //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    //glDrawArrays(GL_TRIANGLES, 0, 36);
-
-    /*
-    glEnable(GL_STENCIL_TEST);
-
-    // Draw floor
-    glStencilFunc(GL_ALWAYS, 1, 0xFF); // Set any stencil to 1
-    glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
-    glStencilMask(0xFF); // Write to stencil buffer
-    glDepthMask(GL_FALSE); // Don't write to depth buffer
-    glClear(GL_STENCIL_BUFFER_BIT); // Clear the stencil buffer
-    //glDrawArrays(GL_TRIANGLES, 36, 6);
-
-    // Draw cube reflection
-    glStencilFunc(GL_EQUAL, 1, 0xFF); // Pass test if stencil value is 1
-    glStencilMask(0x00); // Don't write anything to stencil buffer
-    glDepthMask(GL_TRUE); // Write to depth buffer
-    model = glm::scale(
-        glm::translate(model, glm::vec3(0, 0, -1)),
-        glm::vec3(1, 1, -1)
-        );
-    glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
-
-    glUniform3f(uniColor, 0.3f, 0.3f, 0.3f);
-    //glDrawArrays(GL_TRIANGLES, 0, 36);
-    glUniform3f(uniColor, 1.0f, 1.0f, 1.0f);
-
-    glDisable(GL_STENCIL_TEST);
-    */
+    sprite->Render(glm::vec3(256.0f, 256.0f, 0.0f), glm::vec3(0.0f, 0.0f, time * glm::radians(45.0f)), glm::vec3(32.0f, 32.0f, 0.0f));
 
     /*
     m_renderer->SetDrawColor(SDL_Color{ 0, 0, 0, 255 });

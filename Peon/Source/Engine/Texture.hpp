@@ -4,7 +4,7 @@ namespace grim
 {
 
 /*
-    A Texture that can be used in rendering.
+    A texture that can be used in rendering.
 */
 class Texture
 {

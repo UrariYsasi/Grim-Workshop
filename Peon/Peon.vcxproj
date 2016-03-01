@@ -27,6 +27,7 @@
     <ClCompile Include="Source\Engine\Renderer.cpp" />
     <ClCompile Include="Source\Engine\Shader.cpp" />
     <ClCompile Include="Source\Engine\ShaderProgram.cpp" />
+    <ClCompile Include="Source\Engine\Sprite.cpp" />
     <ClCompile Include="Source\Engine\Texture.cpp" />
     <ClCompile Include="Source\Engine\Timer.cpp" />
     <ClCompile Include="Source\Engine\Window.cpp" />
@@ -73,6 +74,7 @@
     <ClInclude Include="Source\Engine\Renderer.hpp" />
     <ClInclude Include="Source\Engine\Shader.hpp" />
     <ClInclude Include="Source\Engine\ShaderProgram.hpp" />
+    <ClInclude Include="Source\Engine\Sprite.hpp" />
     <ClInclude Include="Source\Engine\Texture.hpp" />
     <ClInclude Include="Source\Engine\Timer.hpp" />
     <ClInclude Include="Source\Engine\Vector2D.hpp" />

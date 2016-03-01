@@ -107,4 +107,5 @@ private:
     GLuint puppyTexID;
 
     grim::Texture* texture;
+    std::unique_ptr<grim::Sprite> sprite;
 };

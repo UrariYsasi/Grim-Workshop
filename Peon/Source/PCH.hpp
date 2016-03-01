@@ -53,6 +53,7 @@
 #include "Engine/Shader.hpp"
 #include "Engine/ShaderProgram.hpp"
 #include "Engine/Texture.hpp"
+#include "Engine/Sprite.hpp"
 
 // Game Includes
 #include "Game/Item/ItemType.hpp"
