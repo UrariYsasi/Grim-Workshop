@@ -1,9 +1,15 @@
 #pragma once
 
+namespace grim
+{
+
+class Renderer;
+class Camera;
+
+}
+
 class Game;
 class Input;
-class Camera;
-class Renderer;
 class Entity;
 class World;
 
@@ -26,8 +32,8 @@ private:
 
     Game* m_game;
     Input* m_gameInput;
-    Camera* m_gameCamera;
-    Renderer* m_gameRenderer;
+    grim::Camera* m_gameCamera;
+    grim::Renderer* m_gameRenderer;
     World* m_gameWorld;
 
     int m_cameraSpeed;

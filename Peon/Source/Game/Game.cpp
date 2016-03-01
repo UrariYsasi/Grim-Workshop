@@ -68,7 +68,7 @@ Game::~Game()
     SDL_Quit();
 }
 
-Renderer* Game::GetRenderer()
+grim::Renderer* Game::GetRenderer()
 {
     return m_renderer.get();
 }
@@ -78,7 +78,7 @@ Input* Game::GetInput()
     return m_input.get();
 }
 
-Camera* Game::GetMainCamera()
+grim::Camera* Game::GetMainCamera()
 {
     return m_mainCamera.get();
 }
@@ -138,10 +138,10 @@ int Game::Initialize()
         return FAILURE;
     }
 
-    m_renderer = std::make_unique<Renderer>(this, m_window.get());
+    m_renderer = std::make_unique<grim::Renderer>(this, m_window.get());
     m_input = std::make_unique<Input>(this);
-    m_mainCamera = std::make_unique<Camera>(m_renderer.get(), Vector2D(-512, -384));
-    m_GUICamera = std::make_unique<Camera>(m_renderer.get(), Vector2D(0, 0));
+    m_mainCamera = std::make_unique<grim::Camera>(m_renderer.get());
+    m_GUICamera = std::make_unique<grim::Camera>(m_renderer.get());
 
     m_map = std::make_unique<World>(this);
     m_player = std::make_unique<Player>(this);
@@ -224,8 +224,6 @@ void Game::Run()
 
     m_isRunning = true;
     m_gameStartTime = SDL_GetTicks();
-   
-    startTime = std::chrono::high_resolution_clock::now();
 
     double frameStartTime = 0.0;
     double frameEndTime = 0.0;
@@ -237,12 +235,12 @@ void Game::Run()
 
         m_input->Update();
         Update(deltaTime);
+
         Render();
+        m_window->SwapWindow();
 
         m_frameCount++;
         m_frameRate = (m_frameCount / (SDL_GetTicks() - m_gameStartTime)) * 1000;
-
-        m_window->SwapWindow();
     }
 }
 
@@ -293,37 +291,18 @@ void Game::Update(double deltaTime)
     }
 
     m_map->Update(deltaTime);
-    m_player->Update(deltaTime);
     */
+
+    m_player->Update(deltaTime);
 }
 
 void Game::Render()
 {
-    m_renderer->SetClearColor(grim::Color(0.2, 0.2, 0.2));
     m_renderer->Clear();
 
-    auto timeNow = std::chrono::high_resolution_clock::now();
-    float time = std::chrono::duration_cast<std::chrono::duration<float>>(timeNow - startTime).count();
-
-    glm::mat4 model(1.0);
-    glm::mat4 view(1.0);
-    glm::mat4 proj(1.0);
-
-    GLuint uniTime = glGetUniformLocation(program->GetHandle(), "time");
-    GLint uniView = glGetUniformLocation(program->GetHandle(), "view");
-    GLint uniProj = glGetUniformLocation(program->GetHandle(), "proj");
-
-    proj = glm::ortho(0.0f, 1024.0f, 768.0f, 0.0f, -1.0f, 1.0f);
-
-    model = glm::translate(model, glm::vec3(150.0f, 150.0f, 0.0f));
-    model = glm::scale(model, glm::vec3(32.0f, 32.0f, 1.0f));
-    model = glm::rotate(model, time * glm::radians(45.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-
-    glUniform1f(uniTime, time);
-    glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
-    glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
-
-    sprite->Render(glm::vec3(256.0f, 256.0f, 0.0f), glm::vec3(0.0f, 0.0f, time * glm::radians(45.0f)), glm::vec3(32.0f, 32.0f, 0.0f));
+    m_mainCamera->Activate();
+    glm::vec3 pos(1024.0f / 2.0f, 768.0f / 2.0f, 0.0f);
+    sprite->Render(pos, glm::vec3(0.0f), glm::vec3(64.0f, 64.0f, 0.0f));
 
     /*
     m_renderer->SetDrawColor(SDL_Color{ 0, 0, 0, 255 });
@@ -465,7 +444,7 @@ bool Game::LoadShader(const std::string& shaderFileName, const GLenum& shaderTyp
 
 bool Game::CreateShaderProgram(const std::string& vertexShaderID, const std::string& fragmentShaderID, const std::string& ID)
 {
-    m_shaderProgramMap[ID] = std::make_unique<grim::ShaderProgram>(GetShader(vertexShaderID), GetShader(fragmentShaderID));
+    m_shaderProgramMap[ID] = std::make_unique<grim::ShaderProgram>(m_renderer.get(), GetShader(vertexShaderID), GetShader(fragmentShaderID));
     return true;
 }
 

@@ -27,7 +27,7 @@ void Tree::Update(double deltaTime)
 
 void Tree::Render()
 {
-    Renderer* renderer = m_game->GetRenderer();
+    grim::Renderer* renderer = m_game->GetRenderer();
     //int spriteCol = IsDead() ? 1 : 0;
     //int spriteRow = 0;
     //renderer->RenderSprite("resource", spriteCol, spriteRow, (int)(m_position.x - m_origin.x + m_positionOffset.x), (int)(m_position.y - m_origin.y + m_positionOffset.y), (int)SPRITE_SIZE.x, (int)SPRITE_SIZE.y * 2);

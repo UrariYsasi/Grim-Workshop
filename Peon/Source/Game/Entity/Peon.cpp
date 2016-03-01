@@ -51,7 +51,7 @@ void Peon::Update(double deltaTime)
 
 void Peon::Render()
 {
-    Renderer* renderer = m_game->GetRenderer();
+    grim::Renderer* renderer = m_game->GetRenderer();
 
     if (!IsDead())
     {

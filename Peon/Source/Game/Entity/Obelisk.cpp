@@ -24,7 +24,7 @@ void Obelisk::Update(double deltaTime)
 
 void Obelisk::Render()
 {
-    Renderer* renderer = m_game->GetRenderer();
+    grim::Renderer* renderer = m_game->GetRenderer();
     renderer->RenderSprite("obelisk", 0, 0, (int)(m_position.x - m_origin.x), (int)(m_position.y - m_origin.y), 96, 288);
 
     Entity::Render();

@@ -36,7 +36,7 @@ void Rock::Update(double deltaTime)
 
 void Rock::Render()
 {
-    Renderer* renderer = m_game->GetRenderer();
+    grim::Renderer* renderer = m_game->GetRenderer();
 
     if (!IsDead())
     {

@@ -3,13 +3,15 @@
 namespace grim
 {
 
+class Renderer;
+
 /*
     A shader program that consists of a vertex shader and a fragment shader.
 */
 class ShaderProgram
 {
 public:
-    ShaderProgram(grim::Shader* vertexShader, grim::Shader* fragmentShader);
+    ShaderProgram(grim::Renderer* renderer, grim::Shader* vertexShader, grim::Shader* fragmentShader);
     ~ShaderProgram();
 
     /*
@@ -35,6 +37,11 @@ private:
         The OpenGL handle for the shader program.
     */
     GLuint m_handle;
+
+    /*
+        The Renderer that will manage this ShaderProgram.
+    */
+    grim::Renderer* m_renderer;
 };
 
 }

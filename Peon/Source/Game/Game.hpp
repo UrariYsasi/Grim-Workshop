@@ -1,13 +1,19 @@
 #pragma once
 
-class Window;
+namespace grim
+{
+
 class Renderer;
+class Camera;
+
+}
+
+class Window;
 class Input;
 class Entity;
 class Peon;
 class Stockpile;
 class TerrainTile;
-class Camera;
 class World;
 class Player;
 
@@ -17,9 +23,9 @@ public:
     Game();
     ~Game();
 
-    Renderer* GetRenderer();
+    grim::Renderer* GetRenderer();
     Input* GetInput();
-    Camera* GetMainCamera();
+    grim::Camera* GetMainCamera();
     World* GetWorld();
 
     int Initialize();
@@ -67,10 +73,10 @@ private:
 private:
     bool m_isRunning;
     std::unique_ptr<Window> m_window;
-    std::unique_ptr<Renderer> m_renderer;
+    std::unique_ptr<grim::Renderer> m_renderer;
     std::unique_ptr<Input> m_input;
-    std::unique_ptr<Camera> m_mainCamera;
-    std::unique_ptr<Camera> m_GUICamera;
+    std::unique_ptr<grim::Camera> m_mainCamera;
+    std::unique_ptr<grim::Camera> m_GUICamera;
     std::unique_ptr<World> m_map;
     std::unique_ptr<Player> m_player;
 
@@ -94,8 +100,6 @@ private:
     double m_frameRate;
     double m_gameStartTime;
     Mix_Music* m_bgMusic;
-
-    std::chrono::high_resolution_clock::time_point startTime;
 
     GLuint vaoID;
     GLuint vboID;

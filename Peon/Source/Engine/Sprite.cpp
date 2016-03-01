@@ -28,6 +28,9 @@ void Sprite::Render(const glm::vec3& position, const glm::vec3& rotation, const 
     // Bind the vertex array for this mesh
     glBindVertexArray(m_VAOHandle);
 
+    // Enable our ShaderProgram
+    m_shaderProgram->Use();
+
     // Transform the mesh
     m_modelMatrix = glm::mat4(1.0);
     m_modelMatrix = glm::translate(m_modelMatrix, position);
@@ -36,15 +39,12 @@ void Sprite::Render(const glm::vec3& position, const glm::vec3& rotation, const 
     m_modelMatrix = glm::rotate(m_modelMatrix, rotation.y, glm::vec3(0.0, 1.0, 0.0));
     m_modelMatrix = glm::rotate(m_modelMatrix, rotation.z, glm::vec3(0.0, 0.0, 1.0));
 
-    // Enable our ShaderProgram
-    m_shaderProgram->Use();
+    // Upload our model matrix
+    GLuint uniModel = glGetUniformLocation(m_shaderProgram->GetHandle(), "model");
+    glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(m_modelMatrix));
 
     // Bind our Texture
     m_texture->Bind();
-
-    // Upload our model matrix
-    GLuint modelMatrixLocation = glGetUniformLocation(m_shaderProgram->GetHandle(), "model");
-    glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, glm::value_ptr(m_modelMatrix));
 
     // Render the mesh
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

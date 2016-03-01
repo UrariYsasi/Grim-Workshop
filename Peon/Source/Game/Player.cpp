@@ -38,6 +38,7 @@ Player::~Player()
 
 void Player::Update(double deltaTime)
 {
+    /*
     for (auto it = m_selectedPeons.begin(); it != m_selectedPeons.end(); it++)
     {
         if ((*it)->IsDead())
@@ -45,27 +46,28 @@ void Player::Update(double deltaTime)
             m_selectedPeons.erase(it++);
         }
     }
+    */
 
-    Vector2D cameraMovement(0, 0);
+    glm::vec3 cameraMovement(0.0f);
 
     if (m_gameInput->GetKey(SDLK_w) || m_gameInput->GetKey(SDLK_UP))
     {
-        cameraMovement += Vector2D(0, -1);
+        cameraMovement += glm::vec3(0.0f, -1.0f, 0.0f);
     }
 
     if (m_gameInput->GetKey(SDLK_a) || m_gameInput->GetKey(SDLK_LEFT))
     {
-        cameraMovement += Vector2D(-1, 0);
+        cameraMovement += glm::vec3(-1.0f, 0.0f, 0.0f);
     }
 
     if (m_gameInput->GetKey(SDLK_s) || m_gameInput->GetKey(SDLK_DOWN))
     {
-        cameraMovement += Vector2D(0, 1);
+        cameraMovement += glm::vec3(0.0f, 1.0f, 0.0f);
     }
 
     if (m_gameInput->GetKey(SDLK_d) || m_gameInput->GetKey(SDLK_RIGHT))
     {
-        cameraMovement += Vector2D(1, 0);
+        cameraMovement += glm::vec3(1.0f, 0.0f, 0.0f);
     }
 
     if (m_gameInput->GetKey(SDLK_LSHIFT) || m_gameInput->GetKey(SDLK_RSHIFT))
@@ -85,28 +87,8 @@ void Player::Update(double deltaTime)
     cameraMovement *= deltaTime;
 
     m_gameCamera->Move(cameraMovement);
-    
-    Vector2D cameraPosition = m_gameCamera->GetPosition();
-    if (cameraPosition.y < -1000)
-    {
-        cameraPosition.y = -1000;
-    }
-    else if (cameraPosition.y + 768 > 1000)
-    {
-        cameraPosition.y = 1000 - 768;
-    }
 
-    if (cameraPosition.x < -1000)
-    {
-        cameraPosition.x = -1000;
-    }
-    else if (cameraPosition.x + 1024 > 1000)
-    {
-        cameraPosition.x = 1000 - 1024;
-    }
-
-    m_gameCamera->SetPosition(cameraPosition);
-
+    /*
     if (m_gameInput->GetMouseButtonPress(SDL_BUTTON_LEFT))
     {
         m_selectedPeons.clear();
@@ -157,6 +139,7 @@ void Player::Update(double deltaTime)
     {
         IssueCommand(m_gameInput->GetMousePosition());
     }
+    */
 }
 
 void Player::Render()

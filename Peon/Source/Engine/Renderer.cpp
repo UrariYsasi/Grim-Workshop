@@ -4,12 +4,18 @@
 #include "Camera.hpp"
 #include "../Game/Game.hpp"
 
+namespace grim
+{
+
 Renderer::Renderer(Game* game, const Window* window) :
     m_game(game)
 {
     // Enable alpha blending
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    // Set default clear color
+    SetClearColor(grim::Color(0.2, 0.2, 0.2));
 }
 
 Renderer::~Renderer()
@@ -18,15 +24,15 @@ Renderer::~Renderer()
 
 void Renderer::SetClearColor(const grim::Color& color)
 {
-    glClearColor(color.r, color.g, color.b, color.a);
+    glClearColor((GLfloat)color.r, (GLfloat)color.g, (GLfloat)color.b, (GLfloat)color.a);
 }
 
-void Renderer::SetActiveCamera(Camera* camera)
+void Renderer::SetActiveCamera(grim::Camera* camera)
 {
     m_activeCamera = camera;
 }
 
-Camera* Renderer::GetActiveCamera()
+grim::Camera* Renderer::GetActiveCamera()
 {
     return m_activeCamera;
 }
@@ -121,4 +127,6 @@ void Renderer::RenderFillRect(const Rect& rect, const SDL_Color& color)
 
     //SDL_Rect r = { (int)screenPos.x, (int)screenPos.y, (int)rect.width, (int)rect.height };
     //SDL_RenderFillRect(m_SDLRenderer, &r);
+}
+
 }
