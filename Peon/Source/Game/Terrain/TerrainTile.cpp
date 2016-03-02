@@ -5,38 +5,35 @@
 #include "../../Engine/Renderer.hpp"
 #include "../../Engine/Camera.hpp"
 
-TerrainTile::TerrainTile(Game* game, const Vector2D& position) :
+TerrainTile::TerrainTile(Game* game, const glm::vec2& position) :
     m_game(game),
     m_position(position),
+    m_rotation(0.0f),
+    m_scale(16.0f, 16.0f, 1.0f),
     m_origin(16, 16),
-    m_spritesheet("terrain"),
-    m_spriteColumn(0),
-    m_spriteRow(0)
+    m_sprite(nullptr)
 {
+    grim::Texture* texture = game->GetTexture("tree");
+    grim::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader");
+    m_sprite = std::make_unique<grim::Sprite>(texture, shaderProgram);
 }
 
 TerrainTile::~TerrainTile()
 {
 }
 
-void TerrainTile::SetPosition(const Vector2D& position)
+void TerrainTile::SetPosition(const glm::vec2& position)
 {
     m_position = position;
 }
 
-Vector2D TerrainTile::GetPosition() const
+glm::vec2 TerrainTile::GetPosition() const
 {
     return m_position;
 }
 
 void TerrainTile::Render()
 {
-    grim::Renderer* renderer = m_game->GetRenderer();
-    renderer->RenderSprite(m_spritesheet, m_spriteColumn, m_spriteRow, (int)(m_position.x - m_origin.x), (int)(m_position.y - m_origin.y), 32, 32);
-
-    if (Debug::IsFlagEnabled(RENDER_TILE_OUTLINES))
-    {
-        Rect outline((int)(m_position.x - m_origin.x), (int)(m_position.y - m_origin.y), 32, 32);
-        renderer->RenderOutlineRect(outline, SDL_Color{ 0, 0, 0, 15 });
-    }
+    //glm::vec3 pos(1024.0f / 2.0f, 768.0f / 2.0f, 0.0f);
+    m_sprite->Render(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f), glm::vec3(32.0f, 32.0f, 0.0f));
 }

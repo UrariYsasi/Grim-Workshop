@@ -13,6 +13,7 @@ Sprite::Sprite(grim::Texture* texture, grim::ShaderProgram* shaderProgram) :
     m_EBOHandle(0)
 {
     CreateMesh();
+    Debug::Log("New sprite created. VAO: %d VBO: %d EBO: %d", m_VAOHandle, m_VBOHandle, m_EBOHandle);
 }
 
 Sprite::~Sprite()
@@ -25,11 +26,14 @@ Sprite::~Sprite()
 
 void Sprite::Render(const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale)
 {
-    // Bind the vertex array for this mesh
+    // Bind the VAO for this mesh
     glBindVertexArray(m_VAOHandle);
 
-    // Enable our ShaderProgram
-    m_shaderProgram->Use();
+    // Bind the EBO for this mesh
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBOHandle);
+
+    // Bind our ShaderProgram
+    m_shaderProgram->Bind();
 
     // Transform the mesh
     m_modelMatrix = glm::mat4(1.0);
@@ -49,6 +53,15 @@ void Sprite::Render(const glm::vec3& position, const glm::vec3& rotation, const 
     // Render the mesh
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
+    // Unbind our Texture
+    m_texture->Unbind();
+
+    // Unbind our ShaderProgram
+    m_shaderProgram->Unbind();
+
+    // Unbind the EBO
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
     // Unbind the vertex array
     glBindVertexArray(0);
 }
@@ -57,7 +70,6 @@ void Sprite::CreateMesh()
 {
     // Create a VAO
     glGenVertexArrays(1, &m_VAOHandle);
-    glBindVertexArray(m_VAOHandle);
 
     // Create a VBO
     glGenBuffers(1, &m_VBOHandle);
@@ -77,11 +89,14 @@ void Sprite::CreateMesh()
         0, 1, 3
     };
 
-    // Bind the vertex data to the VBO
-    glBindBuffer(GL_ARRAY_BUFFER, m_VAOHandle);
+    // Bind the VAO
+    glBindVertexArray(m_VAOHandle);
+
+    // Bind the VBO and upload the vertex data
+    glBindBuffer(GL_ARRAY_BUFFER, m_VBOHandle);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    // Bind the element data to the EBO
+    // Bind the EBO and upload the vertex data
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBOHandle);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements), elements, GL_STATIC_DRAW);
 
@@ -96,8 +111,14 @@ void Sprite::CreateMesh()
     glVertexAttribPointer(colorAttribute, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
     glVertexAttribPointer(uvAttribute, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)(6 * sizeof(GLfloat)));
 
+    // Unbind the EBO
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
     // Unbind the VBO
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    // Unbind the VAO
+    glBindVertexArray(0);
 }
 
 }

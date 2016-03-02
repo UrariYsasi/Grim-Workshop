@@ -25,7 +25,7 @@ GLuint ShaderProgram::GetHandle() const
     return m_handle;
 }
 
-void ShaderProgram::Use()
+void ShaderProgram::Bind()
 {
     // Tell OpenGL to use this shader
     glUseProgram(m_handle);
@@ -40,6 +40,11 @@ void ShaderProgram::Use()
 
     glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(viewMatrix));
     glUniformMatrix4fv(uniProjection, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+}
+
+void ShaderProgram::Unbind()
+{
+    glUseProgram(0);
 }
 
 void ShaderProgram::LinkShaders(grim::Shader* vertexShader, grim::Shader* fragmentShader)

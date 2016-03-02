@@ -233,3 +233,15 @@ namespace std {
         }
     };
 }
+
+namespace std {
+template <>
+struct hash<glm::vec2>
+{
+    inline std::size_t operator()(const glm::vec2& vec) const
+    {
+        return ((hash<float>()(vec.x)
+            ^ (hash<float>()(vec.y) << 1)) >> 1);
+    }
+};
+}

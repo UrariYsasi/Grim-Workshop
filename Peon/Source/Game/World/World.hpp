@@ -25,7 +25,7 @@ public:
     void SpawnPeon(int quantity = 1, const Vector2D& position = Vector2D(0, 0));
     void SpawnOrc(int quantity = 1);
     bool IsPassable(const Vector2D& point);
-    TerrainTile* GetTerrainAtPoint(const Vector2D& point);
+    TerrainTile* GetTerrainAtPoint(const glm::vec2& point);
 
     /*
         Gets the Entity with the given ID that is currently colliding with the given point.
@@ -72,8 +72,11 @@ private:
     Game* m_game;
     PerlinGenerator m_generator;
 
-    std::unordered_map<Vector2D, std::unique_ptr<TerrainTile> > m_terrain;
+    std::unordered_map<glm::vec2, std::unique_ptr<TerrainTile> > m_terrain;
     std::list< std::unique_ptr<Entity> > m_entities;
+
+    std::unique_ptr<TerrainTile> m_tile;
+    std::unique_ptr<grim::Sprite> sprite;
 
     // Time
     Timer m_worldTimer;

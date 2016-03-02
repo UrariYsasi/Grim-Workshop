@@ -101,15 +101,10 @@ private:
     double m_gameStartTime;
     Mix_Music* m_bgMusic;
 
-    GLuint vaoID;
-    GLuint vboID;
-    GLuint eboID;
-
     grim::ShaderProgram* program;
-
-    GLuint kittenTexID;
-    GLuint puppyTexID;
-
     grim::Texture* texture;
+
     std::unique_ptr<grim::Sprite> sprite;
+    std::unique_ptr<grim::Sprite> sprite2;
+    std::unique_ptr<grim::Sprite> sprite3;
 };

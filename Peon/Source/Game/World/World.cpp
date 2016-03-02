@@ -88,12 +88,17 @@ void World::Update(double deltaTime)
 void World::Render()
 {
     // Terrain
-    for (auto it = m_terrain.begin(); it != m_terrain.end(); it++)
-    {
-        TerrainTile* t = (it->second).get();
-        t->Render();
-    }
+    //for (auto it = m_terrain.begin(); it != m_terrain.end(); it++)
+    //{
+    //    TerrainTile* t = (it->second).get();
+    //    t->Render();
+    //}
 
+    sprite->Render(glm::vec3(512.0f, 512.0f, 0.0f), glm::vec3(0.0f), glm::vec3(128.0f, 128.0f, 0.0f));
+
+    m_tile->Render();
+
+    /*
     // Z sort Entities
     m_entities.sort([](std::unique_ptr<Entity> const& a, std::unique_ptr<Entity> const& b)
     {
@@ -109,6 +114,7 @@ void World::Render()
         Entity* e = (*it).get();
         e->Render();
     }
+    */
 }
 
 void World::ProcessTime()
@@ -138,22 +144,40 @@ void World::ProcessTime()
 
 void World::Generate()
 {
-    Debug::Log("Generating map...");
+    Debug::Log("Generating world...");
+
+    grim::Texture* texture = m_game->GetTexture("doosk");
+    grim::ShaderProgram* shaderProgram = m_game->GetShaderProgram("basic_shader");
+    sprite = std::make_unique<grim::Sprite>(texture, shaderProgram);
 
     // Terrain
+    m_tile = std::make_unique<TerrainTile>(m_game, glm::vec2(0.0f, 0.0f));
+
+    //for (int x = 0; x < 32; x++)
+    //{
+    //    glm::vec2 position((float)x, 0.0f);
+    //    m_terrain[position] = std::make_unique<TerrainTile>(m_game, position * 32.0f);
+    //}
+
+   /* 
     for (int x = -(MAP_SIZE / 2); x < (MAP_SIZE / 2); x++)
     {
         for (int y = -(MAP_SIZE / 2); y < (MAP_SIZE / 2); y++)
         {
-            Vector2D position(x, y);
-            m_terrain[position] = std::make_unique<TerrainTile>(m_game, position * 32);
+            glm::vec2 position((float)x, (float)y);
+            m_terrain[position] = std::make_unique<TerrainTile>(m_game, position * 32.0f);
         }
-    }
-
+    }*/
+    
+/*
+    glm::vec2 position(-64.0f, -64.0f);
+    m_terrain[position] = std::make_unique<TerrainTile>(m_game, position * 32.0f);
+*/
     // Resources
+    /*
     for (int x = -(MAP_SIZE / 2); x < (MAP_SIZE / 2); x++)
     {
-        for (int y = -(MAP_SIZE / 2); y < (MAP_SIZE / 2); y++)
+        for (int y = -(MAP_SIZE / 2); y <  (MAP_SIZE / 2); y++)
         {
             double val = m_generator.GeneratePerlin2D((double)(x + 59) / MAP_SIZE * 25, (double)(y + 73) / MAP_SIZE * 25);
             val = (val + 1) / 2.0;
@@ -192,6 +216,7 @@ void World::Generate()
 
     // Peons
     SpawnPeon(3, Vector2D(-350, -128));
+    */
 
     Debug::Log("World generation complete.");
 }
@@ -271,9 +296,9 @@ Entity* World::GetEntityAtPoint(const Vector2D& point, int entityID)
     return nullptr;
 }
 
-TerrainTile* World::GetTerrainAtPoint(const Vector2D& point)
+TerrainTile* World::GetTerrainAtPoint(const glm::vec2& point)
 {
-    Vector2D tilePosition = Vector2D(round(point.x / 32), round(point.y / 32));
+    glm::vec2 tilePosition = glm::vec2(round(point.x / 32), round(point.y / 32));
     return m_terrain.at(tilePosition).get();
 }
 

@@ -148,13 +148,17 @@ int Game::Initialize()
 
     // Load Textures
     Debug::Log("Loading textures...");
-    LoadTexture("Resources/Textures/peon.png", "peon");
+    LoadTexture("peon.png", "peon");
     LoadTexture("Resources/Textures/orc.png", "orc");
     LoadTexture("Resources/Textures/resource.png", "resource");
     LoadTexture("Resources/Textures/terrain.png", "terrain");
     LoadTexture("Resources/Textures/structure.png", "structure");
     LoadTexture("Resources/Textures/obelisk.png", "obelisk");
-    LoadTexture("Resources/Textures/tree.png", "tree");
+    LoadTexture("doosk.png", "doosk");
+    LoadTexture("puppy.png", "puppy");
+    LoadTexture("kitten.png", "kitten");
+    LoadTexture("grass.png", "grass");
+    LoadTexture("tree.png", "tree");
     LoadTexture("gandalf.png", "gandalf");
 
     // Load fonts
@@ -203,13 +207,13 @@ int Game::Initialize()
     // Create ShaderPrograms
     Debug::Log("Creating shader programs...");
     CreateShaderProgram("vertex_textured", "fragment_textured", "basic_shader");
-    program = GetShaderProgram("basic_shader");
 
     // Setup the game
     m_map->Generate();
 
-    texture = GetTexture("gandalf");
-    sprite = std::make_unique<grim::Sprite>(texture, program);
+    sprite = std::make_unique<grim::Sprite>(GetTexture("gandalf"), GetShaderProgram("basic_shader"));
+    sprite2 = std::make_unique<grim::Sprite>(GetTexture("kitten"), GetShaderProgram("basic_shader"));
+    sprite3 = std::make_unique<grim::Sprite>(GetTexture("puppy"), GetShaderProgram("basic_shader"));
 
     return SUCCESS;
 }
@@ -301,16 +305,22 @@ void Game::Render()
     m_renderer->Clear();
 
     m_mainCamera->Activate();
-    glm::vec3 pos(1024.0f / 2.0f, 768.0f / 2.0f, 0.0f);
+
+    glm::vec3 pos(64.0f, 64.0f, 0.0f);
     sprite->Render(pos, glm::vec3(0.0f), glm::vec3(64.0f, 64.0f, 0.0f));
 
-    /*
-    m_renderer->SetDrawColor(SDL_Color{ 0, 0, 0, 255 });
-    m_renderer->Clear();
+    pos = glm::vec3(256.0f, 256.0f, 0.0f);
+    sprite2->Render(pos, glm::vec3(0.0f), glm::vec3(64.0f, 64.0f, 0.0f));
 
-    m_mainCamera->Activate();
+    pos = glm::vec3(400.0f, 256.0f, 0.0f);
+    sprite3->Render(pos, glm::vec3(0.0f), glm::vec3(32.0f, 32.0f, 0.0f));
+
+    pos = glm::vec3(450.0f, 256.0f, 0.0f);
+    sprite3->Render(pos, glm::vec3(0.0f), glm::vec3(16.0f, 64.0f, 0.0f));
 
     m_map->Render();
+
+    /*
     m_player->Render();
 
     // Render GUI

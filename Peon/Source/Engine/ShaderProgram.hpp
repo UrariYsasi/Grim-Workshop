@@ -20,9 +20,14 @@ public:
     GLuint GetHandle() const;
 
     /*
-        Activate the ShaderProgram for usage in the rendering pipeline.
+        Bind the ShaderProgram for usage in the rendering pipeline.
     */
-    void Use();
+    void Bind();
+
+    /*
+        Unbind the ShaderProgram.
+    */
+    void Unbind();
 
 private:
     /*
