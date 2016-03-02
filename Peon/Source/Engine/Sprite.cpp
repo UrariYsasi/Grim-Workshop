@@ -13,7 +13,6 @@ Sprite::Sprite(grim::Texture* texture, grim::ShaderProgram* shaderProgram) :
     m_EBOHandle(0)
 {
     CreateMesh();
-    Debug::Log("New sprite created. VAO: %d VBO: %d EBO: %d", m_VAOHandle, m_VBOHandle, m_EBOHandle);
 }
 
 Sprite::~Sprite()

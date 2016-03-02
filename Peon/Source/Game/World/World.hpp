@@ -67,16 +67,13 @@ private:
     void CleanEntities();
 
 private:
-    const static int MAP_SIZE = 64; // The map size, in tiles.
+    const static int MAP_SIZE = 32; // The map size, in tiles.
 
     Game* m_game;
     PerlinGenerator m_generator;
 
     std::unordered_map<glm::vec2, std::unique_ptr<TerrainTile> > m_terrain;
     std::list< std::unique_ptr<Entity> > m_entities;
-
-    std::unique_ptr<TerrainTile> m_tile;
-    std::unique_ptr<grim::Sprite> sprite;
 
     // Time
     Timer m_worldTimer;

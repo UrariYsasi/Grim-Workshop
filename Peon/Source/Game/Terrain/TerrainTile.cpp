@@ -9,11 +9,11 @@ TerrainTile::TerrainTile(Game* game, const glm::vec2& position) :
     m_game(game),
     m_position(position),
     m_rotation(0.0f),
-    m_scale(16.0f, 16.0f, 1.0f),
+    m_scale(32.0f, 32.0f, 1.0f),
     m_origin(16, 16),
     m_sprite(nullptr)
 {
-    grim::Texture* texture = game->GetTexture("tree");
+    grim::Texture* texture = game->GetTexture("grass");
     grim::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader");
     m_sprite = std::make_unique<grim::Sprite>(texture, shaderProgram);
 }
@@ -34,6 +34,5 @@ glm::vec2 TerrainTile::GetPosition() const
 
 void TerrainTile::Render()
 {
-    //glm::vec3 pos(1024.0f / 2.0f, 768.0f / 2.0f, 0.0f);
-    m_sprite->Render(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f), glm::vec3(32.0f, 32.0f, 0.0f));
+    m_sprite->Render(glm::vec3(m_position, 0.0f), m_rotation, m_scale);
 }
