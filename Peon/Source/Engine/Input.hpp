@@ -14,7 +14,7 @@ public:
     bool GetMouseButton(int button);
     bool GetMouseButtonPress(int button);
     bool GetMouseButtonRelease(int button);
-    Vector2D GetMousePosition() const;
+    glm::vec2 GetMousePosition() const;
 
     void Update();
 
@@ -30,5 +30,5 @@ private:
     bool m_currentMouseButtons[MAX_KEYBOARD_KEYS];
     bool m_downMouseButtons[MAX_KEYBOARD_KEYS];
     bool m_upMouseButtons[MAX_KEYBOARD_KEYS];
-    Vector2D m_mousePosition;
+    glm::vec2 m_mousePosition;
 };

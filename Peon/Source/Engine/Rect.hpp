@@ -15,10 +15,10 @@ struct Rect
     {
     }
 
-    inline bool ContainsPoint(const Vector2D& point);
+    inline bool ContainsPoint(const glm::vec2& point);
 };
 
-inline bool Rect::ContainsPoint(const Vector2D& point)
+inline bool Rect::ContainsPoint(const glm::vec2& point)
 {
     double left = x;
     double right = x + width;

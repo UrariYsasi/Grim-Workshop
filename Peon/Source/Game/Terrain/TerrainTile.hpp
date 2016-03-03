@@ -28,7 +28,7 @@ private:
     glm::vec2 m_position;
     glm::vec3 m_rotation;
     glm::vec3 m_scale;
-    Vector2D m_origin;
+    glm::vec2 m_origin;
     int m_spriteColumn;
     int m_spriteRow;
 

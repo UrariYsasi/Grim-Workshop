@@ -4,7 +4,7 @@
 class Altar : public Prop
 {
 public:
-    Altar(Game* game, Vector2D position);
+    Altar(Game* game, const glm::vec2& position);
     virtual ~Altar();
 
     virtual void Update(double deltaTime);

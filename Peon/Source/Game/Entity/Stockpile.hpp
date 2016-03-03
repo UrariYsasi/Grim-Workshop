@@ -5,7 +5,7 @@
 class Stockpile : public Prop
 {
 public:
-    Stockpile(Game* game, Vector2D position);
+    Stockpile(Game* game, const glm::vec2& position);
     virtual ~Stockpile();
 
     Inventory* GetInventory();

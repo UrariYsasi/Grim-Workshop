@@ -23,9 +23,9 @@ void PickUpAction::Update(double deltaTime)
     }
 
     // Check if we are in range of the target
-    Vector2D targetPosition = m_target->GetPosition();
-    Vector2D monsterPosition = m_owner->GetPosition();
-    double distance = Vector2D::Distance(monsterPosition, targetPosition);
+    glm::vec2 targetPosition = m_target->GetPosition();
+    glm::vec2 monsterPosition = m_owner->GetPosition();
+    double distance = glm::distance(monsterPosition, targetPosition);
 
     if (distance <= MIN_PICK_UP_DISTANCE)
     {

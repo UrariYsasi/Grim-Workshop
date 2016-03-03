@@ -32,9 +32,9 @@ void SmeltAction::Update(double deltaTime)
     }
 
     // Check if we are within range
-    Vector2D targetCenter = m_forge->GetPosition();
-    Vector2D monsterCenter = m_owner->GetPosition();
-    double distance = Vector2D::Distance(monsterCenter, targetCenter);
+    glm::vec2 targetCenter = m_forge->GetPosition();
+    glm::vec2 monsterCenter = m_owner->GetPosition();
+    double distance = glm::distance(monsterCenter, targetCenter);
 
     if (distance <= MIN_DISTANCE)
     {

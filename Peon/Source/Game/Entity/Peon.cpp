@@ -8,11 +8,15 @@
 #include "Orc.hpp"
 #include "../World/World.hpp"
 
-Peon::Peon(Game* game, Vector2D position) :
+Peon::Peon(Game* game, const glm::vec2& position) :
     Monster(game, position, PEON)
 {
-    m_origin = Vector2D(16, 16);
+    m_origin = glm::vec2(16, 16);
     m_hitBox = Rect(-3, 10, 7, 8);
+
+    grim::Texture* texture = game->GetTexture("peon");
+    grim::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader");
+    m_sprite = std::make_unique<grim::Sprite>(texture, shaderProgram);
 }
 
 Peon::~Peon()
@@ -55,8 +59,10 @@ void Peon::Render()
 
     if (!IsDead())
     {
-        renderer->RenderSprite("peon", 0, 0, (int)(m_position.x + m_positionOffset.x - m_origin.x), (int)(m_position.y + m_positionOffset.y - m_origin.y), 32, 32);
+        //renderer->RenderSprite("peon", 0, 0, (int)(m_position.x + m_positionOffset.x - m_origin.x), (int)(m_position.y + m_positionOffset.y - m_origin.y), 32, 32);
+        m_sprite->Render(glm::vec3(m_position, 0.0f), glm::vec3(0), glm::vec3(32, 32, 0));
     }
+    /*
     else
     {
         renderer->RenderSprite("peon", 1, 0, (int)(m_position.x + m_positionOffset.x - m_origin.x), (int)(m_position.y + m_positionOffset.y - m_origin.y), 32, 32);
@@ -81,6 +87,7 @@ void Peon::Render()
     {
         renderer->RenderSprite("peon", 0, 2, (int)(m_position.x - m_origin.x), (int)(m_position.y - m_origin.y), 32, 32);
     }
+    */
 
     Entity::Render();
 }

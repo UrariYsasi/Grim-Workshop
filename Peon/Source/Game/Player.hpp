@@ -23,7 +23,7 @@ public:
     void Render();
 
 private:
-    void IssueCommand(Vector2D position);
+    void IssueCommand(glm::vec2 position);
 
 private:
     const int CAMERA_SPEED_SLOW = 256;

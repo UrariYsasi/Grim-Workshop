@@ -4,7 +4,7 @@
 class Rock : public Resource
 {
 public:
-    Rock(Game* game, Vector2D position);
+    Rock(Game* game, const glm::vec2& position);
     virtual ~Rock();
 
     virtual ItemType GetItem() const;

@@ -3,12 +3,12 @@
 #include "../Game.hpp"
 #include "../../Engine/Renderer.hpp"
 
-Tree::Tree(Game* game, Vector2D position) :
+Tree::Tree(Game* game, const glm::vec2& position) :
     Resource(game, position, TREE, ItemType::WOOD)
 {
-    m_origin = Vector2D(16, 48);
+    m_origin = glm::vec2(16, 48);
     m_hitBox = Rect(-16, -16, 32, 32);
-    m_positionOffset = Vector2D(Random::Generate(-6, 6), Random::Generate(0, -6));
+    m_positionOffset = glm::vec2(Random::Generate(-6, 6), Random::Generate(0, -6));
     m_hp = 10;
 }
 

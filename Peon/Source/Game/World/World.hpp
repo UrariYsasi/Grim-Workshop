@@ -22,9 +22,9 @@ public:
     void Render();
     void ProcessTime();
     void Generate();
-    void SpawnPeon(int quantity = 1, const Vector2D& position = Vector2D(0, 0));
+    void SpawnPeon(int quantity, const glm::vec2& position);
     void SpawnOrc(int quantity = 1);
-    bool IsPassable(const Vector2D& point);
+    bool IsPassable(const glm::vec2& point);
     TerrainTile* GetTerrainAtPoint(const glm::vec2& point);
 
     /*
@@ -32,7 +32,7 @@ public:
 
         If the give ID is NONE, then it will return any Entity.
     */
-    Entity* GetEntityAtPoint(const Vector2D& point, int entityID = NONE);
+    Entity* GetEntityAtPoint(const glm::vec2& point, int entityID = NONE);
 
     /*
         Finds and returns all Entities with the given ID that are contained
@@ -50,18 +50,11 @@ public:
     Entity* FindEntity(int entityID);
 
     /*
-        Finds Entities with the given ID that are adjacent to the given Entity.
-
-        If the given ID is NONE, then it will search for ALL Entities.
-    */
-    std::list<Entity*> FindAdjacentEntities(int entityID, Entity* ent);
-
-    /*
         Find Entities with the given ID that are near the given point.
 
         If the given ID is NONE, then it will search for ALL Entities.
     */
-    std::list<Entity*> FindEntitiesInRange(int entityID, const Vector2D& point, int range);
+    std::list<Entity*> FindEntitiesInRange(int entityID, const glm::vec2& point, int range);
 
 private:
     void CleanEntities();

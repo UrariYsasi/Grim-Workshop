@@ -46,7 +46,6 @@
 // Engine Includes
 #include "Engine/Debug.hpp"
 #include "Engine/Random.hpp"
-#include "Engine/Vector2D.hpp"
 #include "Engine/Color.hpp"
 #include "Engine/Rect.hpp"
 #include "Engine/Timer.hpp"
@@ -66,3 +65,18 @@ const int FAILURE = 0;
 
 // Typedefs
 typedef unsigned char byte;
+
+// glm::vec2 Hash
+namespace std {
+
+template <>
+struct hash<glm::vec2>
+{
+    inline std::size_t operator()(const glm::vec2& vec) const
+    {
+        return ((hash<float>()(vec.x)
+            ^ (hash<float>()(vec.y) << 1)) >> 1);
+    }
+};
+
+}

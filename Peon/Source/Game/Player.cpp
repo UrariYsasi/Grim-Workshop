@@ -48,26 +48,26 @@ void Player::Update(double deltaTime)
     }
     */
 
-    glm::vec3 cameraMovement(0.0f);
+    glm::vec2 cameraMovement(0);
 
     if (m_gameInput->GetKey(SDLK_w) || m_gameInput->GetKey(SDLK_UP))
     {
-        cameraMovement += glm::vec3(0.0f, -1.0f, 0.0f);
+        cameraMovement += glm::vec2(0.0f, -1.0f);
     }
 
     if (m_gameInput->GetKey(SDLK_a) || m_gameInput->GetKey(SDLK_LEFT))
     {
-        cameraMovement += glm::vec3(-1.0f, 0.0f, 0.0f);
+        cameraMovement += glm::vec2(-1.0f, 0.0f);
     }
 
     if (m_gameInput->GetKey(SDLK_s) || m_gameInput->GetKey(SDLK_DOWN))
     {
-        cameraMovement += glm::vec3(0.0f, 1.0f, 0.0f);
+        cameraMovement += glm::vec2(0.0f, 1.0f);
     }
 
     if (m_gameInput->GetKey(SDLK_d) || m_gameInput->GetKey(SDLK_RIGHT))
     {
-        cameraMovement += glm::vec3(1.0f, 0.0f, 0.0f);
+        cameraMovement += glm::vec2(1.0f, 0.0f);
     }
 
     if (m_gameInput->GetKey(SDLK_LSHIFT) || m_gameInput->GetKey(SDLK_RSHIFT))
@@ -144,11 +144,12 @@ void Player::Update(double deltaTime)
 
 void Player::Render()
 {
+    /*
     if (m_gameRenderer == nullptr)
     {
         m_gameRenderer = m_game->GetRenderer();
     }
-
+    
     if (m_isBoxSelecting)
     {
         if (std::abs(m_boxSelection.width) >= 5 || std::abs(m_boxSelection.height) >= 5)
@@ -159,20 +160,21 @@ void Player::Render()
 
     for (auto peon : m_selectedPeons)
     {
-        Vector2D position = peon->GetPosition() - peon->GetOrigin();
+        glm::vec2 position = peon->GetPosition() - peon->GetOrigin();
         position.y += 7;
         //Rect outline(position.x - 8, position.y, 16, 22);
         //m_gameRenderer->RenderOutlineRect(outline, SDL_Color{ 0, 0, 0, 100 });
         m_gameRenderer->RenderSprite("peon", 1, 7, (int)position.x, (int)position.y, 32, 32);
     }
+    */
 }
 
-void Player::IssueCommand(Vector2D position)
+void Player::IssueCommand(glm::vec2 position)
 {
     for (auto it : m_selectedPeons)
     {
         Peon* peon = dynamic_cast<Peon*>(it);
-        Vector2D worldPosition = m_gameCamera->ConvertToWorld(position);
+        glm::vec2 worldPosition = m_gameCamera->ConvertToWorld(position);
 
         Entity* ent = m_gameWorld->GetEntityAtPoint(worldPosition);
         if (ent != nullptr)
@@ -224,7 +226,7 @@ void Player::IssueCommand(Vector2D position)
                 double radius = 32;
                 double angle = Random::Generate(0, 1) * M_PI * 2;
                 double distance = Random::Generate(0, 1) * radius;
-                Vector2D offset = Vector2D(distance * cos(angle), distance * sin(angle));
+                glm::vec2 offset = glm::vec2(distance * cos(angle), distance * sin(angle));
                 if (m_gameWorld->IsPassable(worldPosition + offset))
                 {
                     worldPosition += offset;

@@ -4,7 +4,7 @@
 class Tree : public Resource
 {
 public:
-    Tree(Game* game, Vector2D position);
+    Tree(Game* game, const glm::vec2& position);
     virtual ~Tree();
 
     virtual ItemType GetItem() const;

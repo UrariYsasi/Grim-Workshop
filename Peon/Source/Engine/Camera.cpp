@@ -20,12 +20,12 @@ Camera::~Camera()
 {
 }
 
-void Camera::SetPosition(const glm::vec3& position)
+void Camera::SetPosition(const glm::vec2& position)
 {
     m_position = position;
 }
 
-glm::vec3 Camera::GetPosition() const
+glm::vec2 Camera::GetPosition() const
 {
     return m_position;
 }
@@ -44,7 +44,7 @@ void Camera::Activate()
 {
     // Transform the Camera
     m_viewMatrix = glm::mat4(1.0);
-    m_viewMatrix = glm::translate(m_viewMatrix, -m_position);
+    m_viewMatrix = glm::translate(m_viewMatrix, -glm::vec3(m_position, 0));
     m_viewMatrix = glm::rotate(m_viewMatrix, m_rotation.x, glm::vec3(1.0, 0.0, 0.0));
     m_viewMatrix = glm::rotate(m_viewMatrix, m_rotation.y, glm::vec3(0.0, 1.0, 0.0));
     m_viewMatrix = glm::rotate(m_viewMatrix, m_rotation.z, glm::vec3(0.0, 0.0, 1.0));
@@ -53,23 +53,23 @@ void Camera::Activate()
     m_renderer->SetActiveCamera(this);
 }
 
-void Camera::Move(const glm::vec3& movement)
+void Camera::Move(const glm::vec2& movement)
 {
     m_position += movement;
 }
 
-Vector2D Camera::ConvertToWorld(const Vector2D& coord)
+glm::vec2 Camera::ConvertToWorld(const glm::vec2& coord)
 {
     Debug::Log("Implement ConvertToWorld()");
     //return (coord + m_position);
-    return 0;
+    return glm::vec2(0);
 }
 
-Vector2D Camera::ConvertToScreen(const Vector2D& coord)
+glm::vec2 Camera::ConvertToScreen(const glm::vec2& coord)
 {
     Debug::Log("Implement ConvertToScreen()");
    // return (coord - m_position);
-    return 0;
+    return glm::vec2(0);
 }
 
 }

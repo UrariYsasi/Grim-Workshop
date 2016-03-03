@@ -3,7 +3,7 @@
 #include "../Game.hpp"
 #include "../../Engine/Renderer.hpp"
 
-Entity::Entity(Game* game, const Vector2D& position, int entityID) :
+Entity::Entity(Game* game, const glm::vec2& position, int entityID) :
     SPRITE_SIZE(32, 32),
     m_game(game),
     m_entityID(entityID),
@@ -32,27 +32,27 @@ int Entity::GetEntityID()
     return m_entityID;
 }
 
-Vector2D Entity::GetPosition() const
+glm::vec2 Entity::GetPosition() const
 {
     return m_position;
 }
 
-Vector2D Entity::GetOrigin() const
+glm::vec2 Entity::GetOrigin() const
 {
     return m_origin;
 }
 
-Vector2D Entity::GetPositionOffset() const
+glm::vec2 Entity::GetPositionOffset() const
 {
     return m_positionOffset;
 }
 
-void Entity::SetPosition(const Vector2D& position)
+void Entity::SetPosition(const glm::vec2& position)
 {
     m_position = position;
 }
 
-void Entity::SetPositionOffset(const Vector2D& positionOffset)
+void Entity::SetPositionOffset(const glm::vec2& positionOffset)
 {
     m_positionOffset = positionOffset;
 }

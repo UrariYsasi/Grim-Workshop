@@ -3,7 +3,7 @@
 #include "../Game.hpp"
 #include "../../Engine/Renderer.hpp"
 
-Forge::Forge(Game* game, const Vector2D& position) :
+Forge::Forge(Game* game, const glm::vec2& position) :
     Prop(game, position, NONE)
 {
 }

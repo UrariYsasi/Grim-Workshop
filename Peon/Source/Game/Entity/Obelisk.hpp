@@ -4,7 +4,7 @@
 class Obelisk : public Prop
 {
 public:
-    Obelisk(Game* game, Vector2D position);
+    Obelisk(Game* game, const glm::vec2& position);
     virtual ~Obelisk();
 
     virtual void Update(double deltaTime);

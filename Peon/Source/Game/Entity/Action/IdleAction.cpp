@@ -30,7 +30,7 @@ void IdleAction::Update(double deltaTime)
 
             double randX = Random::Generate(-32, 32);
             double randY = Random::Generate(-32, 32);
-            Vector2D wanderDestination = m_owner->GetPosition() + Vector2D(randX, randY);
+            glm::vec2 wanderDestination = m_owner->GetPosition() + glm::vec2(randX, randY);
             if (m_owner->GetGame()->GetWorld()->IsPassable(wanderDestination))
             {
                 m_owner->PushAction(std::make_unique<MoveAction>(m_owner, wanderDestination));

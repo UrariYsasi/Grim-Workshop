@@ -306,6 +306,8 @@ void Game::Render()
 
     m_mainCamera->Activate();
 
+    m_map->Render();
+
     glm::vec3 pos(64.0f, 64.0f, 0.0f);
     sprite->Render(pos, glm::vec3(0.0f), glm::vec3(64.0f, 64.0f, 0.0f));
 
@@ -317,8 +319,6 @@ void Game::Render()
 
     pos = glm::vec3(450.0f, 256.0f, 0.0f);
     sprite3->Render(pos, glm::vec3(0.0f), glm::vec3(16.0f, 64.0f, 0.0f));
-
-    m_map->Render();
 
     /*
     m_player->Render();

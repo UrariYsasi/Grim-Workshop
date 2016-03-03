@@ -8,7 +8,7 @@ class AttackAction;
 class Monster : public Entity
 {
 public:
-    Monster(Game* game, Vector2D position, int entityID);
+    Monster(Game* game, const glm::vec2& position, int entityID);
     virtual ~Monster();
 
     Inventory* GetInventory();

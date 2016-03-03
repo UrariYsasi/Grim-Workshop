@@ -27,9 +27,9 @@ void SacrificeAction::Update(double deltaTime)
     }
 
     // Check if we are in range of the altar
-    Vector2D targetCenter = m_altar->GetPosition();
-    Vector2D monsterCenter = m_owner->GetPosition();
-    double distance = Vector2D::Distance(monsterCenter, targetCenter);
+    glm::vec2 targetCenter = m_altar->GetPosition();
+    glm::vec2 monsterCenter = m_owner->GetPosition();
+    double distance = glm::distance(monsterCenter, targetCenter);
 
     if (distance <= MIN_DISTANCE)
     {

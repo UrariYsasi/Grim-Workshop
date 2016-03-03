@@ -7,10 +7,10 @@
 #include "../../Engine/Renderer.hpp"
 #include "../World/World.hpp"
 
-Orc::Orc(Game* game, Vector2D position) :
+Orc::Orc(Game* game, const glm::vec2& position) :
     Monster(game, position, ORC)
 {
-    m_origin = Vector2D(16, 16);
+    m_origin = glm::vec2(16, 16);
     m_hitBox = Rect(-4, 0, 8, 16);
     m_hp = 6;
 }

@@ -4,7 +4,7 @@
 class Forge : public Prop
 {
 public:
-    Forge(Game* game, const Vector2D& position);
+    Forge(Game* game, const glm::vec2& position);
     virtual ~Forge();
 
     virtual void Update(double deltaTime);

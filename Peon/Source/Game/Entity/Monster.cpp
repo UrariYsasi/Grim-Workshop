@@ -4,7 +4,7 @@
 #include "Action/IdleAction.hpp"
 #include "Action/AttackAction.hpp"
 
-Monster::Monster(Game* game, Vector2D position, int entityID) :
+Monster::Monster(Game* game, const glm::vec2& position, int entityID) :
     Entity(game, position, entityID),
     m_heldEntity(nullptr),
     m_moveSpeed(64)
@@ -53,7 +53,7 @@ void Monster::Update(double deltaTime)
 
     if (m_heldEntity != nullptr)
     {
-        m_heldEntity->SetPosition(m_position + Vector2D(0, -12));
+        m_heldEntity->SetPosition(m_position + glm::vec2(0, -12));
     }
 }
 

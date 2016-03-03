@@ -70,25 +70,3 @@ double PerlinGenerator::Noise(const int& x, const int& y)
     n = (n << 13) ^ n;
     return (double)(1.0 - ((n * (n * n * 15731 + 789221) + 1376312589) & 0x7fffffff) / 1073741824.0);
 }
-
-/*
-heightmap = new double[512 * 512];
-for (int y = 0; y < 512; y++)
-{
-for (int x = 0; x < 512; x++)
-{
-double val = GeneratePerlin2D((double)(x + offsetX) / 512.0 * scale, (double)(y + offsetY) / 512.0 * scale);
-val = (val + 1) / 2.0;
-
-if (val > 1.0)
-{
-val = 1.0;
-}
-else if (val < 0.0)
-{
-val = 0.0;
-}
-
-heightmap[(y * 512) + x] = val;
-}
-*/

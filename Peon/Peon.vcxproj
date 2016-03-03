@@ -77,7 +77,6 @@
     <ClInclude Include="Source\Engine\Sprite.hpp" />
     <ClInclude Include="Source\Engine\Texture.hpp" />
     <ClInclude Include="Source\Engine\Timer.hpp" />
-    <ClInclude Include="Source\Engine\Vector2D.hpp" />
     <ClInclude Include="Source\Engine\Window.hpp" />
     <ClInclude Include="Source\Game\Entity\Action\Action.hpp" />
     <ClInclude Include="Source\Game\Entity\Action\ActionID.hpp" />

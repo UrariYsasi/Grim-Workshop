@@ -26,14 +26,14 @@ void AttackAction::Update(double deltaTime)
     }
 
     // Check if we are in range of the resource
-    Vector2D targetPosition = m_target->GetPosition();
-    Vector2D monsterPosition = m_owner->GetPosition();
-    double distance = Vector2D::Distance(monsterPosition, targetPosition);
+    glm::vec2 targetPosition = m_target->GetPosition();
+    glm::vec2 monsterPosition = m_owner->GetPosition();
+    double distance = glm::distance(monsterPosition, targetPosition);
 
     // If we are too far away, move closer to our target
     if (distance > MIN_ATTACK_DISTANCE)
     {
-        auto moveAction = std::make_unique<MoveAction>(m_owner);
+        auto moveAction = std::make_unique<MoveAction>(m_owner, glm::vec2(0, 0));
         moveAction->SetFollowTarget(m_target);
         moveAction->SetMinimumRange((int)MIN_ATTACK_DISTANCE - 5);
         m_owner->PushAction(std::move(moveAction));

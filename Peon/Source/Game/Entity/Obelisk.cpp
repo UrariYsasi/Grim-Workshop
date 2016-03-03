@@ -3,10 +3,10 @@
 #include "../Game.hpp"
 #include "../../Engine/Renderer.hpp"
 
-Obelisk::Obelisk(Game* game, Vector2D position) :
+Obelisk::Obelisk(Game* game, const glm::vec2& position) :
     Prop(game, position, OBELISK)
 {
-    m_origin = Vector2D(48, 240);
+    m_origin = glm::vec2(48, 240);
     m_hitBox = Rect(-36, -30, 73, 80);
 }
 

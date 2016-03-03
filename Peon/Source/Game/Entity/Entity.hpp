@@ -5,16 +5,16 @@ class Game;
 class Entity
 {
 public:
-    Entity(Game* game, const Vector2D& position, int entityID);
+    Entity(Game* game, const glm::vec2& position, int entityID);
     virtual ~Entity();
 
     Game* GetGame();
     int GetEntityID();
-    Vector2D GetPosition() const;
-    Vector2D GetOrigin() const;
-    Vector2D GetPositionOffset() const;
-    void SetPosition(const Vector2D& position);
-    void SetPositionOffset(const Vector2D& positionOffset);
+    glm::vec2 GetPosition() const;
+    glm::vec2 GetOrigin() const;
+    glm::vec2 GetPositionOffset() const;
+    void SetPosition(const glm::vec2& position);
+    void SetPositionOffset(const glm::vec2& positionOffset);
     bool IsDeleted() const;
     Rect GetHitBox() const;
 
@@ -49,16 +49,18 @@ public:
     bool IsHeld();
 
 protected:
-    const Vector2D SPRITE_SIZE; // TODO: Do something with this
+    const glm::vec2 SPRITE_SIZE; // TODO: Do something with this
 
     Game* m_game;
     int m_entityID;
-    Vector2D m_position;
-    Vector2D m_origin;
-    Vector2D m_positionOffset;
+    glm::vec2 m_position;
+    glm::vec2 m_origin;
+    glm::vec2 m_positionOffset;
     bool m_isDeleted;
     Rect m_hitBox;
     Rect m_selectionHitBox;
     int m_hp;
     bool m_isHeld;
+
+    std::unique_ptr<grim::Sprite> m_sprite;
 };

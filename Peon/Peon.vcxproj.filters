@@ -194,9 +194,6 @@
     <ClInclude Include="Source\Engine\Timer.hpp">
       <Filter>Source\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\Vector2D.hpp">
-      <Filter>Source\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Engine\Window.hpp">
       <Filter>Source\Engine</Filter>
     </ClInclude>

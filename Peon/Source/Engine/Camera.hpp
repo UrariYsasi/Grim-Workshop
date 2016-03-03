@@ -11,19 +11,19 @@ public:
     Camera(grim::Renderer* renderer);
     ~Camera();
 
-    void SetPosition(const glm::vec3& position);
-    glm::vec3 GetPosition() const;
+    void SetPosition(const glm::vec2& position);
+    glm::vec2 GetPosition() const;
     glm::mat4 GetViewMatrix() const;
     glm::mat4 GetProjectionMatrix() const;
     
     void Activate();
-    void Move(const glm::vec3& movement);
-    Vector2D ConvertToWorld(const Vector2D& coord);
-    Vector2D ConvertToScreen(const Vector2D& coord);
+    void Move(const glm::vec2& movement);
+    glm::vec2 ConvertToWorld(const glm::vec2& coord);
+    glm::vec2 ConvertToScreen(const glm::vec2& coord);
 
 private:
     grim::Renderer* m_renderer;
-    glm::vec3 m_position;
+    glm::vec2 m_position;
     glm::vec3 m_rotation;
 
     /*

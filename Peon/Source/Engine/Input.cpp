@@ -4,7 +4,7 @@
 
 Input::Input(Game* game) :
     m_game(game),
-    m_mousePosition(0, 0)
+    m_mousePosition(0)
 {
     std::fill(m_currentKeys, m_currentKeys + MAX_KEYBOARD_KEYS, false);
     std::fill(m_downKeys, m_downKeys + MAX_KEYBOARD_KEYS, false);
@@ -78,7 +78,7 @@ bool Input::GetMouseButtonRelease(int button)
     return m_upMouseButtons[button];
 }
 
-Vector2D Input::GetMousePosition() const
+glm::vec2 Input::GetMousePosition() const
 {
     return m_mousePosition;
 }
@@ -87,7 +87,7 @@ void Input::Update()
 {
     int x, y;
     SDL_GetMouseState(&x, &y);
-    m_mousePosition = Vector2D(x, y);
+    m_mousePosition = glm::vec2(x, y);
 
     for (int i = 0; i < MAX_KEYBOARD_KEYS; i++)
     {

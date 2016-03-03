@@ -103,14 +103,14 @@ void World::Render()
 
         return (aHit.y + aHit.height) < (bHit.y + bHit.height);
     });
+    */
 
     // Entities
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
-        Entity* e = (*it).get();
+        Entity* e = it->get();
         e->Render();
     }
-    */
 }
 
 void World::ProcessTime()
@@ -196,10 +196,10 @@ void World::Generate()
 
     // Obelisk
     m_entities.push_back(std::make_unique<Obelisk>(m_game, Vector2D(0, 0)));
+    */
 
     // Peons
-    SpawnPeon(3, Vector2D(-350, -128));
-    */
+    SpawnPeon(3, glm::vec2(-350, -128));
 
     Debug::Log("World generation complete.");
 }
@@ -221,11 +221,11 @@ void World::CleanEntities()
 /*
     Create some peons on the map.
 */
-void World::SpawnPeon(int quantity, const Vector2D& position)
+void World::SpawnPeon(int quantity, const glm::vec2& position)
 {
     for (int i = 0; i < quantity; i++)
     {
-        Vector2D spawnPos = position + Vector2D(Random::Generate(-32, 32), Random::Generate(-32, 32));
+        glm::vec2 spawnPos = position + glm::vec2(Random::Generate(-32, 32), Random::Generate(-32, 32));
         m_entities.push_back(std::make_unique<Peon>(m_game, spawnPos));
     }
 }
@@ -237,17 +237,16 @@ void World::SpawnOrc(int quantity)
 {
     for (int i = 0; i < quantity; i++)
     {
-        Vector2D position = m_game->GetInput()->GetMousePosition();
-        position = m_game->GetMainCamera()->ConvertToWorld(position);
-        //position += Vector2D(Random::Generate(-32, 32), Random::Generate(-32, 32));
-        m_entities.push_back(std::make_unique<Orc>(m_game, position));
+        glm::vec2 mousePos = m_game->GetInput()->GetMousePosition();
+        glm::vec2 spawnPos = m_game->GetMainCamera()->ConvertToWorld(mousePos);
+        m_entities.push_back(std::make_unique<Orc>(m_game, spawnPos));
     }
 }
 
 /*
     Checks whether a point on the map is passable or not.
 */
-bool World::IsPassable(const Vector2D& point)
+bool World::IsPassable(const glm::vec2& point)
 {
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
@@ -260,7 +259,7 @@ bool World::IsPassable(const Vector2D& point)
     return true;
 }
 
-Entity* World::GetEntityAtPoint(const Vector2D& point, int entityID)
+Entity* World::GetEntityAtPoint(const glm::vec2& point, int entityID)
 {
     Entity* ent = nullptr;
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
@@ -316,47 +315,7 @@ Entity* World::FindEntity(int entityID)
     return nullptr;
 }
 
-std::list<Entity*> World::FindAdjacentEntities(int entityID, Entity* ent)
-{
-    std::list<Entity*> ents;
-    Vector2D position = ent->GetPosition();
-    Entity* right = GetEntityAtPoint(position + Vector2D(32, 0));
-    Entity* left = GetEntityAtPoint(position + Vector2D(-32, 0));
-    Entity* bottom = GetEntityAtPoint(position + Vector2D(0, 32));
-    Entity* top = GetEntityAtPoint(position + Vector2D(0, -32));
-
-    if (right != nullptr)
-    {
-        if (right->GetEntityID() == entityID || entityID == NONE)
-        {
-            ents.push_back(right);
-        }
-    }
-    if (left != nullptr)
-    {
-        if (left->GetEntityID() == entityID || entityID == NONE)
-        {
-            ents.push_back(left);
-        }
-    }
-    if (bottom != nullptr)
-    {
-        if (bottom->GetEntityID() == entityID || entityID == NONE)
-        {
-            ents.push_back(bottom);
-        }
-    }
-    if (top != nullptr)
-    {
-        if (top->GetEntityID() == entityID || entityID == NONE)
-        {
-            ents.push_back(top);
-        }
-    }
-    return ents;
-}
-
-std::list<Entity*> World::FindEntitiesInRange(int entityID, const Vector2D& point, int range)
+std::list<Entity*> World::FindEntitiesInRange(int entityID, const glm::vec2& point, int range)
 {
     std::list<Entity*> ents;
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
@@ -364,7 +323,7 @@ std::list<Entity*> World::FindEntitiesInRange(int entityID, const Vector2D& poin
         Entity* ent = (*it).get();
         if (ent->GetEntityID() == entityID || entityID == NONE)
         {
-            double distance = Vector2D::Distance(point, ent->GetPosition());
+            double distance = glm::distance(point, ent->GetPosition());
             if (distance <= range)
             {
                 ents.push_back(ent);

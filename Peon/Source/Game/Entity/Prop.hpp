@@ -4,7 +4,7 @@
 class Prop : public Entity
 {
 public:
-    Prop(Game* game, Vector2D position, int entityID);
+    Prop(Game* game, const glm::vec2& position, int entityID);
     virtual ~Prop();
 
     virtual void Update(double deltaTime) = 0;

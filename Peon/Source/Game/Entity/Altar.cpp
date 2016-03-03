@@ -3,10 +3,10 @@
 #include "../Game.hpp"
 #include "../../Engine/Renderer.hpp"
 
-Altar::Altar(Game* game, Vector2D position) :
+Altar::Altar(Game* game, const glm::vec2& position) :
     Prop(game, position, ALTAR)
 {
-    m_origin = Vector2D(16, 16);
+    m_origin = glm::vec2(16, 16);
     m_hitBox = Rect(-16, -16, 32, 32);
 }
 

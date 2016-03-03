@@ -2,7 +2,7 @@
 #include "Window.hpp"
 
 Window::Window(const int& width, const int& height, const std::string& title) :
-    m_size(Vector2D(width, height)),
+    m_size(width, height),
     m_title(title)
 {
 }
@@ -21,13 +21,13 @@ SDL_Window* Window::GetSDLWindow() const
     return m_SDLWindow;
 }
 
-void Window::SetSize(const Vector2D& size)
+void Window::SetSize(const glm::vec2& size)
 {
     m_size = size;
     SDL_SetWindowSize(m_SDLWindow, (int)size.x, (int)size.y);
 }
 
-Vector2D Window::GetSize() const
+glm::vec2 Window::GetSize() const
 {
     return m_size;
 }
