@@ -199,7 +199,7 @@ void World::Generate()
     */
 
     // Peons
-    SpawnPeon(3, glm::vec2(-350, -128));
+    SpawnPeon(3, glm::vec2(0, 0));
 
     Debug::Log("World generation complete.");
 }

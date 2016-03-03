@@ -4,9 +4,10 @@
 namespace grim
 {
 
-Sprite::Sprite(grim::Texture* texture, grim::ShaderProgram* shaderProgram) :
-    m_texture(texture),
+Sprite::Sprite(grim::Texture* spriteSheet, grim::ShaderProgram* shaderProgram, int frame) :
+    m_spriteSheet(spriteSheet),
     m_shaderProgram(shaderProgram),
+    m_frame(frame),
     m_modelMatrix(1.0),
     m_VAOHandle(0),
     m_VBOHandle(0),
@@ -47,13 +48,13 @@ void Sprite::Render(const glm::vec3& position, const glm::vec3& rotation, const 
     glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(m_modelMatrix));
 
     // Bind our Texture
-    m_texture->Bind();
+    m_spriteSheet->Bind();
 
     // Render the mesh
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
     // Unbind our Texture
-    m_texture->Unbind();
+    m_spriteSheet->Unbind();
 
     // Unbind our ShaderProgram
     m_shaderProgram->Unbind();
@@ -76,11 +77,17 @@ void Sprite::CreateMesh()
     // Create an EBO
     glGenBuffers(1, &m_EBOHandle);
 
+    // (m_width / m_spriteSheet->GetWidth());
+    double spriteTexelWidth = 32.0 / m_spriteSheet->GetWidth();
+    double spriteTexelHeight = 32.0 / m_spriteSheet->GetHeight();
+    double spriteTexelX = m_frame * spriteTexelWidth;
+    double spriteTexelY = m_frame * spriteTexelHeight;
+
     GLfloat vertices[] = {
-        -0.5f,  -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,    // Top left
-        0.5f,  -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,     // Top right
-        -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,      // Bottom left
-        0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f        // Bottom right
+        -0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, spriteTexelX, spriteTexelY,                                       // Top left
+        0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, spriteTexelX + spriteTexelWidth, spriteTexelY,                     // Top right
+        -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 1.0f, spriteTexelX, spriteTexelY + spriteTexelHeight,                    // Bottom left
+        0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 1.0f, spriteTexelX + spriteTexelWidth, spriteTexelY + spriteTexelHeight   // Bottom right
     };
 
     GLuint elements[] = {

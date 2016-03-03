@@ -149,11 +149,11 @@ int Game::Initialize()
     // Load Textures
     Debug::Log("Loading textures...");
     LoadTexture("peon.png", "peon");
-    LoadTexture("Resources/Textures/orc.png", "orc");
-    LoadTexture("Resources/Textures/resource.png", "resource");
-    LoadTexture("Resources/Textures/terrain.png", "terrain");
-    LoadTexture("Resources/Textures/structure.png", "structure");
-    LoadTexture("Resources/Textures/obelisk.png", "obelisk");
+    LoadTexture("orc.png", "orc");
+    LoadTexture("resource.png", "resource");
+    LoadTexture("terrain.png", "terrain");
+    LoadTexture("structure.png", "structure");
+    LoadTexture("obelisk.png", "obelisk");
     LoadTexture("doosk.png", "doosk");
     LoadTexture("puppy.png", "puppy");
     LoadTexture("kitten.png", "kitten");
@@ -210,10 +210,6 @@ int Game::Initialize()
 
     // Setup the game
     m_map->Generate();
-
-    sprite = std::make_unique<grim::Sprite>(GetTexture("gandalf"), GetShaderProgram("basic_shader"));
-    sprite2 = std::make_unique<grim::Sprite>(GetTexture("kitten"), GetShaderProgram("basic_shader"));
-    sprite3 = std::make_unique<grim::Sprite>(GetTexture("puppy"), GetShaderProgram("basic_shader"));
 
     return SUCCESS;
 }
@@ -293,9 +289,9 @@ void Game::Update(double deltaTime)
             Debug::ToggleFlag(RENDER_ORIGINS);
         }
     }
+    */
 
     m_map->Update(deltaTime);
-    */
 
     m_player->Update(deltaTime);
 }
@@ -307,18 +303,6 @@ void Game::Render()
     m_mainCamera->Activate();
 
     m_map->Render();
-
-    glm::vec3 pos(64.0f, 64.0f, 0.0f);
-    sprite->Render(pos, glm::vec3(0.0f), glm::vec3(64.0f, 64.0f, 0.0f));
-
-    pos = glm::vec3(256.0f, 256.0f, 0.0f);
-    sprite2->Render(pos, glm::vec3(0.0f), glm::vec3(64.0f, 64.0f, 0.0f));
-
-    pos = glm::vec3(400.0f, 256.0f, 0.0f);
-    sprite3->Render(pos, glm::vec3(0.0f), glm::vec3(32.0f, 32.0f, 0.0f));
-
-    pos = glm::vec3(450.0f, 256.0f, 0.0f);
-    sprite3->Render(pos, glm::vec3(0.0f), glm::vec3(16.0f, 64.0f, 0.0f));
 
     /*
     m_player->Render();

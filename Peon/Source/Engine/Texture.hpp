@@ -17,6 +17,9 @@ public:
     */
     GLuint GetHandle() const;
 
+    int GetWidth() const;
+    int GetHeight() const;
+
     /*
         Bind the Texture for rendering.
     */

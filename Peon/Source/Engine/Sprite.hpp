@@ -4,12 +4,12 @@ namespace grim
 {
 
 /*
-    A 2D, renderable texture.
+    A 2D, renderable sprite.
 */
 class Sprite
 {
 public:
-    Sprite(grim::Texture* texture, grim::ShaderProgram* shaderProgram);
+    Sprite(grim::Texture* spriteSheet, grim::ShaderProgram* shaderProgram, int frame);
     ~Sprite();
 
     /*
@@ -24,8 +24,9 @@ private:
     void CreateMesh();
 
 private:
-    grim::Texture* m_texture;
+    grim::Texture* m_spriteSheet;
     grim::ShaderProgram* m_shaderProgram;
+    int m_frame;
     glm::mat4 m_modelMatrix;
     GLuint m_VAOHandle;
     GLuint m_VBOHandle;

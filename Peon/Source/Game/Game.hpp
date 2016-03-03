@@ -100,11 +100,4 @@ private:
     double m_frameRate;
     double m_gameStartTime;
     Mix_Music* m_bgMusic;
-
-    grim::ShaderProgram* program;
-    grim::Texture* texture;
-
-    std::unique_ptr<grim::Sprite> sprite;
-    std::unique_ptr<grim::Sprite> sprite2;
-    std::unique_ptr<grim::Sprite> sprite3;
 };
