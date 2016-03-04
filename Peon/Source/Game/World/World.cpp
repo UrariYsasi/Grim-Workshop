@@ -151,11 +151,7 @@ void World::Generate()
             m_terrain[position] = std::make_unique<TerrainTile>(m_game, position * 32.0f);
         }
     }
-    
-/*
-    glm::vec2 position(-64.0f, -64.0f);
-    m_terrain[position] = std::make_unique<TerrainTile>(m_game, position * 32.0f);
-*/
+
     // Resources
     /*
     for (int x = -(MAP_SIZE / 2); x < (MAP_SIZE / 2); x++)
@@ -187,16 +183,16 @@ void World::Generate()
             }
         }
     }
+    */
 
     // Altar
-    m_entities.push_back(std::make_unique<Altar>(m_game, Vector2D(-256, -128)));
+    //m_entities.push_back(std::make_unique<Altar>(m_game, glm::vec2(-256, -128)));
 
     // Stockpile
-    m_entities.push_back(std::make_unique<Stockpile>(m_game, Vector2D(-128, 0)));
+    //m_entities.push_back(std::make_unique<Stockpile>(m_game, glm::vec2(-128, 0)));
 
     // Obelisk
-    m_entities.push_back(std::make_unique<Obelisk>(m_game, Vector2D(0, 0)));
-    */
+    m_entities.push_back(std::make_unique<Obelisk>(m_game, glm::vec2(0, 0)));
 
     // Peons
     SpawnPeon(3, glm::vec2(0, 0));

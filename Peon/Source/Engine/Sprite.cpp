@@ -4,9 +4,11 @@
 namespace grim
 {
 
-Sprite::Sprite(grim::Texture* spriteSheet, grim::ShaderProgram* shaderProgram, int frame) :
+Sprite::Sprite(grim::Texture* spriteSheet, grim::ShaderProgram* shaderProgram, int width, int height, int frame) :
     m_spriteSheet(spriteSheet),
     m_shaderProgram(shaderProgram),
+    m_width(width),
+    m_height(height),
     m_frame(frame),
     m_modelMatrix(1.0),
     m_VAOHandle(0),
@@ -22,6 +24,16 @@ Sprite::~Sprite()
     glDeleteBuffers(1, &m_EBOHandle);
     glDeleteBuffers(1, &m_VBOHandle);
     glDeleteVertexArrays(1, &m_VAOHandle);
+}
+
+int Sprite::GetWidth() const
+{
+    return m_width;
+}
+
+int Sprite::GetHeight() const
+{
+    return m_height;
 }
 
 void Sprite::Render(const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale)
@@ -77,11 +89,14 @@ void Sprite::CreateMesh()
     // Create an EBO
     glGenBuffers(1, &m_EBOHandle);
 
-    // (m_width / m_spriteSheet->GetWidth());
-    double spriteTexelWidth = 32.0 / m_spriteSheet->GetWidth();
-    double spriteTexelHeight = 32.0 / m_spriteSheet->GetHeight();
-    double spriteTexelX = m_frame * spriteTexelWidth;
-    double spriteTexelY = m_frame * spriteTexelHeight;
+    int spriteSheetRows = m_spriteSheet->GetHeight() / m_height;
+    int spriteSheetCols = m_spriteSheet->GetWidth() / m_width;
+    double spriteTexelWidth = (double)m_width / m_spriteSheet->GetWidth();
+    double spriteTexelHeight = (double)m_height / m_spriteSheet->GetHeight();
+    int col = std::floor(m_frame / spriteSheetCols);
+    int row = m_frame % spriteSheetCols;
+    double spriteTexelX = row * spriteTexelWidth;
+    double spriteTexelY = col * spriteTexelHeight;
 
     GLfloat vertices[] = {
         -0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, spriteTexelX, spriteTexelY,                                       // Top left

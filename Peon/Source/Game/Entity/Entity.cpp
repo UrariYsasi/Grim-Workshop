@@ -14,7 +14,8 @@ Entity::Entity(Game* game, const glm::vec2& position, int entityID) :
     m_hitBox(-16, -16, 16, 16),
     m_selectionHitBox(-16, -16, 16, 16),
     m_hp(3),
-    m_isHeld(false)
+    m_isHeld(false),
+    m_sprite(nullptr)
 {
 }
 
