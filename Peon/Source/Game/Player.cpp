@@ -38,7 +38,7 @@ Player::~Player()
 
 void Player::Update(double deltaTime)
 {
-    /*
+    // Deselect any dead peons
     for (auto it = m_selectedPeons.begin(); it != m_selectedPeons.end(); it++)
     {
         if ((*it)->IsDead())
@@ -46,7 +46,6 @@ void Player::Update(double deltaTime)
             m_selectedPeons.erase(it++);
         }
     }
-    */
 
     glm::vec2 cameraMovement(0);
 
@@ -88,15 +87,14 @@ void Player::Update(double deltaTime)
 
     m_gameCamera->Move(cameraMovement);
 
-    /*
+    glm::vec2 mousePositionScreen = m_gameInput->GetMousePosition();
+    glm::vec2 mousePositionWorld = m_gameCamera->ConvertToWorld(mousePositionScreen);
+
     if (m_gameInput->GetMouseButtonPress(SDL_BUTTON_LEFT))
     {
         m_selectedPeons.clear();
 
         m_isBoxSelecting = true;
-
-        Vector2D mousePositionScreen = m_gameInput->GetMousePosition();
-        Vector2D mousePositionWorld = m_gameCamera->ConvertToWorld(mousePositionScreen);
 
         m_boxSelection.x = mousePositionWorld.x;
         m_boxSelection.y = mousePositionWorld.y;
@@ -104,8 +102,6 @@ void Player::Update(double deltaTime)
 
     if (m_isBoxSelecting)
     {
-        Vector2D mousePositionScreen = m_gameInput->GetMousePosition();
-        Vector2D mousePositionWorld = m_gameCamera->ConvertToWorld(mousePositionScreen);
         m_boxSelection.width = mousePositionWorld.x - m_boxSelection.x;
         m_boxSelection.height = mousePositionWorld.y - m_boxSelection.y;
     }
@@ -122,7 +118,6 @@ void Player::Update(double deltaTime)
             }
             else
             {
-                Vector2D mousePositionWorld = m_gameCamera->ConvertToWorld(m_gameInput->GetMousePosition());
                 Entity* peon = m_gameWorld->GetEntityAtPoint(mousePositionWorld, PEON);
                 if (peon != nullptr)
                 {
@@ -137,19 +132,13 @@ void Player::Update(double deltaTime)
 
     if (m_gameInput->GetMouseButtonPress(SDL_BUTTON_RIGHT))
     {
-        IssueCommand(m_gameInput->GetMousePosition());
+        IssueCommand(mousePositionWorld);
     }
-    */
 }
 
 void Player::Render()
 {
     /*
-    if (m_gameRenderer == nullptr)
-    {
-        m_gameRenderer = m_game->GetRenderer();
-    }
-    
     if (m_isBoxSelecting)
     {
         if (std::abs(m_boxSelection.width) >= 5 || std::abs(m_boxSelection.height) >= 5)
@@ -174,9 +163,8 @@ void Player::IssueCommand(glm::vec2 position)
     for (auto it : m_selectedPeons)
     {
         Peon* peon = dynamic_cast<Peon*>(it);
-        glm::vec2 worldPosition = m_gameCamera->ConvertToWorld(position);
 
-        Entity* ent = m_gameWorld->GetEntityAtPoint(worldPosition);
+        Entity* ent = m_gameWorld->GetEntityAtPoint(position);
         if (ent != nullptr)
         {
             Resource* resource = dynamic_cast<Resource*>(ent);
@@ -221,19 +209,19 @@ void Player::IssueCommand(glm::vec2 position)
         else
         {
             // TODO move this into MoveAction
-            if (m_gameWorld->IsPassable(worldPosition))
+            if (m_gameWorld->IsPassable(position))
             {
                 double radius = 32;
                 double angle = Random::Generate(0, 1) * M_PI * 2;
                 double distance = Random::Generate(0, 1) * radius;
                 glm::vec2 offset = glm::vec2(distance * cos(angle), distance * sin(angle));
-                if (m_gameWorld->IsPassable(worldPosition + offset))
+                if (m_gameWorld->IsPassable(position + offset))
                 {
-                    worldPosition += offset;
+                    //position += offset;
                 }
 
                 peon->ClearActionStack();
-                peon->PushAction(std::make_unique<MoveAction>(peon, worldPosition));
+                peon->PushAction(std::make_unique<MoveAction>(peon, position));
             }
         }
     }

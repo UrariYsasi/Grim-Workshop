@@ -251,12 +251,12 @@ void Game::Terminate()
 
 void Game::Update(double deltaTime)
 {
-    /*
     if (m_input->GetKeyPress(SDLK_ESCAPE))
     {
         Terminate();
     }
 
+    /*
     if (m_input->GetKeyPress(SDLK_i))
     {
         Debug::ToggleFlag(SHOW_MENU);
@@ -264,11 +264,13 @@ void Game::Update(double deltaTime)
 
     if (Debug::IsFlagEnabled(CHEAT))
     {
+    */
         if (m_input->GetKeyPress(SDLK_y))
         {
             m_map->SpawnPeon(1, m_mainCamera->ConvertToWorld(m_input->GetMousePosition()));
         }
 
+        /*
         if (m_input->GetKeyPress(SDLK_u))
         {
             m_map->SpawnOrc();
@@ -292,7 +294,6 @@ void Game::Update(double deltaTime)
     */
 
     m_map->Update(deltaTime);
-
     m_player->Update(deltaTime);
 }
 

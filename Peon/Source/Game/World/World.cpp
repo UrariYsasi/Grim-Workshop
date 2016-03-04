@@ -153,37 +153,7 @@ void World::Generate()
     }
 
     // Resources
-    /*
-    for (int x = -(MAP_SIZE / 2); x < (MAP_SIZE / 2); x++)
-    {
-        for (int y = -(MAP_SIZE / 2); y <  (MAP_SIZE / 2); y++)
-        {
-            double val = m_generator.GeneratePerlin2D((double)(x + 59) / MAP_SIZE * 25, (double)(y + 73) / MAP_SIZE * 25);
-            val = (val + 1) / 2.0;
-
-            if (val > 1.0)
-            {
-                val = 1.0;
-            }
-            else if (val < 0.0)
-            {
-                val = 0.0;
-            }
-
-            if (val > .5)
-            {
-                Vector2D position(x * 32, y * 32);
-                m_entities.push_back(std::make_unique<Tree>(m_game, position));
-            }
-
-            if (val < .25)
-            {
-                Vector2D position(x * 32, y * 32);
-                m_entities.push_back(std::make_unique<Rock>(m_game, position));
-            }
-        }
-    }
-    */
+    m_entities.push_back(std::make_unique<Tree>(m_game, glm::vec2(0, 0)));
 
     // Altar
     //m_entities.push_back(std::make_unique<Altar>(m_game, glm::vec2(-256, -128)));
@@ -192,7 +162,7 @@ void World::Generate()
     //m_entities.push_back(std::make_unique<Stockpile>(m_game, glm::vec2(-128, 0)));
 
     // Obelisk
-    m_entities.push_back(std::make_unique<Obelisk>(m_game, glm::vec2(0, 0)));
+    //m_entities.push_back(std::make_unique<Obelisk>(m_game, glm::vec2(0, 0)));
 
     // Peons
     SpawnPeon(3, glm::vec2(0, 0));

@@ -55,11 +55,8 @@ void Peon::Update(double deltaTime)
 
 void Peon::Render()
 {
-    grim::Renderer* renderer = m_game->GetRenderer();
-
     if (!IsDead())
     {
-        //renderer->RenderSprite("peon", 0, 0, (int)(m_position.x + m_positionOffset.x - m_origin.x), (int)(m_position.y + m_positionOffset.y - m_origin.y), 32, 32);
         m_sprite->Render(glm::vec3(m_position - m_origin + m_positionOffset, 0.0f), glm::vec3(0), glm::vec3(32, 32, 0));
     }
     /*

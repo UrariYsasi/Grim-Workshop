@@ -6,9 +6,13 @@
 Rock::Rock(Game* game, const glm::vec2& position) :
     Resource(game, position, ROCK, ItemType::STONE)
 {
-    m_origin = glm::vec2(16, 16);
+    m_origin = glm::vec2(0, 0);
     m_hitBox = Rect(-16, -16, 32, 32);
     m_hp = 10;
+
+    grim::Texture* texture = game->GetTexture("resource");
+    grim::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader");
+    m_sprite = std::make_unique<grim::Sprite>(texture, shaderProgram, 32, 32, 2);
 }
 
 Rock::~Rock()
@@ -36,11 +40,9 @@ void Rock::Update(double deltaTime)
 
 void Rock::Render()
 {
-    grim::Renderer* renderer = m_game->GetRenderer();
-
     if (!IsDead())
     {
-        renderer->RenderSprite("resource", 2, 0, (int)(m_position.x - m_origin.x), (int)(m_position.y - m_origin.y), (int)SPRITE_SIZE.x, (int)SPRITE_SIZE.y);
+        m_sprite->Render(glm::vec3(m_position - m_origin + m_positionOffset, 0.0f), glm::vec3(0), glm::vec3(32, 32, 0));
     }
 
     Entity::Render();

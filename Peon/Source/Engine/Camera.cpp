@@ -60,16 +60,12 @@ void Camera::Move(const glm::vec2& movement)
 
 glm::vec2 Camera::ConvertToWorld(const glm::vec2& coord)
 {
-    Debug::Log("Implement ConvertToWorld()");
-    //return (coord + m_position);
-    return glm::vec2(0);
+    return (coord + m_position);
 }
 
 glm::vec2 Camera::ConvertToScreen(const glm::vec2& coord)
 {
-    Debug::Log("Implement ConvertToScreen()");
-   // return (coord - m_position);
-    return glm::vec2(0);
+    return (coord - m_position);
 }
 
 }
