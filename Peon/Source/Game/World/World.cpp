@@ -153,8 +153,8 @@ void World::Generate()
     }
 
     // Resources
-    m_entities.push_back(std::make_unique<Tree>(m_game, glm::vec2(0, 0)));
-
+    //m_entities.push_back(std::make_unique<Tree>(m_game, glm::vec2(0, 0)));
+    
     // Altar
     //m_entities.push_back(std::make_unique<Altar>(m_game, glm::vec2(-256, -128)));
 

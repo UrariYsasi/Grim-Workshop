@@ -1,25 +1,28 @@
 #include "PCH.hpp"
-#include "Sprite.hpp"
+#include "Mesh.hpp"
 
 namespace grim
 {
 
-Sprite::Sprite(grim::Texture* spriteSheet, grim::ShaderProgram* shaderProgram, int width, int height, int frame) :
-    m_spriteSheet(spriteSheet),
+Mesh::Mesh(grim::ShaderProgram* shaderProgram, grim::Texture* texture) :
     m_shaderProgram(shaderProgram),
-    m_width(width),
-    m_height(height),
-    m_frame(frame),
+    m_texture(texture),
     m_modelMatrix(1.0),
     m_VAOHandle(0),
     m_VBOHandle(0),
-    m_EBOHandle(0),
-    m_mesh(shaderProgram, spriteSheet)
+    m_EBOHandle(0)
 {
-    CreateMesh();
+    // Create a VAO
+    glGenVertexArrays(1, &m_VAOHandle);
+
+    // Create a VBO
+    glGenBuffers(1, &m_VBOHandle);
+
+    // Create an EBO
+    glGenBuffers(1, &m_EBOHandle);
 }
 
-Sprite::~Sprite()
+Mesh::~Mesh()
 {
     // Delete buffers
     glDeleteBuffers(1, &m_EBOHandle);
@@ -27,17 +30,7 @@ Sprite::~Sprite()
     glDeleteVertexArrays(1, &m_VAOHandle);
 }
 
-int Sprite::GetWidth() const
-{
-    return m_width;
-}
-
-int Sprite::GetHeight() const
-{
-    return m_height;
-}
-
-void Sprite::Render(const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale)
+void Mesh::Render(const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale)
 {
     // Bind the VAO for this mesh
     glBindVertexArray(m_VAOHandle);
@@ -61,13 +54,13 @@ void Sprite::Render(const glm::vec3& position, const glm::vec3& rotation, const 
     glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(m_modelMatrix));
 
     // Bind our Texture
-    m_spriteSheet->Bind();
+    m_texture->Bind();
 
     // Render the mesh
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
     // Unbind our Texture
-    m_spriteSheet->Unbind();
+    m_texture->Unbind();
 
     // Unbind our ShaderProgram
     m_shaderProgram->Unbind();
@@ -79,48 +72,14 @@ void Sprite::Render(const glm::vec3& position, const glm::vec3& rotation, const 
     glBindVertexArray(0);
 }
 
-void Sprite::CreateMesh()
+void Mesh::UploadVertexData(GLfloat vertices[], unsigned int verticesSize)
 {
-    // Create a VAO
-    glGenVertexArrays(1, &m_VAOHandle);
-
-    // Create a VBO
-    glGenBuffers(1, &m_VBOHandle);
-
-    // Create an EBO
-    glGenBuffers(1, &m_EBOHandle);
-
-    int spriteSheetRows = m_spriteSheet->GetHeight() / m_height;
-    int spriteSheetCols = m_spriteSheet->GetWidth() / m_width;
-    double spriteTexelWidth = (double)m_width / m_spriteSheet->GetWidth();
-    double spriteTexelHeight = (double)m_height / m_spriteSheet->GetHeight();
-    int col = std::floor(m_frame / spriteSheetCols);
-    int row = m_frame % spriteSheetCols;
-    double spriteTexelX = row * spriteTexelWidth;
-    double spriteTexelY = col * spriteTexelHeight;
-
-    GLfloat vertices[] = {
-        -0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, spriteTexelX, spriteTexelY,                                       // Top left
-        0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, spriteTexelX + spriteTexelWidth, spriteTexelY,                     // Top right
-        -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 1.0f, spriteTexelX, spriteTexelY + spriteTexelHeight,                    // Bottom left
-        0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 1.0f, spriteTexelX + spriteTexelWidth, spriteTexelY + spriteTexelHeight   // Bottom right
-    };
-
-    GLuint elements[] = {
-        2, 3, 0,
-        0, 1, 3
-    };
-
     // Bind the VAO
     glBindVertexArray(m_VAOHandle);
 
     // Bind the VBO and upload the vertex data
     glBindBuffer(GL_ARRAY_BUFFER, m_VBOHandle);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    // Bind the EBO and upload the vertex data
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBOHandle);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements), elements, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, verticesSize, vertices, GL_STATIC_DRAW);
 
     GLint positionAttribute = glGetAttribLocation(m_shaderProgram->GetHandle(), "inPosition");
     GLint colorAttribute = glGetAttribLocation(m_shaderProgram->GetHandle(), "inColor");
@@ -133,11 +92,24 @@ void Sprite::CreateMesh()
     glVertexAttribPointer(colorAttribute, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
     glVertexAttribPointer(uvAttribute, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)(6 * sizeof(GLfloat)));
 
-    // Unbind the EBO
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
     // Unbind the VBO
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    // Unbind the VAO
+    glBindVertexArray(0);
+}
+
+void Mesh::UploadElementData(GLuint elements[], unsigned int elementsSize)
+{
+    // Bind the VAO
+    glBindVertexArray(m_VAOHandle);
+
+    // Bind the EBO and upload the vertex data
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBOHandle);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementsSize, elements, GL_STATIC_DRAW);
+
+    // Unbind the EBO
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
     // Unbind the VAO
     glBindVertexArray(0);

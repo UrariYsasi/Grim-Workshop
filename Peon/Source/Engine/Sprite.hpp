@@ -1,4 +1,5 @@
 #pragma once
+#include "Mesh.hpp"
 
 namespace grim
 {
@@ -36,6 +37,8 @@ private:
     GLuint m_VAOHandle;
     GLuint m_VBOHandle;
     GLuint m_EBOHandle;
+
+    grim::Mesh m_mesh;
 };
 
 }

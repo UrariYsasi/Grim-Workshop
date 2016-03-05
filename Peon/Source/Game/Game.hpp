@@ -100,4 +100,6 @@ private:
     double m_frameRate;
     double m_gameStartTime;
     Mix_Music* m_bgMusic;
+
+    std::unique_ptr<grim::Mesh> m_mesh;
 };

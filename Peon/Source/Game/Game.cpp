@@ -4,6 +4,7 @@
 #include "../Engine/Renderer.hpp"
 #include "../Engine/Input.hpp"
 #include "../Engine/Camera.hpp"
+#include "../Engine/Mesh.hpp"
 #include "Entity/Peon.hpp"
 #include "Entity/Tree.hpp"
 #include "Entity/Rock.hpp"
@@ -211,6 +212,23 @@ int Game::Initialize()
     // Setup the game
     m_map->Generate();
 
+    // Test mesh
+    GLfloat vertices[] = {
+        -0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0, 0.0,     // Top left
+        0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0, 0.0,      // Top right
+        -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0, 1.0,      // Bottom left
+        0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0, 1.0        // Bottom right
+    };
+
+    GLuint elements[] = {
+        2, 3, 0,
+        0, 1, 3
+    };
+
+    m_mesh = std::make_unique<grim::Mesh>(GetShaderProgram("basic_shader"), GetTexture("gandalf"));
+    m_mesh->UploadVertexData(vertices, sizeof(vertices));
+    m_mesh->UploadElementData(elements, sizeof(elements));
+
     return SUCCESS;
 }
 
@@ -303,7 +321,9 @@ void Game::Render()
 
     m_mainCamera->Activate();
 
-    m_map->Render();
+    //m_map->Render();
+
+    m_mesh->Render(glm::vec3(0.0), glm::vec3(0.0), glm::vec3(32, 32, 0));
 
     /*
     m_player->Render();
