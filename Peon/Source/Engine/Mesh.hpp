@@ -20,17 +20,22 @@ public:
     /*
         Upload a new vertex array to the Mesh.
     */
-    void UploadVertexData(GLfloat vertices[], unsigned int verticesSize);
+    void UploadVertexData(GLfloat* vertices, unsigned int verticesSize);
 
     /*
         Upload a new element array to the Mesh.
     */
-    void UploadElementData(GLuint elements[], unsigned int elementsSize);
+    void UploadElementData(GLuint* elements, unsigned int elementsSize);
+
+    /*
+        Set the OpenGL render mode of the Mesh.
+    */
+    void SetRenderMode(GLenum mode);
 
 private:
 
     /*
-    The ShaderProgram for this Mesh.
+        The ShaderProgram for this Mesh.
     */
     grim::ShaderProgram* m_shaderProgram;
 
@@ -58,6 +63,11 @@ private:
         The OpenGL handle for the EBO.
     */
     GLuint m_EBOHandle;
+
+    /*
+        The OpenGL render mode that this Mesh will be rendered with.
+    */
+    GLenum m_mode;
 };
 
 }

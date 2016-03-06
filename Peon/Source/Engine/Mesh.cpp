@@ -10,7 +10,8 @@ Mesh::Mesh(grim::ShaderProgram* shaderProgram, grim::Texture* texture) :
     m_modelMatrix(1.0),
     m_VAOHandle(0),
     m_VBOHandle(0),
-    m_EBOHandle(0)
+    m_EBOHandle(0),
+    m_mode(GL_TRIANGLES)
 {
     // Create a VAO
     glGenVertexArrays(1, &m_VAOHandle);
@@ -54,13 +55,19 @@ void Mesh::Render(const glm::vec3& position, const glm::vec3& rotation, const gl
     glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(m_modelMatrix));
 
     // Bind our Texture
-    m_texture->Bind();
+    if (m_texture != nullptr)
+    {
+        m_texture->Bind();
+    }
 
     // Render the mesh
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    glDrawElements(m_mode, 4, GL_UNSIGNED_INT, 0);
 
     // Unbind our Texture
-    m_texture->Unbind();
+    if (m_texture != nullptr)
+    {
+        m_texture->Unbind();
+    }
 
     // Unbind our ShaderProgram
     m_shaderProgram->Unbind();
@@ -72,7 +79,7 @@ void Mesh::Render(const glm::vec3& position, const glm::vec3& rotation, const gl
     glBindVertexArray(0);
 }
 
-void Mesh::UploadVertexData(GLfloat vertices[], unsigned int verticesSize)
+void Mesh::UploadVertexData(GLfloat* vertices, unsigned int verticesSize)
 {
     // Bind the VAO
     glBindVertexArray(m_VAOHandle);
@@ -99,7 +106,7 @@ void Mesh::UploadVertexData(GLfloat vertices[], unsigned int verticesSize)
     glBindVertexArray(0);
 }
 
-void Mesh::UploadElementData(GLuint elements[], unsigned int elementsSize)
+void Mesh::UploadElementData(GLuint* elements, unsigned int elementsSize)
 {
     // Bind the VAO
     glBindVertexArray(m_VAOHandle);
@@ -113,6 +120,11 @@ void Mesh::UploadElementData(GLuint elements[], unsigned int elementsSize)
 
     // Unbind the VAO
     glBindVertexArray(0);
+}
+
+void Mesh::SetRenderMode(GLenum mode)
+{
+    m_mode = mode;
 }
 
 }

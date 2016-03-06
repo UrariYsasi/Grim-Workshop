@@ -112,7 +112,7 @@ int Game::Initialize()
         return FAILURE;
     }
 
-    //Initialize SDL_mixer
+    // Initialize SDL_mixer
     if (Debug::IsFlagEnabled(MIX_AUDIO))
     {
         if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
@@ -126,26 +126,25 @@ int Game::Initialize()
         Mix_VolumeMusic(MIX_MAX_VOLUME / 3);
     }
 
-    //Initialize SDL_ttf
+    // Initialize SDL_ttf
     if (TTF_Init() < 0)
     {
         Debug::Log("SDL_ttf could not initialize! SDL_ttf error: %s", TTF_GetError());
         return FAILURE;
     }
 
+    // Create and Initialize window
     m_window = std::make_unique<Window>(1024, 768, "Peon");
     if (m_window->Initialize() == FAILURE)
     {
         return FAILURE;
     }
 
+    // Create renderer
     m_renderer = std::make_unique<grim::Renderer>(this, m_window.get());
-    m_input = std::make_unique<Input>(this);
-    m_mainCamera = std::make_unique<grim::Camera>(m_renderer.get());
-    m_GUICamera = std::make_unique<grim::Camera>(m_renderer.get());
 
-    m_map = std::make_unique<World>(this);
-    m_player = std::make_unique<Player>(this);
+    // Create input
+    m_input = std::make_unique<Input>(this);
 
     // Load Textures
     Debug::Log("Loading textures...");
@@ -210,24 +209,29 @@ int Game::Initialize()
     CreateShaderProgram("vertex_textured", "fragment_textured", "basic_shader");
 
     // Setup the game
+    m_mainCamera = std::make_unique<grim::Camera>(m_renderer.get());
+    m_GUICamera = std::make_unique<grim::Camera>(m_renderer.get());
+    m_map = std::make_unique<World>(this);
+    m_player = std::make_unique<Player>(this);
+
     m_map->Generate();
 
     // Test mesh
     GLfloat vertices[] = {
-        -0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0, 0.0,     // Top left
-        0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0, 0.0,      // Top right
-        -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0, 1.0,      // Bottom left
-        0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0, 1.0        // Bottom right
+        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0, 0.0,     // Top left
+        0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0, 0.0,      // Top right
+        -0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0, 0.0,      // Bottom left
+        0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0, 0.0        // Bottom right
     };
 
     GLuint elements[] = {
-        2, 3, 0,
-        0, 1, 3
+        0, 1, 3, 2
     };
 
     m_mesh = std::make_unique<grim::Mesh>(GetShaderProgram("basic_shader"), GetTexture("gandalf"));
     m_mesh->UploadVertexData(vertices, sizeof(vertices));
     m_mesh->UploadElementData(elements, sizeof(elements));
+    m_mesh->SetRenderMode(GL_LINE_LOOP);
 
     return SUCCESS;
 }
@@ -321,13 +325,13 @@ void Game::Render()
 
     m_mainCamera->Activate();
 
-    //m_map->Render();
+    m_map->Render();
 
-    m_mesh->Render(glm::vec3(0.0), glm::vec3(0.0), glm::vec3(32, 32, 0));
+    //m_mesh->Render(glm::vec3(0.0), glm::vec3(0.0), glm::vec3(256, 256, 0));
 
-    /*
     m_player->Render();
 
+    /*
     // Render GUI
     m_GUICamera->Activate();
 

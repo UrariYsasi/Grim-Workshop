@@ -30,6 +30,15 @@ Player::Player(Game* game) :
     m_gameInput = m_game->GetInput();
     m_gameCamera = m_game->GetMainCamera();
     m_gameWorld = m_game->GetWorld();
+
+    // Create the box selection mesh
+    GLuint elements[] = {
+        0, 1, 3, 2
+    };
+
+    m_boxSelectionMesh = std::make_unique<grim::Mesh>(m_game->GetShaderProgram("basic_shader"), nullptr);
+    m_boxSelectionMesh->UploadElementData(elements, sizeof(elements));
+    m_boxSelectionMesh->SetRenderMode(GL_LINE_LOOP);
 }
 
 Player::~Player()
@@ -138,15 +147,27 @@ void Player::Update(double deltaTime)
 
 void Player::Render()
 {
-    /*
     if (m_isBoxSelecting)
     {
         if (std::abs(m_boxSelection.width) >= 5 || std::abs(m_boxSelection.height) >= 5)
         {
-            m_gameRenderer->RenderOutlineRect(m_boxSelection, SDL_Color{ 0, 0, 0, 100 });
+            GLfloat vertices[] = {
+                // Top left
+                m_boxSelection.x, m_boxSelection.y, 0.0f, 0.0f, 0.0f, 0.0f, 0.0, 0.0,
+                // Top right
+                m_boxSelection.x + m_boxSelection.width, m_boxSelection.y, 0.0f, 0.0f, 0.0f, 0.0f, 0.0, 0.0,  
+                // Bottom left
+                m_boxSelection.x, m_boxSelection.y + m_boxSelection.height, 0.0f, 0.0f, 0.0f, 0.0f, 0.0, 0.0,  
+                // Bottom right
+                m_boxSelection.x + m_boxSelection.width, m_boxSelection.y + m_boxSelection.height, 0.0f, 0.0f, 0.0f, 0.0f, 0.0, 0.0
+            };
+
+            m_boxSelectionMesh->UploadVertexData(vertices, sizeof(vertices));
+            m_boxSelectionMesh->Render(glm::vec3(0.0), glm::vec3(0.0), glm::vec3(1, 1, 0));
         }
     }
 
+    /*
     for (auto peon : m_selectedPeons)
     {
         glm::vec2 position = peon->GetPosition() - peon->GetOrigin();

@@ -40,4 +40,6 @@ private:
     bool m_isBoxSelecting;
     Rect m_boxSelection;
     std::list<Entity*> m_selectedPeons;
+
+    std::unique_ptr<grim::Mesh> m_boxSelectionMesh;
 };
