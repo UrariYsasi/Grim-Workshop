@@ -25,7 +25,8 @@ Player::Player(Game* game) :
     m_gameWorld(nullptr),
     m_cameraSpeed(CAMERA_SPEED_NORMAL),
     m_isBoxSelecting(false),
-    m_boxSelection(0, 0, 0, 0)
+    m_boxSelection(0, 0, 0, 0),
+    m_boxSelectionMesh(nullptr)
 {
     m_gameInput = m_game->GetInput();
     m_gameCamera = m_game->GetMainCamera();
@@ -43,6 +44,7 @@ Player::Player(Game* game) :
 
 Player::~Player()
 {
+    m_boxSelectionMesh.reset();
 }
 
 void Player::Update(double deltaTime)

@@ -13,9 +13,10 @@ TerrainTile::TerrainTile(Game* game, const glm::vec2& position) :
     m_origin(16, 16),
     m_sprite(nullptr)
 {
+    int variance = round(Random::Generate(0.0, 1.0));
     grim::Texture* texture = game->GetTexture("terrain");
     grim::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader");
-    m_sprite = std::make_unique<grim::Sprite>(texture, shaderProgram, 32, 32, 0);
+    m_sprite = std::make_unique<grim::Sprite>(texture, shaderProgram, 32, 32, variance);
 }
 
 TerrainTile::~TerrainTile()

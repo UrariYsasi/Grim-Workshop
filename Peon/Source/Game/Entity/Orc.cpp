@@ -13,6 +13,10 @@ Orc::Orc(Game* game, const glm::vec2& position) :
     m_origin = glm::vec2(16, 16);
     m_hitBox = Rect(-4, 0, 8, 16);
     m_hp = 6;
+
+    grim::Texture* texture = game->GetTexture("orc");
+    grim::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader"); 
+    m_sprite = std::make_unique<grim::Sprite>(texture, shaderProgram, 32, 32, 0);
 }
 
 Orc::~Orc()
@@ -58,15 +62,9 @@ void Orc::Update(double deltaTime)
 
 void Orc::Render()
 {
-    grim::Renderer* renderer = m_game->GetRenderer();
-
     if (!IsDead())
     {
-        renderer->RenderSprite("orc", 0, 0, (int)(m_position.x + m_positionOffset.x - m_origin.x), (int)(m_position.y + m_positionOffset.y - m_origin.y), 32, 32);
-    }
-    else
-    {
-        renderer->RenderSprite("orc", 1, 0, (int)(m_position.x + m_positionOffset.x - m_origin.x), (int)(m_position.y + m_positionOffset.y - m_origin.y), 32, 32);
+        m_sprite->Render(glm::vec3(m_position - m_origin + m_positionOffset, 0.0f), glm::vec3(0), glm::vec3(32, 32, 0));
     }
 
     // ORC LIKE TO DEBUG

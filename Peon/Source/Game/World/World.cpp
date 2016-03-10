@@ -94,7 +94,6 @@ void World::Render()
         t->Render();
     }
 
-    /*
     // Z sort Entities
     m_entities.sort([](std::unique_ptr<Entity> const& a, std::unique_ptr<Entity> const& b)
     {
@@ -103,7 +102,6 @@ void World::Render()
 
         return (aHit.y + aHit.height) < (bHit.y + bHit.height);
     });
-    */
 
     // Entities
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
@@ -162,7 +160,8 @@ void World::Generate()
     //m_entities.push_back(std::make_unique<Stockpile>(m_game, glm::vec2(-128, 0)));
 
     // Obelisk
-    //m_entities.push_back(std::make_unique<Obelisk>(m_game, glm::vec2(0, 0)));
+    // The obelisk gets placed in the center of the map.
+    m_entities.push_back(std::make_unique<Obelisk>(m_game, GetCenter()));
 
     // Peons
     SpawnPeon(3, glm::vec2(0, 0));
@@ -298,4 +297,9 @@ std::list<Entity*> World::FindEntitiesInRange(int entityID, const glm::vec2& poi
     }
 
     return ents;
+}
+
+glm::vec2 World::GetCenter() const
+{
+    return glm::vec2 (((MAP_SIZE - 1) * 32.0f) / 2.0f, ((MAP_SIZE - 1) * 32.0f) / 2.0f);
 }

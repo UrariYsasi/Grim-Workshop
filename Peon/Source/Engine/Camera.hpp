@@ -12,6 +12,12 @@ public:
     ~Camera();
 
     void SetPosition(const glm::vec2& position);
+
+    /*
+        Centers the Camera on the given position.
+    */
+    void SetCenter(const glm::vec2& position);
+
     glm::vec2 GetPosition() const;
     glm::mat4 GetViewMatrix() const;
     glm::mat4 GetProjectionMatrix() const;

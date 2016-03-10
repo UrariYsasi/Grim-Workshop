@@ -56,11 +56,16 @@ public:
     */
     std::list<Entity*> FindEntitiesInRange(int entityID, const glm::vec2& point, int range);
 
+    /*
+        Gets the position that is at the center of the world.
+    */
+    glm::vec2 GetCenter() const;
+
 private:
     void CleanEntities();
 
 private:
-    const static int MAP_SIZE = 32; // The map size, in tiles.
+    const static int MAP_SIZE = 64; // The map size, in tiles.
 
     Game* m_game;
     PerlinGenerator m_generator;

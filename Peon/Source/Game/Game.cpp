@@ -214,24 +214,9 @@ int Game::Initialize()
     m_map = std::make_unique<World>(this);
     m_player = std::make_unique<Player>(this);
 
+    m_mainCamera->SetCenter(m_map->GetCenter());
+
     m_map->Generate();
-
-    // Test mesh
-    GLfloat vertices[] = {
-        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0, 0.0,     // Top left
-        0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0, 0.0,      // Top right
-        -0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0, 0.0,      // Bottom left
-        0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0, 0.0        // Bottom right
-    };
-
-    GLuint elements[] = {
-        0, 1, 3, 2
-    };
-
-    m_mesh = std::make_unique<grim::Mesh>(GetShaderProgram("basic_shader"), GetTexture("gandalf"));
-    m_mesh->UploadVertexData(vertices, sizeof(vertices));
-    m_mesh->UploadElementData(elements, sizeof(elements));
-    m_mesh->SetRenderMode(GL_LINE_LOOP);
 
     return SUCCESS;
 }
@@ -273,6 +258,9 @@ void Game::Terminate()
 
 void Game::Update(double deltaTime)
 {
+    glm::vec2 mousePos = m_mainCamera->ConvertToWorld(m_input->GetMousePosition());
+    //Debug::Log("%d, %d", (int)mousePos.x, (int)mousePos.y);
+
     if (m_input->GetKeyPress(SDLK_ESCAPE))
     {
         Terminate();
@@ -292,12 +280,12 @@ void Game::Update(double deltaTime)
             m_map->SpawnPeon(1, m_mainCamera->ConvertToWorld(m_input->GetMousePosition()));
         }
 
-        /*
         if (m_input->GetKeyPress(SDLK_u))
         {
             m_map->SpawnOrc();
         }
 
+        /*
         if (m_input->GetKeyPress(SDLK_p))
         {
             Debug::ToggleFlag(RENDER_HITBOXES);
@@ -326,8 +314,6 @@ void Game::Render()
     m_mainCamera->Activate();
 
     m_map->Render();
-
-    //m_mesh->Render(glm::vec3(0.0), glm::vec3(0.0), glm::vec3(256, 256, 0));
 
     m_player->Render();
 

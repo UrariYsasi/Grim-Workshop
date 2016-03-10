@@ -25,6 +25,11 @@ void Camera::SetPosition(const glm::vec2& position)
     m_position = position;
 }
 
+void Camera::SetCenter(const glm::vec2& position)
+{
+    m_position = position - glm::vec2(512.0f, 384.0f);
+}
+
 glm::vec2 Camera::GetPosition() const
 {
     return m_position;
