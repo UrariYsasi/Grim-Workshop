@@ -151,7 +151,20 @@ void World::Generate()
     }
 
     // Resources
-    //m_entities.push_back(std::make_unique<Tree>(m_game, glm::vec2(0, 0)));
+    for (int i = 0; i < MAX_TREE_COUNT; i++)
+    {
+        double radius = 512.0;
+        double angle = Random::Generate(0, 1) * M_PI * 2;
+        double minDistance = 256;
+        double distance = minDistance + (Random::Generate(0, 1) * radius);
+        glm::vec2 offset = glm::vec2(distance * cos(angle), distance * sin(angle));
+
+        glm::vec2 spawnPosition = GetCenter() + offset;
+        if (IsPassable(spawnPosition))
+        {
+            m_entities.push_back(std::make_unique<Tree>(m_game, spawnPosition));
+        }
+    }
     
     // Altar
     //m_entities.push_back(std::make_unique<Altar>(m_game, glm::vec2(-256, -128)));
@@ -164,7 +177,7 @@ void World::Generate()
     m_entities.push_back(std::make_unique<Obelisk>(m_game, GetCenter()));
 
     // Peons
-    SpawnPeon(3, glm::vec2(0, 0));
+    SpawnPeon(3, GetCenter() - glm::vec2(128, 128));
 
     Debug::Log("World generation complete.");
 }

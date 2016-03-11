@@ -9,7 +9,9 @@
 #include "../World/World.hpp"
 
 Peon::Peon(Game* game, const glm::vec2& position) :
-    Monster(game, position, PEON)
+    Monster(game, position, PEON),
+    m_isSelected(false),
+    m_selectionSprite(nullptr)
 {
     m_origin = glm::vec2(0, 0);
     m_hitBox = Rect(-3, 10, 7, 8);
@@ -17,6 +19,7 @@ Peon::Peon(Game* game, const glm::vec2& position) :
     grim::Texture* texture = game->GetTexture("peon");
     grim::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader");
     m_sprite = std::make_unique<grim::Sprite>(texture, shaderProgram, 32, 32, 0);
+    m_selectionSprite = std::make_unique<grim::Sprite>(texture, shaderProgram, 32, 32, 57);
 }
 
 Peon::~Peon()
@@ -57,6 +60,11 @@ void Peon::Render()
 {
     if (!IsDead())
     {
+        if (m_isSelected)
+        {
+            m_selectionSprite->Render(glm::vec3(m_position - m_origin + glm::vec2(0, 3.0f), 0.0f), glm::vec3(0), glm::vec3(32, 32, 0));
+        }
+
         m_sprite->Render(glm::vec3(m_position - m_origin + m_positionOffset, 0.0f), glm::vec3(0), glm::vec3(32, 32, 0));
     }
     /*
@@ -87,4 +95,14 @@ void Peon::Render()
     */
 
     Entity::Render();
+}
+
+void Peon::Select()
+{
+    m_isSelected = true;
+}
+
+void Peon::Deselect()
+{
+    m_isSelected = false;
 }

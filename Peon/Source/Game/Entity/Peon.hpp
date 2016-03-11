@@ -9,4 +9,11 @@ public:
 
     virtual void Update(double deltaTime);
     virtual void Render();
+
+    void Select();
+    void Deselect();
+
+private:
+    bool m_isSelected;
+    std::unique_ptr<grim::Sprite> m_selectionSprite;
 };

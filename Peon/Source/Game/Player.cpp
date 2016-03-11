@@ -54,6 +54,8 @@ void Player::Update(double deltaTime)
     {
         if ((*it)->IsDead())
         {
+            Peon* peon = dynamic_cast<Peon*>(*it);
+            peon->Deselect();
             m_selectedPeons.erase(it++);
         }
     }
@@ -103,6 +105,12 @@ void Player::Update(double deltaTime)
 
     if (m_gameInput->GetMouseButtonPress(SDL_BUTTON_LEFT))
     {
+        for (auto it : m_selectedPeons)
+        {
+            Peon* peon = dynamic_cast<Peon*>(it);
+            peon->Deselect();
+        }
+
         m_selectedPeons.clear();
 
         m_isBoxSelecting = true;
@@ -129,7 +137,7 @@ void Player::Update(double deltaTime)
             }
             else
             {
-                Entity* peon = m_gameWorld->GetEntityAtPoint(mousePositionWorld, PEON);
+                Peon* peon = dynamic_cast<Peon*>(m_gameWorld->GetEntityAtPoint(mousePositionWorld, PEON));
                 if (peon != nullptr)
                 {
                     if (!peon->IsDead())
@@ -137,6 +145,12 @@ void Player::Update(double deltaTime)
                         m_selectedPeons.push_back(peon);
                     }
                 }
+            }
+
+            for (auto it : m_selectedPeons)
+            {
+                Peon* peon = dynamic_cast<Peon*>(it);
+                peon->Select();
             }
         }
     }
@@ -240,7 +254,7 @@ void Player::IssueCommand(glm::vec2 position)
                 glm::vec2 offset = glm::vec2(distance * cos(angle), distance * sin(angle));
                 if (m_gameWorld->IsPassable(position + offset))
                 {
-                    //position += offset;
+                    position += offset;
                 }
 
                 peon->ClearActionStack();
