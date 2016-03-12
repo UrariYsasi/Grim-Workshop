@@ -10,7 +10,7 @@ namespace grim
 class Sprite
 {
 public:
-    Sprite(grim::Texture* spriteSheet, grim::ShaderProgram* shaderProgram, int width, int height, int frame);
+    Sprite(grim::Texture* spriteSheet, grim::ShaderProgram* shaderProgram, int width, int height, int frame, const grim::Color& color = grim::Color(1, 1, 1, 1));
     ~Sprite();
 
     int GetWidth() const;
@@ -37,6 +37,7 @@ private:
     GLuint m_VAOHandle;
     GLuint m_VBOHandle;
     GLuint m_EBOHandle;
+    grim::Color m_color;
 
     grim::Mesh m_mesh;
 };

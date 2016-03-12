@@ -20,7 +20,7 @@ Peon::Peon(Game* game, const glm::vec2& position) :
     grim::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader");
     m_sprite = std::make_unique<grim::Sprite>(texture, shaderProgram, 32, 32, 0);
     m_selectionSprite = std::make_unique<grim::Sprite>(texture, shaderProgram, 32, 32, 57);
-    m_shadowSprite = std::make_unique<grim::Sprite>(texture, shaderProgram, 32, 32, 58);
+    m_shadowSprite = std::make_unique<grim::Sprite>(texture, shaderProgram, 32, 32, 58, grim::Color(1, 1, 1, .5));
 }
 
 Peon::~Peon()

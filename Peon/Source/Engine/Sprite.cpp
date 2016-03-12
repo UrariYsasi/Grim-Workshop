@@ -4,7 +4,7 @@
 namespace grim
 {
 
-Sprite::Sprite(grim::Texture* spriteSheet, grim::ShaderProgram* shaderProgram, int width, int height, int frame) :
+Sprite::Sprite(grim::Texture* spriteSheet, grim::ShaderProgram* shaderProgram, int width, int height, int frame, const grim::Color& color) :
     m_spriteSheet(spriteSheet),
     m_shaderProgram(shaderProgram),
     m_width(width),
@@ -14,6 +14,7 @@ Sprite::Sprite(grim::Texture* spriteSheet, grim::ShaderProgram* shaderProgram, i
     m_VAOHandle(0),
     m_VBOHandle(0),
     m_EBOHandle(0),
+    m_color(color),
     m_mesh(shaderProgram, spriteSheet)
 {
     CreateMesh();
@@ -100,10 +101,10 @@ void Sprite::CreateMesh()
     double spriteTexelY = col * spriteTexelHeight;
 
     GLfloat vertices[] = {
-        -0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, spriteTexelX, spriteTexelY,                                       // Top left
-        0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, spriteTexelX + spriteTexelWidth, spriteTexelY,                     // Top right
-        -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 1.0f, spriteTexelX, spriteTexelY + spriteTexelHeight,                    // Bottom left
-        0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 1.0f, spriteTexelX + spriteTexelWidth, spriteTexelY + spriteTexelHeight   // Bottom right
+        -0.5f, -0.5f, 0.0f, m_color.r, m_color.g, m_color.b, m_color.a, spriteTexelX, spriteTexelY,                                       // Top left
+        0.5f, -0.5f, 0.0f, m_color.r, m_color.g, m_color.b, m_color.a, spriteTexelX + spriteTexelWidth, spriteTexelY,                     // Top right
+        -0.5f, 0.5f, 0.0f, m_color.r, m_color.g, m_color.b, m_color.a, spriteTexelX, spriteTexelY + spriteTexelHeight,                    // Bottom left
+        0.5f, 0.5f, 0.0f, m_color.r, m_color.g, m_color.b, m_color.a, spriteTexelX + spriteTexelWidth, spriteTexelY + spriteTexelHeight   // Bottom right
     };
 
     GLuint elements[] = {
@@ -129,9 +130,9 @@ void Sprite::CreateMesh()
     glEnableVertexAttribArray(positionAttribute);
     glEnableVertexAttribArray(colorAttribute);
     glEnableVertexAttribArray(uvAttribute);
-    glVertexAttribPointer(positionAttribute, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), 0);
-    glVertexAttribPointer(colorAttribute, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
-    glVertexAttribPointer(uvAttribute, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)(6 * sizeof(GLfloat)));
+    glVertexAttribPointer(positionAttribute, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(GLfloat), 0);
+    glVertexAttribPointer(colorAttribute, 4, GL_FLOAT, GL_FALSE, 9 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
+    glVertexAttribPointer(uvAttribute, 2, GL_FLOAT, GL_FALSE, 9 * sizeof(GLfloat), (void*)(7 * sizeof(GLfloat)));
 
     // Unbind the EBO
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
