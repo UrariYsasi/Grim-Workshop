@@ -97,8 +97,8 @@ void World::Render()
     // Z sort Entities
     m_entities.sort([](std::unique_ptr<Entity> const& a, std::unique_ptr<Entity> const& b)
     {
-        Rect aHit = a->GetHitBox();
-        Rect bHit = b->GetHitBox();
+        grim::Rect aHit = a->GetHitBox();
+        grim::Rect bHit = b->GetHitBox();
 
         return (aHit.y + aHit.height) < (bHit.y + bHit.height);
     });
@@ -151,21 +151,19 @@ void World::Generate()
     }
 
     // Trees
-    for (int i = 0; i < MAX_TREE_COUNT; i++)
+    grim::Rect worldRect(0.0, 0.0, MAP_SIZE * 32, MAP_SIZE * 32);
+    std::vector<glm::vec2> outputList = grim::PoissonDiskGenerator::Generate(GetCenter(), 32.0, 64.0, 30, worldRect);
+    for (auto pointIt = outputList.begin(); pointIt != outputList.end(); pointIt++)
     {
-        double radius = 512.0;
-        double angle = Random::Generate(0, 1) * M_PI * 2;
-        double minDistance = 256;
-        double distance = minDistance + (Random::Generate(0, 1) * radius);
-        glm::vec2 offset = glm::vec2(distance * cos(angle), distance * sin(angle));
+        glm::vec2 spawnPosition = (*pointIt);
 
-        glm::vec2 spawnPosition = GetCenter() + offset;
-        if (IsPassable(spawnPosition))
+        // Discard point if it's too close to map center
+        if (glm::distance(spawnPosition, GetCenter()) > 256.0)
         {
             m_entities.push_back(std::make_unique<Tree>(m_game, spawnPosition));
         }
     }
-    
+
     // Altar
     //m_entities.push_back(std::make_unique<Altar>(m_game, glm::vec2(-256, -128)));
 
@@ -228,7 +226,7 @@ bool World::IsPassable(const glm::vec2& point)
 {
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
-        Rect hitBox = (*it)->GetHitBox();
+        grim::Rect hitBox = (*it)->GetHitBox();
         if (hitBox.ContainsPoint(point))
         {
             return false;
@@ -245,7 +243,7 @@ Entity* World::GetEntityAtPoint(const glm::vec2& point, int entityID)
         ent = (*it).get();
         if (ent->GetEntityID() == entityID || entityID == NONE)
         {
-            Rect hitBox = ent->GetHitBox();
+            grim::Rect hitBox = ent->GetHitBox();
             if (hitBox.ContainsPoint(point))
             {
                 return ent;
@@ -262,7 +260,7 @@ TerrainTile* World::GetTerrainAtPoint(const glm::vec2& point)
     return m_terrain.at(tilePosition).get();
 }
 
-std::list<Entity*> World::GetEntitiesInRect(int entityID, Rect rect)
+std::list<Entity*> World::GetEntitiesInRect(int entityID, const grim::Rect& rect)
 {
     std::list<Entity*> ents;
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)

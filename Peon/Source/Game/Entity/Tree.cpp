@@ -7,7 +7,7 @@ Tree::Tree(Game* game, const glm::vec2& position) :
     Resource(game, position, TREE, ItemType::WOOD)
 {
     m_origin = glm::vec2(0, 16);
-    m_hitBox = Rect(-16, -16, 32, 32);
+    m_hitBox = grim::Rect(-16, -16, 32, 32);
     m_positionOffset = glm::vec2(Random::Generate(-6, 6), Random::Generate(0, -6));
     m_hp = 10;
 

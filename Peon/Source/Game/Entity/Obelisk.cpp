@@ -7,7 +7,7 @@ Obelisk::Obelisk(Game* game, const glm::vec2& position) :
     Prop(game, position, OBELISK)
 {
     m_origin = glm::vec2(0, 96);
-    m_hitBox = Rect(-32, -32, 64, 64);
+    m_hitBox = grim::Rect(-32, -32, 64, 64);
     grim::Texture* texture = game->GetTexture("obelisk");
     grim::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader");
     m_sprite = std::make_unique<grim::Sprite>(texture, shaderProgram, 64, 288, 0);

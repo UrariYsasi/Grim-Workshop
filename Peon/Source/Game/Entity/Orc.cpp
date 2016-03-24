@@ -11,7 +11,7 @@ Orc::Orc(Game* game, const glm::vec2& position) :
     Monster(game, position, ORC)
 {
     m_origin = glm::vec2(16, 16);
-    m_hitBox = Rect(-4, 0, 8, 16);
+    m_hitBox = grim::Rect(-4, 0, 8, 16);
     m_hp = 6;
 
     grim::Texture* texture = game->GetTexture("orc");
@@ -47,7 +47,7 @@ void Orc::Update(double deltaTime)
         if (!attackAction->IsAttackingPeon())
         {
             // ORC SEARCH FOR PUNY PEONS TO SMASH
-            Rect searchRect(m_position.x - 128, m_position.y - 128, 256, 256);
+            grim::Rect searchRect(m_position.x - 128, m_position.y - 128, 256, 256);
             std::list<Entity*> peons = map->GetEntitiesInRect(PEON, searchRect);
             if (peons.size() > 0)
             {

@@ -7,7 +7,7 @@ Stockpile::Stockpile(Game* game, const glm::vec2& position) :
     Prop(game, position, STOCKPILE)
 {
     m_origin = glm::vec2(16, 16);
-    m_hitBox = Rect(-16, -16, 32, 32);
+    m_hitBox = grim::Rect(-16, -16, 32, 32);
 }
 
 Stockpile::~Stockpile()

@@ -150,6 +150,9 @@
     <ClCompile Include="Source\Engine\Mesh.cpp">
       <Filter>Source\Engine</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Engine\PoissonDiskGenerator.cpp">
+      <Filter>Source\Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\PCH.hpp">
@@ -288,6 +291,9 @@
       <Filter>Source\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Source\Engine\Mesh.hpp">
+      <Filter>Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\PoissonDiskGenerator.hpp">
       <Filter>Source\Engine</Filter>
     </ClInclude>
   </ItemGroup>

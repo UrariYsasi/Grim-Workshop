@@ -16,13 +16,13 @@ public:
     void SetPosition(const glm::vec2& position);
     void SetPositionOffset(const glm::vec2& positionOffset);
     bool IsDeleted() const;
-    Rect GetHitBox() const;
+    grim::Rect GetHitBox() const;
 
     virtual void Update(double deltaTime) = 0;
     virtual void Render();
 
     void Delete();
-    bool IsCollidingWithRect(const Rect& rect) const;
+    bool IsCollidingWithRect(const grim::Rect& rect) const;
 
     /*
         Damage the entity.
@@ -57,8 +57,8 @@ protected:
     glm::vec2 m_origin;
     glm::vec2 m_positionOffset;
     bool m_isDeleted;
-    Rect m_hitBox;
-    Rect m_selectionHitBox;
+    grim::Rect m_hitBox;
+    grim::Rect m_selectionHitBox;
     int m_hp;
     bool m_isHeld;
 

@@ -40,7 +40,7 @@ public:
 
         If the ID given is NONE, it will return all Entity types.
     */
-    std::list<Entity*> GetEntitiesInRect(int entityID, Rect rect);
+    std::list<Entity*> GetEntitiesInRect(int entityID, const grim::Rect& rect);
 
     /*
         Finds and returns the first Entity with the given ID.
@@ -66,7 +66,7 @@ private:
 
 private:
     const static int MAP_SIZE = 64; // The map size, in tiles.
-    const static int MAX_TREE_COUNT = 300; // The amount of trees to place on the map.
+    const static int MAX_TREE_COUNT = 600; // The amount of trees to place on the map.
     const static int MAX_ROCK_COUNT = 3; // The amount of rocks to place on the map.
 
     Game* m_game;

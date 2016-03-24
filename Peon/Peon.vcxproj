@@ -24,6 +24,7 @@
     <ClCompile Include="Source\Engine\Debug.cpp" />
     <ClCompile Include="Source\Engine\Mesh.cpp" />
     <ClCompile Include="Source\Engine\PerlinGenerator.cpp" />
+    <ClCompile Include="Source\Engine\PoissonDiskGenerator.cpp" />
     <ClCompile Include="Source\Engine\Random.cpp" />
     <ClCompile Include="Source\Engine\Renderer.cpp" />
     <ClCompile Include="Source\Engine\Shader.cpp" />
@@ -71,6 +72,7 @@
     <ClInclude Include="Source\Engine\Debug.hpp" />
     <ClInclude Include="Source\Engine\Mesh.hpp" />
     <ClInclude Include="Source\Engine\PerlinGenerator.hpp" />
+    <ClInclude Include="Source\Engine\PoissonDiskGenerator.hpp" />
     <ClInclude Include="Source\Engine\Random.hpp" />
     <ClInclude Include="Source\Engine\Rect.hpp" />
     <ClInclude Include="Source\Engine\Renderer.hpp" />

@@ -63,22 +63,22 @@ bool Entity::IsDeleted() const
     return m_isDeleted;
 }
 
-Rect Entity::GetHitBox() const
+grim::Rect Entity::GetHitBox() const
 {
-    return Rect(m_position.x + m_hitBox.x, m_position.y + m_hitBox.y, m_hitBox.width, m_hitBox.height);
+    return grim::Rect(m_position.x + m_hitBox.x, m_position.y + m_hitBox.y, m_hitBox.width, m_hitBox.height);
 }
 
 void Entity::Render()
 {
     if (Debug::IsFlagEnabled(RENDER_HITBOXES))
     {
-        Rect hitBox = GetHitBox();
+        grim::Rect hitBox = GetHitBox();
         m_game->GetRenderer()->RenderOutlineRect(hitBox, SDL_Color{ 255, 0, 0, 255 });
     }
 
     if (Debug::IsFlagEnabled(RENDER_ORIGINS))
     {
-        Rect originRect((int)m_position.x - 1, (int)m_position.y - 1, 3, 3);
+        grim::Rect originRect((int)m_position.x - 1, (int)m_position.y - 1, 3, 3);
         m_game->GetRenderer()->RenderFillRect(originRect, SDL_Color{ 255, 0, 0, 255 });
     }
 
@@ -101,9 +101,9 @@ void Entity::Delete()
 /*
     Check if this entity is colliding with the given rectangle.
 */
-bool Entity::IsCollidingWithRect(const Rect& rect) const
+bool Entity::IsCollidingWithRect(const grim::Rect& rect) const
 {
-    Rect hitBox = GetHitBox();
+    grim::Rect hitBox = GetHitBox();
 
     // Calculate the rectangle bounds
     double leftA = hitBox.x;

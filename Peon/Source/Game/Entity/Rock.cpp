@@ -7,7 +7,7 @@ Rock::Rock(Game* game, const glm::vec2& position) :
     Resource(game, position, ROCK, ItemType::STONE)
 {
     m_origin = glm::vec2(0, 0);
-    m_hitBox = Rect(-16, -16, 32, 32);
+    m_hitBox = grim::Rect(-16, -16, 32, 32);
     m_hp = 10;
 
     grim::Texture* texture = game->GetTexture("resource");

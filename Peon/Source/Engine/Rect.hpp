@@ -1,5 +1,8 @@
 #pragma once
 
+namespace grim
+{
+
 struct Rect
 {
     double x;
@@ -16,6 +19,7 @@ struct Rect
     }
 
     inline bool ContainsPoint(const glm::vec2& point);
+    inline bool ContainsPoint(const glm::vec2& point) const;
 };
 
 inline bool Rect::ContainsPoint(const glm::vec2& point)
@@ -28,4 +32,18 @@ inline bool Rect::ContainsPoint(const glm::vec2& point)
     return (point.x >= left) && (point.x <= right) && (point.y >= top) && (point.y <= bottom);
 
     return false;
+}
+
+inline bool Rect::ContainsPoint(const glm::vec2& point) const
+{
+    double left = x;
+    double right = x + width;
+    double top = y;
+    double bottom = y + height;
+
+    return (point.x >= left) && (point.x <= right) && (point.y >= top) && (point.y <= bottom);
+
+    return false;
+}
+
 }

@@ -53,6 +53,7 @@
 #include "Engine/ShaderProgram.hpp"
 #include "Engine/Texture.hpp"
 #include "Engine/Sprite.hpp"
+#include "Engine/PoissonDiskGenerator.hpp"
 
 // Game Includes
 #include "Game/Item/ItemType.hpp"

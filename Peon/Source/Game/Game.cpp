@@ -196,7 +196,7 @@ int Game::Initialize()
         }
 
         // Start music
-        Mix_PlayMusic(m_bgMusic, -1);
+        //Mix_PlayMusic(m_bgMusic, -1);
     }
 
     // Load Shaders
