@@ -9,7 +9,7 @@ std::vector<glm::vec2> PoissonDiskGenerator::Generate(const glm::vec2& initialPo
     std::vector<glm::vec2> processingList; // List of points that need to be processed
     std::vector<glm::vec2> outputList; // List of output points
 
-                                       // Get an initial point, add it to processingList and outputList
+    // Get an initial point, add it to processingList and outputList
     processingList.push_back(initialPoint);
     outputList.push_back(initialPoint);
 
@@ -56,12 +56,6 @@ std::vector<glm::vec2> PoissonDiskGenerator::Generate(const glm::vec2& initialPo
             // If there are no points within the range of this point, add it to the outputList and processingList.
             if (isValid == true)
             {
-                // If we have enough samples, we don't have to process anything anymore.
-                //if (outputList.size() >= samples)
-                //{
-                //    break;
-                //}
-
                 processingList.push_back(point);
                 outputList.push_back(point);
             }

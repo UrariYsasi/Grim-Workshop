@@ -6,6 +6,7 @@ namespace grim
 class PoissonDiskGenerator
 {
     public:
+
         /*
             Generates, using the given parameters, and returns a vector of Poisson sample points within the given zone.
         */
