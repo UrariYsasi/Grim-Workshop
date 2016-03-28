@@ -5,6 +5,7 @@
 #include "../Engine/Input.hpp"
 #include "../Engine/Renderer.hpp"
 #include "../Engine/Rect.hpp"
+#include "../Engine/Mesh.hpp"
 #include "World/World.hpp"
 #include "Terrain/TerrainTile.hpp"
 #include "Entity/Peon.hpp"

@@ -25,9 +25,9 @@ void Obelisk::Update(double deltaTime)
     }
 }
 
-void Obelisk::Render()
+void Obelisk::Render(grim::SpriteBatch& spriteBatch)
 {
-    m_sprite->Render(glm::vec3(m_position - m_origin + m_positionOffset, 0.0f), glm::vec3(0), glm::vec3(64, 288, 0));
+    spriteBatch.AddSprite(glm::vec3(m_position - m_origin + m_positionOffset, 0.0), glm::vec3(0.0, 0.0, 0.0), glm::vec3(64.0, 288.0, 0), m_sprite.get());
 
-    Entity::Render();
+    Entity::Render(spriteBatch);
 }

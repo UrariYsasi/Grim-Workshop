@@ -13,7 +13,7 @@ public:
     bool IsFull();
 
     virtual void Update(double deltaTime) = 0;
-    virtual void Render() = 0;
+    virtual void Render(grim::SpriteBatch& spriteBatch) = 0;
     void AddPeon();
     void RemovePeon();
 

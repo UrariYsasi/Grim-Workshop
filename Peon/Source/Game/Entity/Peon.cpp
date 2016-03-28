@@ -57,47 +57,20 @@ void Peon::Update(double deltaTime)
     }
 }
 
-void Peon::Render()
+void Peon::Render(grim::SpriteBatch& spriteBatch)
 {
     if (!IsDead())
     {
         if (m_isSelected)
         {
-            m_selectionSprite->Render(glm::vec3(m_position - m_origin + glm::vec2(0, 3.0f), 0.0f), glm::vec3(0), glm::vec3(32, 32, 0));
+            spriteBatch.AddSprite(glm::vec3(m_position - m_origin + glm::vec2(0, 3.0), 0.0), glm::vec3(0.0, 0.0, 0.0), glm::vec3(32.0, 32.0, 0), m_selectionSprite.get());
         }
 
-        m_shadowSprite->Render(glm::vec3(m_position - m_origin + glm::vec2(0, 16.0f), 0.0f), glm::vec3(0), glm::vec3(32 + (m_positionOffset.y * 2), 32 + (m_positionOffset.y * 2), 0));
-
-        m_sprite->Render(glm::vec3(m_position - m_origin + m_positionOffset, 0.0f), glm::vec3(0), glm::vec3(32, 32, 0));
-    }
-    /*
-    else
-    {
-        renderer->RenderSprite("peon", 1, 0, (int)(m_position.x + m_positionOffset.x - m_origin.x), (int)(m_position.y + m_positionOffset.y - m_origin.y), 32, 32);
+        spriteBatch.AddSprite(glm::vec3(m_position - m_origin + glm::vec2(0, 16.0), 0.0), glm::vec3(0.0, 0.0, 0.0), glm::vec3(32.0 + (m_positionOffset.y * 2.0), 32.0 + (m_positionOffset.y * 2.0), 0), m_shadowSprite.get());
+        spriteBatch.AddSprite(glm::vec3(m_position - m_origin + m_positionOffset, 0.0), glm::vec3(0.0, 0.0, 0.0), glm::vec3(32.0, 32.0, 0), m_sprite.get());
     }
 
-    if (m_inventory.CountItem(ItemType::WOOD) > 0)
-    {
-        renderer->RenderSprite("peon", 1, 2, (int)(m_position.x - m_origin.x), (int)(m_position.y - m_origin.y), 32, 32);
-    }
-
-    if (m_inventory.CountItem(ItemType::STONE) > 0)
-    {
-        renderer->RenderSprite("peon", 0, 2, (int)(m_position.x - m_origin.x), (int)(m_position.y - m_origin.y), 32, 32);
-    }
-
-    if (m_inventory.CountItem(ItemType::COAL) > 0)
-    {
-        renderer->RenderSprite("peon", 0, 2, (int)(m_position.x - m_origin.x), (int)(m_position.y - m_origin.y), 32, 32);
-    }
-
-    if (m_inventory.CountItem(ItemType::IRON_ORE) > 0)
-    {
-        renderer->RenderSprite("peon", 0, 2, (int)(m_position.x - m_origin.x), (int)(m_position.y - m_origin.y), 32, 32);
-    }
-    */
-
-    Entity::Render();
+    Entity::Render(spriteBatch);
 }
 
 void Peon::Select()

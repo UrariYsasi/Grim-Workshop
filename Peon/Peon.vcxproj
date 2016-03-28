@@ -26,10 +26,10 @@
     <ClCompile Include="Source\Engine\PerlinGenerator.cpp" />
     <ClCompile Include="Source\Engine\PoissonDiskGenerator.cpp" />
     <ClCompile Include="Source\Engine\Random.cpp" />
+    <ClCompile Include="Source\Engine\SpriteBatch.cpp" />
     <ClCompile Include="Source\Engine\Renderer.cpp" />
     <ClCompile Include="Source\Engine\Shader.cpp" />
     <ClCompile Include="Source\Engine\ShaderProgram.cpp" />
-    <ClCompile Include="Source\Engine\Sprite.cpp" />
     <ClCompile Include="Source\Engine\Texture.cpp" />
     <ClCompile Include="Source\Engine\Timer.cpp" />
     <ClCompile Include="Source\Engine\Window.cpp" />
@@ -75,12 +75,14 @@
     <ClInclude Include="Source\Engine\PoissonDiskGenerator.hpp" />
     <ClInclude Include="Source\Engine\Random.hpp" />
     <ClInclude Include="Source\Engine\Rect.hpp" />
+    <ClInclude Include="Source\Engine\SpriteBatch.hpp" />
     <ClInclude Include="Source\Engine\Renderer.hpp" />
     <ClInclude Include="Source\Engine\Shader.hpp" />
     <ClInclude Include="Source\Engine\ShaderProgram.hpp" />
     <ClInclude Include="Source\Engine\Sprite.hpp" />
     <ClInclude Include="Source\Engine\Texture.hpp" />
     <ClInclude Include="Source\Engine\Timer.hpp" />
+    <ClInclude Include="Source\Engine\Vertex.hpp" />
     <ClInclude Include="Source\Engine\Window.hpp" />
     <ClInclude Include="Source\Game\Entity\Action\Action.hpp" />
     <ClInclude Include="Source\Game\Entity\Action\ActionID.hpp" />

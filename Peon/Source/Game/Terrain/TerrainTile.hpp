@@ -3,13 +3,6 @@
 class Game;
 class Prop;
 
-namespace grim
-{
-
-class Sprite;
-
-}
-
 class TerrainTile
 {
 public:
@@ -19,7 +12,7 @@ public:
     void SetPosition(const glm::vec2& position);
     glm::vec2 GetPosition() const;
 
-    void Render();
+    void Render(grim::SpriteBatch& spriteBatch);
 
 private:
     const static int TILE_SIZE = 32;

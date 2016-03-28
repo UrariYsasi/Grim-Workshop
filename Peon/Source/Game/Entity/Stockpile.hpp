@@ -11,7 +11,7 @@ public:
     Inventory* GetInventory();
 
     virtual void Update(double deltaTime);
-    virtual void Render();
+    virtual void Render(grim::SpriteBatch& spriteBatch);
 
 private:
     Inventory m_inventory;

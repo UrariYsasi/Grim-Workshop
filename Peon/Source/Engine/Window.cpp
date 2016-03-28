@@ -64,6 +64,9 @@ int Window::Initialize()
     // Create the OpenGL Context and make it current
     m_glContext = SDL_GL_CreateContext(m_SDLWindow);
 
+    // Turn VSYNC off
+    SDL_GL_SetSwapInterval(0);
+
     // Initialize GL3W
     if (gl3wInit()) {
         Debug::LogError("Gl3W failed to initialize!");

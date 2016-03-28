@@ -10,5 +10,5 @@ public:
     virtual ItemType GetItem() const;
 
     virtual void Update(double deltaTime);
-    virtual void Render();
+    virtual void Render(grim::SpriteBatch& spriteBatch);
 };

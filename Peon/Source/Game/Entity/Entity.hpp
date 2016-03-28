@@ -19,7 +19,7 @@ public:
     grim::Rect GetHitBox() const;
 
     virtual void Update(double deltaTime) = 0;
-    virtual void Render();
+    virtual void Render(grim::SpriteBatch& spriteBatch);
 
     void Delete();
     bool IsCollidingWithRect(const grim::Rect& rect) const;

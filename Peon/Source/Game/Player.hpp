@@ -5,6 +5,7 @@ namespace grim
 
 class Renderer;
 class Camera;
+class Mesh;
 
 }
 

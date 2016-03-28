@@ -80,4 +80,8 @@ private:
     int m_day;
     int m_month;
     int m_year;
+
+    std::unique_ptr<grim::Sprite> m_sprite;
+    std::unique_ptr<grim::Sprite> m_sprite2;
+    grim::SpriteBatch m_spriteBatch;
 };

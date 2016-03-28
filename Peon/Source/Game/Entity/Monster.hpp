@@ -15,7 +15,7 @@ public:
     int GetMoveSpeed();
 
     virtual void Update(double deltaTime);
-    virtual void Render() = 0;
+    virtual void Render(grim::SpriteBatch& spriteBatch) = 0;
 
     /*
         Push an Action onto the Monster's action stack.

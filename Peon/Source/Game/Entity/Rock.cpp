@@ -38,12 +38,12 @@ void Rock::Update(double deltaTime)
 {
 }
 
-void Rock::Render()
+void Rock::Render(grim::SpriteBatch& spriteBatch)
 {
     if (!IsDead())
     {
-        m_sprite->Render(glm::vec3(m_position - m_origin + m_positionOffset, 0.0f), glm::vec3(0), glm::vec3(32, 32, 0));
+        spriteBatch.AddSprite(glm::vec3(m_position - m_origin + m_positionOffset, 0.0), glm::vec3(0.0, 0.0, 0.0), glm::vec3(32.0, 32.0, 0), m_sprite.get());
     }
 
-    Entity::Render();
+    Entity::Render(spriteBatch);
 }

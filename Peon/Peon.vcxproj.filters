@@ -144,13 +144,13 @@
     <ClCompile Include="Source\Engine\Shader.cpp">
       <Filter>Source\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Engine\Sprite.cpp">
-      <Filter>Source\Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Engine\Mesh.cpp">
       <Filter>Source\Engine</Filter>
     </ClCompile>
     <ClCompile Include="Source\Engine\PoissonDiskGenerator.cpp">
+      <Filter>Source\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\SpriteBatch.cpp">
       <Filter>Source\Engine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -294,6 +294,12 @@
       <Filter>Source\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Source\Engine\PoissonDiskGenerator.hpp">
+      <Filter>Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Vertex.hpp">
+      <Filter>Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\SpriteBatch.hpp">
       <Filter>Source\Engine</Filter>
     </ClInclude>
   </ItemGroup>

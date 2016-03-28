@@ -18,6 +18,11 @@ World::World(Game* game) :
     m_month(1),
     m_year(1)
 {
+    grim::Texture* texture = game->GetTexture("gandalf");
+    grim::Texture* texture2 = game->GetTexture("peon");
+    grim::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader");
+    m_sprite = std::make_unique<grim::Sprite>(texture, shaderProgram, 256, 256, 0);
+    m_sprite2 = std::make_unique<grim::Sprite>(texture2, shaderProgram, 32, 32, 0);
 }
 
 World::~World()
@@ -87,14 +92,9 @@ void World::Update(double deltaTime)
 
 void World::Render()
 {
-    // Terrain
-    for (auto it = m_terrain.begin(); it != m_terrain.end(); it++)
-    {
-        TerrainTile* t = (it->second).get();
-        t->Render();
-    }
+    m_spriteBatch.Begin();
 
-    // Z sort Entities
+    // Z sort
     m_entities.sort([](std::unique_ptr<Entity> const& a, std::unique_ptr<Entity> const& b)
     {
         grim::Rect aHit = a->GetHitBox();
@@ -103,12 +103,21 @@ void World::Render()
         return (aHit.y + aHit.height) < (bHit.y + bHit.height);
     });
 
+    // Terrain
+    for (auto it = m_terrain.begin(); it != m_terrain.end(); it++)
+    {
+        TerrainTile* t = (it->second).get();
+        t->Render(m_spriteBatch);
+    }
+
     // Entities
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
         Entity* e = it->get();
-        e->Render();
+        e->Render(m_spriteBatch);
     }
+
+    m_spriteBatch.End();
 }
 
 void World::ProcessTime()

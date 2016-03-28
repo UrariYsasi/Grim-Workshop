@@ -17,6 +17,7 @@
 #include <random>
 #include <algorithm>
 #include <chrono>
+#include <cstdint>
 
 // GL3W Includes
 #include <GL/gl3w.h>
@@ -48,12 +49,14 @@
 #include "Engine/Random.hpp"
 #include "Engine/Color.hpp"
 #include "Engine/Rect.hpp"
+#include "Engine/Vertex.hpp"
 #include "Engine/Timer.hpp"
 #include "Engine/Shader.hpp"
 #include "Engine/ShaderProgram.hpp"
 #include "Engine/Texture.hpp"
 #include "Engine/Sprite.hpp"
 #include "Engine/PoissonDiskGenerator.hpp"
+#include "Engine/SpriteBatch.hpp"
 
 // Game Includes
 #include "Game/Item/ItemType.hpp"

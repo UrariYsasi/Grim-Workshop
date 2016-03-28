@@ -68,7 +68,7 @@ grim::Rect Entity::GetHitBox() const
     return grim::Rect(m_position.x + m_hitBox.x, m_position.y + m_hitBox.y, m_hitBox.width, m_hitBox.height);
 }
 
-void Entity::Render()
+void Entity::Render(grim::SpriteBatch& spriteBatch)
 {
     if (Debug::IsFlagEnabled(RENDER_HITBOXES))
     {
