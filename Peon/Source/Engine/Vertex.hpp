@@ -3,6 +3,9 @@
 namespace grim
 {
 
+/*
+    A data structure that describes the attributes of a vertex in 3D space.
+*/
 struct Vertex
 {
     double x;
