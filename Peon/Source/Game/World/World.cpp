@@ -321,3 +321,8 @@ glm::vec2 World::GetCenter() const
 {
     return glm::vec2 (((MAP_SIZE - 1) * 32.0f) / 2.0f, ((MAP_SIZE - 1) * 32.0f) / 2.0f);
 }
+
+glm::vec2 World::GetSize() const
+{
+    return glm::vec2(((MAP_SIZE - 1) * 32.0f), ((MAP_SIZE - 1) * 32.0f));
+}

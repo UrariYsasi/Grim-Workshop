@@ -60,6 +60,11 @@ public:
     */
     glm::vec2 GetCenter() const;
 
+    /*
+        Gets the size of the world, in pixels.
+    */
+    glm::vec2 GetSize() const;
+
 private:
     void CleanEntities();
 
