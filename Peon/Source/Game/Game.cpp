@@ -259,42 +259,15 @@ void Game::Update(double deltaTime)
         Terminate();
     }
 
-    /*
-    if (m_input->GetKeyPress(SDLK_i))
+    if (m_input->GetKeyPress(SDLK_y))
     {
-        Debug::ToggleFlag(SHOW_MENU);
+        m_map->SpawnPeon(1, m_mainCamera->ConvertToWorld(m_input->GetMousePosition()));
     }
 
-    if (Debug::IsFlagEnabled(CHEAT))
+    if (m_input->GetKeyPress(SDLK_u))
     {
-    */
-        if (m_input->GetKeyPress(SDLK_y))
-        {
-            m_map->SpawnPeon(1, m_mainCamera->ConvertToWorld(m_input->GetMousePosition()));
-        }
-
-        if (m_input->GetKeyPress(SDLK_u))
-        {
-            m_map->SpawnOrc();
-        }
-
-        /*
-        if (m_input->GetKeyPress(SDLK_p))
-        {
-            Debug::ToggleFlag(RENDER_HITBOXES);
-        }
-
-        if (m_input->GetKeyPress(SDLK_k))
-        {
-            Debug::ToggleFlag(RENDER_TILE_OUTLINES);
-        }
-
-        if (m_input->GetKeyPress(SDLK_l))
-        {
-            Debug::ToggleFlag(RENDER_ORIGINS);
-        }
+        m_map->SpawnOrc();
     }
-    */
 
     m_map->Update(deltaTime);
     m_player->Update(deltaTime);
@@ -305,90 +278,8 @@ void Game::Render()
     m_renderer->Clear();
 
     m_mainCamera->Activate();
-
     m_map->Render();
-
     m_player->Render();
-
-    /*
-    // Render GUI
-    m_GUICamera->Activate();
-
-    Rect bottomBar(0, m_window->GetSize().y - 16, m_window->GetSize().x, 16);
-    m_renderer->RenderFillRect(bottomBar, SDL_Color{ 128, 128, 128, 128 });
-    Stockpile* stockpile = dynamic_cast<Stockpile*>(m_map->FindEntity(STOCKPILE));
-    Inventory* stock = stockpile->GetInventory();
-    Vector2D windowSize = m_window->GetSize();
-
-    std::stringstream ss;
-    ss << m_map->GetMonth() << " " << m_map->GetDay() << ", Year " << m_map->GetYear();
-    m_renderer->RenderText("dos", (int)(windowSize.x / 2) - 100, (int)10, ss.str());
-    ss.str(" ");
-
-    ss << "Wood: " << stock->CountItem(ItemType::WOOD) << "         ";
-    ss << "Stone: " << stock->CountItem(ItemType::STONE) << "         ";
-    ss << "Coal: " << stock->CountItem(ItemType::COAL) << "         ";
-    ss << "Iron Ore: " << stock->CountItem(ItemType::IRON_ORE) << "         ";
-    ss << "Iron Bar: " << stock->CountItem(ItemType::IRON_BAR) << "         ";
-    m_renderer->RenderText("dos", 5, (int)m_window->GetSize().y - 16, ss.str());
-    ss.str(" ");
-
-    // Debug stuff
-    if (Debug::IsFlagEnabled(SHOW_MENU))
-    {
-        Rect container(5, 5, 340, 180);
-        m_renderer->RenderFillRect(container, SDL_Color{ 128, 128, 128, 128 });
-
-        ss << "Framerate: " << (int)m_frameRate;
-        m_renderer->RenderText("dos", 10, 10, ss.str());
-        ss.str(" ");
-
-        ss << "Peon Count: " << "UNKNOWN";
-        m_renderer->RenderText("dos", 10, 25, ss.str());
-        ss.str(" ");
-
-        Vector2D mouseScreenPosition = m_input->GetMousePosition();
-        ss << "Mouse Position(Screen): " << "(" << (int)mouseScreenPosition.x << "," << (int)mouseScreenPosition.y << ")";
-        m_renderer->RenderText("dos", 10, 40, ss.str());
-        ss.str(" ");
-
-        Vector2D mouseWorldPosition = m_mainCamera->ConvertToWorld(mouseScreenPosition);
-        ss << "Mouse Position(World): " << "(" << (int)mouseWorldPosition.x << "," << (int)mouseWorldPosition.y << ")";
-        m_renderer->RenderText("dos", 10, 55, ss.str());
-        ss.str(" ");
-
-        Vector2D cameraPosition = m_mainCamera->GetPosition();
-        ss << "Camera Position: " << "(" << (int)cameraPosition.x << "," << (int)cameraPosition.y << ")";
-        m_renderer->RenderText("dos", 10, 70, ss.str());
-        ss.str(" ");
-
-        ss << "I - Toggle debug menu";
-        m_renderer->RenderText("dos", 10, 95, ss.str());
-        ss.str(" ");
-
-        ss << "Y - Spawn peon";
-        m_renderer->RenderText("dos", 10, 110, ss.str());
-        ss.str(" ");
-
-        ss << "U - Spawn goblin";
-        m_renderer->RenderText("dos", 10, 125, ss.str());
-        ss.str(" ");
-
-        ss << "P - Render hit boxes";
-        m_renderer->RenderText("dos", 10, 140, ss.str());
-        ss.str(" ");
-
-        ss << "K - Render tile outlines";
-        m_renderer->RenderText("dos", 10, 155, ss.str());
-        ss.str(" ");
-
-        ss << "L - Render origins";
-        m_renderer->RenderText("dos", 10, 170, ss.str());
-        ss.str(" ");
-    }
-
-    m_renderer->Present();
-    */
 }
 
 bool Game::LoadTexture(const std::string& textureFileName, const std::string& ID)

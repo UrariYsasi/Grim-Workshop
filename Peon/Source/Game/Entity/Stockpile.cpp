@@ -24,8 +24,5 @@ void Stockpile::Update(double deltaTime)
 
 void Stockpile::Render(grim::graphics::SpriteBatch& spriteBatch)
 {
-    grim::graphics::Renderer* renderer = m_game->GetRenderer();
-    renderer->RenderSprite("structure", 0, 1, (int)(m_position.x - m_origin.x), (int)(m_position.y - m_origin.y), (int)SPRITE_SIZE.x, (int)SPRITE_SIZE.y);
-
     Entity::Render(spriteBatch);
 }

@@ -69,24 +69,6 @@ grim::graphics::Rect Entity::GetHitBox() const
 
 void Entity::Render(grim::graphics::SpriteBatch& spriteBatch)
 {
-    if (grim::utility::Debug::IsFlagEnabled(grim::utility::RENDER_HITBOXES))
-    {
-        grim::graphics::Rect hitBox = GetHitBox();
-        m_game->GetRenderer()->RenderOutlineRect(hitBox, SDL_Color{ 255, 0, 0, 255 });
-    }
-
-    if (grim::utility::Debug::IsFlagEnabled(grim::utility::RENDER_ORIGINS))
-    {
-        grim::graphics::Rect originRect((int)m_position.x - 1.0f, (int)m_position.y - 1.0f, 3.0f, 3.0f);
-        m_game->GetRenderer()->RenderFillRect(originRect, SDL_Color{ 255, 0, 0, 255 });
-    }
-
-    /*
-    if (m_hp < 5)
-    {
-        m_game->GetRenderer()->RenderText("dos", (int)m_position.x, (int)m_position.y, std::to_string(m_hp));
-    }
-    */
 }
 
 /*

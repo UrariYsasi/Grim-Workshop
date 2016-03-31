@@ -17,8 +17,5 @@ void Forge::Update(double deltaTime)
 
 void Forge::Render(grim::graphics::SpriteBatch& spriteBatch)
 {
-    grim::graphics::Renderer* renderer = m_game->GetRenderer();
-    renderer->RenderSprite("structure", 0, 0, (int)m_position.x, (int)m_position.y, (int)SPRITE_SIZE.x, (int)SPRITE_SIZE.y);
-
     Entity::Render(spriteBatch);
 }
