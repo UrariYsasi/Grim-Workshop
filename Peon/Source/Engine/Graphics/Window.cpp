@@ -63,7 +63,7 @@ int Window::Initialize()
 
     if (m_SDLWindow == nullptr)
     {
-        grim::utility::Debug::LogError("Window coult not initialize! SDL error: %s", SDL_GetError());
+        grim::utility::Debug::LogError("Window could not initialize! SDL error: %s", SDL_GetError());
         return FAILURE;
     }
 
@@ -74,11 +74,14 @@ int Window::Initialize()
     SDL_GL_SetSwapInterval(0);
 
     // Initialize GL3W
-    if (gl3wInit()) {
+    if (gl3wInit())
+    {
         grim::utility::Debug::LogError("Gl3W failed to initialize!");
         return FAILURE;
     }
-    if (!gl3wIsSupported(3, 2)) {
+
+    if (!gl3wIsSupported(3, 2))
+    {
         grim::utility::Debug::LogError("OpenGL 3.2 not supported!");
         return FAILURE;
     }
