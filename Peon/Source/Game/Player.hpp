@@ -4,13 +4,25 @@ namespace grim
 {
 
 class Renderer;
-class Camera;
+
+namespace graphics
+{
+
 class Mesh;
+class Camera;
+
+}
+
+namespace ui
+{
+
+class Input;
+
+}
 
 }
 
 class Game;
-class Input;
 class Entity;
 class World;
 
@@ -32,15 +44,15 @@ private:
     const int CAMERA_SPEED_FAST = 1792;
 
     Game* m_game;
-    Input* m_gameInput;
-    grim::Camera* m_gameCamera;
-    grim::Renderer* m_gameRenderer;
+    grim::ui::Input* m_gameInput;
+    grim::graphics::Camera* m_gameCamera;
+    grim::graphics::Renderer* m_gameRenderer;
     World* m_gameWorld;
 
     int m_cameraSpeed;
     bool m_isBoxSelecting;
-    grim::Rect m_boxSelection;
+    grim::graphics::Rect m_boxSelection;
     std::list<Entity*> m_selectedPeons;
 
-    std::unique_ptr<grim::Mesh> m_boxSelectionMesh;
+    std::unique_ptr<grim::graphics::Mesh> m_boxSelectionMesh;
 };

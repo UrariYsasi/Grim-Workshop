@@ -19,20 +19,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Engine\Camera.cpp" />
-    <ClCompile Include="Source\Engine\Input.cpp" />
-    <ClCompile Include="Source\Engine\Debug.cpp" />
-    <ClCompile Include="Source\Engine\Mesh.cpp" />
-    <ClCompile Include="Source\Engine\PerlinGenerator.cpp" />
-    <ClCompile Include="Source\Engine\PoissonDiskGenerator.cpp" />
-    <ClCompile Include="Source\Engine\Random.cpp" />
-    <ClCompile Include="Source\Engine\SpriteBatch.cpp" />
-    <ClCompile Include="Source\Engine\Renderer.cpp" />
-    <ClCompile Include="Source\Engine\Shader.cpp" />
-    <ClCompile Include="Source\Engine\ShaderProgram.cpp" />
-    <ClCompile Include="Source\Engine\Texture.cpp" />
-    <ClCompile Include="Source\Engine\Timer.cpp" />
-    <ClCompile Include="Source\Engine\Window.cpp" />
+    <ClCompile Include="Source\Engine\Graphics\Camera.cpp" />
+    <ClCompile Include="Source\Engine\Graphics\Mesh.cpp" />
+    <ClCompile Include="Source\Engine\Graphics\Renderer.cpp" />
+    <ClCompile Include="Source\Engine\Graphics\Shader.cpp" />
+    <ClCompile Include="Source\Engine\Graphics\ShaderProgram.cpp" />
+    <ClCompile Include="Source\Engine\Graphics\SpriteBatch.cpp" />
+    <ClCompile Include="Source\Engine\Graphics\Texture.cpp" />
+    <ClCompile Include="Source\Engine\Graphics\Window.cpp" />
+    <ClCompile Include="Source\Engine\UI\Input.cpp" />
+    <ClCompile Include="Source\Engine\Utility\Debug.cpp" />
+    <ClCompile Include="Source\Engine\Utility\PoissonDiskGenerator.cpp" />
+    <ClCompile Include="Source\Engine\Utility\Random.cpp" />
+    <ClCompile Include="Source\Engine\Utility\Timer.cpp" />
     <ClCompile Include="Source\Game\Entity\Action\Action.cpp" />
     <ClCompile Include="Source\Game\Entity\Action\AttackAction.cpp" />
     <ClCompile Include="Source\Game\Entity\Action\DepositAction.cpp" />
@@ -66,24 +65,23 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Engine\Camera.hpp" />
-    <ClInclude Include="Source\Engine\Color.hpp" />
-    <ClInclude Include="Source\Engine\Input.hpp" />
-    <ClInclude Include="Source\Engine\Debug.hpp" />
-    <ClInclude Include="Source\Engine\Mesh.hpp" />
-    <ClInclude Include="Source\Engine\PerlinGenerator.hpp" />
-    <ClInclude Include="Source\Engine\PoissonDiskGenerator.hpp" />
-    <ClInclude Include="Source\Engine\Random.hpp" />
-    <ClInclude Include="Source\Engine\Rect.hpp" />
-    <ClInclude Include="Source\Engine\SpriteBatch.hpp" />
-    <ClInclude Include="Source\Engine\Renderer.hpp" />
-    <ClInclude Include="Source\Engine\Shader.hpp" />
-    <ClInclude Include="Source\Engine\ShaderProgram.hpp" />
-    <ClInclude Include="Source\Engine\Sprite.hpp" />
-    <ClInclude Include="Source\Engine\Texture.hpp" />
-    <ClInclude Include="Source\Engine\Timer.hpp" />
-    <ClInclude Include="Source\Engine\Vertex.hpp" />
-    <ClInclude Include="Source\Engine\Window.hpp" />
+    <ClInclude Include="Source\Engine\Graphics\Camera.hpp" />
+    <ClInclude Include="Source\Engine\Graphics\Color.hpp" />
+    <ClInclude Include="Source\Engine\Graphics\Mesh.hpp" />
+    <ClInclude Include="Source\Engine\Graphics\Rect.hpp" />
+    <ClInclude Include="Source\Engine\Graphics\Renderer.hpp" />
+    <ClInclude Include="Source\Engine\Graphics\Shader.hpp" />
+    <ClInclude Include="Source\Engine\Graphics\ShaderProgram.hpp" />
+    <ClInclude Include="Source\Engine\Graphics\Sprite.hpp" />
+    <ClInclude Include="Source\Engine\Graphics\SpriteBatch.hpp" />
+    <ClInclude Include="Source\Engine\Graphics\Texture.hpp" />
+    <ClInclude Include="Source\Engine\Graphics\Vertex.hpp" />
+    <ClInclude Include="Source\Engine\Graphics\Window.hpp" />
+    <ClInclude Include="Source\Engine\UI\Input.hpp" />
+    <ClInclude Include="Source\Engine\Utility\Debug.hpp" />
+    <ClInclude Include="Source\Engine\Utility\PoissonDiskGenerator.hpp" />
+    <ClInclude Include="Source\Engine\Utility\Random.hpp" />
+    <ClInclude Include="Source\Engine\Utility\Timer.hpp" />
     <ClInclude Include="Source\Game\Entity\Action\Action.hpp" />
     <ClInclude Include="Source\Game\Entity\Action\ActionID.hpp" />
     <ClInclude Include="Source\Game\Entity\Action\AttackAction.hpp" />
@@ -195,13 +193,14 @@
       <AdditionalOptions>/D "WINDOWS" %(AdditionalOptions)</AdditionalOptions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>PCH.hpp</PrecompiledHeaderFile>
-      <TreatWarningAsError>false</TreatWarningAsError>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <EnableCOMDATFolding>false</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>SOIL.lib;gl3w.lib;opengl32.lib;SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
+      <AdditionalOptions>/ignore:4098 /ignore:4075 /OPT:NOLBR /OPT:NOREF %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

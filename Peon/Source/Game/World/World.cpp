@@ -9,8 +9,6 @@
 #include "../Entity/Orc.hpp"
 #include "../Entity/Obelisk.hpp"
 #include "../Terrain/TerrainTile.hpp"
-#include "../../Engine/Input.hpp"
-#include "../../Engine/Camera.hpp"
 
 World::World(Game* game) :
     m_game(game),
@@ -18,11 +16,11 @@ World::World(Game* game) :
     m_month(1),
     m_year(1)
 {
-    grim::Texture* texture = game->GetTexture("gandalf");
-    grim::Texture* texture2 = game->GetTexture("peon");
-    grim::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader");
-    m_sprite = std::make_unique<grim::Sprite>(texture, shaderProgram, 256, 256, 0);
-    m_sprite2 = std::make_unique<grim::Sprite>(texture2, shaderProgram, 32, 32, 0);
+    grim::graphics::Texture* texture = game->GetTexture("gandalf");
+    grim::graphics::Texture* texture2 = game->GetTexture("peon");
+    grim::graphics::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader");
+    m_sprite = std::make_unique<grim::graphics::Sprite>(texture, shaderProgram, 256, 256, 0);
+    m_sprite2 = std::make_unique<grim::graphics::Sprite>(texture2, shaderProgram, 32, 32, 0);
 }
 
 World::~World()
@@ -97,8 +95,8 @@ void World::Render()
     // Z sort
     m_entities.sort([](std::unique_ptr<Entity> const& a, std::unique_ptr<Entity> const& b)
     {
-        grim::Rect aHit = a->GetHitBox();
-        grim::Rect bHit = b->GetHitBox();
+        grim::graphics::Rect aHit = a->GetHitBox();
+        grim::graphics::Rect bHit = b->GetHitBox();
 
         return (aHit.y + aHit.height) < (bHit.y + bHit.height);
     });
@@ -147,7 +145,7 @@ void World::ProcessTime()
 
 void World::Generate()
 {
-    Debug::Log("Generating world...");
+    grim::utility::Debug::Log("Generating world...");
 
     // Terrain
     for (int x = 0; x < MAP_SIZE; x++)
@@ -160,8 +158,8 @@ void World::Generate()
     }
 
     // Trees
-    grim::Rect worldRect(0.0, 0.0, MAP_SIZE * 32, MAP_SIZE * 32);
-    std::vector<glm::vec2> outputList = grim::PoissonDiskGenerator::Generate(GetCenter(), 32.0, 64.0, 30, worldRect);
+    grim::graphics::Rect worldRect(0.0, 0.0, MAP_SIZE * 32, MAP_SIZE * 32);
+    std::vector<glm::vec2> outputList = grim::utility::PoissonDiskGenerator::Generate(GetCenter(), 32.0, 64.0, 30, worldRect);
     for (auto pointIt = outputList.begin(); pointIt != outputList.end(); pointIt++)
     {
         glm::vec2 spawnPosition = (*pointIt);
@@ -186,7 +184,7 @@ void World::Generate()
     // Peons
     SpawnPeon(3, GetCenter() - glm::vec2(128, 128));
 
-    Debug::Log("World generation complete.");
+    grim::utility::Debug::Log("World generation complete.");
 }
 
 /*
@@ -210,7 +208,7 @@ void World::SpawnPeon(int quantity, const glm::vec2& position)
 {
     for (int i = 0; i < quantity; i++)
     {
-        glm::vec2 spawnPos = position + glm::vec2(Random::Generate(-32, 32), Random::Generate(-32, 32));
+        glm::vec2 spawnPos = position + glm::vec2(grim::utility::Random::Generate(-32.0, 32.0), grim::utility::Random::Generate(-32.0, 32.0));
         m_entities.push_back(std::make_unique<Peon>(m_game, spawnPos));
     }
 }
@@ -235,7 +233,7 @@ bool World::IsPassable(const glm::vec2& point)
 {
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
-        grim::Rect hitBox = (*it)->GetHitBox();
+        grim::graphics::Rect hitBox = (*it)->GetHitBox();
         if (hitBox.ContainsPoint(point))
         {
             return false;
@@ -252,7 +250,7 @@ Entity* World::GetEntityAtPoint(const glm::vec2& point, int entityID)
         ent = (*it).get();
         if (ent->GetEntityID() == entityID || entityID == NONE)
         {
-            grim::Rect hitBox = ent->GetHitBox();
+            grim::graphics::Rect hitBox = ent->GetHitBox();
             if (hitBox.ContainsPoint(point))
             {
                 return ent;
@@ -269,7 +267,7 @@ TerrainTile* World::GetTerrainAtPoint(const glm::vec2& point)
     return m_terrain.at(tilePosition).get();
 }
 
-std::list<Entity*> World::GetEntitiesInRect(int entityID, const grim::Rect& rect)
+std::list<Entity*> World::GetEntitiesInRect(int entityID, const grim::graphics::Rect& rect)
 {
     std::list<Entity*> ents;
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)

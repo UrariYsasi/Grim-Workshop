@@ -9,7 +9,7 @@ Monster::Monster(Game* game, const glm::vec2& position, int entityID) :
     m_heldEntity(nullptr),
     m_moveSpeed(64)
 {
-    m_moveSpeed += (int)Random::Generate(-10, 10);
+    m_moveSpeed += static_cast<int16_t>(grim::utility::Random::Generate(-10, 10));
 }
 
 Monster::~Monster()

@@ -4,19 +4,18 @@
 #include "Action/MoveAction.hpp"
 #include "Action/AttackAction.hpp"
 #include "Peon.hpp"
-#include "../../Engine/Renderer.hpp"
 #include "../World/World.hpp"
 
 Orc::Orc(Game* game, const glm::vec2& position) :
     Monster(game, position, ORC)
 {
     m_origin = glm::vec2(16, 16);
-    m_hitBox = grim::Rect(-4, 0, 8, 16);
+    m_hitBox = grim::graphics::Rect(-4, 0, 8, 16);
     m_hp = 6;
 
-    grim::Texture* texture = game->GetTexture("orc");
-    grim::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader"); 
-    m_sprite = std::make_unique<grim::Sprite>(texture, shaderProgram, 32, 32, 0);
+    grim::graphics::Texture* texture = game->GetTexture("orc");
+    grim::graphics::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader"); 
+    m_sprite = std::make_unique<grim::graphics::Sprite>(texture, shaderProgram, 32, 32, 0);
 }
 
 Orc::~Orc()
@@ -47,7 +46,7 @@ void Orc::Update(double deltaTime)
         if (!attackAction->IsAttackingPeon())
         {
             // ORC SEARCH FOR PUNY PEONS TO SMASH
-            grim::Rect searchRect(m_position.x - 128, m_position.y - 128, 256, 256);
+            grim::graphics::Rect searchRect(m_position.x - 128, m_position.y - 128, 256, 256);
             std::list<Entity*> peons = map->GetEntitiesInRect(PEON, searchRect);
             if (peons.size() > 0)
             {
@@ -60,7 +59,7 @@ void Orc::Update(double deltaTime)
     }
 }
 
-void Orc::Render(grim::SpriteBatch& spriteBatch)
+void Orc::Render(grim::graphics::SpriteBatch& spriteBatch)
 {
     if (!IsDead())
     {

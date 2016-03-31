@@ -1,5 +1,4 @@
 #pragma once
-#include "../../Engine/PerlinGenerator.hpp"
 
 class Game;
 class TerrainTile;
@@ -40,7 +39,7 @@ public:
 
         If the ID given is NONE, it will return all Entity types.
     */
-    std::list<Entity*> GetEntitiesInRect(int entityID, const grim::Rect& rect);
+    std::list<Entity*> GetEntitiesInRect(int entityID, const grim::graphics::Rect& rect);
 
     /*
         Finds and returns the first Entity with the given ID.
@@ -70,18 +69,17 @@ private:
     const static int MAX_ROCK_COUNT = 3; // The amount of rocks to place on the map.
 
     Game* m_game;
-    PerlinGenerator m_generator;
 
     std::unordered_map<glm::vec2, std::unique_ptr<TerrainTile> > m_terrain;
     std::list< std::unique_ptr<Entity> > m_entities;
 
     // Time
-    Timer m_worldTimer;
+    grim::utility::Timer m_worldTimer;
     int m_day;
     int m_month;
     int m_year;
 
-    std::unique_ptr<grim::Sprite> m_sprite;
-    std::unique_ptr<grim::Sprite> m_sprite2;
-    grim::SpriteBatch m_spriteBatch;
+    std::unique_ptr<grim::graphics::Sprite> m_sprite;
+    std::unique_ptr<grim::graphics::Sprite> m_sprite2;
+    grim::graphics::SpriteBatch m_spriteBatch;
 };

@@ -16,6 +16,6 @@ private:
     const double MIN_DISTANCE = 10.0;
 
     Forge* m_forge;
-    Timer m_timer;
+    grim::utility::Timer m_timer;
     double m_forgeTime;
 };

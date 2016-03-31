@@ -2,8 +2,6 @@
 #include "TerrainTile.hpp"
 #include "../Game.hpp"
 #include "../Entity/Prop.hpp"
-#include "../../Engine/Renderer.hpp"
-#include "../../Engine/Camera.hpp"
 
 TerrainTile::TerrainTile(Game* game, const glm::vec2& position) :
     m_game(game),
@@ -13,10 +11,10 @@ TerrainTile::TerrainTile(Game* game, const glm::vec2& position) :
     m_origin(16, 16),
     m_sprite(nullptr)
 {
-    int variance = round(Random::Generate(0.0, 2.0));
-    grim::Texture* texture = game->GetTexture("terrain");
-    grim::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader");
-    m_sprite = std::make_unique<grim::Sprite>(texture, shaderProgram, 32, 32, variance);
+    int variance = static_cast<int>(std::round(grim::utility::Random::Generate(0.0, 5.0)));
+    grim::graphics::Texture* texture = game->GetTexture("terrain");
+    grim::graphics::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader");
+    m_sprite = std::make_unique<grim::graphics::Sprite>(texture, shaderProgram, 32, 32, variance);
 }
 
 TerrainTile::~TerrainTile()
@@ -33,7 +31,7 @@ glm::vec2 TerrainTile::GetPosition() const
     return m_position;
 }
 
-void TerrainTile::Render(grim::SpriteBatch& spriteBatch)
+void TerrainTile::Render(grim::graphics::SpriteBatch& spriteBatch)
 {
     spriteBatch.AddSprite(glm::vec3(m_position, 0.0f), m_rotation, m_scale, m_sprite.get());
 }

@@ -8,12 +8,12 @@ int main(int argc, char** argv)
         if (std::string(argv[1]) == "-noAudio")
         {
             //Debug::DisableFlag(MIX_AUDIO);
-            Debug::LogError("-noAudio flag observed.");
+            grim::utility::Debug::LogError("-noAudio flag observed.");
         }
     }
     else
     {
-        Debug::EnableFlag(MIX_AUDIO);
+        grim::utility::Debug::EnableFlag(grim::utility::MIX_AUDIO);
     }
 
     Game game;
@@ -23,7 +23,7 @@ int main(int argc, char** argv)
     }
     else
     {
-        Debug::LogError("Game initialization failed.");
+        grim::utility::Debug::LogError("Game initialization failed.");
     }
 
     return 0;

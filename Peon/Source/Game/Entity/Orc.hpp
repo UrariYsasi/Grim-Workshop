@@ -8,5 +8,5 @@ public:
     virtual ~Orc();
 
     virtual void Update(double deltaTime);
-    virtual void Render(grim::SpriteBatch& spriteBatch);
+    virtual void Render(grim::graphics::SpriteBatch& spriteBatch);
 };

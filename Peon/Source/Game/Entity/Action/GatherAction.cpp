@@ -52,7 +52,7 @@ void GatherAction::Update(double deltaTime)
         // We are close enough. We can start gathering.
         if (!m_timer.IsStarted())
         {
-            m_gatherTime = Random::Generate(1000, 4000);
+            m_gatherTime = grim::utility::Random::Generate(1000, 4000);
             m_timer.Start();
         }
         else
@@ -70,7 +70,7 @@ void GatherAction::Update(double deltaTime)
         {
             m_totalGathers = 0;
             m_target->Damage();
-            m_ownerInventory->GiveItem(item, (int)Random::Generate(1, 3));
+            m_ownerInventory->GiveItem(item, static_cast<uint16_t>(grim::utility::Random::Generate(1.0, 3.0)));
             m_owner->PushAction(std::make_unique<DepositAction>(m_owner, item, -1));
         }
     }

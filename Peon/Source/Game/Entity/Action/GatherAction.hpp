@@ -19,7 +19,7 @@ private:
 
     Inventory* m_ownerInventory;
     Resource* m_target;
-    Timer m_timer;
+    grim::utility::Timer m_timer;
     double m_gatherTime; // The time it takes in milliseconds to gather a resource
     // TODO: base the gather time off of the peons skill level or something
     int m_totalGathers;

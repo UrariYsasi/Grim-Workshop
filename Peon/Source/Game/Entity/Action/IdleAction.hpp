@@ -10,6 +10,6 @@ public:
     virtual void Update(double deltaTime);
 
 private:
-    Timer m_timer;
+    grim::utility::Timer m_timer;
     int m_waitTime; // The time in milliseconds to wait before wandering.
 };

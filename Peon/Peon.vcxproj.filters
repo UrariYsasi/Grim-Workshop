@@ -25,6 +25,15 @@
     <Filter Include="Source\Game\World">
       <UniqueIdentifier>{93b5f330-137c-41a0-b8e3-2d2cbc844cb5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Engine\Graphics">
+      <UniqueIdentifier>{7e99d8da-ebe6-4d2d-9476-ec2e6ef54410}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\UI">
+      <UniqueIdentifier>{bf3ae608-fd0c-437a-aadd-282642203ad2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Utility">
+      <UniqueIdentifier>{ccd4d6bf-4b07-4672-bcdc-4a4106cff69c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -63,35 +72,14 @@
     <ClCompile Include="Source\Game\Entity\Action\MoveAction.cpp">
       <Filter>Source\Game\Entity\Action</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Engine\Input.cpp">
-      <Filter>Source\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Engine\Renderer.cpp">
-      <Filter>Source\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Engine\Timer.cpp">
-      <Filter>Source\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Engine\Window.cpp">
-      <Filter>Source\Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Game\Entity\Action\GatherAction.cpp">
       <Filter>Source\Game\Entity\Action</Filter>
     </ClCompile>
     <ClCompile Include="Source\Game\Item\Inventory.cpp">
       <Filter>Source\Game\Item</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Engine\Debug.cpp">
-      <Filter>Source\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Engine\Random.cpp">
-      <Filter>Source\Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Game\Entity\Rock.cpp">
       <Filter>Source\Game\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Engine\Camera.cpp">
-      <Filter>Source\Engine</Filter>
     </ClCompile>
     <ClCompile Include="Source\Game\Entity\Action\DepositAction.cpp">
       <Filter>Source\Game\Entity\Action</Filter>
@@ -104,9 +92,6 @@
     </ClCompile>
     <ClCompile Include="Source\Game\Entity\Forge.cpp">
       <Filter>Source\Game\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Engine\PerlinGenerator.cpp">
-      <Filter>Source\Engine</Filter>
     </ClCompile>
     <ClCompile Include="Source\Game\Entity\Obelisk.cpp">
       <Filter>Source\Game\Entity</Filter>
@@ -135,23 +120,44 @@
     <ClCompile Include="Source\Game\World\World.cpp">
       <Filter>Source\Game\World</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Engine\ShaderProgram.cpp">
-      <Filter>Source\Engine</Filter>
+    <ClCompile Include="Source\Engine\Graphics\Camera.cpp">
+      <Filter>Source\Engine\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Engine\Texture.cpp">
-      <Filter>Source\Engine</Filter>
+    <ClCompile Include="Source\Engine\Utility\Debug.cpp">
+      <Filter>Source\Engine\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Engine\Shader.cpp">
-      <Filter>Source\Engine</Filter>
+    <ClCompile Include="Source\Engine\UI\Input.cpp">
+      <Filter>Source\Engine\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Engine\Mesh.cpp">
-      <Filter>Source\Engine</Filter>
+    <ClCompile Include="Source\Engine\Graphics\Mesh.cpp">
+      <Filter>Source\Engine\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Engine\PoissonDiskGenerator.cpp">
-      <Filter>Source\Engine</Filter>
+    <ClCompile Include="Source\Engine\Utility\PoissonDiskGenerator.cpp">
+      <Filter>Source\Engine\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Engine\SpriteBatch.cpp">
-      <Filter>Source\Engine</Filter>
+    <ClCompile Include="Source\Engine\Utility\Random.cpp">
+      <Filter>Source\Engine\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Graphics\Renderer.cpp">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Graphics\Shader.cpp">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Graphics\ShaderProgram.cpp">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Graphics\SpriteBatch.cpp">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Graphics\Texture.cpp">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Utility\Timer.cpp">
+      <Filter>Source\Engine\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Graphics\Window.cpp">
+      <Filter>Source\Engine\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -191,35 +197,14 @@
     <ClInclude Include="Source\Game\Entity\Action\MoveAction.hpp">
       <Filter>Source\Game\Entity\Action</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\Input.hpp">
-      <Filter>Source\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Engine\Renderer.hpp">
-      <Filter>Source\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Engine\Timer.hpp">
-      <Filter>Source\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Engine\Window.hpp">
-      <Filter>Source\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Game\Entity\Action\GatherAction.hpp">
       <Filter>Source\Game\Entity\Action</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\Item\Inventory.hpp">
       <Filter>Source\Game\Item</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\Debug.hpp">
-      <Filter>Source\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Engine\Random.hpp">
-      <Filter>Source\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Game\Entity\Rock.hpp">
       <Filter>Source\Game\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Engine\Camera.hpp">
-      <Filter>Source\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\Item\ItemType.hpp">
       <Filter>Source\Game\Item</Filter>
@@ -235,9 +220,6 @@
     </ClInclude>
     <ClInclude Include="Source\Game\Entity\Forge.hpp">
       <Filter>Source\Game\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Engine\PerlinGenerator.hpp">
-      <Filter>Source\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\Entity\Obelisk.hpp">
       <Filter>Source\Game\Entity</Filter>
@@ -272,35 +254,56 @@
     <ClInclude Include="Source\Game\World\World.hpp">
       <Filter>Source\Game\World</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\Rect.hpp">
-      <Filter>Source\Engine</Filter>
+    <ClInclude Include="Source\Engine\Graphics\Camera.hpp">
+      <Filter>Source\Engine\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\ShaderProgram.hpp">
-      <Filter>Source\Engine</Filter>
+    <ClInclude Include="Source\Engine\Graphics\Color.hpp">
+      <Filter>Source\Engine\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\Texture.hpp">
-      <Filter>Source\Engine</Filter>
+    <ClInclude Include="Source\Engine\Utility\Debug.hpp">
+      <Filter>Source\Engine\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\Shader.hpp">
-      <Filter>Source\Engine</Filter>
+    <ClInclude Include="Source\Engine\UI\Input.hpp">
+      <Filter>Source\Engine\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\Color.hpp">
-      <Filter>Source\Engine</Filter>
+    <ClInclude Include="Source\Engine\Graphics\Mesh.hpp">
+      <Filter>Source\Engine\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\Sprite.hpp">
-      <Filter>Source\Engine</Filter>
+    <ClInclude Include="Source\Engine\Utility\PoissonDiskGenerator.hpp">
+      <Filter>Source\Engine\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\Mesh.hpp">
-      <Filter>Source\Engine</Filter>
+    <ClInclude Include="Source\Engine\Utility\Random.hpp">
+      <Filter>Source\Engine\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\PoissonDiskGenerator.hpp">
-      <Filter>Source\Engine</Filter>
+    <ClInclude Include="Source\Engine\Graphics\Rect.hpp">
+      <Filter>Source\Engine\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\Vertex.hpp">
-      <Filter>Source\Engine</Filter>
+    <ClInclude Include="Source\Engine\Graphics\Renderer.hpp">
+      <Filter>Source\Engine\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine\SpriteBatch.hpp">
-      <Filter>Source\Engine</Filter>
+    <ClInclude Include="Source\Engine\Graphics\Shader.hpp">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Graphics\ShaderProgram.hpp">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Graphics\Sprite.hpp">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Graphics\SpriteBatch.hpp">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Graphics\Texture.hpp">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Utility\Timer.hpp">
+      <Filter>Source\Engine\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Graphics\Vertex.hpp">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Graphics\Window.hpp">
+      <Filter>Source\Engine\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

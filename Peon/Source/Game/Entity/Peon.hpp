@@ -8,13 +8,13 @@ public:
     virtual ~Peon();
 
     virtual void Update(double deltaTime);
-    virtual void Render(grim::SpriteBatch& spriteBatch);
+    virtual void Render(grim::graphics::SpriteBatch& spriteBatch);
 
     void Select();
     void Deselect();
 
 private:
     bool m_isSelected;
-    std::unique_ptr<grim::Sprite> m_selectionSprite;
-    std::unique_ptr<grim::Sprite> m_shadowSprite;
+    std::unique_ptr<grim::graphics::Sprite> m_selectionSprite;
+    std::unique_ptr<grim::graphics::Sprite> m_shadowSprite;
 };

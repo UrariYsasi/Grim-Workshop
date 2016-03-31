@@ -1,10 +1,5 @@
 #include "PCH.hpp"
 #include "Game.hpp"
-#include "../Engine/Window.hpp"
-#include "../Engine/Renderer.hpp"
-#include "../Engine/Input.hpp"
-#include "../Engine/Camera.hpp"
-#include "../Engine/Mesh.hpp"
 #include "Entity/Peon.hpp"
 #include "Entity/Tree.hpp"
 #include "Entity/Rock.hpp"
@@ -28,7 +23,7 @@ Game::Game() :
 
 Game::~Game()
 {
-    if (Debug::IsFlagEnabled(MIX_AUDIO))
+    if (grim::utility::Debug::IsFlagEnabled(grim::utility::MIX_AUDIO))
     {
         Mix_FreeMusic(m_bgMusic);
 
@@ -59,7 +54,7 @@ Game::~Game()
 
     TTF_Quit();
 
-    if (Debug::IsFlagEnabled(MIX_AUDIO))
+    if (grim::utility::Debug::IsFlagEnabled(grim::utility::MIX_AUDIO))
     {
         Mix_CloseAudio(); // Close one audio channel (We only have one...)
         Mix_Quit();
@@ -69,17 +64,17 @@ Game::~Game()
     SDL_Quit();
 }
 
-grim::Renderer* Game::GetRenderer()
+grim::graphics::Renderer* Game::GetRenderer()
 {
     return m_renderer.get();
 }
 
-Input* Game::GetInput()
+grim::ui::Input* Game::GetInput()
 {
     return m_input.get();
 }
 
-grim::Camera* Game::GetMainCamera()
+grim::graphics::Camera* Game::GetMainCamera()
 {
     return m_mainCamera.get();
 }
@@ -91,12 +86,12 @@ World* Game::GetWorld()
 
 int Game::Initialize()
 {
-    Debug::EnableFlag(LOGGING | CHEAT);
+    grim::utility::Debug::EnableFlag(grim::utility::LOGGING | grim::utility::CHEAT);
 
     // Initialize SDL
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
-        Debug::LogError("SDL could not initialize! SDL error: %s", SDL_GetError());
+        grim::utility::Debug::LogError("SDL could not initialize! SDL error: %s", SDL_GetError());
         return FAILURE;
     }
     
@@ -108,16 +103,16 @@ int Game::Initialize()
     // Initialize SDL_image
     if (IMG_Init(IMG_INIT_PNG) < 0)
     {
-        Debug::LogError("SDL_image could not initialize! SDL_image error: %s", IMG_GetError());
+        grim::utility::Debug::LogError("SDL_image could not initialize! SDL_image error: %s", IMG_GetError());
         return FAILURE;
     }
 
     // Initialize SDL_mixer
-    if (Debug::IsFlagEnabled(MIX_AUDIO))
+    if (grim::utility::Debug::IsFlagEnabled(grim::utility::MIX_AUDIO))
     {
         if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
         {
-            Debug::LogError("SDL_mixer could not initialize! SDL_mixer error: %s", Mix_GetError());
+            grim::utility::Debug::LogError("SDL_mixer could not initialize! SDL_mixer error: %s", Mix_GetError());
             return FAILURE;
         }
 
@@ -129,25 +124,25 @@ int Game::Initialize()
     // Initialize SDL_ttf
     if (TTF_Init() < 0)
     {
-        Debug::Log("SDL_ttf could not initialize! SDL_ttf error: %s", TTF_GetError());
+        grim::utility::Debug::Log("SDL_ttf could not initialize! SDL_ttf error: %s", TTF_GetError());
         return FAILURE;
     }
 
     // Create and Initialize window
-    m_window = std::make_unique<Window>(1024, 768, "Peon");
+    m_window = std::make_unique<grim::graphics::Window>(1024, 768, "Peon");
     if (m_window->Initialize() == FAILURE)
     {
         return FAILURE;
     }
 
     // Create renderer
-    m_renderer = std::make_unique<grim::Renderer>(this, m_window.get());
+    m_renderer = std::make_unique<grim::graphics::Renderer>(this, m_window.get());
 
     // Create input
-    m_input = std::make_unique<Input>(this);
+    m_input = std::make_unique<grim::ui::Input>(this);
 
     // Load Textures
-    Debug::Log("Loading textures...");
+    grim::utility::Debug::Log("Loading textures...");
     LoadTexture("peon.png", "peon");
     LoadTexture("orc.png", "orc");
     LoadTexture("resource.png", "resource");
@@ -162,11 +157,11 @@ int Game::Initialize()
     LoadTexture("gandalf.png", "gandalf");
 
     // Load fonts
-    Debug::Log("Loading fonts...");
+    grim::utility::Debug::Log("Loading fonts...");
     LoadFont("Resources/Fonts/dos.ttf", "dos");
 
     // Load Sounds
-    Debug::Log("Loading sounds...");
+    grim::utility::Debug::Log("Loading sounds...");
     LoadSound("Resources/Sounds/woodcutting_00.wav", "woodcutting_00");
     LoadSound("Resources/Sounds/woodcutting_01.wav", "woodcutting_01");
     LoadSound("Resources/Sounds/woodcutting_02.wav", "woodcutting_02");
@@ -186,13 +181,13 @@ int Game::Initialize()
     LoadSound("Resources/Sounds/sword.wav", "sword");
 
     // Load Music
-    Debug::Log("Loading music...");
-    if (Debug::IsFlagEnabled(MIX_AUDIO))
+    grim::utility::Debug::Log("Loading music...");
+    if (grim::utility::Debug::IsFlagEnabled(grim::utility::MIX_AUDIO))
     {
         m_bgMusic = Mix_LoadMUS("Resources/Music/jand_bg.mp3");
         if (!m_bgMusic)
         {
-            Debug::LogError("Music could not be loaded. SDL_mixer error: %s", Mix_GetError());
+            grim::utility::Debug::LogError("Music could not be loaded. SDL_mixer error: %s", Mix_GetError());
         }
 
         // Start music
@@ -200,17 +195,17 @@ int Game::Initialize()
     }
 
     // Load Shaders
-    Debug::Log("Loading shaders...");
+    grim::utility::Debug::Log("Loading shaders...");
     LoadShader("vertex.glsl", GL_VERTEX_SHADER, "vertex_textured");
     LoadShader("fragment.glsl", GL_FRAGMENT_SHADER, "fragment_textured");
 
     // Create ShaderPrograms
-    Debug::Log("Creating shader programs...");
+    grim::utility::Debug::Log("Creating shader programs...");
     CreateShaderProgram("vertex_textured", "fragment_textured", "basic_shader");
 
     // Setup the game
-    m_mainCamera = std::make_unique<grim::Camera>(m_renderer.get());
-    m_GUICamera = std::make_unique<grim::Camera>(m_renderer.get());
+    m_mainCamera = std::make_unique<grim::graphics::Camera>(m_renderer.get());
+    m_GUICamera = std::make_unique<grim::graphics::Camera>(m_renderer.get());
     m_map = std::make_unique<World>(this);
     m_player = std::make_unique<Player>(this);
 
@@ -225,7 +220,7 @@ void Game::Run()
 {
     if (m_isRunning)
     {
-        Debug::LogError("Game::Run() cannot be called, Game is already running!");
+        grim::utility::Debug::LogError("Game::Run() cannot be called, Game is already running!");
         return;
     }
 
@@ -242,7 +237,6 @@ void Game::Run()
 
         m_input->Update();
         Update(deltaTime);
-
         Render();
         m_window->SwapWindow();
 
@@ -259,7 +253,6 @@ void Game::Terminate()
 void Game::Update(double deltaTime)
 {
     glm::vec2 mousePos = m_mainCamera->ConvertToWorld(m_input->GetMousePosition());
-    //Debug::Log("%d, %d", (int)mousePos.x, (int)mousePos.y);
 
     if (m_input->GetKeyPress(SDLK_ESCAPE))
     {
@@ -400,7 +393,7 @@ void Game::Render()
 
 bool Game::LoadTexture(const std::string& textureFileName, const std::string& ID)
 {
-    m_textureMap[ID] = std::make_unique<grim::Texture>(textureFileName);
+    m_textureMap[ID] = std::make_unique<grim::graphics::Texture>(textureFileName);
     return true;
 }
 
@@ -409,7 +402,7 @@ bool Game::LoadFont(const std::string& path, const std::string& id, const int& s
     TTF_Font* font = TTF_OpenFont(path.c_str(), size);
     if (font == nullptr)
     {
-        Debug::LogError("Failed to load font %s! SDL_ttf error: %s", path.c_str(), TTF_GetError());
+        grim::utility::Debug::LogError("Failed to load font %s! SDL_ttf error: %s", path.c_str(), TTF_GetError());
     }
 
     m_fontMap[id] = font;
@@ -418,12 +411,12 @@ bool Game::LoadFont(const std::string& path, const std::string& id, const int& s
 
 bool Game::LoadSound(const std::string& path, const std::string& id)
 {
-    if (Debug::IsFlagEnabled(MIX_AUDIO))
+    if (grim::utility::Debug::IsFlagEnabled(grim::utility::MIX_AUDIO))
     {
         Mix_Chunk* sound = Mix_LoadWAV(path.c_str());
         if (sound == nullptr)
         {
-            Debug::LogError("Failed to load WAV from %s! SDL_mixer error: %s", path.c_str(), Mix_GetError());
+            grim::utility::Debug::LogError("Failed to load WAV from %s! SDL_mixer error: %s", path.c_str(), Mix_GetError());
             return false;
         }
 
@@ -440,7 +433,7 @@ bool Game::LoadShader(const std::string& shaderFileName, const GLenum& shaderTyp
 
     if (shaderSource != "*FAILURE*")
     {
-        m_shaderMap[ID] = std::make_unique<grim::Shader>(shaderSource, shaderType, ID);
+        m_shaderMap[ID] = std::make_unique<grim::graphics::Shader>(shaderSource, shaderType, ID);
         return true;
     }
 
@@ -449,11 +442,11 @@ bool Game::LoadShader(const std::string& shaderFileName, const GLenum& shaderTyp
 
 bool Game::CreateShaderProgram(const std::string& vertexShaderID, const std::string& fragmentShaderID, const std::string& ID)
 {
-    m_shaderProgramMap[ID] = std::make_unique<grim::ShaderProgram>(m_renderer.get(), GetShader(vertexShaderID), GetShader(fragmentShaderID));
+    m_shaderProgramMap[ID] = std::make_unique<grim::graphics::ShaderProgram>(m_renderer.get(), GetShader(vertexShaderID), GetShader(fragmentShaderID));
     return true;
 }
 
-grim::Texture* Game::GetTexture(const std::string& ID)
+grim::graphics::Texture* Game::GetTexture(const std::string& ID)
 {
     return m_textureMap[ID].get();
 }
@@ -463,23 +456,23 @@ TTF_Font* Game::GetFont(const std::string& id)
     return m_fontMap[id];
 }
 
-grim::Shader* Game::GetShader(const std::string& ID)
+grim::graphics::Shader* Game::GetShader(const std::string& ID)
 {
     return m_shaderMap[ID].get();
 }
 
-grim::ShaderProgram* Game::GetShaderProgram(const std::string& ID)
+grim::graphics::ShaderProgram* Game::GetShaderProgram(const std::string& ID)
 {
     return m_shaderProgramMap[ID].get();
 }
 
 void Game::PlaySound(const std::string& id)
 {
-    if (Debug::IsFlagEnabled(MIX_AUDIO))
+    if (grim::utility::Debug::IsFlagEnabled(grim::utility::MIX_AUDIO))
     {
         if (m_soundMap[id] == nullptr)
         {
-            Debug::LogError("Sound %s can't be played, as it doesn't exist!", id.c_str());
+            grim::utility::Debug::LogError("Sound %s can't be played, as it doesn't exist!", id.c_str());
         }
 
         Mix_PlayChannel(-1, m_soundMap[id], 0);
@@ -490,7 +483,7 @@ std::string Game::ReadFile(const std::string& path)
 {
     std::ifstream input(path);
     if (!input.is_open()) {
-        Debug::LogError("Failed to open file %s", path);
+        grim::utility::Debug::LogError("Failed to open file %s", path);
         return "*FAILURE*";
     }
 

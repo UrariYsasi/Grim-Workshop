@@ -1,7 +1,6 @@
 #include "PCH.hpp"
 #include "Entity.hpp"
 #include "../Game.hpp"
-#include "../../Engine/Renderer.hpp"
 
 Entity::Entity(Game* game, const glm::vec2& position, int entityID) :
     SPRITE_SIZE(32, 32),
@@ -63,22 +62,22 @@ bool Entity::IsDeleted() const
     return m_isDeleted;
 }
 
-grim::Rect Entity::GetHitBox() const
+grim::graphics::Rect Entity::GetHitBox() const
 {
-    return grim::Rect(m_position.x + m_hitBox.x, m_position.y + m_hitBox.y, m_hitBox.width, m_hitBox.height);
+    return grim::graphics::Rect(m_position.x + m_hitBox.x, m_position.y + m_hitBox.y, m_hitBox.width, m_hitBox.height);
 }
 
-void Entity::Render(grim::SpriteBatch& spriteBatch)
+void Entity::Render(grim::graphics::SpriteBatch& spriteBatch)
 {
-    if (Debug::IsFlagEnabled(RENDER_HITBOXES))
+    if (grim::utility::Debug::IsFlagEnabled(grim::utility::RENDER_HITBOXES))
     {
-        grim::Rect hitBox = GetHitBox();
+        grim::graphics::Rect hitBox = GetHitBox();
         m_game->GetRenderer()->RenderOutlineRect(hitBox, SDL_Color{ 255, 0, 0, 255 });
     }
 
-    if (Debug::IsFlagEnabled(RENDER_ORIGINS))
+    if (grim::utility::Debug::IsFlagEnabled(grim::utility::RENDER_ORIGINS))
     {
-        grim::Rect originRect((int)m_position.x - 1, (int)m_position.y - 1, 3, 3);
+        grim::graphics::Rect originRect((int)m_position.x - 1.0f, (int)m_position.y - 1.0f, 3.0f, 3.0f);
         m_game->GetRenderer()->RenderFillRect(originRect, SDL_Color{ 255, 0, 0, 255 });
     }
 
@@ -101,9 +100,9 @@ void Entity::Delete()
 /*
     Check if this entity is colliding with the given rectangle.
 */
-bool Entity::IsCollidingWithRect(const grim::Rect& rect) const
+bool Entity::IsCollidingWithRect(const grim::graphics::Rect& rect) const
 {
-    grim::Rect hitBox = GetHitBox();
+    grim::graphics::Rect hitBox = GetHitBox();
 
     // Calculate the rectangle bounds
     double leftA = hitBox.x;

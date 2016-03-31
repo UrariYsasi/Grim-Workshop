@@ -4,7 +4,6 @@
 #include "Action/MoveAction.hpp"
 #include "Action/IdleAction.hpp"
 #include "Action/AttackAction.hpp"
-#include "../../Engine/Renderer.hpp"
 #include "Orc.hpp"
 #include "../World/World.hpp"
 
@@ -14,13 +13,13 @@ Peon::Peon(Game* game, const glm::vec2& position) :
     m_selectionSprite(nullptr)
 {
     m_origin = glm::vec2(0, 0);
-    m_hitBox = grim::Rect(-3, 10, 7, 8);
+    m_hitBox = grim::graphics::Rect(-3, 10, 7, 8);
 
-    grim::Texture* texture = game->GetTexture("peon");
-    grim::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader");
-    m_sprite = std::make_unique<grim::Sprite>(texture, shaderProgram, 32, 32, 0);
-    m_selectionSprite = std::make_unique<grim::Sprite>(texture, shaderProgram, 32, 32, 57);
-    m_shadowSprite = std::make_unique<grim::Sprite>(texture, shaderProgram, 32, 32, 58, grim::Color(1, 1, 1, .5));
+    grim::graphics::Texture* texture = game->GetTexture("peon");
+    grim::graphics::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader");
+    m_sprite = std::make_unique<grim::graphics::Sprite>(texture, shaderProgram, 32, 32, 0);
+    m_selectionSprite = std::make_unique<grim::graphics::Sprite>(texture, shaderProgram, 32, 32, 57);
+    m_shadowSprite = std::make_unique<grim::graphics::Sprite>(texture, shaderProgram, 32, 32, 58, grim::graphics::Color(1, 1, 1, .5));
 }
 
 Peon::~Peon()
@@ -38,7 +37,7 @@ void Peon::Update(double deltaTime)
     if (attackAction == nullptr)
     {
         // Search for some Orcs
-        grim::Rect searchRect(m_position.x - 64, m_position.y - 64, 128, 128);
+        grim::graphics::Rect searchRect(m_position.x - 64, m_position.y - 64, 128, 128);
         std::list<Entity*> orcs = world->GetEntitiesInRect(ORC, searchRect);
         if (orcs.size() > 0)
         {
@@ -57,7 +56,7 @@ void Peon::Update(double deltaTime)
     }
 }
 
-void Peon::Render(grim::SpriteBatch& spriteBatch)
+void Peon::Render(grim::graphics::SpriteBatch& spriteBatch)
 {
     if (!IsDead())
     {

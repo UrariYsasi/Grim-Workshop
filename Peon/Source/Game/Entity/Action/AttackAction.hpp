@@ -16,6 +16,6 @@ private:
     const double MIN_ATTACK_DISTANCE = 20.0;
 
     Entity* m_target;
-    Timer m_timer;
+    grim::utility::Timer m_timer;
     double m_attackSpeed; // The attack speed, in seconds.
 };

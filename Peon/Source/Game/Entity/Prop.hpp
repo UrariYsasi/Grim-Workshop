@@ -8,5 +8,5 @@ public:
     virtual ~Prop();
 
     virtual void Update(double deltaTime) = 0;
-    virtual void Render(grim::SpriteBatch& spriteBatch) = 0;
+    virtual void Render(grim::graphics::SpriteBatch& spriteBatch) = 0;
 };

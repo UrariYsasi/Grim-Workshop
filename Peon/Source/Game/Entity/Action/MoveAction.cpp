@@ -14,7 +14,7 @@ MoveAction::MoveAction(Monster* owner, const glm::vec2& destination) :
     m_hopAmp(6),
     m_hopFreq(15)
 {
-    m_hopFreq += Random::Generate(-3, 3);
+    m_hopFreq += grim::utility::Random::Generate(-3.0, 3.0);
 }
 
 MoveAction::~MoveAction()
@@ -37,12 +37,11 @@ void MoveAction::Update(double deltaTime)
     }
 
     m_hopIndex += deltaTime;
-    m_hopOffset = abs(sin(m_hopIndex * m_hopFreq) * m_hopAmp);
+    m_hopOffset = std::abs(std::sin(m_hopIndex * m_hopFreq) * m_hopAmp);
     m_owner->SetPositionOffset(glm::vec2(0, -m_hopOffset));
 
     glm::vec2 position = m_owner->GetPosition();
     glm::vec2 start = position;
-    double distance = glm::distance(start, m_destination);
     glm::vec2 direction = m_destination - start;
     direction = glm::normalize(direction);
 

@@ -10,7 +10,7 @@ AttackAction::AttackAction(Monster* owner, Entity* target) :
     m_target(target),
     m_attackSpeed(2)
 {
-    m_attackSpeed = Random::Generate(0.5, 2.0);
+    m_attackSpeed = grim::utility::Random::Generate(0.5, 2.0);
 }
 
 AttackAction::~AttackAction()

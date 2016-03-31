@@ -12,7 +12,7 @@ public:
     void SetPosition(const glm::vec2& position);
     glm::vec2 GetPosition() const;
 
-    void Render(grim::SpriteBatch& spriteBatch);
+    void Render(grim::graphics::SpriteBatch& spriteBatch);
 
 private:
     const static int TILE_SIZE = 32;
@@ -25,5 +25,5 @@ private:
     int m_spriteColumn;
     int m_spriteRow;
 
-    std::unique_ptr<grim::Sprite> m_sprite;
+    std::unique_ptr<grim::graphics::Sprite> m_sprite;
 };

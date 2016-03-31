@@ -1,11 +1,6 @@
 #include "PCH.hpp"
 #include "Player.hpp"
 #include "Game.hpp"
-#include "../Engine/Camera.hpp"
-#include "../Engine/Input.hpp"
-#include "../Engine/Renderer.hpp"
-#include "../Engine/Rect.hpp"
-#include "../Engine/Mesh.hpp"
 #include "World/World.hpp"
 #include "Terrain/TerrainTile.hpp"
 #include "Entity/Peon.hpp"
@@ -38,7 +33,7 @@ Player::Player(Game* game) :
         0, 1, 3, 2
     };
 
-    m_boxSelectionMesh = std::make_unique<grim::Mesh>(m_game->GetShaderProgram("basic_shader"), nullptr);
+    m_boxSelectionMesh = std::make_unique<grim::graphics::Mesh>(m_game->GetShaderProgram("basic_shader"), nullptr);
     m_boxSelectionMesh->UploadElementData(elements, sizeof(elements));
     m_boxSelectionMesh->SetRenderMode(GL_LINE_LOOP);
 }
@@ -170,13 +165,13 @@ void Player::Render()
         {
             GLfloat vertices[] = {
                 // Top left
-                m_boxSelection.x, m_boxSelection.y, 0.0f, 0.0f, 0.0f, 0.0f, 0.0, 0.0,
+                m_boxSelection.x, m_boxSelection.y, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
                 // Top right
-                m_boxSelection.x + m_boxSelection.width, m_boxSelection.y, 0.0f, 0.0f, 0.0f, 0.0f, 0.0, 0.0,  
+                m_boxSelection.x + m_boxSelection.width, m_boxSelection.y, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,  
                 // Bottom left
-                m_boxSelection.x, m_boxSelection.y + m_boxSelection.height, 0.0f, 0.0f, 0.0f, 0.0f, 0.0, 0.0,  
+                m_boxSelection.x, m_boxSelection.y + m_boxSelection.height, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,  
                 // Bottom right
-                m_boxSelection.x + m_boxSelection.width, m_boxSelection.y + m_boxSelection.height, 0.0f, 0.0f, 0.0f, 0.0f, 0.0, 0.0
+                m_boxSelection.x + m_boxSelection.width, m_boxSelection.y + m_boxSelection.height, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f
             };
 
             m_boxSelectionMesh->UploadVertexData(vertices, sizeof(vertices));
@@ -250,8 +245,8 @@ void Player::IssueCommand(glm::vec2 position)
             if (m_gameWorld->IsPassable(position))
             {
                 double radius = 32;
-                double angle = Random::Generate(0, 1) * M_PI * 2;
-                double distance = Random::Generate(0, 1) * radius;
+                double angle = grim::utility::Random::Generate(0.0, 1.0) * M_PI * 2.0;
+                double distance = grim::utility::Random::Generate(0.0, 1.0) * radius;
                 glm::vec2 offset = glm::vec2(distance * cos(angle), distance * sin(angle));
                 if (m_gameWorld->IsPassable(position + offset))
                 {

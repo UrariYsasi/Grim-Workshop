@@ -3,13 +3,24 @@
 namespace grim
 {
 
+namespace graphics
+{
+
+class Window;
 class Renderer;
 class Camera;
 
 }
 
-class Window;
+namespace ui
+{
+
 class Input;
+
+}
+
+}
+
 class Entity;
 class Peon;
 class Stockpile;
@@ -23,19 +34,19 @@ public:
     Game();
     ~Game();
 
-    grim::Renderer* GetRenderer();
-    Input* GetInput();
-    grim::Camera* GetMainCamera();
+    grim::graphics::Renderer* GetRenderer();
+    grim::ui::Input* GetInput();
+    grim::graphics::Camera* GetMainCamera();
     World* GetWorld();
 
     int Initialize();
     void Run();
     void Terminate();
 
-    grim::Texture* GetTexture(const std::string& ID);
+    grim::graphics::Texture* GetTexture(const std::string& ID);
     TTF_Font* GetFont(const std::string& id);
-    grim::Shader* GetShader(const std::string& ID);
-    grim::ShaderProgram* GetShaderProgram(const std::string& ID);
+    grim::graphics::Shader* GetShader(const std::string& ID);
+    grim::graphics::ShaderProgram* GetShaderProgram(const std::string& ID);
 
     void PlaySound(const std::string& id);
 
@@ -72,16 +83,16 @@ private:
 
 private:
     bool m_isRunning;
-    std::unique_ptr<Window> m_window;
-    std::unique_ptr<grim::Renderer> m_renderer;
-    std::unique_ptr<Input> m_input;
-    std::unique_ptr<grim::Camera> m_mainCamera;
-    std::unique_ptr<grim::Camera> m_GUICamera;
+    std::unique_ptr<grim::graphics::Window> m_window;
+    std::unique_ptr<grim::graphics::Renderer> m_renderer;
+    std::unique_ptr<grim::ui::Input> m_input;
+    std::unique_ptr<grim::graphics::Camera> m_mainCamera;
+    std::unique_ptr<grim::graphics::Camera> m_GUICamera;
     std::unique_ptr<World> m_map;
     std::unique_ptr<Player> m_player;
 
     // Textures
-    std::map<std::string, std::unique_ptr<grim::Texture>> m_textureMap;
+    std::map<std::string, std::unique_ptr<grim::graphics::Texture>> m_textureMap;
 
     // Fonts
     std::map<std::string, TTF_Font*> m_fontMap;
@@ -90,10 +101,10 @@ private:
     std::map<std::string, Mix_Chunk*> m_soundMap;
 
     // Shaders
-    std::map<std::string, std::unique_ptr<grim::Shader>> m_shaderMap;
+    std::map<std::string, std::unique_ptr<grim::graphics::Shader>> m_shaderMap;
 
     // Shader programs
-    std::map<std::string, std::unique_ptr<grim::ShaderProgram>> m_shaderProgramMap;
+    std::map<std::string, std::unique_ptr<grim::graphics::ShaderProgram>> m_shaderProgramMap;
 
     // This is here TEMPORARILY for debug purposes
     double m_frameCount;
