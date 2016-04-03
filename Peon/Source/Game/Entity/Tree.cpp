@@ -8,7 +8,7 @@ Tree::Tree(Game* game, const glm::vec2& position) :
     m_origin = glm::vec2(0, 16);
     m_hitBox = grim::graphics::Rect(-16, -16, 32, 32);
     m_positionOffset = glm::vec2(grim::utility::Random::Generate(-6.0, 6.0), grim::utility::Random::Generate(0.0, -6.0));
-    m_hp = 10;
+    m_hp = 1000;
 
     grim::graphics::Texture* texture = game->GetTexture("resource");
     grim::graphics::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader");
@@ -24,7 +24,7 @@ ItemType Tree::GetItem() const
     return m_item;
 }
 
-void Tree::Update(double deltaTime)
+void Tree::Update(float deltaTime)
 {
 }
 

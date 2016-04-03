@@ -19,7 +19,7 @@ SmeltAction::~SmeltAction()
 {
 }
 
-void SmeltAction::Update(double deltaTime)
+void SmeltAction::Update(float deltaTime)
 {
     // Do we have enough ore?
     Inventory* inventory = m_owner->GetInventory();

@@ -16,7 +16,7 @@ public:
     SacrificeAction(Monster* owner, Altar* altar);
     virtual ~SacrificeAction();
 
-    virtual void Update(double deltaTime);
+    virtual void Update(float deltaTime);
 
 private:
     const double MIN_DISTANCE = 30.0;

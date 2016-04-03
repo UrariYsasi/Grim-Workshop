@@ -17,12 +17,12 @@ Player::Player(Game* game) :
     m_game(game),
     m_gameInput(nullptr),
     m_gameCamera(nullptr),
-    m_gameRenderer(nullptr),
     m_gameWorld(nullptr),
     m_cameraSpeed(CAMERA_SPEED_NORMAL),
     m_isBoxSelecting(false),
     m_boxSelection(0, 0, 0, 0),
-    m_boxSelectionMesh(nullptr)
+    m_boxSelectionMesh(nullptr),
+    m_placementModule(this)
 {
     m_gameInput = m_game->GetInput();
     m_gameCamera = m_game->GetMainCamera();
@@ -43,7 +43,7 @@ Player::~Player()
     m_boxSelectionMesh.reset();
 }
 
-void Player::Update(double deltaTime)
+void Player::Update(float deltaTime)
 {
     // Deselect any dead peons
     for (auto it = m_selectedPeons.begin(); it != m_selectedPeons.end(); it++)
@@ -171,12 +171,22 @@ void Player::Update(double deltaTime)
                 peon->Select();
             }
         }
+
+        if (m_selectedPeons.size() > 0)
+        {
+            m_game->PlaySound("select_01");
+        }
     }
 
     if (m_gameInput->GetMouseButtonPress(SDL_BUTTON_RIGHT))
     {
         IssueCommand(mousePositionWorld);
     }
+
+    /*
+        Update Modules
+    */
+    m_placementModule.Update(deltaTime);
 }
 
 void Player::Render()
@@ -202,15 +212,29 @@ void Player::Render()
     }
 
     /*
-    for (auto peon : m_selectedPeons)
-    {
-        glm::vec2 position = peon->GetPosition() - peon->GetOrigin();
-        position.y += 7;
-        //Rect outline(position.x - 8, position.y, 16, 22);
-        //m_gameRenderer->RenderOutlineRect(outline, SDL_Color{ 0, 0, 0, 100 });
-        m_gameRenderer->RenderSprite("peon", 1, 7, (int)position.x, (int)position.y, 32, 32);
-    }
+        Render Modules
     */
+    m_placementModule.Render();
+}
+
+Game* Player::GetGame()
+{
+    return m_game;
+}
+
+grim::ui::Input* Player::GetInput()
+{
+    return m_gameInput;
+}
+
+grim::graphics::Camera* Player::GetCamera()
+{
+    return m_gameCamera;
+}
+
+World* Player::GetWorld()
+{
+    return m_gameWorld;
 }
 
 void Player::IssueCommand(glm::vec2 position)

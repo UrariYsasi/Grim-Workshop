@@ -22,7 +22,7 @@ Orc::~Orc()
 {
 }
 
-void Orc::Update(double deltaTime)
+void Orc::Update(float deltaTime)
 {
     Monster::Update(deltaTime);
 

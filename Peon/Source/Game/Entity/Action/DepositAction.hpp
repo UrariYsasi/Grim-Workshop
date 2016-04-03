@@ -9,7 +9,7 @@ public:
     DepositAction(Monster* owner, ItemType dumpItem, const int& quantity = 1);
     virtual ~DepositAction();
 
-    virtual void Update(double deltaTime);
+    virtual void Update(float deltaTime);
 
 private:
     const double MIN_DISTANCE = 10.0;

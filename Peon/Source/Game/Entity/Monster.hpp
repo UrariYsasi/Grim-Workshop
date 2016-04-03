@@ -14,7 +14,7 @@ public:
     Inventory* GetInventory();
     int GetMoveSpeed();
 
-    virtual void Update(double deltaTime);
+    virtual void Update(float deltaTime);
     virtual void Render(grim::graphics::SpriteBatch& spriteBatch) = 0;
 
     /*

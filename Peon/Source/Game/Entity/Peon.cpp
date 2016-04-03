@@ -26,7 +26,7 @@ Peon::~Peon()
 {
 }
 
-void Peon::Update(double deltaTime)
+void Peon::Update(float deltaTime)
 {
     Monster::Update(deltaTime);
 

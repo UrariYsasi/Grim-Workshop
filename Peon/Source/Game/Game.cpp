@@ -144,6 +144,7 @@ int Game::Initialize()
     // Load Textures
     grim::utility::Debug::Log("Loading textures...");
     LoadTexture("peon.png", "peon");
+    LoadTexture("item.png", "item");
     LoadTexture("orc.png", "orc");
     LoadTexture("resource.png", "resource");
     LoadTexture("terrain.png", "terrain");
@@ -162,9 +163,9 @@ int Game::Initialize()
 
     // Load Sounds
     grim::utility::Debug::Log("Loading sounds...");
+    LoadSound("Resources/Sounds/select_00.wav", "select_00");
+    LoadSound("Resources/Sounds/select_01.wav", "select_01");
     LoadSound("Resources/Sounds/woodcutting_00.wav", "woodcutting_00");
-    LoadSound("Resources/Sounds/woodcutting_01.wav", "woodcutting_01");
-    LoadSound("Resources/Sounds/woodcutting_02.wav", "woodcutting_02");
     LoadSound("Resources/Sounds/mining_00.wav", "mining_00");
     LoadSound("Resources/Sounds/mining_01.wav", "mining_01");
     LoadSound("Resources/Sounds/mining_02.wav", "mining_02");
@@ -191,7 +192,7 @@ int Game::Initialize()
         }
 
         // Start music
-        Mix_PlayMusic(m_bgMusic, -1);
+        //Mix_PlayMusic(m_bgMusic, -1);
     }
 
     // Load Shaders
@@ -202,6 +203,9 @@ int Game::Initialize()
     // Create ShaderPrograms
     grim::utility::Debug::Log("Creating shader programs...");
     CreateShaderProgram("vertex_textured", "fragment_textured", "basic_shader");
+
+    // Sprites
+    m_spriteMap[STRUCTURE_STOCKPILE] = std::make_unique<grim::graphics::Sprite>(GetTexture("structure"), GetShaderProgram("basic_shader"), 32, 32, 8);
 
     // Setup the game
     m_mainCamera = std::make_unique<grim::graphics::Camera>(m_renderer.get());
@@ -232,7 +236,7 @@ void Game::Run()
     while (m_isRunning)
     {
         frameStartTime = SDL_GetTicks();
-        double deltaTime = (frameStartTime - frameEndTime) / 1000;
+        float deltaTime = static_cast<float>((frameStartTime - frameEndTime) / 1000.0f);
         frameEndTime = frameStartTime;
 
         m_input->Update();
@@ -250,7 +254,7 @@ void Game::Terminate()
     m_isRunning = false;
 }
 
-void Game::Update(double deltaTime)
+void Game::Update(float deltaTime)
 {
     glm::vec2 mousePos = m_mainCamera->ConvertToWorld(m_input->GetMousePosition());
 
@@ -267,6 +271,11 @@ void Game::Update(double deltaTime)
     if (m_input->GetKeyPress(SDLK_u))
     {
         m_map->SpawnOrc();
+    }
+
+    if (m_input->GetKeyPress(SDLK_m))
+    {
+        Mix_PlayMusic(m_bgMusic, -1);
     }
 
     m_map->Update(deltaTime);
@@ -382,4 +391,9 @@ std::string Game::ReadFile(const std::string& path)
     ss << input.rdbuf();
     
     return ss.str();
+}
+
+grim::graphics::Sprite* Game::GetEntitySprite(const EntityID& id)
+{
+    return m_spriteMap[id].get();
 }

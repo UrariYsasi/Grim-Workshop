@@ -11,7 +11,7 @@ public:
 
     glm::vec2 GetDestination() const;
 
-    virtual void Update(double deltaTime);
+    virtual void Update(float deltaTime);
 
     /*
         Sets a target entity to follow.

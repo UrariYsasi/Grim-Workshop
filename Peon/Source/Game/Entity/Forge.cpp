@@ -11,7 +11,7 @@ Forge::~Forge()
 {
 }
 
-void Forge::Update(double deltaTime)
+void Forge::Update(float deltaTime)
 {
 }
 

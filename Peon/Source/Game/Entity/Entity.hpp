@@ -18,7 +18,7 @@ public:
     bool IsDeleted() const;
     grim::graphics::Rect GetHitBox() const;
 
-    virtual void Update(double deltaTime) = 0;
+    virtual void Update(float deltaTime) = 0;
     virtual void Render(grim::graphics::SpriteBatch& spriteBatch);
 
     void Delete();

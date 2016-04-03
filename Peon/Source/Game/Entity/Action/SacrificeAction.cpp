@@ -16,7 +16,7 @@ SacrificeAction::~SacrificeAction()
 {
 }
 
-void SacrificeAction::Update(double deltaTime)
+void SacrificeAction::Update(float deltaTime)
 {
     // Get the offering
     Entity* offering = m_owner->GetHeldEntity();

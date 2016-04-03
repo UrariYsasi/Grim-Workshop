@@ -7,6 +7,6 @@ public:
     Orc(Game* game, const glm::vec2& position);
     virtual ~Orc();
 
-    virtual void Update(double deltaTime);
+    virtual void Update(float deltaTime);
     virtual void Render(grim::graphics::SpriteBatch& spriteBatch);
 };

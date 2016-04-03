@@ -7,6 +7,6 @@ public:
     Prop(Game* game, const glm::vec2& position, int entityID);
     virtual ~Prop();
 
-    virtual void Update(double deltaTime) = 0;
+    virtual void Update(float deltaTime) = 0;
     virtual void Render(grim::graphics::SpriteBatch& spriteBatch) = 0;
 };

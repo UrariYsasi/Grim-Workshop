@@ -14,7 +14,7 @@ PickUpAction::~PickUpAction()
 {
 }
 
-void PickUpAction::Update(double deltaTime)
+void PickUpAction::Update(float deltaTime)
 {
     if (m_target->IsHeld())
     {

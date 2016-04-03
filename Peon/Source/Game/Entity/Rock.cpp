@@ -33,7 +33,7 @@ ItemType Rock::GetItem() const
     return m_item;
 }
 
-void Rock::Update(double deltaTime)
+void Rock::Update(float deltaTime)
 {
 }
 

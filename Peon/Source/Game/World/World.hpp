@@ -17,7 +17,7 @@ public:
     std::string GetMonth();
     int GetYear();
 
-    void Update(double deltaTime);
+    void Update(float deltaTime);
     void Render();
     void ProcessTime();
     void Generate();
@@ -25,6 +25,8 @@ public:
     void SpawnOrc(int quantity = 1);
     bool IsPassable(const glm::vec2& point);
     TerrainTile* GetTerrainAtPoint(const glm::vec2& point);
+
+    void Spawn(const EntityID& id, const glm::vec2& position);
 
     /*
         Gets the Entity with the given ID that is currently colliding with the given point.
@@ -84,7 +86,5 @@ private:
     int m_month;
     int m_year;
 
-    std::unique_ptr<grim::graphics::Sprite> m_sprite;
-    std::unique_ptr<grim::graphics::Sprite> m_sprite2;
     grim::graphics::SpriteBatch m_spriteBatch;
 };

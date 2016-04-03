@@ -16,11 +16,6 @@ World::World(Game* game) :
     m_month(1),
     m_year(1)
 {
-    grim::graphics::Texture* texture = game->GetTexture("gandalf");
-    grim::graphics::Texture* texture2 = game->GetTexture("peon");
-    grim::graphics::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader");
-    m_sprite = std::make_unique<grim::graphics::Sprite>(texture, shaderProgram, 256, 256, 0);
-    m_sprite2 = std::make_unique<grim::graphics::Sprite>(texture2, shaderProgram, 32, 32, 0);
 }
 
 World::~World()
@@ -75,7 +70,7 @@ int World::GetYear()
     return m_year;
 }
 
-void World::Update(double deltaTime)
+void World::Update(float deltaTime)
 {
     CleanEntities();
     ProcessTime();
@@ -175,7 +170,7 @@ void World::Generate()
     //m_entities.push_back(std::make_unique<Altar>(m_game, glm::vec2(-256, -128)));
 
     // Stockpile
-    //m_entities.push_back(std::make_unique<Stockpile>(m_game, glm::vec2(-128, 0)));
+    //m_entities.push_back(std::make_unique<Stockpile>(m_game, GetCenter() + glm::vec2(96.0f, 0.0f)));
 
     // Obelisk
     // The obelisk gets placed in the center of the map.
@@ -267,6 +262,14 @@ TerrainTile* World::GetTerrainAtPoint(const glm::vec2& point)
     return m_terrain.at(tilePosition).get();
 }
 
+void World::Spawn(const EntityID& id, const glm::vec2& position)
+{
+    if (id == STRUCTURE_STOCKPILE)
+    {
+        m_entities.push_back(std::make_unique<Stockpile>(m_game, position));
+    }
+}
+
 std::list<Entity*> World::GetEntitiesInRect(int entityID, const grim::graphics::Rect& rect)
 {
     std::list<Entity*> ents;
@@ -319,7 +322,7 @@ std::list<Entity*> World::FindEntitiesInRange(int entityID, const glm::vec2& poi
 
 glm::vec2 World::GetCenter() const
 {
-    return glm::vec2 (((MAP_SIZE - 1) * 32.0f) / 2.0f, ((MAP_SIZE - 1) * 32.0f) / 2.0f);
+    return glm::vec2(((MAP_SIZE - 1) * 32.0f) / 2.0f, ((MAP_SIZE - 1) * 32.0f) / 2.0f);
 }
 
 glm::vec2 World::GetSize() const

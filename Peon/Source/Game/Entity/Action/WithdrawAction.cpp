@@ -19,12 +19,12 @@ WithdrawAction::~WithdrawAction()
 {
 }
 
-void WithdrawAction::Update(double deltaTime)
+void WithdrawAction::Update(float deltaTime)
 {
     // If we don't have a target stockpile, find one
     if (m_target == nullptr)
     {
-        Entity* ent = m_owner->GetGame()->GetWorld()->FindEntity(STOCKPILE);
+        Entity* ent = m_owner->GetGame()->GetWorld()->FindEntity(STRUCTURE_STOCKPILE);
         m_target = dynamic_cast<Stockpile*>(ent);
         
         if (m_target == nullptr)

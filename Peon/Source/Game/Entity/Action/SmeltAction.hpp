@@ -10,7 +10,7 @@ public:
     SmeltAction(Monster* owner, Forge* forge);
     virtual ~SmeltAction();
 
-    virtual void Update(double deltaTime);
+    virtual void Update(float deltaTime);
 
 private:
     const double MIN_DISTANCE = 10.0;

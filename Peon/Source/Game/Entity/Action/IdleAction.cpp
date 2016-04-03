@@ -15,7 +15,7 @@ IdleAction::~IdleAction()
 {
 }
 
-void IdleAction::Update(double deltaTime)
+void IdleAction::Update(float deltaTime)
 {
     if (!m_timer.IsStarted())
     {

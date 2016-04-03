@@ -7,7 +7,7 @@ public:
     IdleAction(Monster* owner);
     virtual ~IdleAction();
 
-    virtual void Update(double deltaTime);
+    virtual void Update(float deltaTime);
 
 private:
     grim::utility::Timer m_timer;

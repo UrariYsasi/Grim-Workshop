@@ -9,7 +9,7 @@ public:
     WithdrawAction(Monster* owner, ItemType withdrawItem, const int& quantity = 1);
     virtual ~WithdrawAction();
 
-    virtual void Update(double deltaTime);
+    virtual void Update(float deltaTime);
 
 private:
     const double MIN_DISTANCE = 10.0;

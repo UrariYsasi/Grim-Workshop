@@ -32,7 +32,7 @@ GatherAction::~GatherAction()
 {
 }
 
-void GatherAction::Update(double deltaTime)
+void GatherAction::Update(float deltaTime)
 {
     if (m_target->IsDead())
     {

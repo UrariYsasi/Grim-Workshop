@@ -3,7 +3,7 @@ enum EntityID
     NONE,
     TREE,
     ROCK,
-    STOCKPILE,
+    STRUCTURE_STOCKPILE,
     PEON,
     ORC,
     OBELISK,

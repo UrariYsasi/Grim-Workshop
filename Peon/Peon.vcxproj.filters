@@ -159,6 +159,9 @@
     <ClCompile Include="Source\Engine\Graphics\Window.cpp">
       <Filter>Source\Engine\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\PlacementModule.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\PCH.hpp">
@@ -304,6 +307,9 @@
     </ClInclude>
     <ClInclude Include="Source\Engine\Graphics\Window.hpp">
       <Filter>Source\Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\PlacementModule.hpp">
+      <Filter>Source\Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -7,7 +7,7 @@ public:
     Peon(Game* game, const glm::vec2& position);
     virtual ~Peon();
 
-    virtual void Update(double deltaTime);
+    virtual void Update(float deltaTime);
     virtual void Render(grim::graphics::SpriteBatch& spriteBatch);
 
     void Select();

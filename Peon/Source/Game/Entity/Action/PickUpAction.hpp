@@ -9,7 +9,7 @@ public:
     PickUpAction(Monster* owner, Entity* target);
     virtual ~PickUpAction();
 
-    virtual void Update(double deltaTime);
+    virtual void Update(float deltaTime);
     virtual void Complete();
 
 private:

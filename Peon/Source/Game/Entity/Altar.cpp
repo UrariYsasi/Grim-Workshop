@@ -13,7 +13,7 @@ Altar::~Altar()
 {
 }
 
-void Altar::Update(double deltaTime)
+void Altar::Update(float deltaTime)
 {
 }
 

@@ -10,7 +10,7 @@ public:
     GatherAction(Monster* owner, Resource* target);
     virtual ~GatherAction();
 
-    virtual void Update(double deltaTime);
+    virtual void Update(float deltaTime);
     virtual void Complete();
     void Abort();
 

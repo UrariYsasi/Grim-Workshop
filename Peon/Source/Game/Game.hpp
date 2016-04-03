@@ -50,8 +50,10 @@ public:
 
     void PlaySound(const std::string& id);
 
+    grim::graphics::Sprite* GetEntitySprite(const EntityID& id);
+
 private:
-    void Update(double deltaTime);
+    void Update(float deltaTime);
     void Render();
 
     //bool LoadTexture(const std::string& path, const std::string& id);
@@ -105,6 +107,9 @@ private:
 
     // Shader programs
     std::map<std::string, std::unique_ptr<grim::graphics::ShaderProgram>> m_shaderProgramMap;
+
+    // Sprites
+    std::map<EntityID, std::unique_ptr<grim::graphics::Sprite>> m_spriteMap;
 
     // This is here TEMPORARILY for debug purposes
     double m_frameCount;

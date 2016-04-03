@@ -12,7 +12,7 @@ public:
     virtual ItemType GetItem() const = 0;
     bool IsFull();
 
-    virtual void Update(double deltaTime) = 0;
+    virtual void Update(float deltaTime) = 0;
     virtual void Render(grim::graphics::SpriteBatch& spriteBatch) = 0;
     void AddPeon();
     void RemovePeon();

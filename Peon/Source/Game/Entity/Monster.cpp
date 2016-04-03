@@ -27,7 +27,7 @@ int Monster::GetMoveSpeed()
     return m_moveSpeed;
 }
 
-void Monster::Update(double deltaTime)
+void Monster::Update(float deltaTime)
 {
     if (IsDead())
     {

@@ -17,7 +17,7 @@ AttackAction::~AttackAction()
 {
 }
 
-void AttackAction::Update(double deltaTime)
+void AttackAction::Update(float deltaTime)
 {
     if (m_target->IsDead())
     {

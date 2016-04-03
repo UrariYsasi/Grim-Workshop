@@ -28,7 +28,7 @@ glm::vec2 MoveAction::GetDestination() const
     return m_destination;
 }
 
-void MoveAction::Update(double deltaTime)
+void MoveAction::Update(float deltaTime)
 {
     // If we have a follow target, update our destination.
     if (m_followTarget != nullptr)

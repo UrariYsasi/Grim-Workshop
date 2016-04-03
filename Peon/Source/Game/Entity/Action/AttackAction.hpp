@@ -9,7 +9,7 @@ public:
     AttackAction(Monster* owner, Entity* target);
     virtual ~AttackAction();
 
-    virtual void Update(double deltaTime);
+    virtual void Update(float deltaTime);
     bool IsAttackingPeon();
 
 private:

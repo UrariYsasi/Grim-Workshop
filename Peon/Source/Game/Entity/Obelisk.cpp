@@ -16,7 +16,7 @@ Obelisk::~Obelisk()
 {
 }
 
-void Obelisk::Update(double deltaTime)
+void Obelisk::Update(float deltaTime)
 {
     if (IsDead())
     {

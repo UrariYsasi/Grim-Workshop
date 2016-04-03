@@ -12,7 +12,7 @@ public:
     std::string GetName() const;
     bool IsComplete() const;
 
-    virtual void Update(double deltaTime) = 0;
+    virtual void Update(float deltaTime) = 0;
 
     /*
         Mark the finished Action as complete so it can be pushed off the stack.

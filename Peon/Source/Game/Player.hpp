@@ -1,9 +1,8 @@
 #pragma once
+#include "PlacementModule.hpp"
 
 namespace grim
 {
-
-class Renderer;
 
 namespace graphics
 {
@@ -32,8 +31,13 @@ public:
     Player(Game* game);
     ~Player();
 
-    void Update(double deltaTime);
+    void Update(float deltaTime);
     void Render();
+
+    Game* GetGame();
+    grim::ui::Input* GetInput();
+    grim::graphics::Camera* GetCamera();
+    World* GetWorld();
 
 private:
     void IssueCommand(glm::vec2 position);
@@ -46,13 +50,16 @@ private:
     Game* m_game;
     grim::ui::Input* m_gameInput;
     grim::graphics::Camera* m_gameCamera;
-    grim::graphics::Renderer* m_gameRenderer;
     World* m_gameWorld;
 
     int m_cameraSpeed;
     bool m_isBoxSelecting;
     grim::graphics::Rect m_boxSelection;
     std::list<Entity*> m_selectedPeons;
-
     std::unique_ptr<grim::graphics::Mesh> m_boxSelectionMesh;
+
+    /*
+        Modules
+    */
+    PlacementModule m_placementModule;
 };
