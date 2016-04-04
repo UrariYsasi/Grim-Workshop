@@ -28,6 +28,9 @@
     <ClCompile Include="Source\Engine\Graphics\Texture.cpp" />
     <ClCompile Include="Source\Engine\Graphics\Window.cpp" />
     <ClCompile Include="Source\Engine\UI\Input.cpp" />
+    <ClCompile Include="Source\Engine\UI\UserInterface.cpp" />
+    <ClCompile Include="Source\Engine\UI\Widgets\Text.cpp" />
+    <ClCompile Include="Source\Engine\UI\Widgets\Widget.cpp" />
     <ClCompile Include="Source\Engine\Utility\Debug.cpp" />
     <ClCompile Include="Source\Engine\Utility\PoissonDiskGenerator.cpp" />
     <ClCompile Include="Source\Engine\Utility\Random.cpp" />
@@ -79,6 +82,9 @@
     <ClInclude Include="Source\Engine\Graphics\Vertex.hpp" />
     <ClInclude Include="Source\Engine\Graphics\Window.hpp" />
     <ClInclude Include="Source\Engine\UI\Input.hpp" />
+    <ClInclude Include="Source\Engine\UI\UserInterface.hpp" />
+    <ClInclude Include="Source\Engine\UI\Widgets\Text.hpp" />
+    <ClInclude Include="Source\Engine\UI\Widgets\Widget.hpp" />
     <ClInclude Include="Source\Engine\Utility\Debug.hpp" />
     <ClInclude Include="Source\Engine\Utility\PoissonDiskGenerator.hpp" />
     <ClInclude Include="Source\Engine\Utility\Random.hpp" />

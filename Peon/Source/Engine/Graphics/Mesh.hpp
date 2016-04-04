@@ -71,6 +71,11 @@ private:
         The OpenGL render mode that this Mesh will be rendered with.
     */
     GLenum m_mode;
+
+    /*
+        The number of OpenGL elements to render with glDrawElements().
+    */
+    GLuint m_elementCount;
 };
 
 }

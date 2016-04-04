@@ -14,7 +14,8 @@ Mesh::Mesh(grim::graphics::ShaderProgram* shaderProgram, grim::graphics::Texture
     m_VAOHandle(0),
     m_VBOHandle(0),
     m_EBOHandle(0),
-    m_mode(GL_TRIANGLES)
+    m_mode(GL_TRIANGLES),
+    m_elementCount(0)
 {
     // Create a VAO
     glGenVertexArrays(1, &m_VAOHandle);
@@ -64,7 +65,7 @@ void Mesh::Render(const glm::vec3& position, const glm::vec3& rotation, const gl
     }
 
     // Render the mesh
-    glDrawElements(m_mode, 4, GL_UNSIGNED_INT, 0);
+    glDrawElements(m_mode, m_elementCount, GL_UNSIGNED_INT, 0);
 
     // Unbind our Texture
     if (m_texture != nullptr)
@@ -98,9 +99,9 @@ void Mesh::UploadVertexData(GLfloat* vertices, unsigned int verticesSize)
     glEnableVertexAttribArray(positionAttribute);
     glEnableVertexAttribArray(colorAttribute);
     glEnableVertexAttribArray(uvAttribute);
-    glVertexAttribPointer(positionAttribute, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), 0);
-    glVertexAttribPointer(colorAttribute, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
-    glVertexAttribPointer(uvAttribute, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)(6 * sizeof(GLfloat)));
+    glVertexAttribPointer(positionAttribute, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(GLfloat), 0);
+    glVertexAttribPointer(colorAttribute, 4, GL_FLOAT, GL_FALSE, 9 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
+    glVertexAttribPointer(uvAttribute, 2, GL_FLOAT, GL_FALSE, 9 * sizeof(GLfloat), (void*)(7 * sizeof(GLfloat)));
 
     // Unbind the VBO
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -123,6 +124,9 @@ void Mesh::UploadElementData(GLuint* elements, unsigned int elementsSize)
 
     // Unbind the VAO
     glBindVertexArray(0);
+
+    // Set our element count
+    m_elementCount = (elementsSize / sizeof(elements[0]));
 }
 
 void Mesh::SetRenderMode(GLenum mode)

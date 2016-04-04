@@ -23,6 +23,10 @@ public:
     int GetWidth() const;
     int GetHeight() const;
 
+    void SetData(void* data, GLuint internalFormat, GLuint format, int width, int height);
+    void SetWidth(int width);
+    void SetHeight(int height);
+
     /*
         Bind the Texture for rendering.
     */

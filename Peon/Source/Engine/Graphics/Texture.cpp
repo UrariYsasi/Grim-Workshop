@@ -61,6 +61,26 @@ int Texture::GetHeight() const
     return m_height;
 }
 
+void Texture::SetWidth(int width)
+{
+    m_width = width;
+}
+
+void Texture::SetHeight(int height)
+{
+    m_height = height;
+}
+
+void Texture::SetData(void* data, GLuint internalFormat, GLuint format, int width, int height)
+{
+    SetWidth(width);
+    SetHeight(height);
+
+    Bind();
+    glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, m_width, m_height, 0, format, GL_UNSIGNED_BYTE, data);
+    Unbind();
+}
+
 void Texture::Bind()
 {
     glBindTexture(GL_TEXTURE_2D, m_handle);

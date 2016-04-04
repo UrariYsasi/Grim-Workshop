@@ -34,6 +34,9 @@
     <Filter Include="Source\Engine\Utility">
       <UniqueIdentifier>{ccd4d6bf-4b07-4672-bcdc-4a4106cff69c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Engine\UI\Widgets">
+      <UniqueIdentifier>{5165acb1-6760-49a5-bba4-8f199ff60c58}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -161,6 +164,15 @@
     </ClCompile>
     <ClCompile Include="Source\Game\PlacementModule.cpp">
       <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\UI\UserInterface.cpp">
+      <Filter>Source\Engine\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\UI\Widgets\Text.cpp">
+      <Filter>Source\Engine\UI\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\UI\Widgets\Widget.cpp">
+      <Filter>Source\Engine\UI\Widgets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -310,6 +322,15 @@
     </ClInclude>
     <ClInclude Include="Source\Game\PlacementModule.hpp">
       <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\UI\UserInterface.hpp">
+      <Filter>Source\Engine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\UI\Widgets\Text.hpp">
+      <Filter>Source\Engine\UI\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\UI\Widgets\Widget.hpp">
+      <Filter>Source\Engine\UI\Widgets</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

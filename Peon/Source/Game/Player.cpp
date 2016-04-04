@@ -197,13 +197,13 @@ void Player::Render()
         {
             GLfloat vertices[] = {
                 // Top left
-                m_boxSelection.x, m_boxSelection.y, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+                m_boxSelection.x, m_boxSelection.y, 0.0f, 0.0f, 0.0f, 0.0f, 0.5f, 0.0f, 0.0f,
                 // Top right
-                m_boxSelection.x + m_boxSelection.width, m_boxSelection.y, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,  
+                m_boxSelection.x + m_boxSelection.width, m_boxSelection.y, 0.0f, 0.0f, 0.0f, 0.0f, 0.5f, 0.0f, 0.0f,
                 // Bottom left
-                m_boxSelection.x, m_boxSelection.y + m_boxSelection.height, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,  
+                m_boxSelection.x, m_boxSelection.y + m_boxSelection.height, 0.0f, 0.0f, 0.0f, 0.0f, 0.5f, 0.0f, 0.0f,
                 // Bottom right
-                m_boxSelection.x + m_boxSelection.width, m_boxSelection.y + m_boxSelection.height, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f
+                m_boxSelection.x + m_boxSelection.width, m_boxSelection.y + m_boxSelection.height, 0.0f, 0.0f, 0.0f, 0.0f, 0.5f, 0.0f, 0.0f
             };
 
             m_boxSelectionMesh->UploadVertexData(vertices, sizeof(vertices));

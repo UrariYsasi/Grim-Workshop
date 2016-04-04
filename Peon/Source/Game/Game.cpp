@@ -11,6 +11,7 @@
 #include "Terrain/TerrainTile.hpp"
 #include "World/World.hpp"
 #include "Player.hpp"
+#include "../Engine/UI/Widgets/Text.hpp"
 
 Game::Game() :
     m_isRunning(false),
@@ -141,6 +142,9 @@ int Game::Initialize()
     // Create input
     m_input = std::make_unique<grim::ui::Input>(this);
 
+    // Create ui
+    m_ui = std::make_unique<grim::ui::UserInterface>();
+
     // Load Textures
     grim::utility::Debug::Log("Loading textures...");
     LoadTexture("peon.png", "peon");
@@ -217,6 +221,9 @@ int Game::Initialize()
 
     m_map->Generate();
 
+    m_text = new grim::ui::Text("The quick brown fox jumps over the lazy dog.", GetFont("dos"),GetShaderProgram("basic_shader"));
+    m_ui->RegisterWidget(m_text);
+
     return SUCCESS;
 }
 
@@ -280,6 +287,11 @@ void Game::Update(float deltaTime)
 
     m_map->Update(deltaTime);
     m_player->Update(deltaTime);
+
+    /*
+        Update Services
+    */
+    m_ui->Update(deltaTime);
 }
 
 void Game::Render()
@@ -289,6 +301,11 @@ void Game::Render()
     m_mainCamera->Activate();
     m_map->Render();
     m_player->Render();
+
+    /*
+        Render Services
+    */
+    m_ui->Render();
 }
 
 bool Game::LoadTexture(const std::string& textureFileName, const std::string& ID)

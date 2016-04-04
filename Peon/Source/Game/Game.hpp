@@ -16,6 +16,9 @@ namespace ui
 {
 
 class Input;
+class UserInterface;
+class Widget;
+class Text;
 
 }
 
@@ -116,4 +119,11 @@ private:
     double m_frameRate;
     double m_gameStartTime;
     Mix_Music* m_bgMusic;
+
+    grim::ui::Text* m_text;
+
+    /*
+        Services
+    */
+    std::unique_ptr<grim::ui::UserInterface> m_ui;
 };

@@ -62,6 +62,7 @@
 #include "Engine/Graphics/SpriteBatch.hpp"
 #include "Engine/Graphics/Mesh.hpp"
 #include "Engine/UI/Input.hpp"
+#include "Engine/UI/UserInterface.hpp"
 
 // Game Includes
 #include "Game/Item/ItemType.hpp"
