@@ -92,7 +92,7 @@ private:
     std::unique_ptr<grim::graphics::Renderer> m_renderer;
     std::unique_ptr<grim::ui::Input> m_input;
     std::unique_ptr<grim::graphics::Camera> m_mainCamera;
-    std::unique_ptr<grim::graphics::Camera> m_GUICamera;
+    std::unique_ptr<grim::graphics::Camera> m_uiCamera;
     std::unique_ptr<World> m_map;
     std::unique_ptr<Player> m_player;
 
@@ -115,9 +115,9 @@ private:
     std::map<EntityID, std::unique_ptr<grim::graphics::Sprite>> m_spriteMap;
 
     // This is here TEMPORARILY for debug purposes
-    double m_frameCount;
-    double m_frameRate;
-    double m_gameStartTime;
+    uint32_t m_frameCount;
+    uint16_t m_frameRate;
+    uint32_t m_gameStartTime;
     Mix_Music* m_bgMusic;
 
     grim::ui::Text* m_text;

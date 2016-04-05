@@ -47,7 +47,7 @@ Game::~Game()
 
     m_player.reset();
     m_map.reset();
-    m_GUICamera.reset();
+    m_uiCamera.reset();
     m_mainCamera.reset();
     m_input.reset();
     m_renderer.reset();
@@ -164,6 +164,7 @@ int Game::Initialize()
     // Load fonts
     grim::utility::Debug::Log("Loading fonts...");
     LoadFont("Resources/Fonts/dos.ttf", "dos");
+    LoadFont("Resources/Fonts/hack.ttf", "hack");
 
     // Load Sounds
     grim::utility::Debug::Log("Loading sounds...");
@@ -213,7 +214,7 @@ int Game::Initialize()
 
     // Setup the game
     m_mainCamera = std::make_unique<grim::graphics::Camera>(m_renderer.get());
-    m_GUICamera = std::make_unique<grim::graphics::Camera>(m_renderer.get());
+    m_uiCamera = std::make_unique<grim::graphics::Camera>(m_renderer.get());
     m_map = std::make_unique<World>(this);
     m_player = std::make_unique<Player>(this);
 
@@ -221,7 +222,7 @@ int Game::Initialize()
 
     m_map->Generate();
 
-    m_text = new grim::ui::Text("The quick brown fox jumps over the lazy dog.", GetFont("dos"),GetShaderProgram("basic_shader"));
+    m_text = new grim::ui::Text(" ", GetFont("hack"), GetShaderProgram("basic_shader"));
     m_ui->RegisterWidget(m_text);
 
     return SUCCESS;
@@ -238,12 +239,12 @@ void Game::Run()
     m_isRunning = true;
     m_gameStartTime = SDL_GetTicks();
 
-    double frameStartTime = 0.0;
-    double frameEndTime = 0.0;
+    uint32_t frameStartTime = 0;
+    uint32_t frameEndTime = 0;
     while (m_isRunning)
     {
         frameStartTime = SDL_GetTicks();
-        float deltaTime = static_cast<float>((frameStartTime - frameEndTime) / 1000.0f);
+        float deltaTime = (frameStartTime - frameEndTime) / 1000.0f;
         frameEndTime = frameStartTime;
 
         m_input->Update();
@@ -252,7 +253,7 @@ void Game::Run()
         m_window->SwapWindow();
 
         m_frameCount++;
-        m_frameRate = (m_frameCount / (SDL_GetTicks() - m_gameStartTime)) * 1000;
+        m_frameRate = static_cast<uint16_t>(((float)m_frameCount / (SDL_GetTicks() - m_gameStartTime)) * 1000);
     }
 }
 
@@ -288,6 +289,8 @@ void Game::Update(float deltaTime)
     m_map->Update(deltaTime);
     m_player->Update(deltaTime);
 
+    m_text->SetText(std::to_string(m_frameRate));
+
     /*
         Update Services
     */
@@ -305,6 +308,7 @@ void Game::Render()
     /*
         Render Services
     */
+    m_uiCamera->Activate();
     m_ui->Render();
 }
 
