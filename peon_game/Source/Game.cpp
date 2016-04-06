@@ -11,14 +11,17 @@
 #include "Terrain/TerrainTile.hpp"
 #include "World/World.hpp"
 #include "Player.hpp"
-#include "../Engine/UI/Widgets/Text.hpp"
 
 Game::Game() :
     m_isRunning(false),
     m_frameCount(0),
     m_frameRate(0),
     m_gameStartTime(0),
-    m_bgMusic(nullptr)
+    m_bgMusic(nullptr),
+    m_window(nullptr),
+    m_renderer(nullptr),
+    m_input(nullptr),
+    m_ui(nullptr)
 {
 }
 
@@ -136,13 +139,12 @@ int Game::Initialize()
         return FAILURE;
     }
 
-    // Create renderer
-    m_renderer = std::make_unique<grim::graphics::Renderer>(this, m_window.get());
+    /*
+        Create and Initialize Services
+    */
 
-    // Create input
-    m_input = std::make_unique<grim::ui::Input>(this);
-
-    // Create ui
+    m_renderer = std::make_unique<grim::graphics::Renderer>();
+    m_input = std::make_unique<grim::ui::Input>();
     m_ui = std::make_unique<grim::ui::UserInterface>();
 
     // Load Textures

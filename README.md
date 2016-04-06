@@ -1,7 +1,6 @@
 # Project Peon
 
-This is the continuation of my LD34 project, "Celebration of Jand".
-More info [here](http://dooskington.com/ludum-dare-34-postmortem-celebration-of-jand/).
+An experimental strategy game where you lead a group of cultists on their journey to enlightenment after they have woken up at the base of a strange monument in the forest, with no recollection of what brought them there.
 
 Technology     | Component
 ---------------|----------
@@ -13,3 +12,6 @@ Technology     | Component
 **GLM**        | Mathematics
 **VS2015**     | Windows compilation
 **make**       | OSX and Linux compilation
+
+
+![Project Peon](http://i.imgur.com/Xy9YYi7.png)

@@ -8,13 +8,12 @@ namespace grim
 namespace graphics
 {
 
-class Window;
 class Camera;
 
 class Renderer
 {
 public:
-    Renderer(Game* game, const grim::graphics::Window* window);
+    Renderer();
     ~Renderer();
 
     void SetClearColor(const grim::graphics::Color& color);
@@ -24,7 +23,6 @@ public:
     void Clear();
 
 private:
-    Game* m_game;
     graphics::Camera* m_activeCamera;
 };
 

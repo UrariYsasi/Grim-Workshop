@@ -11,7 +11,7 @@ namespace ui
 class Input
 {
 public:
-    Input(Game* game);
+    Input();
     ~Input();
 
     bool GetKey(int key);
@@ -27,8 +27,6 @@ public:
 private:
     const static int MAX_KEYBOARD_KEYS = 256; // SDL ScanCodes
     const static int MAX_MOUSE_BUTTONS = 256;
-
-    Game* m_game; // TODO Engine should not reference game, only the other way around
 
     bool m_currentKeys[MAX_KEYBOARD_KEYS];
     bool m_downKeys[MAX_KEYBOARD_KEYS];

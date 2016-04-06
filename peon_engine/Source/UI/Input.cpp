@@ -1,6 +1,5 @@
 #include "PCH.hpp"
 #include "Input.hpp"
-#include "../../Game/Game.hpp"
 
 namespace grim
 {
@@ -8,8 +7,7 @@ namespace grim
 namespace ui
 {
 
-Input::Input(Game* game) :
-    m_game(game),
+Input::Input() :
     m_mousePosition(0)
 {
     std::fill(m_currentKeys, m_currentKeys + MAX_KEYBOARD_KEYS, false);
@@ -143,7 +141,7 @@ void Input::Update()
         }
         else if (event.type == SDL_QUIT)
         {
-            m_game->Terminate();
+            // Terminate engine
         }
     }
 }

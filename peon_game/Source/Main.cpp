@@ -1,5 +1,5 @@
 #include "PCH.hpp"
-#include "Game/Game.hpp"
+#include "Game.hpp"
 
 int main(int argc, char** argv)
 {
@@ -7,7 +7,7 @@ int main(int argc, char** argv)
     {
         if (std::string(argv[1]) == "-noAudio")
         {
-            //Debug::DisableFlag(MIX_AUDIO);
+            grim::utility::Debug::DisableFlag(grim::utility::MIX_AUDIO);
             grim::utility::Debug::LogError("-noAudio flag observed.");
         }
     }

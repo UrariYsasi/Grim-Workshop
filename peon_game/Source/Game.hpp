@@ -88,9 +88,6 @@ private:
 
 private:
     bool m_isRunning;
-    std::unique_ptr<grim::graphics::Window> m_window;
-    std::unique_ptr<grim::graphics::Renderer> m_renderer;
-    std::unique_ptr<grim::ui::Input> m_input;
     std::unique_ptr<grim::graphics::Camera> m_mainCamera;
     std::unique_ptr<grim::graphics::Camera> m_uiCamera;
     std::unique_ptr<World> m_map;
@@ -125,5 +122,8 @@ private:
     /*
         Services
     */
+    std::unique_ptr<grim::graphics::Window> m_window;
+    std::unique_ptr<grim::graphics::Renderer> m_renderer;
+    std::unique_ptr<grim::ui::Input> m_input;
     std::unique_ptr<grim::ui::UserInterface> m_ui;
 };

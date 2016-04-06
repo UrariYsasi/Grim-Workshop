@@ -1,8 +1,6 @@
 #include "PCH.hpp"
 #include "Renderer.hpp"
-#include "Window.hpp"
 #include "Camera.hpp"
-#include "../../Game/Game.hpp"
 
 namespace grim
 {
@@ -10,8 +8,7 @@ namespace grim
 namespace graphics
 {
 
-Renderer::Renderer(Game* game, const grim::graphics::Window* window) :
-    m_game(game)
+Renderer::Renderer()
 {
     // Enable alpha blending
     glEnable(GL_BLEND);

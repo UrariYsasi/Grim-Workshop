@@ -45,29 +45,12 @@
 #endif
 
 // Engine Includes
-#include "Engine/Utility/Debug.hpp"
-#include "Engine/Utility/Random.hpp"
-#include "Engine/Graphics/Color.hpp"
-#include "Engine/Graphics/Camera.hpp"
-#include "Engine/Graphics/Rect.hpp"
-#include "Engine/Graphics/Vertex.hpp"
-#include "Engine/Graphics/Renderer.hpp"
-#include "Engine/Graphics/Window.hpp"
-#include "Engine/Utility/Timer.hpp"
-#include "Engine/Graphics/Shader.hpp"
-#include "Engine/Graphics/ShaderProgram.hpp"
-#include "Engine/Graphics/Texture.hpp"
-#include "Engine/Graphics/Sprite.hpp"
-#include "Engine/Utility/PoissonDiskGenerator.hpp"
-#include "Engine/Graphics/SpriteBatch.hpp"
-#include "Engine/Graphics/Mesh.hpp"
-#include "Engine/UI/Input.hpp"
-#include "Engine/UI/UserInterface.hpp"
+#include "GrimWorkshop.hpp"
 
 // Game Includes
-#include "Game/Item/ItemType.hpp"
-#include "Game/Entity/EntityID.hpp"
-#include "Game/Entity/Action/ActionID.hpp"
+#include "Item/ItemType.hpp"
+#include "Entity/EntityID.hpp"
+#include "Entity/Action/ActionID.hpp"
 
 // Constants
 const int SUCCESS = 1;

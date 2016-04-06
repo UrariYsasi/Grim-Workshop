@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{4f59bddd-fd04-4885-8bc1-bff58287b0aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Entity">
+      <UniqueIdentifier>{0d58a027-4f67-411e-8b3f-afc3dcb150f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Entity\Action">
+      <UniqueIdentifier>{e74f8685-21dc-49ec-964b-9b86422df93f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Item">
+      <UniqueIdentifier>{b3a6552b-cb38-4ae7-a17b-d3bce55d3a1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\World">
+      <UniqueIdentifier>{7e8a20fa-5814-4041-8ccf-8065b6e48f69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Terrain">
+      <UniqueIdentifier>{bd337953-6074-42ad-89da-1417d9c00638}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Player.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlacementModule.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\World\World.cpp">
+      <Filter>Source\World</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Terrain\TerrainTile.cpp">
+      <Filter>Source\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Item\Inventory.cpp">
+      <Filter>Source\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity\Orc.cpp">
+      <Filter>Source\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity\Peon.cpp">
+      <Filter>Source\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity\Prop.cpp">
+      <Filter>Source\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity\Resource.cpp">
+      <Filter>Source\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity\Rock.cpp">
+      <Filter>Source\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity\Stockpile.cpp">
+      <Filter>Source\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity\Tree.cpp">
+      <Filter>Source\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity\Altar.cpp">
+      <Filter>Source\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity\Entity.cpp">
+      <Filter>Source\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity\Forge.cpp">
+      <Filter>Source\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity\Monster.cpp">
+      <Filter>Source\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity\Obelisk.cpp">
+      <Filter>Source\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity\Action\GatherAction.cpp">
+      <Filter>Source\Entity\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity\Action\IdleAction.cpp">
+      <Filter>Source\Entity\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity\Action\MoveAction.cpp">
+      <Filter>Source\Entity\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity\Action\PickUpAction.cpp">
+      <Filter>Source\Entity\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity\Action\SacrificeAction.cpp">
+      <Filter>Source\Entity\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity\Action\SmeltAction.cpp">
+      <Filter>Source\Entity\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity\Action\WithdrawAction.cpp">
+      <Filter>Source\Entity\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity\Action\Action.cpp">
+      <Filter>Source\Entity\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity\Action\AttackAction.cpp">
+      <Filter>Source\Entity\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity\Action\DepositAction.cpp">
+      <Filter>Source\Entity\Action</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\PCH.hpp">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlacementModule.hpp">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player.hpp">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game.hpp">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\World\World.hpp">
+      <Filter>Source\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Terrain\TerrainTile.hpp">
+      <Filter>Source\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Item\Inventory.hpp">
+      <Filter>Source\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Item\ItemType.hpp">
+      <Filter>Source\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Orc.hpp">
+      <Filter>Source\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Peon.hpp">
+      <Filter>Source\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Prop.hpp">
+      <Filter>Source\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Resource.hpp">
+      <Filter>Source\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Rock.hpp">
+      <Filter>Source\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Stockpile.hpp">
+      <Filter>Source\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Tree.hpp">
+      <Filter>Source\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Altar.hpp">
+      <Filter>Source\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Entity.hpp">
+      <Filter>Source\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\EntityID.hpp">
+      <Filter>Source\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Forge.hpp">
+      <Filter>Source\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Monster.hpp">
+      <Filter>Source\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Obelisk.hpp">
+      <Filter>Source\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Action\GatherAction.hpp">
+      <Filter>Source\Entity\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Action\IdleAction.hpp">
+      <Filter>Source\Entity\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Action\MoveAction.hpp">
+      <Filter>Source\Entity\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Action\PickUpAction.hpp">
+      <Filter>Source\Entity\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Action\SacrificeAction.hpp">
+      <Filter>Source\Entity\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Action\SmeltAction.hpp">
+      <Filter>Source\Entity\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Action\WithdrawAction.hpp">
+      <Filter>Source\Entity\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Action\Action.hpp">
+      <Filter>Source\Entity\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Action\ActionID.hpp">
+      <Filter>Source\Entity\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Action\AttackAction.hpp">
+      <Filter>Source\Entity\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Action\DepositAction.hpp">
+      <Filter>Source\Entity\Action</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

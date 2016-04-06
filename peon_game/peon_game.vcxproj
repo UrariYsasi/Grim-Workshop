@@ -19,114 +19,82 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Engine\Graphics\Camera.cpp" />
-    <ClCompile Include="Source\Engine\Graphics\Mesh.cpp" />
-    <ClCompile Include="Source\Engine\Graphics\Renderer.cpp" />
-    <ClCompile Include="Source\Engine\Graphics\Shader.cpp" />
-    <ClCompile Include="Source\Engine\Graphics\ShaderProgram.cpp" />
-    <ClCompile Include="Source\Engine\Graphics\SpriteBatch.cpp" />
-    <ClCompile Include="Source\Engine\Graphics\Texture.cpp" />
-    <ClCompile Include="Source\Engine\Graphics\Window.cpp" />
-    <ClCompile Include="Source\Engine\UI\Input.cpp" />
-    <ClCompile Include="Source\Engine\UI\UserInterface.cpp" />
-    <ClCompile Include="Source\Engine\UI\Widgets\Text.cpp" />
-    <ClCompile Include="Source\Engine\UI\Widgets\Widget.cpp" />
-    <ClCompile Include="Source\Engine\Utility\Debug.cpp" />
-    <ClCompile Include="Source\Engine\Utility\PoissonDiskGenerator.cpp" />
-    <ClCompile Include="Source\Engine\Utility\Random.cpp" />
-    <ClCompile Include="Source\Engine\Utility\Timer.cpp" />
-    <ClCompile Include="Source\Game\Entity\Action\Action.cpp" />
-    <ClCompile Include="Source\Game\Entity\Action\AttackAction.cpp" />
-    <ClCompile Include="Source\Game\Entity\Action\DepositAction.cpp" />
-    <ClCompile Include="Source\Game\Entity\Action\SacrificeAction.cpp" />
-    <ClCompile Include="Source\Game\Entity\Action\GatherAction.cpp" />
-    <ClCompile Include="Source\Game\Entity\Action\IdleAction.cpp" />
-    <ClCompile Include="Source\Game\Entity\Action\MoveAction.cpp" />
-    <ClCompile Include="Source\Game\Entity\Action\PickUpAction.cpp" />
-    <ClCompile Include="Source\Game\Entity\Action\SmeltAction.cpp" />
-    <ClCompile Include="Source\Game\Entity\Action\WithdrawAction.cpp" />
-    <ClCompile Include="Source\Game\Entity\Altar.cpp" />
-    <ClCompile Include="Source\Game\Entity\Entity.cpp" />
-    <ClCompile Include="Source\Game\Entity\Forge.cpp" />
-    <ClCompile Include="Source\Game\Entity\Orc.cpp" />
-    <ClCompile Include="Source\Game\Entity\Monster.cpp" />
-    <ClCompile Include="Source\Game\Entity\Obelisk.cpp" />
-    <ClCompile Include="Source\Game\Entity\Peon.cpp" />
-    <ClCompile Include="Source\Game\Entity\Prop.cpp" />
-    <ClCompile Include="Source\Game\Entity\Resource.cpp" />
-    <ClCompile Include="Source\Game\Entity\Rock.cpp" />
-    <ClCompile Include="Source\Game\Entity\Stockpile.cpp" />
-    <ClCompile Include="Source\Game\Entity\Tree.cpp" />
-    <ClCompile Include="Source\Game\Game.cpp" />
-    <ClCompile Include="Source\Game\Item\Inventory.cpp" />
-    <ClCompile Include="Source\Game\PlacementModule.cpp" />
-    <ClCompile Include="Source\Game\Player.cpp" />
-    <ClCompile Include="Source\Game\Terrain\TerrainTile.cpp" />
-    <ClCompile Include="Source\Game\World\World.cpp" />
-    <ClCompile Include="Source\Main.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PCH.hpp</PrecompiledHeaderFile>
-    </ClCompile>
+    <ProjectReference Include="..\peon_engine\peon_engine.vcxproj">
+      <Project>{56d5b956-259d-47af-bd0c-05bdacc32b0e}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Engine\Graphics\Camera.hpp" />
-    <ClInclude Include="Source\Engine\Graphics\Color.hpp" />
-    <ClInclude Include="Source\Engine\Graphics\Mesh.hpp" />
-    <ClInclude Include="Source\Engine\Graphics\Rect.hpp" />
-    <ClInclude Include="Source\Engine\Graphics\Renderer.hpp" />
-    <ClInclude Include="Source\Engine\Graphics\Shader.hpp" />
-    <ClInclude Include="Source\Engine\Graphics\ShaderProgram.hpp" />
-    <ClInclude Include="Source\Engine\Graphics\Sprite.hpp" />
-    <ClInclude Include="Source\Engine\Graphics\SpriteBatch.hpp" />
-    <ClInclude Include="Source\Engine\Graphics\Texture.hpp" />
-    <ClInclude Include="Source\Engine\Graphics\Vertex.hpp" />
-    <ClInclude Include="Source\Engine\Graphics\Window.hpp" />
-    <ClInclude Include="Source\Engine\UI\Input.hpp" />
-    <ClInclude Include="Source\Engine\UI\UserInterface.hpp" />
-    <ClInclude Include="Source\Engine\UI\Widgets\Text.hpp" />
-    <ClInclude Include="Source\Engine\UI\Widgets\Widget.hpp" />
-    <ClInclude Include="Source\Engine\Utility\Debug.hpp" />
-    <ClInclude Include="Source\Engine\Utility\PoissonDiskGenerator.hpp" />
-    <ClInclude Include="Source\Engine\Utility\Random.hpp" />
-    <ClInclude Include="Source\Engine\Utility\Timer.hpp" />
-    <ClInclude Include="Source\Game\Entity\Action\Action.hpp" />
-    <ClInclude Include="Source\Game\Entity\Action\ActionID.hpp" />
-    <ClInclude Include="Source\Game\Entity\Action\AttackAction.hpp" />
-    <ClInclude Include="Source\Game\Entity\Action\DepositAction.hpp" />
-    <ClInclude Include="Source\Game\Entity\Action\SacrificeAction.hpp" />
-    <ClInclude Include="Source\Game\Entity\Action\GatherAction.hpp" />
-    <ClInclude Include="Source\Game\Entity\Action\IdleAction.hpp" />
-    <ClInclude Include="Source\Game\Entity\Action\MoveAction.hpp" />
-    <ClInclude Include="Source\Game\Entity\Action\PickUpAction.hpp" />
-    <ClInclude Include="Source\Game\Entity\Action\SmeltAction.hpp" />
-    <ClInclude Include="Source\Game\Entity\Action\WithdrawAction.hpp" />
-    <ClInclude Include="Source\Game\Entity\Altar.hpp" />
-    <ClInclude Include="Source\Game\Entity\Entity.hpp" />
-    <ClInclude Include="Source\Game\Entity\EntityID.hpp" />
-    <ClInclude Include="Source\Game\Entity\Forge.hpp" />
-    <ClInclude Include="Source\Game\Entity\Orc.hpp" />
-    <ClInclude Include="Source\Game\Entity\Monster.hpp" />
-    <ClInclude Include="Source\Game\Entity\Obelisk.hpp" />
-    <ClInclude Include="Source\Game\Entity\Peon.hpp" />
-    <ClInclude Include="Source\Game\Entity\Prop.hpp" />
-    <ClInclude Include="Source\Game\Entity\Resource.hpp" />
-    <ClInclude Include="Source\Game\Entity\Rock.hpp" />
-    <ClInclude Include="Source\Game\Entity\Stockpile.hpp" />
-    <ClInclude Include="Source\Game\Entity\Tree.hpp" />
-    <ClInclude Include="Source\Game\Game.hpp" />
-    <ClInclude Include="Source\Game\Item\Inventory.hpp" />
-    <ClInclude Include="Source\Game\Item\ItemType.hpp" />
-    <ClInclude Include="Source\Game\PlacementModule.hpp" />
-    <ClInclude Include="Source\Game\Player.hpp" />
-    <ClInclude Include="Source\Game\Terrain\TerrainTile.hpp" />
-    <ClInclude Include="Source\Game\World\World.hpp" />
+    <ClCompile Include="Source\Entity\Action\Action.cpp" />
+    <ClCompile Include="Source\Entity\Action\AttackAction.cpp" />
+    <ClCompile Include="Source\Entity\Action\DepositAction.cpp" />
+    <ClCompile Include="Source\Entity\Action\GatherAction.cpp" />
+    <ClCompile Include="Source\Entity\Action\IdleAction.cpp" />
+    <ClCompile Include="Source\Entity\Action\MoveAction.cpp" />
+    <ClCompile Include="Source\Entity\Action\PickUpAction.cpp" />
+    <ClCompile Include="Source\Entity\Action\SacrificeAction.cpp" />
+    <ClCompile Include="Source\Entity\Action\SmeltAction.cpp" />
+    <ClCompile Include="Source\Entity\Action\WithdrawAction.cpp" />
+    <ClCompile Include="Source\Entity\Altar.cpp" />
+    <ClCompile Include="Source\Entity\Entity.cpp" />
+    <ClCompile Include="Source\Entity\Forge.cpp" />
+    <ClCompile Include="Source\Entity\Monster.cpp" />
+    <ClCompile Include="Source\Entity\Obelisk.cpp" />
+    <ClCompile Include="Source\Entity\Orc.cpp" />
+    <ClCompile Include="Source\Entity\Peon.cpp" />
+    <ClCompile Include="Source\Entity\Prop.cpp" />
+    <ClCompile Include="Source\Entity\Resource.cpp" />
+    <ClCompile Include="Source\Entity\Rock.cpp" />
+    <ClCompile Include="Source\Entity\Stockpile.cpp" />
+    <ClCompile Include="Source\Entity\Tree.cpp" />
+    <ClCompile Include="Source\Game.cpp" />
+    <ClCompile Include="Source\Item\Inventory.cpp" />
+    <ClCompile Include="Source\Main.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Source\PlacementModule.cpp" />
+    <ClCompile Include="Source\Player.cpp" />
+    <ClCompile Include="Source\Terrain\TerrainTile.cpp" />
+    <ClCompile Include="Source\World\World.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Entity\Action\Action.hpp" />
+    <ClInclude Include="Source\Entity\Action\ActionID.hpp" />
+    <ClInclude Include="Source\Entity\Action\AttackAction.hpp" />
+    <ClInclude Include="Source\Entity\Action\DepositAction.hpp" />
+    <ClInclude Include="Source\Entity\Action\GatherAction.hpp" />
+    <ClInclude Include="Source\Entity\Action\IdleAction.hpp" />
+    <ClInclude Include="Source\Entity\Action\MoveAction.hpp" />
+    <ClInclude Include="Source\Entity\Action\PickUpAction.hpp" />
+    <ClInclude Include="Source\Entity\Action\SacrificeAction.hpp" />
+    <ClInclude Include="Source\Entity\Action\SmeltAction.hpp" />
+    <ClInclude Include="Source\Entity\Action\WithdrawAction.hpp" />
+    <ClInclude Include="Source\Entity\Altar.hpp" />
+    <ClInclude Include="Source\Entity\Entity.hpp" />
+    <ClInclude Include="Source\Entity\EntityID.hpp" />
+    <ClInclude Include="Source\Entity\Forge.hpp" />
+    <ClInclude Include="Source\Entity\Monster.hpp" />
+    <ClInclude Include="Source\Entity\Obelisk.hpp" />
+    <ClInclude Include="Source\Entity\Orc.hpp" />
+    <ClInclude Include="Source\Entity\Peon.hpp" />
+    <ClInclude Include="Source\Entity\Prop.hpp" />
+    <ClInclude Include="Source\Entity\Resource.hpp" />
+    <ClInclude Include="Source\Entity\Rock.hpp" />
+    <ClInclude Include="Source\Entity\Stockpile.hpp" />
+    <ClInclude Include="Source\Entity\Tree.hpp" />
+    <ClInclude Include="Source\Game.hpp" />
+    <ClInclude Include="Source\Item\Inventory.hpp" />
+    <ClInclude Include="Source\Item\ItemType.hpp" />
     <ClInclude Include="Source\PCH.hpp" />
+    <ClInclude Include="Source\PlacementModule.hpp" />
+    <ClInclude Include="Source\Player.hpp" />
+    <ClInclude Include="Source\Terrain\TerrainTile.hpp" />
+    <ClInclude Include="Source\World\World.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{9AAE8292-4106-4182-A26F-2DDE23C134DE}</ProjectGuid>
-    <RootNamespace>Peon</RootNamespace>
+    <RootNamespace>peon_game</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
-    <ProjectName>Peon</ProjectName>
+    <ProjectName>peon_game</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -174,7 +142,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)..\SDL2\SDL2_image_VS2015\include;$(SolutionDir)..\SDL2\SDL_ttf_VS2015\include;$(SolutionDir)..\SDL2\SDL_VS2015\include;$(SolutionDir)..\SDL2\SDL2_mixer_VS2015\include;$(SolutionDir)..\SOIL\include;$(SolutionDir)..\GL3W\GL3W\include;$(SolutionDir)..\GLM\glm;$(ProjectDir)Source;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\SDL2\SDL2_image_VS2015\include;$(SolutionDir)..\SDL2\SDL_ttf_VS2015\include;$(SolutionDir)..\SDL2\SDL_VS2015\include;$(SolutionDir)..\SDL2\SDL2_mixer_VS2015\include;$(SolutionDir)..\SOIL\include;$(SolutionDir)..\GL3W\GL3W\include;$(SolutionDir)..\GLM\glm;$(ProjectDir)Source;$(SolutionDir)peon_engine\Source;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)..\SDL2\SDL2_image_VS2015\lib\x86;$(SolutionDir)..\SDL2\SDL_ttf_VS2015\lib\x86;$(SolutionDir)..\SDL2\SDL_VS2015\lib\win32;$(SolutionDir)..\SDL2\SDL2_mixer_VS2015\lib\x86;$(SolutionDir)..\GL3W\GL3W\lib;$(SolutionDir)..\SOIL\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
