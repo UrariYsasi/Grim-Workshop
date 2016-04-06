@@ -1,6 +1,9 @@
 #pragma once
 
-// Standard Library Includes
+/*
+    Standard Library
+*/
+
 #include <iostream>
 #include <memory>
 #include <map>
@@ -20,18 +23,30 @@
 #include <cstdint>
 #include <functional>
 
-// GL3W Includes
+/*
+    GL3W
+*/
+
 #include <GL/gl3w.h>
 
-// SOIL Incluces
+/*
+    SOIL
+*/
+
 #include <SOIL.h>
 
-// GLM Includes
+/*
+    GLM
+*/
+
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
 #include <gtc/type_ptr.hpp>
 
-// SDL2 Includes
+/*
+    SDL2
+*/
+
 #if WINDOWS
     #include <SDL.h>
     #include <SDL_image.h>
@@ -45,15 +60,22 @@
     #include <SDL2/SDL_opengl.h>
 #endif
 
-// Engine Includes
+/*
+    Grim Workshop
+*/
+
 #include "GrimWorkshop.hpp"
 
-// Game Includes
+/*
+    Project Peon
+*/
 #include "Item/ItemType.hpp"
 #include "Entity/EntityID.hpp"
 #include "Entity/Action/ActionID.hpp"
 
-// glm::vec2 Hash
+/*
+    glm::vec2 Hash
+*/
 namespace std {
 
 template <>
