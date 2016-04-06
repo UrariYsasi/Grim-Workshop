@@ -18,6 +18,7 @@
 #include <algorithm>
 #include <chrono>
 #include <cstdint>
+#include <functional>
 
 // GL3W Includes
 #include <GL/gl3w.h>
@@ -51,13 +52,6 @@
 #include "Item/ItemType.hpp"
 #include "Entity/EntityID.hpp"
 #include "Entity/Action/ActionID.hpp"
-
-// Constants
-const int SUCCESS = 1;
-const int FAILURE = 0;
-
-// Typedefs
-typedef unsigned char byte;
 
 // glm::vec2 Hash
 namespace std {

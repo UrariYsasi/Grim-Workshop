@@ -19,6 +19,7 @@
 #include <algorithm>
 #include <chrono>
 #include <cstdint>
+#include <functional>
 
 /*
     GL3W
@@ -62,10 +63,3 @@
 */
 
 #include "GrimWorkshop.hpp"
-
-/*
-    Constants
-*/
-
-const int SUCCESS = 1;
-const int FAILURE = 0;

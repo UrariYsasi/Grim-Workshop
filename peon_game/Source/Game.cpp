@@ -122,7 +122,7 @@ int Game::Initialize()
 
         // Set default volume
         Mix_Volume(-1, MIX_MAX_VOLUME);
-        Mix_VolumeMusic(MIX_MAX_VOLUME / 3);
+        Mix_VolumeMusic(MIX_MAX_VOLUME / 6);
     }
 
     // Initialize SDL_ttf
@@ -144,7 +144,10 @@ int Game::Initialize()
     */
 
     m_renderer = std::make_unique<grim::graphics::Renderer>();
+
     m_input = std::make_unique<grim::ui::Input>();
+    m_input->SetQuitCallback(std::bind(&Game::Terminate, this));
+
     m_ui = std::make_unique<grim::ui::UserInterface>();
 
     // Load Textures
@@ -199,7 +202,7 @@ int Game::Initialize()
         }
 
         // Start music
-        //Mix_PlayMusic(m_bgMusic, -1);
+        Mix_PlayMusic(m_bgMusic, -1);
     }
 
     // Load Shaders

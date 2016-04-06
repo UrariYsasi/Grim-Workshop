@@ -8,7 +8,8 @@ namespace ui
 {
 
 Input::Input() :
-    m_mousePosition(0)
+    m_mousePosition(0),
+    m_quitCallback(nullptr)
 {
     std::fill(m_currentKeys, m_currentKeys + MAX_KEYBOARD_KEYS, false);
     std::fill(m_downKeys, m_downKeys + MAX_KEYBOARD_KEYS, false);
@@ -87,6 +88,11 @@ glm::vec2 Input::GetMousePosition() const
     return m_mousePosition;
 }
 
+void Input::SetQuitCallback(std::function<void()> quitCallback)
+{
+    m_quitCallback = quitCallback;
+}
+
 void Input::Update()
 {
     int x, y;
@@ -141,7 +147,10 @@ void Input::Update()
         }
         else if (event.type == SDL_QUIT)
         {
-            // Terminate engine
+            if (m_quitCallback != nullptr)
+            {
+                m_quitCallback();
+            }
         }
     }
 }
