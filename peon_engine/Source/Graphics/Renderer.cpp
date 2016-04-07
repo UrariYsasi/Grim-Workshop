@@ -24,7 +24,7 @@ Renderer::~Renderer()
 
 void Renderer::SetClearColor(const grim::graphics::Color& color)
 {
-    glClearColor((GLfloat)color.r, (GLfloat)color.g, (GLfloat)color.b, (GLfloat)color.a);
+    glClearColor(color.r, color.g, color.b, color.a);
 }
 
 void Renderer::SetActiveCamera(graphics::Camera* camera)

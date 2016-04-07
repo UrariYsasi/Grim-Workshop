@@ -174,7 +174,7 @@ void Player::Update(float deltaTime)
 
         if (m_selectedPeons.size() > 0)
         {
-            m_game->PlaySound("select_01");
+            m_game->GetAudio()->PlaySound("select_01");
         }
     }
 

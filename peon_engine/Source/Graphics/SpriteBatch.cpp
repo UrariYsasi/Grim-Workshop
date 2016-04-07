@@ -138,19 +138,7 @@ void SpriteBatch::Clear()
 void SpriteBatch::Upload()
 {
     // Get raw vertex data
-    GLfloat* vertices = new GLfloat[m_vertexCount * 9];
-    for (uint32_t i = 0; i < m_vertexCount; i++)
-    {
-        vertices[0 + (i * 9)] = static_cast<GLfloat>(m_vertexDataBuffer[i].x);
-        vertices[1 + (i * 9)] = static_cast<GLfloat>(m_vertexDataBuffer[i].y);
-        vertices[2 + (i * 9)] = static_cast<GLfloat>(m_vertexDataBuffer[i].z);
-        vertices[3 + (i * 9)] = static_cast<GLfloat>(m_vertexDataBuffer[i].r);
-        vertices[4 + (i * 9)] = static_cast<GLfloat>(m_vertexDataBuffer[i].g);
-        vertices[5 + (i * 9)] = static_cast<GLfloat>(m_vertexDataBuffer[i].b);
-        vertices[6 + (i * 9)] = static_cast<GLfloat>(m_vertexDataBuffer[i].a);
-        vertices[7 + (i * 9)] = static_cast<GLfloat>(m_vertexDataBuffer[i].u);
-        vertices[8 + (i * 9)] = static_cast<GLfloat>(m_vertexDataBuffer[i].v);
-    }
+    GLfloat* vertices = reinterpret_cast<GLfloat*>(m_vertexDataBuffer.data());
 
     // Get raw element data
     int* elements = m_elementDataBuffer.data();
@@ -184,7 +172,7 @@ void SpriteBatch::Upload()
     glBindVertexArray(0);
 
     // Delete raw vertex data
-    delete[] vertices;
+    //delete[] vertices;
 }
 
 void SpriteBatch::Render()

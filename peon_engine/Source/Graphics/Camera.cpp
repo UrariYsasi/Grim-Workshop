@@ -12,8 +12,7 @@ Camera::Camera(grim::graphics::Renderer* renderer) :
     m_renderer(renderer),
     m_position(0.0f),
     m_rotation(0.0f),
-    m_viewMatrix(1.0f),
-    m_projectionMatrix(1.0f)
+    m_viewMatrix(1.0f)
 {
     // Set the projection to orthographic
     m_projectionMatrix = glm::ortho(0.0f, 1024.0f, 768.0f, 0.0f, -1.0f, 1.0f);

@@ -61,7 +61,7 @@ void GatherAction::Update(float deltaTime)
             {
                 m_timer.Stop();
 
-                m_owner->GetGame()->PlaySound("woodcutting_00"); // TODO different sounds
+                m_owner->GetGame()->GetAudio()->PlaySound("woodcutting_00"); // TODO different sounds
                 m_totalGathers++;
             }
         }

@@ -50,9 +50,9 @@ void AttackAction::Update(float deltaTime)
     {
         m_timer.Stop();
 
-        m_owner->GetGame()->PlaySound("punch_00");
+        m_owner->GetGame()->GetAudio()->PlaySound("punch_00");
         m_target->Damage();
-        m_owner->GetGame()->PlaySound("damage");
+        m_owner->GetGame()->GetAudio()->PlaySound("damage");
     }
 }
 

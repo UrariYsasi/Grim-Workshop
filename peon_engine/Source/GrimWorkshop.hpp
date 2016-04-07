@@ -4,6 +4,10 @@
     Engine Includes
 */
 
+#include "Engine.hpp"
+#include "Audio/IAudio.hpp"
+#include "Audio/SDLAudio.hpp"
+#include "Audio/AudioFactory.hpp"
 #include "Graphics/Color.hpp"
 #include "Graphics/Camera.hpp"
 #include "Graphics/Renderer.hpp"
@@ -29,8 +33,8 @@
     Constants
 */
 
-const int SUCCESS = 1;
-const int FAILURE = 0;
+const uint8_t SUCCESS = 0;
+const uint8_t FAILURE = 1;
 
 /*
     Typedefs

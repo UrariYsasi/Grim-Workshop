@@ -13,15 +13,7 @@
 #include "Player.hpp"
 
 Game::Game() :
-    m_isRunning(false),
-    m_frameCount(0),
-    m_frameRate(0),
-    m_gameStartTime(0),
-    m_bgMusic(nullptr),
-    m_window(nullptr),
-    m_renderer(nullptr),
-    m_input(nullptr),
-    m_ui(nullptr)
+    m_bgMusic(nullptr)
 {
 }
 
@@ -52,20 +44,6 @@ Game::~Game()
     m_map.reset();
     m_uiCamera.reset();
     m_mainCamera.reset();
-    m_input.reset();
-    m_renderer.reset();
-    m_window.reset();
-
-    TTF_Quit();
-
-    if (grim::utility::Debug::IsFlagEnabled(grim::utility::MIX_AUDIO))
-    {
-        Mix_CloseAudio(); // Close one audio channel (We only have one...)
-        Mix_Quit();
-    }
-
-    IMG_Quit();
-    SDL_Quit();
 }
 
 grim::graphics::Renderer* Game::GetRenderer()
@@ -88,69 +66,22 @@ World* Game::GetWorld()
     return m_map.get();
 }
 
-int Game::Initialize()
+uint8_t Game::Initialize()
 {
-    grim::utility::Debug::EnableFlag(grim::utility::LOGGING | grim::utility::CHEAT);
+    /*
+        Initialize Engine
+    */
 
-    // Initialize SDL
-    if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
+    if (Engine::Initialize() != SUCCESS)
     {
-        grim::utility::Debug::LogError("SDL could not initialize! SDL error: %s", SDL_GetError());
-        return FAILURE;
-    }
-    
-    // Tell SDL we want a forward compatible OpenGL 3.2 Context
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
-
-    // Initialize SDL_image
-    if (IMG_Init(IMG_INIT_PNG) < 0)
-    {
-        grim::utility::Debug::LogError("SDL_image could not initialize! SDL_image error: %s", IMG_GetError());
-        return FAILURE;
-    }
-
-    // Initialize SDL_mixer
-    if (grim::utility::Debug::IsFlagEnabled(grim::utility::MIX_AUDIO))
-    {
-        if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
-        {
-            grim::utility::Debug::LogError("SDL_mixer could not initialize! SDL_mixer error: %s", Mix_GetError());
-            return FAILURE;
-        }
-
-        // Set default volume
-        Mix_Volume(-1, MIX_MAX_VOLUME);
-        Mix_VolumeMusic(MIX_MAX_VOLUME / 6);
-    }
-
-    // Initialize SDL_ttf
-    if (TTF_Init() < 0)
-    {
-        grim::utility::Debug::Log("SDL_ttf could not initialize! SDL_ttf error: %s", TTF_GetError());
-        return FAILURE;
-    }
-
-    // Create and Initialize window
-    m_window = std::make_unique<grim::graphics::Window>(1024, 768, "Peon");
-    if (m_window->Initialize() == FAILURE)
-    {
+        grim::utility::Debug::LogError("Engine initialization failed.");
         return FAILURE;
     }
 
     /*
-        Create and Initialize Services
+        Load Textures
     */
 
-    m_renderer = std::make_unique<grim::graphics::Renderer>();
-
-    m_input = std::make_unique<grim::ui::Input>();
-    m_input->SetQuitCallback(std::bind(&Game::Terminate, this));
-
-    m_ui = std::make_unique<grim::ui::UserInterface>();
-
-    // Load Textures
     grim::utility::Debug::Log("Loading textures...");
     LoadTexture("peon.png", "peon");
     LoadTexture("item.png", "item");
@@ -166,32 +97,41 @@ int Game::Initialize()
     LoadTexture("tree.png", "tree");
     LoadTexture("gandalf.png", "gandalf");
 
-    // Load fonts
+    /*
+        Load Fonts
+    */
+
     grim::utility::Debug::Log("Loading fonts...");
     LoadFont("Resources/Fonts/dos.ttf", "dos");
     LoadFont("Resources/Fonts/hack.ttf", "hack");
 
-    // Load Sounds
-    grim::utility::Debug::Log("Loading sounds...");
-    LoadSound("Resources/Sounds/select_00.wav", "select_00");
-    LoadSound("Resources/Sounds/select_01.wav", "select_01");
-    LoadSound("Resources/Sounds/woodcutting_00.wav", "woodcutting_00");
-    LoadSound("Resources/Sounds/mining_00.wav", "mining_00");
-    LoadSound("Resources/Sounds/mining_01.wav", "mining_01");
-    LoadSound("Resources/Sounds/mining_02.wav", "mining_02");
-    LoadSound("Resources/Sounds/drop_00.wav", "drop_00");
-    LoadSound("Resources/Sounds/drop_01.wav", "drop_01");
-    LoadSound("Resources/Sounds/death_00.wav", "death_00");
-    LoadSound("Resources/Sounds/punch_00.wav", "punch_00");
-    LoadSound("Resources/Sounds/sacrifice_00.wav", "sacrifice_00");
-    LoadSound("Resources/Sounds/sacrifice_01.wav", "sacrifice_01");
-    LoadSound("Resources/Sounds/sacrifice_02.wav", "sacrifice_02");
-    LoadSound("Resources/Sounds/sacrifice_03.wav", "sacrifice_03");
-    LoadSound("Resources/Sounds/sacrifice_04.wav", "sacrifice_04");
-    LoadSound("Resources/Sounds/damage.wav", "damage");
-    LoadSound("Resources/Sounds/sword.wav", "sword");
+    /*
+        Load Sounds
+    */
 
-    // Load Music
+    grim::utility::Debug::Log("Loading sounds...");
+    GetAudio()->LoadSound("Resources/Sounds/select_00.wav", "select_00");
+    GetAudio()->LoadSound("Resources/Sounds/select_01.wav", "select_01");
+    GetAudio()->LoadSound("Resources/Sounds/woodcutting_00.wav", "woodcutting_00");
+    GetAudio()->LoadSound("Resources/Sounds/mining_00.wav", "mining_00");
+    GetAudio()->LoadSound("Resources/Sounds/mining_01.wav", "mining_01");
+    GetAudio()->LoadSound("Resources/Sounds/mining_02.wav", "mining_02");
+    GetAudio()->LoadSound("Resources/Sounds/drop_00.wav", "drop_00");
+    GetAudio()->LoadSound("Resources/Sounds/drop_01.wav", "drop_01");
+    GetAudio()->LoadSound("Resources/Sounds/death_00.wav", "death_00");
+    GetAudio()->LoadSound("Resources/Sounds/punch_00.wav", "punch_00");
+    GetAudio()->LoadSound("Resources/Sounds/sacrifice_00.wav", "sacrifice_00");
+    GetAudio()->LoadSound("Resources/Sounds/sacrifice_01.wav", "sacrifice_01");
+    GetAudio()->LoadSound("Resources/Sounds/sacrifice_02.wav", "sacrifice_02");
+    GetAudio()->LoadSound("Resources/Sounds/sacrifice_03.wav", "sacrifice_03");
+    GetAudio()->LoadSound("Resources/Sounds/sacrifice_04.wav", "sacrifice_04");
+    GetAudio()->LoadSound("Resources/Sounds/damage.wav", "damage");
+    GetAudio()->LoadSound("Resources/Sounds/sword.wav", "sword");
+
+    /*
+        Load Music
+    */
+
     grim::utility::Debug::Log("Loading music...");
     if (grim::utility::Debug::IsFlagEnabled(grim::utility::MIX_AUDIO))
     {
@@ -205,12 +145,18 @@ int Game::Initialize()
         Mix_PlayMusic(m_bgMusic, -1);
     }
 
-    // Load Shaders
+    /*
+        Load Shaders
+    */
+
     grim::utility::Debug::Log("Loading shaders...");
     LoadShader("vertex.glsl", GL_VERTEX_SHADER, "vertex_textured");
     LoadShader("fragment.glsl", GL_FRAGMENT_SHADER, "fragment_textured");
 
-    // Create ShaderPrograms
+    /*
+        Create ShaderPrograms
+    */
+
     grim::utility::Debug::Log("Creating shader programs...");
     CreateShaderProgram("vertex_textured", "fragment_textured", "basic_shader");
 
@@ -235,36 +181,12 @@ int Game::Initialize()
 
 void Game::Run()
 {
-    if (m_isRunning)
-    {
-        grim::utility::Debug::LogError("Game::Run() cannot be called, Game is already running!");
-        return;
-    }
-
-    m_isRunning = true;
-    m_gameStartTime = SDL_GetTicks();
-
-    uint32_t frameStartTime = 0;
-    uint32_t frameEndTime = 0;
-    while (m_isRunning)
-    {
-        frameStartTime = SDL_GetTicks();
-        float deltaTime = (frameStartTime - frameEndTime) / 1000.0f;
-        frameEndTime = frameStartTime;
-
-        m_input->Update();
-        Update(deltaTime);
-        Render();
-        m_window->SwapWindow();
-
-        m_frameCount++;
-        m_frameRate = static_cast<uint16_t>(((float)m_frameCount / (SDL_GetTicks() - m_gameStartTime)) * 1000);
-    }
+    Engine::Run();
 }
 
 void Game::Terminate()
 {
-    m_isRunning = false;
+    Engine::Terminate();
 }
 
 void Game::Update(float deltaTime)
@@ -299,6 +221,7 @@ void Game::Update(float deltaTime)
     /*
         Update Services
     */
+
     m_ui->Update(deltaTime);
 }
 
@@ -313,6 +236,7 @@ void Game::Render()
     /*
         Render Services
     */
+
     m_uiCamera->Activate();
     m_ui->Render();
 }
@@ -333,24 +257,6 @@ bool Game::LoadFont(const std::string& path, const std::string& id, const int& s
 
     m_fontMap[id] = font;
     return true;
-}
-
-bool Game::LoadSound(const std::string& path, const std::string& id)
-{
-    if (grim::utility::Debug::IsFlagEnabled(grim::utility::MIX_AUDIO))
-    {
-        Mix_Chunk* sound = Mix_LoadWAV(path.c_str());
-        if (sound == nullptr)
-        {
-            grim::utility::Debug::LogError("Failed to load WAV from %s! SDL_mixer error: %s", path.c_str(), Mix_GetError());
-            return false;
-        }
-
-        m_soundMap[id] = sound;
-        return true;
-    }
-
-    return false;
 }
 
 bool Game::LoadShader(const std::string& shaderFileName, const GLenum& shaderType, const std::string& ID)
@@ -390,19 +296,6 @@ grim::graphics::Shader* Game::GetShader(const std::string& ID)
 grim::graphics::ShaderProgram* Game::GetShaderProgram(const std::string& ID)
 {
     return m_shaderProgramMap[ID].get();
-}
-
-void Game::PlaySound(const std::string& id)
-{
-    if (grim::utility::Debug::IsFlagEnabled(grim::utility::MIX_AUDIO))
-    {
-        if (m_soundMap[id] == nullptr)
-        {
-            grim::utility::Debug::LogError("Sound %s can't be played, as it doesn't exist!", id.c_str());
-        }
-
-        Mix_PlayChannel(-1, m_soundMap[id], 0);
-    }
 }
 
 std::string Game::ReadFile(const std::string& path)

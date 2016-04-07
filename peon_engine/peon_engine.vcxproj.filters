@@ -17,6 +17,12 @@
     <Filter Include="Source\UI\Widgets">
       <UniqueIdentifier>{4c221cf9-72b3-4283-b49a-5ea79aed7983}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Service">
+      <UniqueIdentifier>{30f2d81a-db0b-4d8d-99df-d012bab90d38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Audio">
+      <UniqueIdentifier>{024aa736-29a4-4fba-966d-6951b455474f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\PCH.cpp">
@@ -69,6 +75,15 @@
     </ClCompile>
     <ClCompile Include="Source\Graphics\Shader.cpp">
       <Filter>Source\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Audio\SDLAudio.cpp">
+      <Filter>Source\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Audio\AudioFactory.cpp">
+      <Filter>Source\Audio</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -137,6 +152,18 @@
     </ClInclude>
     <ClInclude Include="Source\Graphics\Shader.hpp">
       <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine.hpp">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Audio\SDLAudio.hpp">
+      <Filter>Source\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Audio\IAudio.hpp">
+      <Filter>Source\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Audio\AudioFactory.hpp">
+      <Filter>Source\Audio</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

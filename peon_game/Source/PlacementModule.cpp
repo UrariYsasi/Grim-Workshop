@@ -44,7 +44,7 @@ void PlacementModule::Update(float deltaTime)
         m_isPlacing = !m_isPlacing;
         m_heldEntityID = STRUCTURE_STOCKPILE;
         m_heldEntitySprite = m_game->GetEntitySprite(STRUCTURE_STOCKPILE);
-        m_game->PlaySound("select_00");
+        m_game->GetAudio()->PlaySound("select_00");
     }
 
     if (m_isPlacing)
@@ -53,7 +53,7 @@ void PlacementModule::Update(float deltaTime)
         {
             glm::vec2 mousePosition = m_camera->ConvertToWorld(m_input->GetMousePosition());
             m_world->Spawn(m_heldEntityID, mousePosition);
-            m_game->PlaySound("drop_00");
+            m_game->GetAudio()->PlaySound("drop_00");
         }
     }
 }
