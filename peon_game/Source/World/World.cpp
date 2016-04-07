@@ -119,18 +119,18 @@ void World::ProcessTime()
     {
         m_worldTimer.Start();
     }
-    else if (m_worldTimer.GetTime() > 5000)
+    else if (m_worldTimer.GetTime() > DAY_LENGTH)
     {
         m_worldTimer.Stop();
         m_day++;
         
-        if (m_day > 30)
+        if (m_day > MONTH_LENGTH)
         {
             m_day = 1;
             m_month++;
         }
 
-        if (m_month > 12)
+        if (m_month > YEAR_LENGTH)
         {
             m_month = 1;
             m_year++;
@@ -243,7 +243,7 @@ Entity* World::GetEntityAtPoint(const glm::vec2& point, int entityID)
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
         ent = (*it).get();
-        if (ent->GetEntityID() == entityID || entityID == NONE)
+        if ((ent->GetEntityID() == entityID) || (entityID == NONE))
         {
             grim::graphics::Rect hitBox = ent->GetHitBox();
             if (hitBox.ContainsPoint(point))

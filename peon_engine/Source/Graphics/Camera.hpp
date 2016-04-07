@@ -11,14 +11,10 @@ class Renderer;
 class Camera
 {
 public:
-    Camera(grim::graphics::Renderer* renderer);
+    Camera(grim::graphics::Renderer* renderer, float width, float height, float zNear, float zFar);
     ~Camera();
 
     void SetPosition(const glm::vec2& position);
-
-    /*
-        Centers the Camera on the given position.
-    */
     void SetCenter(const glm::vec2& position);
 
     glm::vec2 GetPosition() const;
@@ -35,14 +31,11 @@ private:
     glm::vec2 m_position;
     glm::vec3 m_rotation;
 
-    /*
-        The view matrix of the Camera.
-    */
+    float m_width;
+    float m_height;
+    float m_zNear;
+    float m_zFar;
     glm::mat4 m_viewMatrix;
-
-    /*
-        The projection matrix of the Camera.
-    */
     glm::mat4 m_projectionMatrix;
 };
 

@@ -6,13 +6,16 @@ namespace grim
 namespace utility
 {
 
-static const uint8_t LOGGING = 0x01;              // Log messages to the console
-static const uint8_t SHOW_MENU = 0x02;            // Display the debug menu in the game
-static const uint8_t CHEAT = 0x04;                // Enable cheat keys
-static const uint8_t RENDER_HITBOXES = 0x08;      // Render hit boxes
-static const uint8_t RENDER_TILE_OUTLINES = 0x10; // Render TerrainTile outlines
-static const uint8_t RENDER_ORIGINS = 0x20;       // Render origin points
-static const uint8_t MIX_AUDIO = 0x40;            // Init and play audio
+enum DebugFlags
+{
+    LOGGING                 = 1 << 0,
+    SHOW_MENU               = 1 << 1,
+    CHEAT                   = 1 << 2,
+    RENDER_HITBOXES         = 1 << 3,
+    RENDER_TILE_OUTLINES    = 1 << 4,
+    RENDER_ORIGINS          = 1 << 5,
+    MIX_AUDIO               = 1 << 6
+};
 
 class Debug
 {

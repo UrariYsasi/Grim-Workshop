@@ -59,14 +59,7 @@ void Debug::ToggleFlag(uint8_t flag)
 
 bool Debug::IsFlagEnabled(uint8_t flag)
 {
-    if (m_flags & flag)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return ((m_flags & flag) == flag);
 }
 
 }

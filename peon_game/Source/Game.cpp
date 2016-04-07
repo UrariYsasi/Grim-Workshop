@@ -13,6 +13,7 @@
 #include "Player.hpp"
 
 Game::Game() :
+    Engine(),
     m_bgMusic(nullptr)
 {
 }
@@ -83,19 +84,19 @@ uint8_t Game::Initialize()
     */
 
     grim::utility::Debug::Log("Loading textures...");
-    LoadTexture("peon.png", "peon");
-    LoadTexture("item.png", "item");
-    LoadTexture("orc.png", "orc");
-    LoadTexture("resource.png", "resource");
-    LoadTexture("terrain.png", "terrain");
-    LoadTexture("structure.png", "structure");
-    LoadTexture("obelisk.png", "obelisk");
-    LoadTexture("doosk.png", "doosk");
-    LoadTexture("puppy.png", "puppy");
-    LoadTexture("kitten.png", "kitten");
-    LoadTexture("grass.png", "grass");
-    LoadTexture("tree.png", "tree");
-    LoadTexture("gandalf.png", "gandalf");
+    LoadTexture("Resources/Textures/peon.png", "peon");
+    LoadTexture("Resources/Textures/item.png", "item");
+    LoadTexture("Resources/Textures/orc.png", "orc");
+    LoadTexture("Resources/Textures/resource.png", "resource");
+    LoadTexture("Resources/Textures/terrain.png", "terrain");
+    LoadTexture("Resources/Textures/structure.png", "structure");
+    LoadTexture("Resources/Textures/obelisk.png", "obelisk");
+    LoadTexture("Resources/Textures/doosk.png", "doosk");
+    LoadTexture("Resources/Textures/puppy.png", "puppy");
+    LoadTexture("Resources/Textures/kitten.png", "kitten");
+    LoadTexture("Resources/Textures/grass.png", "grass");
+    LoadTexture("Resources/Textures/tree.png", "tree");
+    LoadTexture("Resources/Textures/gandalf.png", "gandalf");
 
     /*
         Load Fonts
@@ -164,8 +165,8 @@ uint8_t Game::Initialize()
     m_spriteMap[STRUCTURE_STOCKPILE] = std::make_unique<grim::graphics::Sprite>(GetTexture("structure"), GetShaderProgram("basic_shader"), 32, 32, 8);
 
     // Setup the game
-    m_mainCamera = std::make_unique<grim::graphics::Camera>(m_renderer.get());
-    m_uiCamera = std::make_unique<grim::graphics::Camera>(m_renderer.get());
+    m_mainCamera = std::make_unique<grim::graphics::Camera>(m_renderer.get(), WINDOW_WIDTH, WINDOW_HEIGHT, -1.0f, 1.0f);
+    m_uiCamera = std::make_unique<grim::graphics::Camera>(m_renderer.get(), WINDOW_WIDTH, WINDOW_HEIGHT, -1.0f, 1.0f);
     m_map = std::make_unique<World>(this);
     m_player = std::make_unique<Player>(this);
 
@@ -301,7 +302,8 @@ grim::graphics::ShaderProgram* Game::GetShaderProgram(const std::string& ID)
 std::string Game::ReadFile(const std::string& path)
 {
     std::ifstream input(path);
-    if (!input.is_open()) {
+    if (!input.is_open())
+    {
         grim::utility::Debug::LogError("Failed to open file %s", path);
         return "*FAILURE*";
     }

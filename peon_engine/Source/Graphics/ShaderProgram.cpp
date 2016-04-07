@@ -1,4 +1,4 @@
-#include "PCH.hpp"
+﻿#include "PCH.hpp"
 #include "ShaderProgram.hpp"
 #include "Shader.hpp"
 #include "Renderer.hpp"
@@ -11,6 +11,7 @@ namespace graphics
 {
 
 ShaderProgram::ShaderProgram(grim::graphics::Renderer* renderer, grim::graphics::Shader* vertexShader, grim::graphics::Shader* fragmentShader) :
+    m_handle(-1),
     m_renderer(renderer)
 {
     // Link the given Shaders into the complete shader program
@@ -19,7 +20,8 @@ ShaderProgram::ShaderProgram(grim::graphics::Renderer* renderer, grim::graphics:
 
 ShaderProgram::~ShaderProgram()
 {
-    // Delete the shader program
+    // Delete the shader program.
+    // This will silently fail if you try to delete a nonexistent program.
     glDeleteProgram(m_handle);
 }
 
@@ -63,6 +65,10 @@ void ShaderProgram::LinkShaders(grim::graphics::Shader* vertexShader, grim::grap
 
     // Link the program
     glLinkProgram(m_handle);
+
+    // Detach the shaders from the program
+    glDetachShader(m_handle, vertID);
+    glDetachShader(m_handle, fragID);
 }
 
 }

@@ -137,6 +137,11 @@ void SpriteBatch::Clear()
 
 void SpriteBatch::Upload()
 {
+    if ((m_vertexDataBuffer.size() == 0) || (m_elementDataBuffer.size() == 0))
+    {
+        return;
+    }
+
     // Get raw vertex data
     GLfloat* vertices = reinterpret_cast<GLfloat*>(m_vertexDataBuffer.data());
 
@@ -170,9 +175,6 @@ void SpriteBatch::Upload()
 
     // Unbind the VAO
     glBindVertexArray(0);
-
-    // Delete raw vertex data
-    //delete[] vertices;
 }
 
 void SpriteBatch::Render()

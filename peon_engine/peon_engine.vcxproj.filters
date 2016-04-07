@@ -17,9 +17,6 @@
     <Filter Include="Source\UI\Widgets">
       <UniqueIdentifier>{4c221cf9-72b3-4283-b49a-5ea79aed7983}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Service">
-      <UniqueIdentifier>{30f2d81a-db0b-4d8d-99df-d012bab90d38}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Audio">
       <UniqueIdentifier>{024aa736-29a4-4fba-966d-6951b455474f}</UniqueIdentifier>
     </Filter>

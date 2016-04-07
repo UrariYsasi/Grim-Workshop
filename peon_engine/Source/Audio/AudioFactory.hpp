@@ -6,7 +6,7 @@ namespace grim
 namespace audio
 {
 
-IAudio* CreateAudioService();
+std::unique_ptr<IAudio> CreateAudioService();
 
 }
 

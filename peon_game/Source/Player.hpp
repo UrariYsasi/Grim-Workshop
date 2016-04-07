@@ -1,26 +1,6 @@
 #pragma once
 #include "PlacementModule.hpp"
 
-namespace grim
-{
-
-namespace graphics
-{
-
-class Mesh;
-class Camera;
-
-}
-
-namespace ui
-{
-
-class Input;
-
-}
-
-}
-
 class Game;
 class Entity;
 class World;

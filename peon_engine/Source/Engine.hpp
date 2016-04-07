@@ -79,7 +79,7 @@ protected:
     std::unique_ptr<grim::ui::UserInterface> m_ui;
 
 private:
-    grim::audio::IAudio* engineAudio;
+    std::unique_ptr<grim::audio::IAudio> m_audio;
 };
 
 }

@@ -8,6 +8,7 @@ namespace graphics
 {
 
 Window::Window(const int& width, const int& height, const std::string& title) :
+    m_SDLWindow(nullptr),
     m_size(width, height),
     m_title(title)
 {
@@ -20,6 +21,14 @@ Window::~Window()
 
     // Delete the SDL Window
     SDL_DestroyWindow(m_SDLWindow);
+
+    // Check for any errors regarding window destruction
+    const char* error = SDL_GetError();
+    SDL_ClearError();
+    if (error != nullptr)
+    {
+        grim::utility::Debug::LogError("Failed to destroy window! SDL error: %s", error);
+    }
 }
 
 SDL_Window* Window::GetSDLWindow() const
@@ -64,6 +73,7 @@ int Window::Initialize()
     if (m_SDLWindow == nullptr)
     {
         grim::utility::Debug::LogError("Window could not initialize! SDL error: %s", SDL_GetError());
+        SDL_ClearError();
         return FAILURE;
     }
 

@@ -35,6 +35,9 @@
 
 const uint8_t SUCCESS = 0;
 const uint8_t FAILURE = 1;
+const uint16_t WINDOW_WIDTH = 1024;
+const uint16_t WINDOW_HEIGHT = 768;
+const std::string WINDOW_TITLE = "Grim Workshop";
 
 /*
     Typedefs

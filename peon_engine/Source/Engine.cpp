@@ -12,7 +12,8 @@ Engine::Engine() :
     m_window(nullptr),
     m_renderer(nullptr),
     m_input(nullptr),
-    m_ui(nullptr)
+    m_ui(nullptr),
+    m_audio(nullptr)
 {
 }
 
@@ -40,6 +41,7 @@ uint8_t Engine::Initialize()
     if (SDL_Init(SDL_INIT_EVERYTHING) != SUCCESS)
     {
         grim::utility::Debug::LogError("SDL could not initialize! SDL error: %s", SDL_GetError());
+        SDL_ClearError();
         return FAILURE;
     }
 
@@ -82,7 +84,7 @@ uint8_t Engine::Initialize()
         Create and Initialize Services
     */
 
-    m_window = std::make_unique<grim::graphics::Window>(1024, 768, "Grim Workshop");
+    m_window = std::make_unique<grim::graphics::Window>(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
     if (m_window->Initialize() != SUCCESS)
     {
         return FAILURE;
@@ -91,7 +93,7 @@ uint8_t Engine::Initialize()
     m_ui = std::make_unique<grim::ui::UserInterface>();
     m_input = std::make_unique<grim::ui::Input>();
     m_input->SetQuitCallback(std::bind(&Engine::Terminate, this));
-    engineAudio = grim::audio::CreateAudioService();
+    m_audio = grim::audio::CreateAudioService();
 
     return SUCCESS;
 }
@@ -126,7 +128,7 @@ void Engine::Run()
 
 grim::audio::IAudio* Engine::GetAudio()
 {
-    return engineAudio;
+    return m_audio.get();
 }
 
 }

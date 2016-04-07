@@ -8,11 +8,11 @@ namespace grim
 namespace audio
 {
 
-IAudio* CreateAudioService()
+std::unique_ptr<IAudio> CreateAudioService()
 {
     // For now, just create an SDLAudio service.
     // TODO make this take some flags and junk
-    return new SDLAudio();
+    return std::make_unique<SDLAudio>();
 }
 
 }

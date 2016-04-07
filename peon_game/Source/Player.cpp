@@ -149,19 +149,16 @@ void Player::Update(float deltaTime)
         {
             m_isBoxSelecting = false;
 
-            if (std::abs(m_boxSelection.width) >= 5 || std::abs(m_boxSelection.height) >= 5)
+            if ((std::abs(m_boxSelection.width) >= 5) || (std::abs(m_boxSelection.height) >= 5))
             {
                 m_selectedPeons = m_gameWorld->GetEntitiesInRect(PEON, m_boxSelection);
             }
             else
             {
                 Peon* peon = dynamic_cast<Peon*>(m_gameWorld->GetEntityAtPoint(mousePositionWorld, PEON));
-                if (peon != nullptr)
+                if ((peon != nullptr) && (!peon->IsDead()))
                 {
-                    if (!peon->IsDead())
-                    {
-                        m_selectedPeons.push_back(peon);
-                    }
+                    m_selectedPeons.push_back(peon);
                 }
             }
 
