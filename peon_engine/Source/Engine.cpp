@@ -84,7 +84,7 @@ uint8_t Engine::Initialize()
         Create and Initialize Services
     */
 
-    m_window = std::make_unique<grim::graphics::Window>(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
+    m_window = grim::graphics::CreateWindowService(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
     if (m_window->Initialize() != SUCCESS)
     {
         return FAILURE;
@@ -126,15 +126,19 @@ void Engine::Run()
     }
 }
 
-grim::audio::IAudio* Engine::GetAudio()
+grim::graphics::IWindow* Engine::GetWindow()
 {
-    return m_audio.get();
+    return m_window.get();
 }
-
 
 grim::graphics::IRenderer* Engine::GetRenderer()
 {
     return m_renderer.get();
+}
+
+grim::audio::IAudio* Engine::GetAudio()
+{
+    return m_audio.get();
 }
 
 }

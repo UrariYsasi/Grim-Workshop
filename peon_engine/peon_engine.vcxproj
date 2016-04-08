@@ -124,11 +124,12 @@
     <ClCompile Include="Source\Graphics\Mesh.cpp" />
     <ClCompile Include="Source\Graphics\SDLRenderer.cpp" />
     <ClCompile Include="Source\Graphics\RendererFactory.cpp" />
+    <ClCompile Include="Source\Graphics\SDLWindow.cpp" />
     <ClCompile Include="Source\Graphics\Shader.cpp" />
     <ClCompile Include="Source\Graphics\ShaderProgram.cpp" />
     <ClCompile Include="Source\Graphics\SpriteBatch.cpp" />
     <ClCompile Include="Source\Graphics\Texture.cpp" />
-    <ClCompile Include="Source\Graphics\Window.cpp" />
+    <ClCompile Include="Source\Graphics\WindowFactory.cpp" />
     <ClCompile Include="Source\PCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
@@ -152,13 +153,15 @@
     <ClInclude Include="Source\Graphics\Rect.hpp" />
     <ClInclude Include="Source\Graphics\SDLRenderer.hpp" />
     <ClInclude Include="Source\Graphics\RendererFactory.hpp" />
+    <ClInclude Include="Source\Graphics\SDLWindow.hpp" />
     <ClInclude Include="Source\Graphics\Shader.hpp" />
     <ClInclude Include="Source\Graphics\ShaderProgram.hpp" />
     <ClInclude Include="Source\Graphics\Sprite.hpp" />
     <ClInclude Include="Source\Graphics\SpriteBatch.hpp" />
     <ClInclude Include="Source\Graphics\Texture.hpp" />
     <ClInclude Include="Source\Graphics\Vertex.hpp" />
-    <ClInclude Include="Source\Graphics\Window.hpp" />
+    <ClInclude Include="Source\Graphics\IWindow.hpp" />
+    <ClInclude Include="Source\Graphics\WindowFactory.hpp" />
     <ClInclude Include="Source\PCH.hpp" />
     <ClInclude Include="Source\GrimWorkshop.hpp" />
     <ClInclude Include="Source\Audio\IAudio.hpp" />

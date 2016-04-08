@@ -1,5 +1,5 @@
 #include "PCH.hpp"
-#include "Window.hpp"
+#include "SDLWindow.hpp"
 
 namespace grim
 {
@@ -7,14 +7,14 @@ namespace grim
 namespace graphics
 {
 
-Window::Window(const int& width, const int& height, const std::string& title) :
+SDLWindow::SDLWindow(const uint16_t& width, const uint16_t& height, const std::string& title) :
     m_SDLWindow(nullptr),
     m_size(width, height),
     m_title(title)
 {
 }
 
-Window::~Window()
+SDLWindow::~SDLWindow()
 {
     // Delete the OpenGL Context
     SDL_GL_DeleteContext(m_glContext);
@@ -31,35 +31,34 @@ Window::~Window()
     }
 }
 
-SDL_Window* Window::GetSDLWindow() const
+SDL_Window* SDLWindow::GetSDLWindow() const
 {
     return m_SDLWindow;
 }
 
-void Window::SetSize(const glm::vec2& size)
+void SDLWindow::SetSize(const glm::vec2& size)
 {
     m_size = size;
     SDL_SetWindowSize(m_SDLWindow, (int)size.x, (int)size.y);
 }
 
-glm::vec2 Window::GetSize() const
+glm::vec2 SDLWindow::GetSize() const
 {
     return m_size;
 }
 
-std::string Window::GetTitle() const
+std::string SDLWindow::GetTitle() const
 {
     return m_title;
 }
 
-void Window::SetTitle(const std::string& title)
+void SDLWindow::SetTitle(const std::string& title)
 {
     m_title = title;
     SDL_SetWindowTitle(m_SDLWindow, title.c_str());
 }
 
-
-int Window::Initialize()
+uint8_t SDLWindow::Initialize()
 {
     // Create the SDL Window
     m_SDLWindow = SDL_CreateWindow(
@@ -101,7 +100,7 @@ int Window::Initialize()
     return SUCCESS;
 }
 
-void Window::SwapWindow()
+void SDLWindow::SwapWindow()
 {
     SDL_GL_SwapWindow(m_SDLWindow);
 }
