@@ -1,6 +1,5 @@
 #include "PCH.hpp"
 #include "Camera.hpp"
-#include "Renderer.hpp"
 
 namespace grim
 {
@@ -10,7 +9,7 @@ namespace graphics
 
 // TODO take Engine* instead
 // Need to refactor Renderer first
-Camera::Camera(grim::graphics::Renderer* renderer, float width, float height, float zNear, float zFar) :
+Camera::Camera(grim::graphics::IRenderer* renderer, float width, float height, float zNear, float zFar) :
     m_renderer(renderer),
     m_position(0.0f),
     m_rotation(0.0f),

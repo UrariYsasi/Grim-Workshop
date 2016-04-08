@@ -17,7 +17,6 @@ public:
     virtual void Run();
     virtual void Terminate();
 
-    grim::graphics::Renderer* GetRenderer();
     grim::ui::Input* GetInput();
     grim::graphics::Camera* GetMainCamera();
     World* GetWorld();
@@ -33,20 +32,19 @@ private:
     void Update(float deltaTime);
     void Render();
 
-    //bool LoadTexture(const std::string& path, const std::string& id);
     bool LoadFont(const std::string& path, const std::string& id, const int& size = 16);
 
     /*
         Load a texture with the given file name from the Resources/Textures folder
         and store it in the texture map with the given ID.
     */
-    bool LoadTexture(const std::string& textureFileName, const std::string& ID);
+    bool LoadTexture(const std::string& path, const std::string& ID);
 
     /*
         Load a shader with the given file name from the Resources/Shaders folder
         and store it in the shader map with the given ID.
     */
-    bool LoadShader(const std::string& shaderFileName, const GLenum& shaderType, const std::string& ID);
+    bool LoadShader(const std::string& path, const GLenum& shaderType, const std::string& ID);
 
     /*
         Create a shader program with the given vertex and fragment shader IDs,

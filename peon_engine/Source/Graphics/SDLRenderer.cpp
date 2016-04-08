@@ -1,6 +1,5 @@
 #include "PCH.hpp"
-#include "Renderer.hpp"
-#include "Camera.hpp"
+#include "SDLRenderer.hpp"
 
 namespace grim
 {
@@ -8,36 +7,36 @@ namespace grim
 namespace graphics
 {
 
-Renderer::Renderer()
+SDLRenderer::SDLRenderer()
 {
     // Enable alpha blending
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     // Set default clear color
-    SetClearColor(grim::graphics::Color(0.2f, 0.2f, 0.2f));
+    SetClearColor(Color(0.2f, 0.2f, 0.2f));
 }
 
-Renderer::~Renderer()
+SDLRenderer::~SDLRenderer()
 {
 }
 
-void Renderer::SetClearColor(const grim::graphics::Color& color)
+void SDLRenderer::SetClearColor(const Color& color)
 {
     glClearColor(color.r, color.g, color.b, color.a);
 }
 
-void Renderer::SetActiveCamera(graphics::Camera* camera)
+void SDLRenderer::SetActiveCamera(Camera* camera)
 {
     m_activeCamera = camera;
 }
 
-graphics::Camera* Renderer::GetActiveCamera()
+Camera* SDLRenderer::GetActiveCamera()
 {
     return m_activeCamera;
 }
 
-void Renderer::Clear()
+void SDLRenderer::Clear()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }

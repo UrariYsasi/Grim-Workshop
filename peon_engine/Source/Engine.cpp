@@ -89,7 +89,7 @@ uint8_t Engine::Initialize()
     {
         return FAILURE;
     }
-    m_renderer = std::make_unique<grim::graphics::Renderer>();
+    m_renderer = grim::graphics::CreateRendererService();
     m_ui = std::make_unique<grim::ui::UserInterface>();
     m_input = std::make_unique<grim::ui::Input>();
     m_input->SetQuitCallback(std::bind(&Engine::Terminate, this));
@@ -129,6 +129,12 @@ void Engine::Run()
 grim::audio::IAudio* Engine::GetAudio()
 {
     return m_audio.get();
+}
+
+
+grim::graphics::IRenderer* Engine::GetRenderer()
+{
+    return m_renderer.get();
 }
 
 }

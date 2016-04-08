@@ -6,7 +6,7 @@ namespace grim
 namespace graphics
 {
 
-class Renderer;
+class IRenderer;
 
 /*
     A shader program that consists of a vertex shader and a fragment shader.
@@ -14,7 +14,7 @@ class Renderer;
 class ShaderProgram
 {
 public:
-    ShaderProgram(grim::graphics::Renderer* renderer, grim::graphics::Shader* vertexShader, grim::graphics::Shader* fragmentShader);
+    ShaderProgram(grim::graphics::IRenderer* renderer, grim::graphics::Shader* vertexShader, grim::graphics::Shader* fragmentShader);
     ~ShaderProgram();
 
     /*
@@ -49,7 +49,7 @@ private:
     /*
         The Renderer that will manage this ShaderProgram.
     */
-    grim::graphics::Renderer* m_renderer;
+    grim::graphics::IRenderer* m_renderer;
 };
 
 }

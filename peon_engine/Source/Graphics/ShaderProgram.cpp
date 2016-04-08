@@ -1,7 +1,6 @@
 ﻿#include "PCH.hpp"
 #include "ShaderProgram.hpp"
 #include "Shader.hpp"
-#include "Renderer.hpp"
 #include "Camera.hpp"
 
 namespace grim
@@ -10,7 +9,7 @@ namespace grim
 namespace graphics
 {
 
-ShaderProgram::ShaderProgram(grim::graphics::Renderer* renderer, grim::graphics::Shader* vertexShader, grim::graphics::Shader* fragmentShader) :
+ShaderProgram::ShaderProgram(grim::graphics::IRenderer* renderer, grim::graphics::Shader* vertexShader, grim::graphics::Shader* fragmentShader) :
     m_handle(-1),
     m_renderer(renderer)
 {

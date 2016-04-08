@@ -122,7 +122,8 @@
     <ClCompile Include="Source\Engine.cpp" />
     <ClCompile Include="Source\Graphics\Camera.cpp" />
     <ClCompile Include="Source\Graphics\Mesh.cpp" />
-    <ClCompile Include="Source\Graphics\Renderer.cpp" />
+    <ClCompile Include="Source\Graphics\SDLRenderer.cpp" />
+    <ClCompile Include="Source\Graphics\RendererFactory.cpp" />
     <ClCompile Include="Source\Graphics\Shader.cpp" />
     <ClCompile Include="Source\Graphics\ShaderProgram.cpp" />
     <ClCompile Include="Source\Graphics\SpriteBatch.cpp" />
@@ -146,9 +147,11 @@
     <ClInclude Include="Source\Engine.hpp" />
     <ClInclude Include="Source\Graphics\Camera.hpp" />
     <ClInclude Include="Source\Graphics\Color.hpp" />
+    <ClInclude Include="Source\Graphics\IRenderer.hpp" />
     <ClInclude Include="Source\Graphics\Mesh.hpp" />
     <ClInclude Include="Source\Graphics\Rect.hpp" />
-    <ClInclude Include="Source\Graphics\Renderer.hpp" />
+    <ClInclude Include="Source\Graphics\SDLRenderer.hpp" />
+    <ClInclude Include="Source\Graphics\RendererFactory.hpp" />
     <ClInclude Include="Source\Graphics\Shader.hpp" />
     <ClInclude Include="Source\Graphics\ShaderProgram.hpp" />
     <ClInclude Include="Source\Graphics\Sprite.hpp" />

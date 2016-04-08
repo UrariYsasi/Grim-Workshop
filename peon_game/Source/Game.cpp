@@ -47,11 +47,6 @@ Game::~Game()
     m_mainCamera.reset();
 }
 
-grim::graphics::Renderer* Game::GetRenderer()
-{
-    return m_renderer.get();
-}
-
 grim::ui::Input* Game::GetInput()
 {
     return m_input.get();
@@ -151,8 +146,8 @@ uint8_t Game::Initialize()
     */
 
     grim::utility::Debug::Log("Loading shaders...");
-    LoadShader("vertex.glsl", GL_VERTEX_SHADER, "vertex_textured");
-    LoadShader("fragment.glsl", GL_FRAGMENT_SHADER, "fragment_textured");
+    LoadShader("Resources/Shaders/vertex.glsl", GL_VERTEX_SHADER, "vertex_textured");
+    LoadShader("Resources/Shaders/fragment.glsl", GL_FRAGMENT_SHADER, "fragment_textured");
 
     /*
         Create ShaderPrograms
@@ -165,8 +160,8 @@ uint8_t Game::Initialize()
     m_spriteMap[STRUCTURE_STOCKPILE] = std::make_unique<grim::graphics::Sprite>(GetTexture("structure"), GetShaderProgram("basic_shader"), 32, 32, 8);
 
     // Setup the game
-    m_mainCamera = std::make_unique<grim::graphics::Camera>(m_renderer.get(), WINDOW_WIDTH, WINDOW_HEIGHT, -1.0f, 1.0f);
-    m_uiCamera = std::make_unique<grim::graphics::Camera>(m_renderer.get(), WINDOW_WIDTH, WINDOW_HEIGHT, -1.0f, 1.0f);
+    m_mainCamera = std::make_unique<grim::graphics::Camera>(GetRenderer(), WINDOW_WIDTH, WINDOW_HEIGHT, -1.0f, 1.0f);
+    m_uiCamera = std::make_unique<grim::graphics::Camera>(GetRenderer(), WINDOW_WIDTH, WINDOW_HEIGHT, -1.0f, 1.0f);
     m_map = std::make_unique<World>(this);
     m_player = std::make_unique<Player>(this);
 
@@ -228,7 +223,7 @@ void Game::Update(float deltaTime)
 
 void Game::Render()
 {
-    m_renderer->Clear();
+    GetRenderer()->Clear();
 
     m_mainCamera->Activate();
     m_map->Render();
@@ -242,9 +237,9 @@ void Game::Render()
     m_ui->Render();
 }
 
-bool Game::LoadTexture(const std::string& textureFileName, const std::string& ID)
+bool Game::LoadTexture(const std::string& path, const std::string& ID)
 {
-    m_textureMap[ID] = std::make_unique<grim::graphics::Texture>(textureFileName);
+    m_textureMap[ID] = std::make_unique<grim::graphics::Texture>(path);
     return true;
 }
 
@@ -260,9 +255,9 @@ bool Game::LoadFont(const std::string& path, const std::string& id, const int& s
     return true;
 }
 
-bool Game::LoadShader(const std::string& shaderFileName, const GLenum& shaderType, const std::string& ID)
+bool Game::LoadShader(const std::string& path, const GLenum& shaderType, const std::string& ID)
 {
-    std::string shaderSource = ReadFile("Resources/Shaders/" + shaderFileName);
+    std::string shaderSource = ReadFile(path);
 
     if (shaderSource != "*FAILURE*")
     {
@@ -275,7 +270,7 @@ bool Game::LoadShader(const std::string& shaderFileName, const GLenum& shaderTyp
 
 bool Game::CreateShaderProgram(const std::string& vertexShaderID, const std::string& fragmentShaderID, const std::string& ID)
 {
-    m_shaderProgramMap[ID] = std::make_unique<grim::graphics::ShaderProgram>(m_renderer.get(), GetShader(vertexShaderID), GetShader(fragmentShaderID));
+    m_shaderProgramMap[ID] = std::make_unique<grim::graphics::ShaderProgram>(GetRenderer(), GetShader(vertexShaderID), GetShader(fragmentShaderID));
     return true;
 }
 

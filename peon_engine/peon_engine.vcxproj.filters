@@ -31,9 +31,6 @@
     <ClCompile Include="Source\Utility\Debug.cpp">
       <Filter>Source\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Graphics\Renderer.cpp">
-      <Filter>Source\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Graphics\ShaderProgram.cpp">
       <Filter>Source\Graphics</Filter>
     </ClCompile>
@@ -82,6 +79,12 @@
     <ClCompile Include="Source\Audio\AudioFactory.cpp">
       <Filter>Source\Audio</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Graphics\RendererFactory.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\SDLRenderer.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\PCH.hpp">
@@ -98,9 +101,6 @@
     </ClInclude>
     <ClInclude Include="Source\Utility\Debug.hpp">
       <Filter>Source\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Graphics\Renderer.hpp">
-      <Filter>Source\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Source\Graphics\ShaderProgram.hpp">
       <Filter>Source\Graphics</Filter>
@@ -161,6 +161,15 @@
     </ClInclude>
     <ClInclude Include="Source\Audio\AudioFactory.hpp">
       <Filter>Source\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\RendererFactory.hpp">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\IRenderer.hpp">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\SDLRenderer.hpp">
+      <Filter>Source\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

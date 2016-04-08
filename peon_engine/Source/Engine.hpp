@@ -7,7 +7,7 @@ namespace graphics
 {
 
 class Window;
-class Renderer;
+class IRenderer;
 class Camera;
 
 }
@@ -42,6 +42,7 @@ public:
     uint8_t Initialize();
 
     grim::audio::IAudio* GetAudio();
+    grim::graphics::IRenderer* GetRenderer();
 
 protected:
 
@@ -74,11 +75,11 @@ protected:
     */
 
     std::unique_ptr<grim::graphics::Window> m_window;
-    std::unique_ptr<grim::graphics::Renderer> m_renderer;
     std::unique_ptr<grim::ui::Input> m_input;
     std::unique_ptr<grim::ui::UserInterface> m_ui;
 
 private:
+    std::unique_ptr<grim::graphics::IRenderer> m_renderer;
     std::unique_ptr<grim::audio::IAudio> m_audio;
 };
 
