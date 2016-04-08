@@ -1,5 +1,5 @@
 #include "PCH.hpp"
-#include "Input.hpp"
+#include "SDLInput.hpp"
 
 namespace grim
 {
@@ -7,7 +7,7 @@ namespace grim
 namespace ui
 {
 
-Input::Input() :
+SDLInput::SDLInput() :
     m_mousePosition(0),
     m_quitCallback(nullptr)
 {
@@ -19,11 +19,11 @@ Input::Input() :
     std::fill(m_upMouseButtons, m_upMouseButtons + MAX_MOUSE_BUTTONS, false);
 }
 
-Input::~Input()
+SDLInput::~SDLInput()
 {
 }
 
-bool Input::GetKey(int key)
+bool SDLInput::GetKey(int key)
 {
     if (SDL_GetScancodeFromKey(key) >= MAX_KEYBOARD_KEYS)
     {
@@ -33,7 +33,7 @@ bool Input::GetKey(int key)
     return m_currentKeys[SDL_GetScancodeFromKey(key)];
 }
 
-bool Input::GetKeyPress(int key)
+bool SDLInput::GetKeyPress(int key)
 {
     if (SDL_GetScancodeFromKey(key) >= MAX_KEYBOARD_KEYS)
     {
@@ -43,7 +43,7 @@ bool Input::GetKeyPress(int key)
     return m_downKeys[SDL_GetScancodeFromKey(key)];
 }
 
-bool Input::GetKeyRelease(int key)
+bool SDLInput::GetKeyRelease(int key)
 {
     if (SDL_GetScancodeFromKey(key) >= MAX_KEYBOARD_KEYS)
     {
@@ -53,7 +53,7 @@ bool Input::GetKeyRelease(int key)
     return m_upKeys[SDL_GetScancodeFromKey(key)];
 }
 
-bool Input::GetMouseButton(int button)
+bool SDLInput::GetMouseButton(int button)
 {
     if (SDL_GetScancodeFromKey(button) >= MAX_MOUSE_BUTTONS)
     {
@@ -63,7 +63,7 @@ bool Input::GetMouseButton(int button)
     return m_currentMouseButtons[button];
 }
 
-bool Input::GetMouseButtonPress(int button)
+bool SDLInput::GetMouseButtonPress(int button)
 {
     if (SDL_GetScancodeFromKey(button) >= MAX_MOUSE_BUTTONS)
     {
@@ -73,7 +73,7 @@ bool Input::GetMouseButtonPress(int button)
     return m_downMouseButtons[button];
 }
 
-bool Input::GetMouseButtonRelease(int button)
+bool SDLInput::GetMouseButtonRelease(int button)
 {
     if (SDL_GetScancodeFromKey(button) >= MAX_MOUSE_BUTTONS)
     {
@@ -83,17 +83,17 @@ bool Input::GetMouseButtonRelease(int button)
     return m_upMouseButtons[button];
 }
 
-glm::vec2 Input::GetMousePosition() const
+glm::vec2 SDLInput::GetMousePosition() const
 {
     return m_mousePosition;
 }
 
-void Input::SetQuitCallback(std::function<void()> quitCallback)
+void SDLInput::SetQuitCallback(std::function<void()> quitCallback)
 {
     m_quitCallback = quitCallback;
 }
 
-void Input::Update()
+void SDLInput::Update()
 {
     int x, y;
     SDL_GetMouseState(&x, &y);

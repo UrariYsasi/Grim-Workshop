@@ -4,7 +4,6 @@
     Engine Includes
 */
 
-#include "Engine.hpp"
 #include "Audio/IAudio.hpp"
 #include "Audio/SDLAudio.hpp"
 #include "Audio/AudioFactory.hpp"
@@ -28,10 +27,13 @@
 #include "Utility/PoissonDiskGenerator.hpp"
 #include "Utility/Random.hpp"
 #include "Utility/Timer.hpp"
-#include "UI/Input.hpp"
+#include "UI/IInput.hpp"
+#include "UI/SDLInput.hpp"
+#include "UI/InputFactory.hpp"
 #include "UI/UserInterface.hpp"
 #include "UI/Widgets/Widget.hpp"
 #include "UI/Widgets/Text.hpp"
+#include "Engine.hpp"
 
 /*
     Constants

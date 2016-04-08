@@ -1,30 +1,27 @@
 #pragma once
 
-class Game;
-
 namespace grim
 {
 
 namespace ui
 {
 
-class Input
+class SDLInput : public IInput
 {
 public:
-    Input();
-    ~Input();
+    SDLInput();
+    ~SDLInput();
 
-    bool GetKey(int key);
-    bool GetKeyPress(int key);
-    bool GetKeyRelease(int key);
-    bool GetMouseButton(int button);
-    bool GetMouseButtonPress(int button);
-    bool GetMouseButtonRelease(int button);
-    glm::vec2 GetMousePosition() const;
+    virtual bool GetKey(int key);
+    virtual bool GetKeyPress(int key);
+    virtual bool GetKeyRelease(int key);
+    virtual bool GetMouseButton(int button);
+    virtual bool GetMouseButtonPress(int button);
+    virtual bool GetMouseButtonRelease(int button);
+    virtual glm::vec2 GetMousePosition() const;
+    virtual void SetQuitCallback(std::function<void()> quitCallback);
 
-    void SetQuitCallback(std::function<void()> quitCallback);
-
-    void Update();
+    virtual void Update();
 
 private:
     const static int MAX_KEYBOARD_KEYS = 256;

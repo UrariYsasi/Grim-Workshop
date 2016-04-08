@@ -15,7 +15,7 @@ public:
     void Render();
 
     Game* GetGame();
-    grim::ui::Input* GetInput();
+    grim::ui::IInput* GetInput();
     grim::graphics::Camera* GetCamera();
     World* GetWorld();
 
@@ -28,7 +28,7 @@ private:
     const int CAMERA_SPEED_FAST = 1792;
 
     Game* m_game;
-    grim::ui::Input* m_gameInput;
+    grim::ui::IInput* m_gameInput;
     grim::graphics::Camera* m_gameCamera;
     World* m_gameWorld;
 

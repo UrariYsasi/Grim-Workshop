@@ -219,7 +219,7 @@ Game* Player::GetGame()
     return m_game;
 }
 
-grim::ui::Input* Player::GetInput()
+grim::ui::IInput* Player::GetInput()
 {
     return m_gameInput;
 }

@@ -6,6 +6,7 @@
 
 PlacementModule::PlacementModule(Player* owner) :
     m_owner(owner),
+    m_game(nullptr),
     m_input(nullptr),
     m_camera(nullptr),
     m_isPlacing(false),

@@ -17,7 +17,6 @@ public:
     virtual void Run();
     virtual void Terminate();
 
-    grim::ui::Input* GetInput();
     grim::graphics::Camera* GetMainCamera();
     World* GetWorld();
 

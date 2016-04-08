@@ -133,7 +133,8 @@
     <ClCompile Include="Source\PCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Source\UI\Input.cpp" />
+    <ClCompile Include="Source\UI\InputFactory.cpp" />
+    <ClCompile Include="Source\UI\SDLInput.cpp" />
     <ClCompile Include="Source\UI\UserInterface.cpp" />
     <ClCompile Include="Source\UI\Widgets\Text.cpp" />
     <ClCompile Include="Source\UI\Widgets\Widget.cpp" />
@@ -165,7 +166,9 @@
     <ClInclude Include="Source\PCH.hpp" />
     <ClInclude Include="Source\GrimWorkshop.hpp" />
     <ClInclude Include="Source\Audio\IAudio.hpp" />
-    <ClInclude Include="Source\UI\Input.hpp" />
+    <ClInclude Include="Source\UI\IInput.hpp" />
+    <ClInclude Include="Source\UI\InputFactory.hpp" />
+    <ClInclude Include="Source\UI\SDLInput.hpp" />
     <ClInclude Include="Source\UI\UserInterface.hpp" />
     <ClInclude Include="Source\UI\Widgets\Text.hpp" />
     <ClInclude Include="Source\UI\Widgets\Widget.hpp" />

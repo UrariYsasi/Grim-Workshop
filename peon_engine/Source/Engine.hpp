@@ -3,32 +3,6 @@
 namespace grim
 {
 
-namespace graphics
-{
-
-class IWindow;
-class IRenderer;
-class Camera;
-
-}
-
-namespace ui
-{
-
-class Input;
-class UserInterface;
-class Widget;
-class Text;
-
-}
-
-namespace audio
-{
-
-class IAudio;
-
-}
-
 class Engine
 {
 public:
@@ -44,6 +18,7 @@ public:
     grim::graphics::IWindow* GetWindow();
     grim::graphics::IRenderer* GetRenderer();
     grim::audio::IAudio* GetAudio();
+    grim::ui::IInput* GetInput();
 
 protected:
 
@@ -75,13 +50,13 @@ protected:
         Services
     */
 
-    std::unique_ptr<grim::ui::Input> m_input;
     std::unique_ptr<grim::ui::UserInterface> m_ui;
 
 private:
     std::unique_ptr<grim::graphics::IWindow> m_window;
     std::unique_ptr<grim::graphics::IRenderer> m_renderer;
     std::unique_ptr<grim::audio::IAudio> m_audio;
+    std::unique_ptr<grim::ui::IInput> m_input;
 };
 
 }

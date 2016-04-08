@@ -47,11 +47,6 @@ Game::~Game()
     m_mainCamera.reset();
 }
 
-grim::ui::Input* Game::GetInput()
-{
-    return m_input.get();
-}
-
 grim::graphics::Camera* Game::GetMainCamera()
 {
     return m_mainCamera.get();
@@ -187,24 +182,24 @@ void Game::Terminate()
 
 void Game::Update(float deltaTime)
 {
-    glm::vec2 mousePos = m_mainCamera->ConvertToWorld(m_input->GetMousePosition());
+    glm::vec2 mousePos = m_mainCamera->ConvertToWorld(GetInput()->GetMousePosition());
 
-    if (m_input->GetKeyPress(SDLK_ESCAPE))
+    if (GetInput()->GetKeyPress(SDLK_ESCAPE))
     {
         Terminate();
     }
 
-    if (m_input->GetKeyPress(SDLK_y))
+    if (GetInput()->GetKeyPress(SDLK_y))
     {
-        m_map->SpawnPeon(1, m_mainCamera->ConvertToWorld(m_input->GetMousePosition()));
+        m_map->SpawnPeon(1, mousePos);
     }
 
-    if (m_input->GetKeyPress(SDLK_u))
+    if (GetInput()->GetKeyPress(SDLK_u))
     {
         m_map->SpawnOrc();
     }
 
-    if (m_input->GetKeyPress(SDLK_m))
+    if (GetInput()->GetKeyPress(SDLK_m))
     {
         Mix_PlayMusic(m_bgMusic, -1);
     }

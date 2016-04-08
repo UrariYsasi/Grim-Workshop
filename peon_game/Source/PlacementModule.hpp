@@ -2,6 +2,7 @@
 
 class Player;
 class World;
+class Game;
 
 class PlacementModule
 {
@@ -15,7 +16,7 @@ public:
 private:
     Player* m_owner;
     Game* m_game;
-    grim::ui::Input* m_input;
+    grim::ui::IInput* m_input;
     grim::graphics::Camera* m_camera;
     World* m_world;
     

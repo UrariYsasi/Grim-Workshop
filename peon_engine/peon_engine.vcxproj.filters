@@ -43,9 +43,6 @@
     <ClCompile Include="Source\Graphics\SpriteBatch.cpp">
       <Filter>Source\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Source\UI\Input.cpp">
-      <Filter>Source\UI</Filter>
-    </ClCompile>
     <ClCompile Include="Source\UI\UserInterface.cpp">
       <Filter>Source\UI</Filter>
     </ClCompile>
@@ -88,6 +85,12 @@
     <ClCompile Include="Source\Graphics\SDLWindow.cpp">
       <Filter>Source\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Source\UI\SDLInput.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UI\InputFactory.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\PCH.hpp">
@@ -125,9 +128,6 @@
     </ClInclude>
     <ClInclude Include="Source\Graphics\Sprite.hpp">
       <Filter>Source\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\UI\Input.hpp">
-      <Filter>Source\UI</Filter>
     </ClInclude>
     <ClInclude Include="Source\UI\UserInterface.hpp">
       <Filter>Source\UI</Filter>
@@ -179,6 +179,15 @@
     </ClInclude>
     <ClInclude Include="Source\Graphics\SDLWindow.hpp">
       <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UI\SDLInput.hpp">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UI\InputFactory.hpp">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UI\IInput.hpp">
+      <Filter>Source\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
