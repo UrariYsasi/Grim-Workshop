@@ -43,9 +43,6 @@
     <ClCompile Include="Source\Graphics\SpriteBatch.cpp">
       <Filter>Source\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Source\UI\UserInterface.cpp">
-      <Filter>Source\UI</Filter>
-    </ClCompile>
     <ClCompile Include="Source\UI\Widgets\Widget.cpp">
       <Filter>Source\UI\Widgets</Filter>
     </ClCompile>
@@ -91,6 +88,12 @@
     <ClCompile Include="Source\UI\InputFactory.cpp">
       <Filter>Source\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Source\UI\UIFactory.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UI\GrimUI.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\PCH.hpp">
@@ -128,9 +131,6 @@
     </ClInclude>
     <ClInclude Include="Source\Graphics\Sprite.hpp">
       <Filter>Source\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\UI\UserInterface.hpp">
-      <Filter>Source\UI</Filter>
     </ClInclude>
     <ClInclude Include="Source\UI\Widgets\Text.hpp">
       <Filter>Source\UI\Widgets</Filter>
@@ -187,6 +187,15 @@
       <Filter>Source\UI</Filter>
     </ClInclude>
     <ClInclude Include="Source\UI\IInput.hpp">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UI\UIFactory.hpp">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UI\GrimUI.hpp">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UI\IUserInterface.hpp">
       <Filter>Source\UI</Filter>
     </ClInclude>
   </ItemGroup>

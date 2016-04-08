@@ -1,6 +1,5 @@
 #include "PCH.hpp"
-#include "UserInterface.hpp"
-#include "Widgets\Widget.hpp"
+#include "GrimUI.hpp"
 
 namespace grim
 {
@@ -8,11 +7,11 @@ namespace grim
 namespace ui
 {
 
-UserInterface::UserInterface()
+GrimUI::GrimUI()
 {
 }
 
-UserInterface::~UserInterface()
+GrimUI::~GrimUI()
 {
     for (auto it = m_widgets.begin(); it != m_widgets.end(); it++)
     {
@@ -25,7 +24,7 @@ UserInterface::~UserInterface()
     m_widgets.clear();
 }
 
-void UserInterface::Update(float deltaTime)
+void GrimUI::Update(float deltaTime)
 {
     for (auto it = m_widgets.begin(); it != m_widgets.end(); it++)
     {
@@ -33,7 +32,7 @@ void UserInterface::Update(float deltaTime)
     }
 }
 
-void UserInterface::Render()
+void GrimUI::Render()
 {
     for (auto it = m_widgets.begin(); it != m_widgets.end(); it++)
     {
@@ -41,7 +40,7 @@ void UserInterface::Render()
     }
 }
 
-void UserInterface::RegisterWidget(grim::ui::Widget* widget)
+void GrimUI::RegisterWidget(grim::ui::Widget* widget)
 {
     m_widgets.push_back(widget);
 }

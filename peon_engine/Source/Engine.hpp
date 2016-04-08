@@ -19,6 +19,7 @@ public:
     grim::graphics::IRenderer* GetRenderer();
     grim::audio::IAudio* GetAudio();
     grim::ui::IInput* GetInput();
+    grim::ui::IUserInterface* GetUI();
 
 protected:
 
@@ -46,17 +47,17 @@ protected:
     uint16_t m_frameRate;
     uint32_t m_gameStartTime;
 
+private:
+
     /*
         Services
     */
 
-    std::unique_ptr<grim::ui::UserInterface> m_ui;
-
-private:
     std::unique_ptr<grim::graphics::IWindow> m_window;
     std::unique_ptr<grim::graphics::IRenderer> m_renderer;
     std::unique_ptr<grim::audio::IAudio> m_audio;
     std::unique_ptr<grim::ui::IInput> m_input;
+    std::unique_ptr<grim::ui::IUserInterface> m_ui;
 };
 
 }

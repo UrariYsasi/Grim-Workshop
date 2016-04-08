@@ -30,9 +30,11 @@
 #include "UI/IInput.hpp"
 #include "UI/SDLInput.hpp"
 #include "UI/InputFactory.hpp"
-#include "UI/UserInterface.hpp"
 #include "UI/Widgets/Widget.hpp"
 #include "UI/Widgets/Text.hpp"
+#include "UI/IUserInterface.hpp"
+#include "UI/GrimUI.hpp"
+#include "UI/UIFactory.hpp"
 #include "Engine.hpp"
 
 /*

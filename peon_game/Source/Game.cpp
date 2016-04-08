@@ -165,7 +165,7 @@ uint8_t Game::Initialize()
     m_map->Generate();
 
     m_text = new grim::ui::Text(" ", GetFont("hack"), GetShaderProgram("basic_shader"));
-    m_ui->RegisterWidget(m_text);
+    GetUI()->RegisterWidget(m_text);
 
     return SUCCESS;
 }
@@ -213,7 +213,7 @@ void Game::Update(float deltaTime)
         Update Services
     */
 
-    m_ui->Update(deltaTime);
+    GetUI()->Update(deltaTime);
 }
 
 void Game::Render()
@@ -229,7 +229,7 @@ void Game::Render()
     */
 
     m_uiCamera->Activate();
-    m_ui->Render();
+    GetUI()->Render();
 }
 
 bool Game::LoadTexture(const std::string& path, const std::string& ID)
