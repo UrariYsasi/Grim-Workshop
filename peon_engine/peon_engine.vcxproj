@@ -122,7 +122,7 @@
     <ClCompile Include="Source\Engine.cpp" />
     <ClCompile Include="Source\Graphics\Camera.cpp" />
     <ClCompile Include="Source\Graphics\Mesh.cpp" />
-    <ClCompile Include="Source\Graphics\SDLRenderer.cpp" />
+    <ClCompile Include="Source\Graphics\OpenGLRenderer.cpp" />
     <ClCompile Include="Source\Graphics\RendererFactory.cpp" />
     <ClCompile Include="Source\Graphics\SDLWindow.cpp" />
     <ClCompile Include="Source\Graphics\Shader.cpp" />
@@ -153,7 +153,7 @@
     <ClInclude Include="Source\Graphics\IRenderer.hpp" />
     <ClInclude Include="Source\Graphics\Mesh.hpp" />
     <ClInclude Include="Source\Graphics\Rect.hpp" />
-    <ClInclude Include="Source\Graphics\SDLRenderer.hpp" />
+    <ClInclude Include="Source\Graphics\OpenGLRenderer.hpp" />
     <ClInclude Include="Source\Graphics\RendererFactory.hpp" />
     <ClInclude Include="Source\Graphics\SDLWindow.hpp" />
     <ClInclude Include="Source\Graphics\Shader.hpp" />

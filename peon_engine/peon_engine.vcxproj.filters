@@ -73,9 +73,6 @@
     <ClCompile Include="Source\Graphics\RendererFactory.cpp">
       <Filter>Source\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Graphics\SDLRenderer.cpp">
-      <Filter>Source\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Graphics\WindowFactory.cpp">
       <Filter>Source\Graphics</Filter>
     </ClCompile>
@@ -93,6 +90,9 @@
     </ClCompile>
     <ClCompile Include="Source\UI\GrimUI.cpp">
       <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\OpenGLRenderer.cpp">
+      <Filter>Source\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -168,9 +168,6 @@
     <ClInclude Include="Source\Graphics\IRenderer.hpp">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Graphics\SDLRenderer.hpp">
-      <Filter>Source\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Graphics\IWindow.hpp">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
@@ -197,6 +194,9 @@
     </ClInclude>
     <ClInclude Include="Source\UI\IUserInterface.hpp">
       <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\OpenGLRenderer.hpp">
+      <Filter>Source\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

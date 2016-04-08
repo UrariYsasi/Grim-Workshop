@@ -21,7 +21,7 @@
 #include "Graphics/SDLWindow.hpp"
 #include "Graphics/WindowFactory.hpp"
 #include "Graphics/IRenderer.hpp"
-#include "Graphics/SDLRenderer.hpp"
+#include "Graphics/OpenGLRenderer.hpp"
 #include "Graphics/RendererFactory.hpp"
 #include "Utility/Debug.hpp"
 #include "Utility/PoissonDiskGenerator.hpp"
