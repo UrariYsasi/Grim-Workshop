@@ -14,7 +14,10 @@
 
 Game::Game() :
     Engine(),
-    m_bgMusic(nullptr)
+    m_bgMusic(nullptr),
+    m_frameRateWidget(nullptr),
+    m_peonCountWidget(nullptr),
+    m_woodCountWidget(nullptr)
 {
 }
 
@@ -164,8 +167,21 @@ uint8_t Game::Initialize()
 
     m_map->Generate();
 
-    m_text = new grim::ui::Text(" ", GetFont("hack"), GetShaderProgram("basic_shader"));
-    GetUI()->RegisterWidget(m_text);
+    m_frameRateWidget = new grim::ui::Text(" ", GetFont("hack"), GetShaderProgram("basic_shader"));
+    m_frameRateWidget->SetPosition(glm::vec2(5.0f, 5.0f));
+    GetUI()->RegisterWidget(m_frameRateWidget);
+
+    m_dateWidget = new grim::ui::Text(" ", GetFont("hack"), GetShaderProgram("basic_shader"));
+    m_dateWidget->SetPosition(glm::vec2((WINDOW_WIDTH / 2.0f) - 80.0f, 5.0f));
+    GetUI()->RegisterWidget(m_dateWidget);
+
+    m_peonCountWidget = new grim::ui::Text(" ", GetFont("hack"), GetShaderProgram("basic_shader"));
+    m_peonCountWidget->SetPosition(glm::vec2(5.0f, 5.0f + 20.0f));
+    GetUI()->RegisterWidget(m_peonCountWidget);
+
+    m_woodCountWidget = new grim::ui::Text(" ", GetFont("hack"), GetShaderProgram("basic_shader"));
+    m_woodCountWidget->SetPosition(glm::vec2(5.0f, 5.0f + 40.0f));
+    GetUI()->RegisterWidget(m_woodCountWidget);
 
     return SUCCESS;
 }
@@ -207,7 +223,10 @@ void Game::Update(float deltaTime)
     m_map->Update(deltaTime);
     m_player->Update(deltaTime);
 
-    m_text->SetText(std::to_string(m_frameRate));
+    m_frameRateWidget->SetText("FPS: " + std::to_string(m_frameRate));
+    m_dateWidget->SetText(std::to_string(m_map->GetDay()) + " " + m_map->GetMonth() + ", Year " + std::to_string(m_map->GetYear()));
+    m_peonCountWidget->SetText("Peons: " + std::to_string(m_player->GetPeonCount()));
+    m_woodCountWidget->SetText("Wood: " + std::to_string(m_player->GetInventory()->CountItem(ItemType::WOOD)));
 
     /*
         Update Services
@@ -307,4 +326,9 @@ std::string Game::ReadFile(const std::string& path)
 grim::graphics::Sprite* Game::GetEntitySprite(const EntityID& id)
 {
     return m_spriteMap[id].get();
+}
+
+Player* Game::GetPlayer()
+{
+    return m_player.get();
 }

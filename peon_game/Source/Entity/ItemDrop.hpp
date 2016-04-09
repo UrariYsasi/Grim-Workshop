@@ -11,6 +11,7 @@ public:
 
     virtual void Update(float deltaTime);
     virtual void Render(grim::graphics::SpriteBatch& spriteBatch);
+    virtual void Consume(Obelisk* obelisk);
 
 private:
     ItemType m_type;

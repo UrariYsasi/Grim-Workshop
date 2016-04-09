@@ -52,7 +52,7 @@ void DepositAction::Update(float deltaTime)
         m_owner->DropHeldEntity();
 
         uint8_t rand = static_cast<uint8_t>(std::round(grim::utility::Random::Generate(1.3, 4.4)));
-        m_owner->GetGame()->GetAudio()->PlaySound("sacrifice_0" + std::to_string(rand));
+        //m_owner->GetGame()->GetAudio()->PlaySound("sacrifice_0" + std::to_string(rand));
 
         m_obelisk->ConsumeEntity(offering);
 

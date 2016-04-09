@@ -26,6 +26,7 @@ public:
     grim::graphics::ShaderProgram* GetShaderProgram(const std::string& ID);
 
     grim::graphics::Sprite* GetEntitySprite(const EntityID& id);
+    Player* GetPlayer();
 
 private:
     void Update(float deltaTime);
@@ -83,5 +84,12 @@ private:
     // This is here TEMPORARILY for debug purposes
     Mix_Music* m_bgMusic;
 
-    grim::ui::Text* m_text;
+    /*
+        User Interface
+    */
+
+    grim::ui::Text* m_frameRateWidget;
+    grim::ui::Text* m_dateWidget;
+    grim::ui::Text* m_peonCountWidget;
+    grim::ui::Text* m_woodCountWidget;
 };

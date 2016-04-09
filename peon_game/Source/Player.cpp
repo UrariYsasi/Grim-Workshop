@@ -302,3 +302,23 @@ void Player::IssueCommand(glm::vec2 position)
         }
     }
 }
+
+Inventory* Player::GetInventory()
+{
+    return &m_inventory;
+}
+
+void Player::AddPeon(uint32_t quantity)
+{
+    m_peonCount += quantity;
+}
+
+void Player::RemovePeon(uint32_t quantity)
+{
+    m_peonCount -= quantity;
+}
+
+uint32_t Player::GetPeonCount() const
+{
+    return m_peonCount;
+}

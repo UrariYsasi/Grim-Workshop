@@ -1,6 +1,7 @@
 #include "PCH.hpp"
 #include "ItemDrop.hpp"
 #include "../Game.hpp"
+#include "../Player.hpp"
 
 ItemDrop::ItemDrop(Game* game, const glm::vec2& position, const ItemType& type) :
     m_type(type),
@@ -33,4 +34,11 @@ void ItemDrop::Render(grim::graphics::SpriteBatch& spriteBatch)
     spriteBatch.AddSprite(glm::vec3(m_position - m_origin + m_positionOffset, 0.0f), glm::vec3(0.0, 0.0, 0.0), glm::vec3(32.0, 32.0, 1.0), m_sprite.get());
 
     Entity::Render(spriteBatch);
+}
+
+void ItemDrop::Consume(Obelisk* obelisk)
+{
+    Entity::Consume(obelisk);
+
+    m_game->GetPlayer()->GetInventory()->GiveItem(m_type);
 }

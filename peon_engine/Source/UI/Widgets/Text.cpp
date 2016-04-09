@@ -42,7 +42,7 @@ void Text::Update(float deltaTime)
 
 void Text::Render()
 {
-    m_mesh->Render(glm::vec3(0.0), glm::vec3(0.0), glm::vec3(1.0f, 1.0f, 0.0f));
+    m_mesh->Render(glm::vec3(m_position.x, m_position.y, 0.0f), glm::vec3(0.0f), glm::vec3(1.0f, 1.0f, 0.0f));
 }
 
 void Text::Construct()
@@ -53,13 +53,13 @@ void Text::Construct()
 
     GLfloat vertices[] = {
         // Top left
-        64.0f, 64.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
         // Top right
-        64.0f + surface->w, 64.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+        0.0f + surface->w, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
         // Bottom left
-        64.0f, 64.0f + surface->h, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+        0.0f, 0.0f + surface->h, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
         // Bottom right
-        64.0f + surface->w, 64.0f + surface->h, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f
+        0.0f + surface->w, 0.0f + surface->h, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f
     };
 
     m_mesh->UploadVertexData(vertices, sizeof(vertices));

@@ -1,5 +1,6 @@
 #pragma once
 #include "PlacementModule.hpp"
+#include "Item/Inventory.hpp"
 
 class Game;
 class Entity;
@@ -19,6 +20,11 @@ public:
     grim::graphics::Camera* GetCamera();
     World* GetWorld();
 
+    Inventory* GetInventory();
+    void AddPeon(uint32_t quantity = 1);
+    void RemovePeon(uint32_t quantity = 1);
+    uint32_t GetPeonCount() const;
+
 private:
     void IssueCommand(glm::vec2 position);
 
@@ -31,6 +37,7 @@ private:
     grim::ui::IInput* m_gameInput;
     grim::graphics::Camera* m_gameCamera;
     World* m_gameWorld;
+    uint32_t m_peonCount;
 
     int m_cameraSpeed;
     bool m_isBoxSelecting;
@@ -42,4 +49,5 @@ private:
         Modules
     */
     PlacementModule m_placementModule;
+    Inventory m_inventory;
 };

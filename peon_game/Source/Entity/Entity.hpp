@@ -49,7 +49,7 @@ public:
     */
     bool IsHeld();
 
-    void Consume(Obelisk* obelisk);
+    virtual void Consume(Obelisk* obelisk);
 
 protected:
     const glm::vec2 SPRITE_SIZE; // TODO: Do something with this

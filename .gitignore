@@ -33,6 +33,7 @@
 
 # Other
 .DS_STORE
+.pyxel
 *.pyxel
 
 ### VisualStudio ###
