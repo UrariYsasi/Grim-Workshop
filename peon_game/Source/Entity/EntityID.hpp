@@ -7,5 +7,6 @@ enum EntityID
     PEON,
     ORC,
     OBELISK,
-    ALTAR
+    ALTAR,
+    ENT_ITEM_DROP
 };

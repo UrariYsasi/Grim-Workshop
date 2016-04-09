@@ -1,6 +1,7 @@
 #include "PCH.hpp"
 #include "Entity.hpp"
 #include "../Game.hpp"
+#include "Obelisk.hpp"
 
 Entity::Entity(Game* game, const glm::vec2& position, int entityID) :
     SPRITE_SIZE(32, 32),
@@ -14,6 +15,9 @@ Entity::Entity(Game* game, const glm::vec2& position, int entityID) :
     m_selectionHitBox(-16, -16, 16, 16),
     m_hp(3),
     m_isHeld(false),
+    m_consumeStartTime(0),
+    m_isBeingConsumed(false),
+    m_consumer(nullptr),
     m_sprite(nullptr)
 {
 }
@@ -65,6 +69,19 @@ bool Entity::IsDeleted() const
 grim::graphics::Rect Entity::GetHitBox() const
 {
     return grim::graphics::Rect(m_position.x + m_hitBox.x, m_position.y + m_hitBox.y, m_hitBox.width, m_hitBox.height);
+}
+
+void Entity::Update(float deltaTime)
+{
+    if (m_isBeingConsumed)
+    {
+        m_position = (m_position + 0.03f * (m_end - m_start));
+
+        if (glm::distance(m_position, m_end) <= 5.0f)
+        {
+            Delete();
+        }
+    }
 }
 
 void Entity::Render(grim::graphics::SpriteBatch& spriteBatch)
@@ -162,4 +179,13 @@ void Entity::SetHeld(bool isHeld)
 bool Entity::IsHeld()
 {
     return m_isHeld;
+}
+
+void Entity::Consume(Obelisk* obelisk)
+{
+    m_isBeingConsumed = true;
+    m_consumer = obelisk;
+    m_start = m_position;
+    m_end = m_consumer->GetPosition() + glm::vec2(0.0f, -235.0f);
+    m_sprite->color = grim::graphics::Color(1.0f, 1.0f, 1.0f, 1.0f);
 }

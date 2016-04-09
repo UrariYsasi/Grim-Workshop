@@ -9,4 +9,6 @@ public:
 
     virtual void Update(float deltaTime);
     virtual void Render(grim::graphics::SpriteBatch& spriteBatch);
+
+    void ConsumeEntity(Entity* ent);
 };

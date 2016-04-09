@@ -26,7 +26,7 @@ public:
     bool IsPassable(const glm::vec2& point);
     TerrainTile* GetTerrainAtPoint(const glm::vec2& point);
 
-    void Spawn(const EntityID& id, const glm::vec2& position);
+    Entity* Spawn(const EntityID& id, const glm::vec2& position);
 
     /*
         Gets the Entity with the given ID that is currently colliding with the given point.

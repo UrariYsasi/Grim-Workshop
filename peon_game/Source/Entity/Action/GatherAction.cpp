@@ -3,6 +3,7 @@
 #include "../../Game.hpp"
 #include "MoveAction.hpp"
 #include "DepositAction.hpp"
+#include "PickUpAction.hpp"
 #include "../Monster.hpp"
 #include "../Resource.hpp"
 #include "../../Item/Inventory.hpp"
@@ -71,7 +72,9 @@ void GatherAction::Update(float deltaTime)
             m_totalGathers = 0;
             m_target->Damage();
             m_ownerInventory->GiveItem(item, static_cast<uint16_t>(grim::utility::Random::Generate(1.0, 3.0)));
-            m_owner->PushAction(std::make_unique<DepositAction>(m_owner, item, -1));
+            Entity* itemDrop = m_owner->GetGame()->GetWorld()->Spawn(ENT_ITEM_DROP, m_owner->GetPosition());
+            m_owner->SetHeldEntity(itemDrop);
+            m_owner->PushAction(std::make_unique<DepositAction>(m_owner));
         }
     }
     else

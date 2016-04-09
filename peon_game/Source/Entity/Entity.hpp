@@ -1,6 +1,7 @@
 #pragma once
 
 class Game;
+class Obelisk;
 
 class Entity
 {
@@ -18,7 +19,7 @@ public:
     bool IsDeleted() const;
     grim::graphics::Rect GetHitBox() const;
 
-    virtual void Update(float deltaTime) = 0;
+    virtual void Update(float deltaTime);
     virtual void Render(grim::graphics::SpriteBatch& spriteBatch);
 
     void Delete();
@@ -48,6 +49,8 @@ public:
     */
     bool IsHeld();
 
+    void Consume(Obelisk* obelisk);
+
 protected:
     const glm::vec2 SPRITE_SIZE; // TODO: Do something with this
 
@@ -61,6 +64,12 @@ protected:
     grim::graphics::Rect m_selectionHitBox;
     int m_hp;
     bool m_isHeld;
+
+    uint32_t m_consumeStartTime;
+    bool m_isBeingConsumed;
+    Obelisk* m_consumer;
+    glm::vec2 m_start;
+    glm::vec2 m_end;
 
     std::unique_ptr<grim::graphics::Sprite> m_sprite;
 };

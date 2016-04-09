@@ -1,20 +1,18 @@
 #pragma once
 #include "Action.hpp"
 
-class Stockpile;
+class Obelisk;
 
 class DepositAction : public Action
 {
 public:
-    DepositAction(Monster* owner, ItemType dumpItem, const int& quantity = 1);
+    DepositAction(Monster* owner);
     virtual ~DepositAction();
 
     virtual void Update(float deltaTime);
 
 private:
-    const double MIN_DISTANCE = 10.0;
+    const uint32_t MIN_DISTANCE = 96;
 
-    int m_quantity;
-    ItemType m_dumpItem;
-    Stockpile* m_target;
+    Obelisk* m_obelisk;
 };

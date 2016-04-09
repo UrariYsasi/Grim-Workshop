@@ -53,7 +53,7 @@ void SmeltAction::Update(float deltaTime)
                 //m_owner->GetGame()->PlaySound("woodcutting_00");
                 inventory->RemoveItem(ItemType::IRON_ORE, 3);
                 inventory->GiveItem(ItemType::IRON_BAR, 1);
-                m_owner->PushAction(std::make_unique<DepositAction>(m_owner, ItemType::IRON_BAR, 1));
+                //m_owner->PushAction(std::make_unique<DepositAction>(m_owner, ItemType::IRON_BAR, 1));
             }
         }
     }

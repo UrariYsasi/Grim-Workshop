@@ -53,7 +53,9 @@ void Monster::Update(float deltaTime)
 
     if (m_heldEntity != nullptr)
     {
-        m_heldEntity->SetPosition(m_position + glm::vec2(0, -12));
+        grim::graphics::Rect hitBox = m_heldEntity->GetHitBox();
+        glm::vec2 holdPoint(m_position.x, GetHitBox().y - 5.0f);
+        m_heldEntity->SetPosition(holdPoint);
     }
 }
 

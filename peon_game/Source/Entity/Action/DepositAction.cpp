@@ -6,11 +6,11 @@
 #include "../../Item/Inventory.hpp"
 #include "../Stockpile.hpp"
 #include "../../World/World.hpp"
+#include "../Obelisk.hpp"
 
-DepositAction::DepositAction(Monster* owner, ItemType dumpItem, const int& quantity) :
+DepositAction::DepositAction(Monster* owner) :
     Action(owner, DEPOSIT_ACTION, "Deposit"),
-    m_quantity(quantity),
-    m_dumpItem(dumpItem)
+    m_obelisk(nullptr)
 {
 }
 
@@ -20,50 +20,50 @@ DepositAction::~DepositAction()
 
 void DepositAction::Update(float deltaTime)
 {
-    // If we don't have a target stockpile, find one
-    if (m_target == nullptr)
+    // Get the item to deposit
+    Entity* offering = m_owner->GetHeldEntity();
+    if (offering == nullptr)
     {
-        Entity* ent = m_owner->GetGame()->GetWorld()->FindEntity(STRUCTURE_STOCKPILE);
-        m_target = dynamic_cast<Stockpile*>(ent);
-        if (m_target == nullptr)
+        Complete();
+        return;
+    }
+
+    // Find the obelisk
+    if (m_obelisk == nullptr)
+    {
+        Obelisk* obelisk = dynamic_cast<Obelisk*>(m_owner->GetGame()->GetWorld()->FindEntity(OBELISK));
+        if (obelisk == nullptr)
         {
-            // There was no stockpile found. Stop working.
-            m_owner->ClearActionStack();
+            Complete();
+            return;
         }
+
+        m_obelisk = obelisk;
+    }
+
+    // Check if we are in range of the obelisk
+    glm::vec2 targetPosition = m_obelisk->GetPosition();
+    glm::vec2 ownerPosition = m_owner->GetPosition();
+    float distance = glm::distance(ownerPosition, targetPosition);
+
+    if (distance <= MIN_DISTANCE)
+    {
+        // Drop the payload
+        m_owner->DropHeldEntity();
+
+        uint8_t rand = static_cast<uint8_t>(std::round(grim::utility::Random::Generate(1.3, 4.4)));
+        m_owner->GetGame()->GetAudio()->PlaySound("sacrifice_0" + std::to_string(rand));
+
+        m_obelisk->ConsumeEntity(offering);
+
+        // Complete the action
+        Complete();
     }
     else
     {
-        // Check if we are in range of the stockpile
-        glm::vec2 targetCenter = m_target->GetPosition();
-        glm::vec2 monsterCenter = m_owner->GetPosition();
-        double distance = glm::distance(monsterCenter, targetCenter);
-
-        if (distance <= MIN_DISTANCE)
-        {
-            // If we gave a negative quantity, that means to deposit all of that item
-            int count;
-            if (m_quantity < 0)
-            {
-                count = m_owner->GetInventory()->CountItem(m_dumpItem);
-            }
-            else
-            {
-                count = m_quantity;
-            }
-
-            // Add resources to the stockpile
-            if (m_owner->GetInventory()->RemoveItem(m_dumpItem, count))
-            {
-                m_target->GetInventory()->GiveItem(m_dumpItem, count);
-            }
-
-            // Complete the action
-            Complete();
-        }
-        else
-        {
-            // We aren't close enough. Move to the resource.
-            m_owner->PushAction(std::make_unique<MoveAction>(m_owner, m_target->GetPosition()));
-        }
+        // We aren't close enough. Move.
+        std::unique_ptr<MoveAction> moveAction = std::make_unique<MoveAction>(m_owner, m_obelisk->GetPosition());
+        moveAction->SetMinimumRange(MIN_DISTANCE);
+        m_owner->PushAction(std::move(moveAction));
     }
 }

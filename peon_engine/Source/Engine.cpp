@@ -58,7 +58,7 @@ uint8_t Engine::Initialize()
         }
 
         // Set default volume
-        Mix_Volume(-1, MIX_MAX_VOLUME);
+        Mix_Volume(-1, MIX_MAX_VOLUME / 6);
         Mix_VolumeMusic(MIX_MAX_VOLUME / 6);
     }
 
@@ -149,6 +149,11 @@ grim::ui::IInput* Engine::GetInput()
 grim::ui::IUserInterface* Engine::GetUI()
 {
     return m_ui.get();
+}
+
+uint32_t Engine::GetTime()
+{
+    return SDL_GetTicks() - m_gameStartTime;
 }
 
 }

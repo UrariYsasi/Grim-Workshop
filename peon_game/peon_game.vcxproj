@@ -37,6 +37,7 @@
     <ClCompile Include="Source\Entity\Altar.cpp" />
     <ClCompile Include="Source\Entity\Entity.cpp" />
     <ClCompile Include="Source\Entity\Forge.cpp" />
+    <ClCompile Include="Source\Entity\ItemDrop.cpp" />
     <ClCompile Include="Source\Entity\Monster.cpp" />
     <ClCompile Include="Source\Entity\Obelisk.cpp" />
     <ClCompile Include="Source\Entity\Orc.cpp" />
@@ -72,6 +73,7 @@
     <ClInclude Include="Source\Entity\Entity.hpp" />
     <ClInclude Include="Source\Entity\EntityID.hpp" />
     <ClInclude Include="Source\Entity\Forge.hpp" />
+    <ClInclude Include="Source\Entity\ItemDrop.hpp" />
     <ClInclude Include="Source\Entity\Monster.hpp" />
     <ClInclude Include="Source\Entity\Obelisk.hpp" />
     <ClInclude Include="Source\Entity\Orc.hpp" />

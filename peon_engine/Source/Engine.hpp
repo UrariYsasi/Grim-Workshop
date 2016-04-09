@@ -21,6 +21,8 @@ public:
     grim::ui::IInput* GetInput();
     grim::ui::IUserInterface* GetUI();
 
+    uint32_t GetTime();
+
 protected:
 
     /*

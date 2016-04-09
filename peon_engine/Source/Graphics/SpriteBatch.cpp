@@ -75,10 +75,10 @@ void SpriteBatch::AddSprite(const glm::vec3& position, const glm::vec3& rotation
 
     // Calculate vertex positions
     glm::vec4 pos(position, 0.0f);
-    glm::vec4 topLeft = (glm::vec4(-(scale.x / 2), -(scale.y / 2), 0.0f, 1.0f) * rotationMatrix) + pos;
-    glm::vec4 topRight = (glm::vec4((scale.x / 2), -(scale.y / 2), 0.0f, 1.0f) * rotationMatrix) + pos;
-    glm::vec4 bottomLeft = (glm::vec4(-(scale.x / 2), (scale.y / 2), 0.0f, 1.0f) * rotationMatrix) + pos;
-    glm::vec4 bottomRight = (glm::vec4((scale.x / 2), (scale.y / 2), 0.0f, 1.0f) * rotationMatrix) + pos;
+    glm::vec4 topLeft = (glm::vec4(-(scale.x / 2), -(scale.y / 2), pos.z, 1.0f) * rotationMatrix) + pos;
+    glm::vec4 topRight = (glm::vec4((scale.x / 2), -(scale.y / 2), pos.z, 1.0f) * rotationMatrix) + pos;
+    glm::vec4 bottomLeft = (glm::vec4(-(scale.x / 2), (scale.y / 2), pos.z, 1.0f) * rotationMatrix) + pos;
+    glm::vec4 bottomRight = (glm::vec4((scale.x / 2), (scale.y / 2), pos.z, 1.0f) * rotationMatrix) + pos;
 
     // Vertices
     AddVertex(grim::graphics::Vertex(glm::vec3(topLeft.x, topLeft.y, topLeft.z), sprite->color, glm::vec2(spriteTexelX, spriteTexelY)));

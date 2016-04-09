@@ -108,6 +108,9 @@
     <ClCompile Include="Source\Entity\Action\DepositAction.cpp">
       <Filter>Source\Entity\Action</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Entity\ItemDrop.cpp">
+      <Filter>Source\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\PCH.hpp">
@@ -205,6 +208,9 @@
     </ClInclude>
     <ClInclude Include="Source\Entity\Action\DepositAction.hpp">
       <Filter>Source\Entity\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\ItemDrop.hpp">
+      <Filter>Source\Entity</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

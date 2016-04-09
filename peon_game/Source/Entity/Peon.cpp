@@ -13,7 +13,7 @@ Peon::Peon(Game* game, const glm::vec2& position) :
     m_selectionSprite(nullptr)
 {
     m_origin = glm::vec2(0, 0);
-    m_hitBox = grim::graphics::Rect(-3, 10, 7, 8);
+    m_hitBox = grim::graphics::Rect(-3.0f, 0.0f, 7.0f, 16.0f);
 
     grim::graphics::Texture* texture = game->GetTexture("peon");
     grim::graphics::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader");

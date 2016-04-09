@@ -8,6 +8,7 @@
 #include "../Entity/Peon.hpp"
 #include "../Entity/Orc.hpp"
 #include "../Entity/Obelisk.hpp"
+#include "../Entity/ItemDrop.hpp"
 #include "../Terrain/TerrainTile.hpp"
 
 World::World(Game* game) :
@@ -262,12 +263,24 @@ TerrainTile* World::GetTerrainAtPoint(const glm::vec2& point)
     return m_terrain.at(tilePosition).get();
 }
 
-void World::Spawn(const EntityID& id, const glm::vec2& position)
+Entity* World::Spawn(const EntityID& id, const glm::vec2& position)
 {
+    Entity* spawned = nullptr;
+
     if (id == STRUCTURE_STOCKPILE)
     {
-        m_entities.push_back(std::make_unique<Stockpile>(m_game, position));
+        std::unique_ptr<Stockpile> stockpile = std::make_unique<Stockpile>(m_game, position);
+        spawned = stockpile.get();
+        m_entities.push_back(std::move(stockpile));
     }
+    else if (id == ENT_ITEM_DROP)
+    {
+        std::unique_ptr<ItemDrop> itemDrop = std::make_unique<ItemDrop>(m_game, position, ItemType::WOOD);
+        spawned = itemDrop.get();
+        m_entities.push_back(std::move(itemDrop));
+    }
+
+    return spawned;
 }
 
 std::list<Entity*> World::GetEntitiesInRect(int entityID, const grim::graphics::Rect& rect)
