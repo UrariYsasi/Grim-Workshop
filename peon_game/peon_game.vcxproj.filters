@@ -111,6 +111,9 @@
     <ClCompile Include="Source\Entity\ItemDrop.cpp">
       <Filter>Source\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Entity\Spider.cpp">
+      <Filter>Source\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\PCH.hpp">
@@ -210,6 +213,9 @@
       <Filter>Source\Entity\Action</Filter>
     </ClInclude>
     <ClInclude Include="Source\Entity\ItemDrop.hpp">
+      <Filter>Source\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Spider.hpp">
       <Filter>Source\Entity</Filter>
     </ClInclude>
   </ItemGroup>

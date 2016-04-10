@@ -7,6 +7,7 @@
 #include "../Entity/Altar.hpp"
 #include "../Entity/Peon.hpp"
 #include "../Entity/Orc.hpp"
+#include "../Entity/Spider.hpp"
 #include "../Entity/Obelisk.hpp"
 #include "../Entity/ItemDrop.hpp"
 #include "../Terrain/TerrainTile.hpp"
@@ -278,6 +279,12 @@ Entity* World::Spawn(const EntityID& id, const glm::vec2& position)
         std::unique_ptr<ItemDrop> itemDrop = std::make_unique<ItemDrop>(m_game, position, ItemType::WOOD);
         spawned = itemDrop.get();
         m_entities.push_back(std::move(itemDrop));
+    }
+    else if (id == ENT_MONSTER_SPIDER)
+    {
+        std::unique_ptr<Spider> spider = std::make_unique<Spider>(m_game, position);
+        spawned = spider.get();
+        m_entities.push_back(std::move(spider));
     }
 
     return spawned;

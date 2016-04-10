@@ -43,8 +43,9 @@ void PlacementModule::Update(float deltaTime)
     if (m_input->GetKeyPress(SDLK_1))
     {
         m_isPlacing = !m_isPlacing;
-        m_heldEntityID = STRUCTURE_STOCKPILE;
-        m_heldEntitySprite = m_game->GetEntitySprite(STRUCTURE_STOCKPILE);
+        //m_heldEntityID = STRUCTURE_STOCKPILE;
+        m_heldEntityID = ENT_MONSTER_SPIDER;
+        m_heldEntitySprite = m_game->GetEntitySprite(m_heldEntityID);
         m_game->GetAudio()->PlaySound("select_00");
     }
 
@@ -69,7 +70,7 @@ void PlacementModule::Render()
             m_heldEntitySprite->color.a = 0.5f;
 
             m_spriteBatch.Begin();
-            m_spriteBatch.AddSprite(glm::vec3(mousePosition.x, mousePosition.y, 0.0f), glm::vec3(0.0f), glm::vec3(32.0f, 32.0f, 0.0f), m_heldEntitySprite);
+            m_spriteBatch.AddSprite(glm::vec3(mousePosition.x, mousePosition.y, 0.0f), glm::vec3(0.0f), glm::vec3(m_heldEntitySprite->width, m_heldEntitySprite->height, 0.0f), m_heldEntitySprite);
             m_spriteBatch.End();
         }
     }

@@ -45,6 +45,7 @@
     <ClCompile Include="Source\Entity\Prop.cpp" />
     <ClCompile Include="Source\Entity\Resource.cpp" />
     <ClCompile Include="Source\Entity\Rock.cpp" />
+    <ClCompile Include="Source\Entity\Spider.cpp" />
     <ClCompile Include="Source\Entity\Stockpile.cpp" />
     <ClCompile Include="Source\Entity\Tree.cpp" />
     <ClCompile Include="Source\Game.cpp" />
@@ -81,6 +82,7 @@
     <ClInclude Include="Source\Entity\Prop.hpp" />
     <ClInclude Include="Source\Entity\Resource.hpp" />
     <ClInclude Include="Source\Entity\Rock.hpp" />
+    <ClInclude Include="Source\Entity\Spider.hpp" />
     <ClInclude Include="Source\Entity\Stockpile.hpp" />
     <ClInclude Include="Source\Entity\Tree.hpp" />
     <ClInclude Include="Source\Game.hpp" />

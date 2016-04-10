@@ -8,5 +8,6 @@ enum EntityID
     ORC,
     OBELISK,
     ALTAR,
-    ENT_ITEM_DROP
+    ENT_ITEM_DROP,
+    ENT_MONSTER_SPIDER
 };

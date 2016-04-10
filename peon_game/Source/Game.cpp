@@ -148,6 +148,7 @@ uint8_t Game::Initialize()
 
     // Sprites
     m_spriteMap[STRUCTURE_STOCKPILE] = std::make_unique<grim::graphics::Sprite>(GetTexture("structure"), GetShaderProgram("basic_shader"), 32, 32, 8);
+    m_spriteMap[ENT_MONSTER_SPIDER] = std::make_unique<grim::graphics::Sprite>(GetTexture("spider"), GetShaderProgram("basic_shader"), 512, 512, 0);
 
     // Setup the game
     m_mainCamera = std::make_unique<grim::graphics::Camera>(GetRenderer(), WINDOW_WIDTH, WINDOW_HEIGHT, -1.0f, 1.0f);
