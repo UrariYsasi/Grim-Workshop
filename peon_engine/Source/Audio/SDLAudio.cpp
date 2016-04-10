@@ -13,6 +13,10 @@ SDLAudio::SDLAudio()
 
 SDLAudio::~SDLAudio()
 {
+    for (auto it = m_soundDatabase.begin(); it != m_soundDatabase.end(); it++)
+    {
+        Mix_FreeChunk(it->second);
+    }
 }
 
 uint8_t SDLAudio::LoadSound(const std::string& path, const std::string& id)

@@ -69,9 +69,6 @@ private:
     // Fonts
     std::map<std::string, TTF_Font*> m_fontMap;
 
-    // Sounds
-    std::map<std::string, Mix_Chunk*> m_soundMap;
-
     // Shaders
     std::map<std::string, std::unique_ptr<grim::graphics::Shader>> m_shaderMap;
 

@@ -23,22 +23,13 @@ Game::Game() :
 
 Game::~Game()
 {
-    if (grim::utility::Debug::IsFlagEnabled(grim::utility::MIX_AUDIO))
-    {
-        Mix_FreeMusic(m_bgMusic);
-
-        for (auto soundIt = m_soundMap.begin(); soundIt != m_soundMap.end(); soundIt++)
-        {
-            Mix_FreeChunk(soundIt->second);
-        }
-    }
+    Mix_FreeMusic(m_bgMusic);
 
     for (auto fontIt = m_fontMap.begin(); fontIt != m_fontMap.end(); fontIt++)
     {
         TTF_CloseFont(fontIt->second);
     }
 
-    m_soundMap.clear();
     m_fontMap.clear();
     m_textureMap.clear();
     m_shaderMap.clear();
@@ -90,6 +81,7 @@ uint8_t Game::Initialize()
     LoadTexture("Resources/Textures/grass.png", "grass");
     LoadTexture("Resources/Textures/tree.png", "tree");
     LoadTexture("Resources/Textures/gandalf.png", "gandalf");
+    LoadTexture("Resources/Textures/spider.png", "spider");
 
     /*
         Load Fonts

@@ -10,8 +10,8 @@ Tree::Tree(Game* game, const glm::vec2& position) :
     m_positionOffset = glm::vec2(grim::utility::Random::Generate(-6.0, 6.0), grim::utility::Random::Generate(0.0, -6.0));
     m_hp = 1000;
 
-    grim::graphics::Texture* texture = game->GetTexture("resource");
-    grim::graphics::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader");
+    grim::graphics::Texture* texture = m_game->GetTexture("resource");
+    grim::graphics::ShaderProgram* shaderProgram = m_game->GetShaderProgram("basic_shader");
     m_sprite = std::make_unique<grim::graphics::Sprite>(texture, shaderProgram, 32, 64, 0);
 }
 
