@@ -12,7 +12,7 @@ namespace graphics
 class Texture
 {
 public:
-    Texture(const std::string& textureFileName);
+    Texture(const std::string& textureFileName, const GLenum& wrapMode = GL_CLAMP_TO_EDGE, const GLenum& scaleMode = GL_NEAREST);
     ~Texture();
 
     /*

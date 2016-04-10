@@ -81,7 +81,7 @@ uint8_t Game::Initialize()
     LoadTexture("Resources/Textures/grass.png", "grass");
     LoadTexture("Resources/Textures/tree.png", "tree");
     LoadTexture("Resources/Textures/gandalf.png", "gandalf");
-    LoadTexture("Resources/Textures/spider.png", "spider");
+    LoadTexture("Resources/Textures/spider.png", "spider", GL_LINEAR_MIPMAP_LINEAR);
 
     /*
         Load Fonts
@@ -243,9 +243,9 @@ void Game::Render()
     GetUI()->Render();
 }
 
-bool Game::LoadTexture(const std::string& path, const std::string& ID)
+bool Game::LoadTexture(const std::string& path, const std::string& ID, const GLenum& scaleMode)
 {
-    m_textureMap[ID] = std::make_unique<grim::graphics::Texture>(path);
+    m_textureMap[ID] = std::make_unique<grim::graphics::Texture>(path, GL_CLAMP_TO_EDGE, scaleMode);
     return true;
 }
 

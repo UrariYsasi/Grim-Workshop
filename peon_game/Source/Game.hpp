@@ -38,7 +38,7 @@ private:
         Load a texture with the given file name from the Resources/Textures folder
         and store it in the texture map with the given ID.
     */
-    bool LoadTexture(const std::string& path, const std::string& ID);
+    bool LoadTexture(const std::string& path, const std::string& ID, const GLenum& scaleMode = GL_NEAREST);
 
     /*
         Load a shader with the given file name from the Resources/Shaders folder
