@@ -84,7 +84,7 @@ uint8_t Engine::Initialize()
         Create and Initialize Services
     */
 
-    m_window = grim::graphics::CreateWindowService(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
+    m_window = grim::graphics::CreateWindowService(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, IS_WINDOW_FULLSCREEN);
     if (m_window->Initialize() != SUCCESS)
     {
         return FAILURE;

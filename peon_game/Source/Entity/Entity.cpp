@@ -77,6 +77,9 @@ void Entity::Update(float deltaTime)
     if (m_isBeingConsumed)
     {
         m_position = (m_position + 0.03f * (m_end - m_start));
+        m_sprite->color.a = (m_sprite->color.a - 0.03f);
+        m_scale.x = (m_scale.x * 0.9f);
+        m_scale.y = (m_scale.x * 0.9f);
 
         if (glm::distance(m_position, m_end) <= 5.0f)
         {
@@ -188,7 +191,7 @@ void Entity::Consume(Obelisk* obelisk)
     m_consumer = obelisk;
     m_start = m_position;
     m_end = m_consumer->GetPosition() + glm::vec2(0.0f, -235.0f);
-    m_sprite->color = grim::graphics::Color(1.0f, 1.0f, 1.0f, 0.75f);
+    //m_sprite->color = grim::graphics::Color(1.0f, 1.0f, 1.0f, 0.75f);
 }
 
 void Entity::SetDirection(const Direction& direction)

@@ -7,10 +7,11 @@ namespace grim
 namespace graphics
 {
 
-SDLWindow::SDLWindow(const uint16_t& width, const uint16_t& height, const std::string& title) :
+SDLWindow::SDLWindow(const uint16_t& width, const uint16_t& height, const std::string& title, const bool isFullscreen) :
     m_SDLWindow(nullptr),
     m_size(width, height),
-    m_title(title)
+    m_title(title),
+    m_isFullscreen(isFullscreen)
 {
 }
 
@@ -74,6 +75,12 @@ uint8_t SDLWindow::Initialize()
         grim::utility::Debug::LogError("Window could not initialize! SDL error: %s", SDL_GetError());
         SDL_ClearError();
         return FAILURE;
+    }
+
+    // Set fullscreen
+    if (m_isFullscreen == true)
+    {
+        SDL_SetWindowFullscreen(m_SDLWindow, SDL_WINDOW_FULLSCREEN);
     }
 
     // Create the OpenGL Context and make it current

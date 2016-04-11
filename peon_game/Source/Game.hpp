@@ -90,4 +90,8 @@ private:
     grim::ui::Text* m_peonCountWidget;
     grim::ui::Text* m_woodCountWidget;
     grim::ui::Text* m_faithCountWidget;
+
+    grim::ui::Text* m_basicPeonLabel;
+    grim::ui::Text* m_warriorPeonLabel;
+    grim::ui::Text* m_wizardPeonLabel;
 };

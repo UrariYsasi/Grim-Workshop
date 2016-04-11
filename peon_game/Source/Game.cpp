@@ -18,7 +18,10 @@ Game::Game() :
     m_frameRateWidget(nullptr),
     m_peonCountWidget(nullptr),
     m_woodCountWidget(nullptr),
-    m_faithCountWidget(nullptr)
+    m_faithCountWidget(nullptr),
+    m_basicPeonLabel(nullptr),
+    m_warriorPeonLabel(nullptr),
+    m_wizardPeonLabel(nullptr)
 {
 }
 
@@ -180,6 +183,14 @@ uint8_t Game::Initialize()
     m_faithCountWidget = new grim::ui::Text(" ", GetFont("hack"), GetShaderProgram("basic_shader"));
     m_faithCountWidget->SetPosition(glm::vec2(5.0f, 5.0f + 60.0f));
     GetUI()->RegisterWidget(m_faithCountWidget);
+
+    m_basicPeonLabel = new grim::ui::Text("Laborer", GetFont("hack"), GetShaderProgram("basic_shader"));
+    m_basicPeonLabel->SetPosition(glm::vec2(5.0f, WINDOW_HEIGHT - 20.0f));
+    GetUI()->RegisterWidget(m_basicPeonLabel);
+
+    m_warriorPeonLabel = new grim::ui::Text("Warrior", GetFont("hack"), GetShaderProgram("basic_shader"));
+    m_warriorPeonLabel->SetPosition(glm::vec2(90.0f, WINDOW_HEIGHT - 20.0f));
+    GetUI()->RegisterWidget(m_warriorPeonLabel);
 
     return SUCCESS;
 }
