@@ -46,7 +46,7 @@ void SmeltAction::Update(float deltaTime)
         }
         else
         {
-            if (m_timer.GetTime() > m_forgeTime)
+            if (m_timer.GetTimeInMilliseconds() > m_forgeTime)
             {
                 m_timer.Stop();
 

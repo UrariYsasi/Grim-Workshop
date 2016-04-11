@@ -121,7 +121,7 @@ void World::ProcessTime()
     {
         m_worldTimer.Start();
     }
-    else if (m_worldTimer.GetTime() > DAY_LENGTH)
+    else if (m_worldTimer.GetTimeInMilliseconds() > DAY_LENGTH)
     {
         m_worldTimer.Stop();
         m_day++;
@@ -162,7 +162,7 @@ void World::Generate()
         glm::vec2 spawnPosition = (*pointIt);
 
         // Discard point if it's too close to map center
-        if (glm::distance(spawnPosition, GetCenter()) > 256.0)
+        if (glm::distance(spawnPosition, GetCenter()) > 300.0)
         {
             m_entities.push_back(std::make_unique<Tree>(m_game, spawnPosition));
         }

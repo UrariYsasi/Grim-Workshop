@@ -11,7 +11,8 @@ class Timer
 public:
     Timer();
 
-    double GetTime() const;
+    double GetTimeInMilliseconds() const;
+    double GetTimeInSeconds() const;
     bool IsStarted() const;
     bool IsPaused() const;
 

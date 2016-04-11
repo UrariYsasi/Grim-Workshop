@@ -191,6 +191,8 @@ void Entity::Consume(Obelisk* obelisk)
     m_consumer = obelisk;
     m_start = m_position;
     m_end = m_consumer->GetPosition() + glm::vec2(0.0f, -235.0f);
+
+    // TODO: Sprite coloring on consume?
     //m_sprite->color = grim::graphics::Color(1.0f, 1.0f, 1.0f, 0.75f);
 }
 

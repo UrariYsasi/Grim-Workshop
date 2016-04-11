@@ -15,7 +15,7 @@ Timer::Timer() :
 {
 }
 
-double Timer::GetTime() const
+double Timer::GetTimeInMilliseconds() const
 {
     if (m_isStarted)
     {
@@ -30,6 +30,11 @@ double Timer::GetTime() const
     }
 
     return 0;
+}
+
+double Timer::GetTimeInSeconds() const
+{
+    return GetTimeInMilliseconds() / 1000.0f;
 }
 
 bool Timer::IsStarted() const

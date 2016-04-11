@@ -11,5 +11,5 @@ public:
 
 private:
     grim::utility::Timer m_timer;
-    int m_waitTime; // The time in milliseconds to wait before wandering.
+    float m_waitTimeSeconds; // The time, in seconds, to wait before wandering.
 };

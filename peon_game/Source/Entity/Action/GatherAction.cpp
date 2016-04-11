@@ -58,7 +58,7 @@ void GatherAction::Update(float deltaTime)
         }
         else
         {
-            if (m_timer.GetTime() > m_gatherTime)
+            if (m_timer.GetTimeInMilliseconds() > m_gatherTime)
             {
                 m_timer.Stop();
 

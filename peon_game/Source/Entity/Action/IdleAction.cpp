@@ -7,7 +7,7 @@
 
 IdleAction::IdleAction(Monster* owner) :
     Action(owner, IDLE_ACTION, "Idle"),
-    m_waitTime(5)
+    m_waitTimeSeconds(5.0f)
 {
 }
 
@@ -21,18 +21,18 @@ void IdleAction::Update(float deltaTime)
     {
         if (m_owner->GetEntityID() == ENT_MONSTER_SPIDER)
         {
-            m_waitTime = 1000;
+            m_waitTimeSeconds = 1;
         }
         else
         {
-            m_waitTime = static_cast<uint16_t>(grim::utility::Random::Generate(1000.0, 10000.0));
+            m_waitTimeSeconds = static_cast<uint16_t>(grim::utility::Random::Generate(1, 10));
         }
 
         m_timer.Start();
     }
     else
     {
-        if (m_timer.GetTime() > m_waitTime)
+        if (m_timer.GetTimeInSeconds() > m_waitTimeSeconds)
         {
             m_timer.Stop();
 

@@ -46,7 +46,7 @@ void AttackAction::Update(float deltaTime)
     {
         m_timer.Start();
     }
-    else if (m_timer.GetTime() > (m_attackSpeed * 1000))
+    else if (m_timer.GetTimeInMilliseconds() > (m_attackSpeed * 1000))
     {
         m_timer.Stop();
 
