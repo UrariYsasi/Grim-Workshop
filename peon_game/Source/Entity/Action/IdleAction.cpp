@@ -21,7 +21,7 @@ void IdleAction::Update(float deltaTime)
     {
         if (m_owner->GetEntityID() == ENT_MONSTER_SPIDER)
         {
-            m_waitTime = 500;
+            m_waitTime = 1000;
         }
         else
         {

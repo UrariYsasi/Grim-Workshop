@@ -8,6 +8,7 @@
 Spider::Spider(Game* game, const glm::vec2& position) :
     Monster(game, position, ENT_MONSTER_SPIDER)
 {
+    m_scale = glm::vec3(256.0, 256.0, 1.0f);
     m_origin = glm::vec2(0, 0);
     m_hitBox = grim::graphics::Rect(-128, -128, 256, 256);
     m_hp = 6;
@@ -24,14 +25,17 @@ Spider::~Spider()
 void Spider::Update(float deltaTime)
 {
     Monster::Update(deltaTime);
+
+    if (IsDead())
+    {
+        grim::utility::Debug::Log("spider is dead!");
+    }
 }
 
 void Spider::Render(grim::graphics::SpriteBatch& spriteBatch)
 {
-    if (!IsDead())
-    {
-        spriteBatch.AddSprite(glm::vec3(m_position - m_origin + m_positionOffset, 0.0), glm::vec3(0.0, 0.0, 0.0), glm::vec3(256.0, 256.0, 0), m_sprite.get());
-    }
+    float scaleX = (m_direction == Direction::LEFT) ? m_scale.x : -m_scale.x;
+    spriteBatch.AddSprite(glm::vec3(m_position - m_origin, 0.0), glm::vec3(0.0, 0.0, 0.0), glm::vec3(scaleX, m_scale.y, m_scale.z), m_sprite.get());
 
     Entity::Render(spriteBatch);
 }

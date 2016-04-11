@@ -81,11 +81,20 @@ void MoveAction::Update(float deltaTime)
         position.y += velocity.y;
     }
 
+    if (direction.x > 0)
+    {
+        m_owner->SetDirection(Entity::Direction::RIGHT);
+    }
+    else if (direction.x < 0)
+    {
+        m_owner->SetDirection(Entity::Direction::LEFT);
+    }
+
     if (glm::distance(position, m_destination) <= m_range)
     {
         Complete();
     }
-        
+
     m_owner->SetPosition(position);
 }
 

@@ -4,10 +4,10 @@
 #include "Obelisk.hpp"
 
 Entity::Entity(Game* game, const glm::vec2& position, int entityID) :
-    SPRITE_SIZE(32, 32),
     m_game(game),
     m_entityID(entityID),
     m_position(position),
+    m_scale(32.0f, 32.0f, 1.0f),
     m_origin(0, 0),
     m_positionOffset(0, 0),
     m_isDeleted(false),
@@ -18,6 +18,7 @@ Entity::Entity(Game* game, const glm::vec2& position, int entityID) :
     m_consumeStartTime(0),
     m_isBeingConsumed(false),
     m_consumer(nullptr),
+    m_direction(Direction::RIGHT),
     m_sprite(nullptr)
 {
 }
@@ -188,4 +189,14 @@ void Entity::Consume(Obelisk* obelisk)
     m_start = m_position;
     m_end = m_consumer->GetPosition() + glm::vec2(0.0f, -235.0f);
     m_sprite->color = grim::graphics::Color(1.0f, 1.0f, 1.0f, 1.0f);
+}
+
+void Entity::SetDirection(const Direction& direction)
+{
+    m_direction = direction;
+}
+
+Entity::Direction Entity::GetDirection() const
+{
+    return m_direction;
 }

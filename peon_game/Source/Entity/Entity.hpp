@@ -6,6 +6,13 @@ class Obelisk;
 class Entity
 {
 public:
+    enum class Direction
+    {
+        LEFT,
+        RIGHT
+    };
+
+public:
     Entity(Game* game, const glm::vec2& position, int entityID);
     virtual ~Entity();
 
@@ -51,12 +58,14 @@ public:
 
     virtual void Consume(Obelisk* obelisk);
 
-protected:
-    const glm::vec2 SPRITE_SIZE; // TODO: Do something with this
+    void SetDirection(const Direction& direction);
+    Direction GetDirection() const;
 
+protected:
     Game* m_game;
     int m_entityID;
     glm::vec2 m_position;
+    glm::vec3 m_scale;
     glm::vec2 m_origin;
     glm::vec2 m_positionOffset;
     bool m_isDeleted;
@@ -71,5 +80,6 @@ protected:
     glm::vec2 m_start;
     glm::vec2 m_end;
 
+    Direction m_direction;
     std::unique_ptr<grim::graphics::Sprite> m_sprite;
 };
