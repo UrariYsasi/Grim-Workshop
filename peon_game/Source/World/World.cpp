@@ -92,10 +92,10 @@ void World::Render()
     // Z sort
     m_entities.sort([](std::unique_ptr<Entity> const& a, std::unique_ptr<Entity> const& b)
     {
-        grim::graphics::Rect aHit = a->GetHitBox();
-        grim::graphics::Rect bHit = b->GetHitBox();
+        glm::vec2 aPos = a->GetPosition();
+        glm::vec2 bPos = b->GetPosition();
 
-        return (aHit.y + aHit.height) < (bHit.y + bHit.height);
+        return aPos.y < bPos.y;
     });
 
     // Terrain

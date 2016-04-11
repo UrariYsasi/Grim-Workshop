@@ -5,6 +5,7 @@
 #include "Terrain/TerrainTile.hpp"
 #include "Entity/Peon.hpp"
 #include "Entity/Orc.hpp"
+#include "Entity/Spider.hpp"
 #include "Entity/Tree.hpp"
 #include "Entity/Altar.hpp"
 #include "Entity/Action/MoveAction.hpp"
@@ -267,6 +268,23 @@ void Player::IssueCommand(glm::vec2 position)
                 {
                     peon->ClearActionStack();
                     peon->PushAction(std::make_unique<AttackAction>(peon, orc));
+                    continue;
+                }
+            }
+
+            Spider* spider = dynamic_cast<Spider*>(ent);
+            if (spider != nullptr)
+            {
+                if (spider->IsDead())
+                {
+                    peon->ClearActionStack();
+                    peon->PushAction(std::make_unique<PickUpAction>(peon, spider));
+                    continue;
+                }
+                else
+                {
+                    peon->ClearActionStack();
+                    peon->PushAction(std::make_unique<AttackAction>(peon, spider));
                     continue;
                 }
             }

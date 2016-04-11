@@ -69,7 +69,7 @@ bool Entity::IsDeleted() const
 
 grim::graphics::Rect Entity::GetHitBox() const
 {
-    return grim::graphics::Rect(m_position.x + m_hitBox.x, m_position.y + m_hitBox.y, m_hitBox.width, m_hitBox.height);
+    return grim::graphics::Rect(m_position.x - m_origin.x + m_hitBox.x, m_position.y - m_origin.y + m_hitBox.y, m_hitBox.width, m_hitBox.height);
 }
 
 void Entity::Update(float deltaTime)
