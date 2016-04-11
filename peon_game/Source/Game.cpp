@@ -17,7 +17,8 @@ Game::Game() :
     m_bgMusic(nullptr),
     m_frameRateWidget(nullptr),
     m_peonCountWidget(nullptr),
-    m_woodCountWidget(nullptr)
+    m_woodCountWidget(nullptr),
+    m_faithCountWidget(nullptr)
 {
 }
 
@@ -176,6 +177,10 @@ uint8_t Game::Initialize()
     m_woodCountWidget->SetPosition(glm::vec2(5.0f, 5.0f + 40.0f));
     GetUI()->RegisterWidget(m_woodCountWidget);
 
+    m_faithCountWidget = new grim::ui::Text(" ", GetFont("hack"), GetShaderProgram("basic_shader"));
+    m_faithCountWidget->SetPosition(glm::vec2(5.0f, 5.0f + 60.0f));
+    GetUI()->RegisterWidget(m_faithCountWidget);
+
     return SUCCESS;
 }
 
@@ -220,6 +225,7 @@ void Game::Update(float deltaTime)
     m_dateWidget->SetText(std::to_string(m_map->GetDay()) + " " + m_map->GetMonth() + ", Year " + std::to_string(m_map->GetYear()));
     m_peonCountWidget->SetText("Peons: " + std::to_string(m_player->GetPeonCount()));
     m_woodCountWidget->SetText("Wood: " + std::to_string(m_player->GetInventory()->CountItem(ItemType::WOOD)));
+    m_woodCountWidget->SetText("Faith: " + std::to_string(m_player->GetFaith()));
 
     /*
         Update Services

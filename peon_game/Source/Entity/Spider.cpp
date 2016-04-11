@@ -12,6 +12,7 @@ Spider::Spider(Game* game, const glm::vec2& position) :
     m_origin = glm::vec2(0, 128);
     m_hitBox = grim::graphics::Rect(-128, 0, 256, 128);
     m_hp = 6;
+    m_faithWorth = 100;
 
     grim::graphics::Texture* texture = game->GetTexture("spider");
     grim::graphics::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader"); 
@@ -35,4 +36,3 @@ void Spider::Render(grim::graphics::SpriteBatch& spriteBatch)
 
     Entity::Render(spriteBatch);
 }
-

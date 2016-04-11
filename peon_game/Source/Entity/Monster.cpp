@@ -1,13 +1,15 @@
 #include "PCH.hpp"
 #include "Monster.hpp"
 #include "../Game.hpp"
+#include "../Player.hpp"
 #include "Action/IdleAction.hpp"
 #include "Action/AttackAction.hpp"
 
 Monster::Monster(Game* game, const glm::vec2& position, int entityID) :
     Entity(game, position, entityID),
     m_heldEntity(nullptr),
-    m_moveSpeed(64)
+    m_moveSpeed(64),
+    m_faithWorth(1)
 {
     m_moveSpeed += static_cast<int16_t>(grim::utility::Random::Generate(-10, 10));
 }
@@ -29,6 +31,8 @@ int Monster::GetMoveSpeed()
 
 void Monster::Update(float deltaTime)
 {
+    Entity::Update(deltaTime);
+
     if (IsDead())
     {
         return;
@@ -57,6 +61,13 @@ void Monster::Update(float deltaTime)
         glm::vec2 holdPoint(m_position.x, GetHitBox().y - 5.0f);
         m_heldEntity->SetPosition(holdPoint);
     }
+}
+
+void Monster::Consume(Obelisk* obelisk)
+{
+    Entity::Consume(obelisk);
+    
+    m_game->GetPlayer()->AddFaith(m_faithWorth);
 }
 
 void Monster::PushAction(std::unique_ptr<Action> action)

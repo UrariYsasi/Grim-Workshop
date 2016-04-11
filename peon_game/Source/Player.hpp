@@ -25,6 +25,10 @@ public:
     void RemovePeon(uint32_t quantity = 1);
     uint32_t GetPeonCount() const;
 
+    void AddFaith(uint32_t quantity = 1);
+    void RemoveFaith(uint32_t quantity = 1);
+    uint32_t GetFaith() const;
+
 private:
     void IssueCommand(glm::vec2 position);
 
@@ -45,9 +49,12 @@ private:
     std::list<Entity*> m_selectedPeons;
     std::unique_ptr<grim::graphics::Mesh> m_boxSelectionMesh;
 
+    uint32_t m_faith;
+
     /*
         Modules
     */
+
     PlacementModule m_placementModule;
     Inventory m_inventory;
 };

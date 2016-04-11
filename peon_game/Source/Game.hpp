@@ -89,4 +89,5 @@ private:
     grim::ui::Text* m_dateWidget;
     grim::ui::Text* m_peonCountWidget;
     grim::ui::Text* m_woodCountWidget;
+    grim::ui::Text* m_faithCountWidget;
 };

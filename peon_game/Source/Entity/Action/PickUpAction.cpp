@@ -2,6 +2,7 @@
 #include "PickUpAction.hpp"
 #include "../../Game.hpp"
 #include "MoveAction.hpp"
+#include "DepositAction.hpp"
 #include "../Monster.hpp"
 
 PickUpAction::PickUpAction(Monster* owner, Entity* target) :
@@ -32,6 +33,7 @@ void PickUpAction::Update(float deltaTime)
         m_owner->DropHeldEntity();
         m_owner->SetHeldEntity(m_target);
         Complete();
+        m_owner->PushAction(std::make_unique<DepositAction>(m_owner));
     }
     else
     {

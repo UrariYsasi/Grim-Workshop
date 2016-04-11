@@ -16,6 +16,7 @@ public:
 
     virtual void Update(float deltaTime);
     virtual void Render(grim::graphics::SpriteBatch& spriteBatch) = 0;
+    virtual void Consume(Obelisk* obelisk);
 
     /*
         Push an Action onto the Monster's action stack.
@@ -79,4 +80,5 @@ protected:
     std::list< std::unique_ptr<Action> > m_actionStack;
     Inventory m_inventory;
     int m_moveSpeed;
+    uint32_t m_faithWorth;
 };

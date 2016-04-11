@@ -23,6 +23,7 @@ Player::Player(Game* game) :
     m_isBoxSelecting(false),
     m_boxSelection(0, 0, 0, 0),
     m_boxSelectionMesh(nullptr),
+    m_faith(0),
     m_placementModule(this)
 {
     m_gameInput = m_game->GetInput();
@@ -339,4 +340,19 @@ void Player::RemovePeon(uint32_t quantity)
 uint32_t Player::GetPeonCount() const
 {
     return m_peonCount;
+}
+
+void Player::AddFaith(uint32_t quantity)
+{
+    m_faith += quantity;
+}
+
+void Player::RemoveFaith(uint32_t quantity)
+{
+    m_faith -= quantity;
+}
+
+uint32_t Player::GetFaith() const
+{
+    return m_faith;
 }
