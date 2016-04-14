@@ -138,7 +138,7 @@
     <ClCompile Include="Source\UI\SDLInput.cpp" />
     <ClCompile Include="Source\UI\UIFactory.cpp" />
     <ClCompile Include="Source\UI\Widgets\SpriteView.cpp" />
-    <ClCompile Include="Source\UI\Widgets\Text.cpp" />
+    <ClCompile Include="Source\UI\Widgets\TextView.cpp" />
     <ClCompile Include="Source\UI\Widgets\Widget.cpp" />
     <ClCompile Include="Source\Utility\Debug.cpp" />
     <ClCompile Include="Source\Utility\PoissonDiskGenerator.cpp" />
@@ -175,7 +175,7 @@
     <ClInclude Include="Source\UI\UIFactory.hpp" />
     <ClInclude Include="Source\UI\IUserInterface.hpp" />
     <ClInclude Include="Source\UI\Widgets\SpriteView.hpp" />
-    <ClInclude Include="Source\UI\Widgets\Text.hpp" />
+    <ClInclude Include="Source\UI\Widgets\TextView.hpp" />
     <ClInclude Include="Source\UI\Widgets\Widget.hpp" />
     <ClInclude Include="Source\Utility\Debug.hpp" />
     <ClInclude Include="Source\Utility\PoissonDiskGenerator.hpp" />

@@ -46,9 +46,6 @@
     <ClCompile Include="Source\UI\Widgets\Widget.cpp">
       <Filter>Source\UI\Widgets</Filter>
     </ClCompile>
-    <ClCompile Include="Source\UI\Widgets\Text.cpp">
-      <Filter>Source\UI\Widgets</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Utility\Random.cpp">
       <Filter>Source\Utility</Filter>
     </ClCompile>
@@ -97,6 +94,9 @@
     <ClCompile Include="Source\UI\Widgets\SpriteView.cpp">
       <Filter>Source\UI\Widgets</Filter>
     </ClCompile>
+    <ClCompile Include="Source\UI\Widgets\TextView.cpp">
+      <Filter>Source\UI\Widgets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\PCH.hpp">
@@ -134,9 +134,6 @@
     </ClInclude>
     <ClInclude Include="Source\Graphics\Sprite.hpp">
       <Filter>Source\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\UI\Widgets\Text.hpp">
-      <Filter>Source\UI\Widgets</Filter>
     </ClInclude>
     <ClInclude Include="Source\UI\Widgets\Widget.hpp">
       <Filter>Source\UI\Widgets</Filter>
@@ -202,6 +199,9 @@
       <Filter>Source\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Source\UI\Widgets\SpriteView.hpp">
+      <Filter>Source\UI\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UI\Widgets\TextView.hpp">
       <Filter>Source\UI\Widgets</Filter>
     </ClInclude>
   </ItemGroup>

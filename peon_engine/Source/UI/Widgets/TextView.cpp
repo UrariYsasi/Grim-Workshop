@@ -1,5 +1,5 @@
 #include "PCH.hpp"
-#include "Text.hpp"
+#include "TextView.hpp"
 #include "../../Graphics/Mesh.hpp"
 #include "../../Graphics/Texture.hpp"
 
@@ -9,7 +9,7 @@ namespace grim
 namespace ui
 {
 
-Text::Text(const std::string& text, TTF_Font* font, grim::graphics::ShaderProgram* shaderProgram) :
+TextView::TextView(const std::string& text, TTF_Font* font, grim::graphics::ShaderProgram* shaderProgram) :
     m_text(text),
     m_font(font),
     m_mesh(nullptr),
@@ -28,11 +28,11 @@ Text::Text(const std::string& text, TTF_Font* font, grim::graphics::ShaderProgra
     m_mesh->SetRenderMode(GL_TRIANGLES);
 }
 
-Text::~Text()
+TextView::~TextView()
 {
 }
 
-void Text::Update(float deltaTime)
+void TextView::Update(float deltaTime)
 {
     if (m_isInvalid)
     {
@@ -40,12 +40,23 @@ void Text::Update(float deltaTime)
     }
 }
 
-void Text::Render()
+void TextView::Render()
 {
-    m_mesh->Render(glm::vec3(m_position.x, m_position.y, 0.0f), glm::vec3(0.0f), glm::vec3(1.0f, 1.0f, 0.0f));
+    glm::vec3 renderPosition(m_position.x, m_position.y, 0.0f);
+
+    if (m_parent != nullptr)
+    {
+        glm::vec2 parentPosition = m_parent->GetPosition();
+        renderPosition.x += parentPosition.x;
+        renderPosition.y += parentPosition.y;
+    }
+
+    glm::vec3 renderRotation(0.0f);
+    glm::vec3 renderScale(1.0f, 1.0f, 1.0f);
+    m_mesh->Render(renderPosition, renderRotation, renderScale);
 }
 
-void Text::Construct()
+void TextView::Construct()
 {
     SDL_Surface* surface = TTF_RenderText_Blended(m_font, m_text.c_str(), SDL_Color{0, 0, 0, 255});
     m_texture->SetData(surface->pixels, GL_RGBA, GL_BGRA, surface->w, surface->h);
@@ -67,13 +78,13 @@ void Text::Construct()
     m_isInvalid = false;
 }
 
-void Text::SetText(const std::string& text)
+void TextView::SetText(const std::string& text)
 {
     m_text = text;
     m_isInvalid = true;
 }
 
-std::string& Text::GetText()
+std::string& TextView::GetText()
 {
     return m_text;
 }

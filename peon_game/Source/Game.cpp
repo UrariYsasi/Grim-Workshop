@@ -165,31 +165,27 @@ uint8_t Game::Initialize()
 
     m_map->Generate();
 
-    m_frameRateWidget = new grim::ui::Text(" ", GetFont("hack"), GetShaderProgram("basic_shader"));
+    m_frameRateWidget = new grim::ui::TextView(" ", GetFont("hack"), GetShaderProgram("basic_shader"));
     m_frameRateWidget->SetPosition(glm::vec2(5.0f, 5.0f));
     GetUI()->RegisterWidget(m_frameRateWidget);
 
-    m_dateWidget = new grim::ui::Text(" ", GetFont("hack"), GetShaderProgram("basic_shader"));
+    m_dateWidget = new grim::ui::TextView(" ", GetFont("hack"), GetShaderProgram("basic_shader"));
     m_dateWidget->SetPosition(glm::vec2((WINDOW_WIDTH / 2.0f) - 80.0f, 5.0f));
     GetUI()->RegisterWidget(m_dateWidget);
 
-    m_peonCountWidget = new grim::ui::Text(" ", GetFont("hack"), GetShaderProgram("basic_shader"));
+    m_peonCountWidget = new grim::ui::TextView(" ", GetFont("hack"), GetShaderProgram("basic_shader"));
     m_peonCountWidget->SetPosition(glm::vec2(5.0f, 5.0f + 20.0f));
     GetUI()->RegisterWidget(m_peonCountWidget);
 
-    m_woodCountWidget = new grim::ui::Text(" ", GetFont("hack"), GetShaderProgram("basic_shader"));
+    m_woodCountWidget = new grim::ui::TextView(" ", GetFont("hack"), GetShaderProgram("basic_shader"));
     m_woodCountWidget->SetPosition(glm::vec2(5.0f, 5.0f + 40.0f));
     GetUI()->RegisterWidget(m_woodCountWidget);
 
-    m_faithCountWidget = new grim::ui::Text(" ", GetFont("hack"), GetShaderProgram("basic_shader"));
+    m_faithCountWidget = new grim::ui::TextView(" ", GetFont("hack"), GetShaderProgram("basic_shader"));
     m_faithCountWidget->SetPosition(glm::vec2(5.0f, 5.0f + 60.0f));
     GetUI()->RegisterWidget(m_faithCountWidget);
 
-    m_basicPeonLabel = new grim::ui::Text("Laborer", GetFont("hack"), GetShaderProgram("basic_shader"));
-    m_basicPeonLabel->SetPosition(glm::vec2(5.0f, WINDOW_HEIGHT - 20.0f));
-    GetUI()->RegisterWidget(m_basicPeonLabel);
-
-    m_warriorPeonLabel = new grim::ui::Text("Warrior", GetFont("hack"), GetShaderProgram("basic_shader"));
+    m_warriorPeonLabel = new grim::ui::TextView("Warrior", GetFont("hack"), GetShaderProgram("basic_shader"));
     m_warriorPeonLabel->SetPosition(glm::vec2(90.0f, WINDOW_HEIGHT - 20.0f));
     GetUI()->RegisterWidget(m_warriorPeonLabel);
 
@@ -197,6 +193,11 @@ uint8_t Game::Initialize()
     m_spellbook = new grim::ui::SpriteView(m_spellBookSprite.get());
     m_spellbook->SetPosition(glm::vec2(WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f));
     GetUI()->RegisterWidget(m_spellbook);
+
+    m_basicPeonLabel = new grim::ui::TextView("Laborer", GetFont("hack"), GetShaderProgram("basic_shader"));
+    m_basicPeonLabel->SetParent(m_spellbook);
+    m_basicPeonLabel->SetPosition(glm::vec2(5.0f, 5.0f));
+    GetUI()->RegisterWidget(m_basicPeonLabel);
 
     return SUCCESS;
 }

@@ -15,11 +15,11 @@ class Texture;
 namespace ui
 {
 
-class Text : public Widget
+class TextView : public Widget
 {
 public:
-    Text(const std::string& text, TTF_Font* font, grim::graphics::ShaderProgram* shaderProgram);
-    ~Text();
+    TextView(const std::string& text, TTF_Font* font, grim::graphics::ShaderProgram* shaderProgram);
+    ~TextView();
 
     virtual void Update(float deltaTime);
     virtual void Render();

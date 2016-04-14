@@ -85,15 +85,15 @@ private:
         User Interface
     */
 
-    grim::ui::Text* m_frameRateWidget;
-    grim::ui::Text* m_dateWidget;
-    grim::ui::Text* m_peonCountWidget;
-    grim::ui::Text* m_woodCountWidget;
-    grim::ui::Text* m_faithCountWidget;
+    grim::ui::TextView* m_frameRateWidget;
+    grim::ui::TextView* m_dateWidget;
+    grim::ui::TextView* m_peonCountWidget;
+    grim::ui::TextView* m_woodCountWidget;
+    grim::ui::TextView* m_faithCountWidget;
 
-    grim::ui::Text* m_basicPeonLabel;
-    grim::ui::Text* m_warriorPeonLabel;
-    grim::ui::Text* m_wizardPeonLabel;
+    grim::ui::TextView* m_basicPeonLabel;
+    grim::ui::TextView* m_warriorPeonLabel;
+    grim::ui::TextView* m_wizardPeonLabel;
 
     std::unique_ptr<grim::graphics::Sprite> m_spellBookSprite;
     grim::ui::SpriteView* m_spellbook;
