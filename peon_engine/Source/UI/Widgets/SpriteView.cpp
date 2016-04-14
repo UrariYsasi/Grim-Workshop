@@ -23,7 +23,7 @@ void SpriteView::Update(float deltaTime)
 void SpriteView::Render()
 {
     m_spriteBatch.Begin();
-    m_spriteBatch.AddSprite(glm::vec3(m_position.x, m_position.y, 0.0f), glm::vec3(0.0f), glm::vec3(512.0f, 512.0f, 1.0f), m_sprite);
+    m_spriteBatch.AddSprite(glm::vec3(m_position.x, m_position.y, 0.0f), glm::vec3(0.0f), glm::vec3(m_sprite->width, m_sprite->height, 1.0f), m_sprite);
     m_spriteBatch.End();
 }
 

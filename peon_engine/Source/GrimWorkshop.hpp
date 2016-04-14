@@ -44,9 +44,9 @@
 
 const uint8_t SUCCESS = 0;
 const uint8_t FAILURE = 1;
-const uint16_t WINDOW_WIDTH = 1920;
-const uint16_t WINDOW_HEIGHT = 1080;
-const bool IS_WINDOW_FULLSCREEN = true;
+const uint16_t WINDOW_WIDTH = 1600;
+const uint16_t WINDOW_HEIGHT = 900;
+const bool IS_WINDOW_FULLSCREEN = false;
 const std::string WINDOW_TITLE = "Grim Workshop";
 
 /*

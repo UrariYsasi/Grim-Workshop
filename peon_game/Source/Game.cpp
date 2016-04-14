@@ -86,6 +86,7 @@ uint8_t Game::Initialize()
     LoadTexture("Resources/Textures/tree.png", "tree");
     LoadTexture("Resources/Textures/gandalf.png", "gandalf");
     LoadTexture("Resources/Textures/spider.png", "spider", GL_LINEAR_MIPMAP_LINEAR);
+    LoadTexture("Resources/Textures/spellbook.png", "spellbook", GL_LINEAR_MIPMAP_LINEAR);
 
     /*
         Load Fonts
@@ -192,6 +193,7 @@ uint8_t Game::Initialize()
     m_warriorPeonLabel->SetPosition(glm::vec2(90.0f, WINDOW_HEIGHT - 20.0f));
     GetUI()->RegisterWidget(m_warriorPeonLabel);
 
+    m_spellBookSprite = std::make_unique<grim::graphics::Sprite>(GetTexture("spellbook"), GetShaderProgram("basic_shader"), 512, 256, 0);
     m_spellbook = new grim::ui::SpriteView(m_spellBookSprite.get());
     m_spellbook->SetPosition(glm::vec2(WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f));
     GetUI()->RegisterWidget(m_spellbook);

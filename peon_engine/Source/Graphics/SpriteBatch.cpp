@@ -42,7 +42,7 @@ SpriteBatch::~SpriteBatch()
 
 void SpriteBatch::AddSprite(const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale, grim::graphics::Sprite* sprite)
 {
-    if (sprite == nullptr)
+    if (sprite == nullptr || sprite->spriteSheet == nullptr || sprite->shaderProgram == nullptr)
     {
         return;
     }
