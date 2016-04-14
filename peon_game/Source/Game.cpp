@@ -192,6 +192,10 @@ uint8_t Game::Initialize()
     m_warriorPeonLabel->SetPosition(glm::vec2(90.0f, WINDOW_HEIGHT - 20.0f));
     GetUI()->RegisterWidget(m_warriorPeonLabel);
 
+    m_spellbook = new grim::ui::SpriteView(m_spellBookSprite.get());
+    m_spellbook->SetPosition(glm::vec2(WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f));
+    GetUI()->RegisterWidget(m_spellbook);
+
     return SUCCESS;
 }
 

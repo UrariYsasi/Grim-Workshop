@@ -42,6 +42,11 @@ SpriteBatch::~SpriteBatch()
 
 void SpriteBatch::AddSprite(const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale, grim::graphics::Sprite* sprite)
 {
+    if (sprite == nullptr)
+    {
+        return;
+    }
+
     grim::graphics::Texture* texture = sprite->spriteSheet;
     grim::graphics::ShaderProgram* shaderProgram = sprite->shaderProgram;
 

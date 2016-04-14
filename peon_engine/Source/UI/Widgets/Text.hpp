@@ -21,8 +21,8 @@ public:
     Text(const std::string& text, TTF_Font* font, grim::graphics::ShaderProgram* shaderProgram);
     ~Text();
 
-    void Update(float deltaTime);
-    void Render();
+    virtual void Update(float deltaTime);
+    virtual void Render();
 
     void SetText(const std::string& text);
     std::string& GetText();

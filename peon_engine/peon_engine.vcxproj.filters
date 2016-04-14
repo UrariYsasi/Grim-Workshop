@@ -94,6 +94,9 @@
     <ClCompile Include="Source\Graphics\OpenGLRenderer.cpp">
       <Filter>Source\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Source\UI\Widgets\SpriteView.cpp">
+      <Filter>Source\UI\Widgets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\PCH.hpp">
@@ -197,6 +200,9 @@
     </ClInclude>
     <ClInclude Include="Source\Graphics\OpenGLRenderer.hpp">
       <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UI\Widgets\SpriteView.hpp">
+      <Filter>Source\UI\Widgets</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

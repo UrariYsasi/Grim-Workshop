@@ -94,4 +94,7 @@ private:
     grim::ui::Text* m_basicPeonLabel;
     grim::ui::Text* m_warriorPeonLabel;
     grim::ui::Text* m_wizardPeonLabel;
+
+    std::unique_ptr<grim::graphics::Sprite> m_spellBookSprite;
+    grim::ui::SpriteView* m_spellbook;
 };

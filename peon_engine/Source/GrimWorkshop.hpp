@@ -32,6 +32,7 @@
 #include "UI/InputFactory.hpp"
 #include "UI/Widgets/Widget.hpp"
 #include "UI/Widgets/Text.hpp"
+#include "UI/Widgets/SpriteView.hpp"
 #include "UI/IUserInterface.hpp"
 #include "UI/GrimUI.hpp"
 #include "UI/UIFactory.hpp"
