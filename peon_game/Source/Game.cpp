@@ -95,6 +95,8 @@ uint8_t Game::Initialize()
     grim::utility::Debug::Log("Loading fonts...");
     LoadFont("Resources/Fonts/dos.ttf", "dos");
     LoadFont("Resources/Fonts/hack.ttf", "hack");
+    LoadFont("Resources/Fonts/black_family.ttf", "black_family", 32);
+    LoadFont("Resources/Fonts/black_family_incised.ttf", "black_family_incised", 32);
 
     /*
         Load Sounds
@@ -192,11 +194,12 @@ uint8_t Game::Initialize()
     m_spellBookSprite = std::make_unique<grim::graphics::Sprite>(GetTexture("spellbook"), GetShaderProgram("basic_shader"), 512, 256, 0);
     m_spellbook = new grim::ui::SpriteView(m_spellBookSprite.get());
     m_spellbook->SetPosition(glm::vec2(WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f));
+    m_spellbook->SetScale(glm::vec2(1.5f, 1.5f));
     GetUI()->RegisterWidget(m_spellbook);
 
-    m_basicPeonLabel = new grim::ui::TextView("Laborer", GetFont("hack"), GetShaderProgram("basic_shader"));
+    m_basicPeonLabel = new grim::ui::TextView("Spells", GetFont("black_family"), GetShaderProgram("basic_shader"));
     m_basicPeonLabel->SetParent(m_spellbook);
-    m_basicPeonLabel->SetPosition(glm::vec2(5.0f, 5.0f));
+    m_basicPeonLabel->SetPosition(glm::vec2(-200.0f, -160.0f));
     GetUI()->RegisterWidget(m_basicPeonLabel);
 
     return SUCCESS;

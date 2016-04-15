@@ -31,7 +31,7 @@ void Spider::Render(grim::graphics::SpriteBatch& spriteBatch)
 {
     float scaleX = (m_direction == Direction::LEFT) ? m_scale.x : -m_scale.x;
 
-    spriteBatch.AddSprite(glm::vec3(m_position.x - m_origin.x, m_position.y - m_origin.y, 0.0f), glm::vec3(0.0f), glm::vec3(scaleX, m_scale.y, m_scale.z), m_sprite.get());
+    spriteBatch.AddSprite(glm::vec3(m_position.x - m_origin.x, m_position.y - m_origin.y, 0.0f), glm::vec3(0.0f), glm::vec3(scaleX / 2.0f, m_scale.y / 2.0f, m_scale.z), m_sprite.get());
 
     Entity::Render(spriteBatch);
 }

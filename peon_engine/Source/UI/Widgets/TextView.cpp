@@ -51,8 +51,8 @@ void TextView::Render()
         renderPosition.y += parentPosition.y;
     }
 
-    glm::vec3 renderRotation(m_rotation);
-    glm::vec3 renderScale(1.0f, 1.0f, 1.0f);
+    glm::vec3 renderRotation(0.0f, 0.0f, m_rotation);
+    glm::vec3 renderScale(m_scale.x, m_scale.y, 1.0f);
     m_mesh->Render(renderPosition, renderRotation, renderScale);
 }
 

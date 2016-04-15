@@ -70,7 +70,7 @@ void PlacementModule::Render()
             m_heldEntitySprite->color.a = 0.5f;
 
             m_spriteBatch.Begin();
-            m_spriteBatch.AddSprite(glm::vec3(mousePosition.x, mousePosition.y, 0.0f), glm::vec3(0.0f), glm::vec3(m_heldEntitySprite->width, m_heldEntitySprite->height, 0.0f), m_heldEntitySprite);
+            m_spriteBatch.AddSprite(glm::vec3(mousePosition.x, mousePosition.y, 0.0f), glm::vec3(0.0f), glm::vec3(1.0f), m_heldEntitySprite);
             m_spriteBatch.End();
         }
     }
