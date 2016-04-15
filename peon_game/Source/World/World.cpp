@@ -38,32 +38,32 @@ std::string World::GetMonth()
 {
     switch (m_month)
     {
-        case 1:
-            return "Aerokim";
-        case 2:
-            return "Jaipeto";
-        case 3:
-            return "Avoth";
-        case 4:
-            return "Ino";
-        case 5:
-            return "Odan";
-        case 6:
-            return "Jukra";
-        case 7:
-            return "Taeylom";
-        case 8:
-            return "Aelond";
-        case 9:
-            return "Eima";
-        case 10:
-            return "Draev";
-        case 11:
-            return "Jandas";
-        case 12:
-            return "Eraindr";
-        default:
-            return "UNKNOWN";
+    case 1:
+        return "Aerokim";
+    case 2:
+        return "Jaipeto";
+    case 3:
+        return "Avoth";
+    case 4:
+        return "Ino";
+    case 5:
+        return "Odan";
+    case 6:
+        return "Jukra";
+    case 7:
+        return "Taeylom";
+    case 8:
+        return "Aelond";
+    case 9:
+        return "Eima";
+    case 10:
+        return "Draev";
+    case 11:
+        return "Jandas";
+    case 12:
+        return "Eraindr";
+    default:
+        return "UNKNOWN";
     }
 }
 
@@ -125,7 +125,7 @@ void World::ProcessTime()
     {
         m_worldTimer.Stop();
         m_day++;
-        
+
         if (m_day > MONTH_LENGTH)
         {
             m_day = 1;

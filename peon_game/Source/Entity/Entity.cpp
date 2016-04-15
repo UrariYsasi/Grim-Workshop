@@ -7,7 +7,7 @@ Entity::Entity(Game* game, const glm::vec2& position, int entityID) :
     m_game(game),
     m_entityID(entityID),
     m_position(position),
-    m_scale(32.0f, 32.0f, 1.0f),
+    m_scale(1.0f),
     m_origin(0, 0),
     m_positionOffset(0, 0),
     m_isDeleted(false),

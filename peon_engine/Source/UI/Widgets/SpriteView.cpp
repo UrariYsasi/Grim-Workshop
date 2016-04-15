@@ -31,8 +31,8 @@ void SpriteView::Render()
         renderPosition.y += parentPosition.y;
     }
 
-    glm::vec3 renderRotation(0.0f);
-    glm::vec3 renderScale(m_sprite->width, m_sprite->height, 1.0f);
+    glm::vec3 renderRotation(0.0f, 0.0f, m_rotation);
+    glm::vec3 renderScale(m_scale.x, m_scale.y, 1.0f);
 
     m_spriteBatch.Begin();
     m_spriteBatch.AddSprite(renderPosition, renderRotation, renderScale, m_sprite);

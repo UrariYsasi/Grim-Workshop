@@ -7,7 +7,7 @@ TerrainTile::TerrainTile(Game* game, const glm::vec2& position) :
     m_game(game),
     m_position(position),
     m_rotation(0.0f),
-    m_scale(32.0f, 32.0f, 1.0f),
+    m_scale(1.0f),
     m_origin(16, 16),
     m_sprite(nullptr)
 {

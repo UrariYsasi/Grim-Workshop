@@ -26,7 +26,7 @@ void Obelisk::Update(float deltaTime)
 
 void Obelisk::Render(grim::graphics::SpriteBatch& spriteBatch)
 {
-    spriteBatch.AddSprite(glm::vec3(m_position - m_origin + m_positionOffset, 0.0), glm::vec3(0.0, 0.0, 0.0), glm::vec3(64.0, 288.0, 1.0), m_sprite.get());
+    spriteBatch.AddSprite(glm::vec3(m_position - m_origin + m_positionOffset, 0.0f), glm::vec3(0.0f), glm::vec3(1.0f), m_sprite.get());
 
     Entity::Render(spriteBatch);
 }

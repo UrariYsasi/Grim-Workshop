@@ -72,6 +72,10 @@ void SpriteBatch::AddSprite(const glm::vec3& position, const glm::vec3& rotation
     double spriteTexelX = row * spriteTexelWidth;
     double spriteTexelY = col * spriteTexelHeight;
 
+    // Create scale matrix
+    glm::mat4 scaleMatrix(1.0f);
+    scaleMatrix = glm::scale(scaleMatrix, scale);
+
     // Create rotation matrix
     glm::mat4 rotationMatrix(1.0f);
     rotationMatrix = glm::rotate(rotationMatrix, glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
@@ -80,10 +84,10 @@ void SpriteBatch::AddSprite(const glm::vec3& position, const glm::vec3& rotation
 
     // Calculate vertex positions
     glm::vec4 pos(position, 0.0f);
-    glm::vec4 topLeft = (glm::vec4(-(scale.x / 2), -(scale.y / 2), pos.z, 1.0f) * rotationMatrix) + pos;
-    glm::vec4 topRight = (glm::vec4((scale.x / 2), -(scale.y / 2), pos.z, 1.0f) * rotationMatrix) + pos;
-    glm::vec4 bottomLeft = (glm::vec4(-(scale.x / 2), (scale.y / 2), pos.z, 1.0f) * rotationMatrix) + pos;
-    glm::vec4 bottomRight = (glm::vec4((scale.x / 2), (scale.y / 2), pos.z, 1.0f) * rotationMatrix) + pos;
+    glm::vec4 topLeft = (glm::vec4(-(sprite->width / 2), -(sprite->height / 2), pos.z, 1.0f) * scaleMatrix * rotationMatrix) + pos;
+    glm::vec4 topRight = (glm::vec4((sprite->width / 2), -(sprite->height / 2), pos.z, 1.0f) * scaleMatrix * rotationMatrix) + pos;
+    glm::vec4 bottomLeft = (glm::vec4(-(sprite->width / 2), (sprite->height / 2), pos.z, 1.0f) * scaleMatrix * rotationMatrix) + pos;
+    glm::vec4 bottomRight = (glm::vec4((sprite->width / 2), (sprite->height / 2), pos.z, 1.0f) * scaleMatrix * rotationMatrix) + pos;
 
     // Vertices
     AddVertex(grim::graphics::Vertex(glm::vec3(topLeft.x, topLeft.y, topLeft.z), sprite->color, glm::vec2(spriteTexelX, spriteTexelY)));

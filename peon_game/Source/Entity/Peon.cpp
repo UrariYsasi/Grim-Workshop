@@ -66,11 +66,11 @@ void Peon::Render(grim::graphics::SpriteBatch& spriteBatch)
     {
         if (m_isSelected)
         {
-            spriteBatch.AddSprite(glm::vec3(m_position - m_origin + glm::vec2(0, 3.0), 0.0), glm::vec3(0.0, 0.0, 0.0), glm::vec3(32.0, 32.0, 0.0), m_selectionSprite.get());
+            spriteBatch.AddSprite(glm::vec3(m_position - m_origin + glm::vec2(0.0f, 3.0f), 0.0f), glm::vec3(0.0f), glm::vec3(1.0f), m_selectionSprite.get());
         }
 
-        spriteBatch.AddSprite(glm::vec3(m_position - m_origin + glm::vec2(0, 16.0), 0.0), glm::vec3(0.0, 0.0, 0.0), glm::vec3(32.0 + (m_positionOffset.y * 2.0), 32.0 + (m_positionOffset.y * 2.0), 0), m_shadowSprite.get());
-        spriteBatch.AddSprite(glm::vec3(m_position - m_origin + m_positionOffset, 0.0), glm::vec3(0.0, 0.0, 0.0), glm::vec3(32.0, 32.0, 0), m_sprite.get());
+        spriteBatch.AddSprite(glm::vec3(m_position - m_origin + glm::vec2(0.0f, 16.0f), 0.0f), glm::vec3(0.0f), glm::vec3(1.0f + (m_positionOffset.y / 2.75f), 1.0f + (m_positionOffset.y / 2.75f), 0.0f), m_shadowSprite.get());
+        spriteBatch.AddSprite(glm::vec3(m_position - m_origin + m_positionOffset, 0.0f), glm::vec3(0.0f), glm::vec3(1.0f), m_sprite.get());
     }
 
     Entity::Render(spriteBatch);
