@@ -97,4 +97,7 @@ private:
 
     std::unique_ptr<grim::graphics::Sprite> m_spellBookSprite;
     grim::ui::SpriteView* m_spellbook;
+
+    std::unique_ptr<grim::graphics::Sprite> m_buttonSprite;
+    grim::ui::ButtonView* m_testButton;
 };

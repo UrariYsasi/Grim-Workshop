@@ -3,13 +3,15 @@
 namespace grim
 {
 
+class Engine;
+
 namespace ui
 {
 
 class GrimUI : public IUserInterface
 {
 public:
-    GrimUI();
+    GrimUI(grim::Engine* engine);
     ~GrimUI();
 
     virtual void Update(float deltaTime);
@@ -17,6 +19,7 @@ public:
     virtual void RegisterWidget(grim::ui::Widget* widget);
 
 private:
+    grim::Engine* m_engine;
     std::list<grim::ui::Widget*> m_widgets;
 };
 

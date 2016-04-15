@@ -10,6 +10,8 @@ namespace ui
 SpriteView::SpriteView(grim::graphics::Sprite* sprite) :
     m_sprite(sprite)
 {
+    m_width = m_sprite->width;
+    m_height = m_sprite->height;
 }
 
 SpriteView::~SpriteView()

@@ -90,7 +90,7 @@ uint8_t Engine::Initialize()
         return FAILURE;
     }
     m_renderer = grim::graphics::CreateRendererService();
-    m_ui = grim::ui::CreateUIService();
+    m_ui = grim::ui::CreateUIService(this);
     m_input = grim::ui::CreateInputService();
     m_input->SetQuitCallback(std::bind(&Engine::Terminate, this));
     m_audio = grim::audio::CreateAudioService();

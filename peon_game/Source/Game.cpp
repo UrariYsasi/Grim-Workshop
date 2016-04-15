@@ -87,6 +87,7 @@ uint8_t Game::Initialize()
     LoadTexture("Resources/Textures/gandalf.png", "gandalf");
     LoadTexture("Resources/Textures/spider.png", "spider", GL_LINEAR_MIPMAP_LINEAR);
     LoadTexture("Resources/Textures/spellbook.png", "spellbook", GL_LINEAR_MIPMAP_LINEAR);
+    LoadTexture("Resources/Textures/button.png", "button", GL_LINEAR_MIPMAP_LINEAR);
 
     /*
         Load Fonts
@@ -202,6 +203,12 @@ uint8_t Game::Initialize()
     m_basicPeonLabel->SetPosition(glm::vec2(-200.0f, -160.0f));
     GetUI()->RegisterWidget(m_basicPeonLabel);
 
+    m_buttonSprite = std::make_unique<grim::graphics::Sprite>(GetTexture("button"), GetShaderProgram("basic_shader"), 128, 32, 0);
+    m_testButton = new grim::ui::ButtonView(m_buttonSprite.get());
+    m_testButton->SetParent(m_spellbook);
+    m_testButton->SetPosition(glm::vec2(-170.0f, -100.0f));
+    GetUI()->RegisterWidget(m_testButton);
+
     return SUCCESS;
 }
 
@@ -217,6 +224,12 @@ void Game::Terminate()
 
 void Game::Update(float deltaTime)
 {
+    /*
+        Update Services
+    */
+
+    GetUI()->Update(deltaTime);
+
     glm::vec2 mousePos = m_mainCamera->ConvertToWorld(GetInput()->GetMousePosition());
 
     if (GetInput()->GetKeyPress(SDLK_ESCAPE))
@@ -247,12 +260,6 @@ void Game::Update(float deltaTime)
     m_peonCountWidget->SetText("Peons: " + std::to_string(m_player->GetPeonCount()));
     m_woodCountWidget->SetText("Wood: " + std::to_string(m_player->GetInventory()->CountItem(ItemType::WOOD)));
     m_woodCountWidget->SetText("Faith: " + std::to_string(m_player->GetFaith()));
-
-    /*
-        Update Services
-    */
-
-    GetUI()->Update(deltaTime);
 }
 
 void Game::Render()

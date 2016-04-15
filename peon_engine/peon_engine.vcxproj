@@ -137,6 +137,7 @@
     <ClCompile Include="Source\UI\InputFactory.cpp" />
     <ClCompile Include="Source\UI\SDLInput.cpp" />
     <ClCompile Include="Source\UI\UIFactory.cpp" />
+    <ClCompile Include="Source\UI\Widgets\ButtonView.cpp" />
     <ClCompile Include="Source\UI\Widgets\SpriteView.cpp" />
     <ClCompile Include="Source\UI\Widgets\TextView.cpp" />
     <ClCompile Include="Source\UI\Widgets\Widget.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="Source\UI\SDLInput.hpp" />
     <ClInclude Include="Source\UI\UIFactory.hpp" />
     <ClInclude Include="Source\UI\IUserInterface.hpp" />
+    <ClInclude Include="Source\UI\Widgets\ButtonView.hpp" />
     <ClInclude Include="Source\UI\Widgets\SpriteView.hpp" />
     <ClInclude Include="Source\UI\Widgets\TextView.hpp" />
     <ClInclude Include="Source\UI\Widgets\Widget.hpp" />

@@ -11,12 +11,19 @@ Widget::Widget() :
     m_position(0.0f),
     m_rotation(0.0f),
     m_scale(1.0f),
-    m_parent(nullptr)
+    m_parent(nullptr),
+    m_width(0),
+    m_height(0)
 {
 }
 
 Widget::~Widget()
 {
+}
+
+void Widget::OnClick()
+{
+    grim::utility::Debug::Log("Clicked widget at position (%f, %f)", m_position.x, m_position.y);
 }
 
 void Widget::SetParent(grim::ui::Widget* widget)
@@ -39,6 +46,16 @@ void Widget::SetScale(const glm::vec2& scale)
     m_scale = scale;
 }
 
+void Widget::SetWidth(uint32_t width)
+{
+    m_width = width;
+}
+
+void Widget::SetHeight(uint32_t height)
+{
+    m_height = height;
+}
+
 glm::vec2 Widget::GetPosition() const
 {
     return m_position;
@@ -52,6 +69,16 @@ float Widget::GetRotation() const
 glm::vec2 Widget::GetScale() const
 {
     return m_scale;
+}
+
+uint32_t Widget::GetWidth() const
+{
+    return m_width;
+}
+
+uint32_t Widget::GetHeight() const
+{
+    return m_height;
 }
 
 }

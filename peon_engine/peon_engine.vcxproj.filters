@@ -97,6 +97,9 @@
     <ClCompile Include="Source\UI\Widgets\TextView.cpp">
       <Filter>Source\UI\Widgets</Filter>
     </ClCompile>
+    <ClCompile Include="Source\UI\Widgets\ButtonView.cpp">
+      <Filter>Source\UI\Widgets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\PCH.hpp">
@@ -202,6 +205,9 @@
       <Filter>Source\UI\Widgets</Filter>
     </ClInclude>
     <ClInclude Include="Source\UI\Widgets\TextView.hpp">
+      <Filter>Source\UI\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UI\Widgets\ButtonView.hpp">
       <Filter>Source\UI\Widgets</Filter>
     </ClInclude>
   </ItemGroup>

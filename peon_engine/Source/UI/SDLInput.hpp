@@ -35,7 +35,7 @@ private:
     bool m_upMouseButtons[MAX_KEYBOARD_KEYS];
     glm::vec2 m_mousePosition;
 
-    std::function<void(void)> m_quitCallback;
+    std::function<void()> m_quitCallback;
 };
 
 }

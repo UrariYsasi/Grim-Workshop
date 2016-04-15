@@ -33,6 +33,7 @@
 #include "UI/Widgets/Widget.hpp"
 #include "UI/Widgets/TextView.hpp"
 #include "UI/Widgets/SpriteView.hpp"
+#include "UI/Widgets/ButtonView.hpp"
 #include "UI/IUserInterface.hpp"
 #include "UI/GrimUI.hpp"
 #include "UI/UIFactory.hpp"

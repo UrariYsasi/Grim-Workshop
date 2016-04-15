@@ -6,7 +6,7 @@ namespace grim
 namespace ui
 {
 
-std::unique_ptr<IUserInterface> CreateUIService();
+std::unique_ptr<IUserInterface> CreateUIService(grim::Engine* engine);
 
 }
 
