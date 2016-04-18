@@ -15,12 +15,12 @@ public:
 
     uint8_t Initialize();
 
+    void SetTimeScale(float scale);
     grim::graphics::IWindow* GetWindow();
     grim::graphics::IRenderer* GetRenderer();
     grim::audio::IAudio* GetAudio();
     grim::ui::IInput* GetInput();
     grim::ui::IUserInterface* GetUI();
-
     uint32_t GetTime();
 
 protected:
@@ -48,6 +48,7 @@ protected:
     uint32_t m_frameCount;
     uint16_t m_frameRate;
     uint32_t m_gameStartTime;
+    float m_timeScale;
 
 private:
 

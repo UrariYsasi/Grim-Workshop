@@ -2,6 +2,7 @@
 #include "ShaderProgram.hpp"
 #include "Shader.hpp"
 #include "Camera.hpp"
+#include "Engine.hpp"
 
 namespace grim
 {
@@ -9,9 +10,10 @@ namespace grim
 namespace graphics
 {
 
-ShaderProgram::ShaderProgram(grim::graphics::IRenderer* renderer, grim::graphics::Shader* vertexShader, grim::graphics::Shader* fragmentShader) :
+ShaderProgram::ShaderProgram(grim::Engine* engine, grim::graphics::Shader* vertexShader, grim::graphics::Shader* fragmentShader) :
     m_handle(-1),
-    m_renderer(renderer)
+    m_engine(engine),
+    m_renderer(engine->GetRenderer())
 {
     // Link the given Shaders into the complete shader program
     LinkShaders(vertexShader, fragmentShader);
@@ -38,12 +40,15 @@ void ShaderProgram::Bind()
     graphics::Camera* activeCamera = m_renderer->GetActiveCamera();
     glm::mat4 viewMatrix = activeCamera->GetViewMatrix();
     glm::mat4 projectionMatrix = activeCamera->GetProjectionMatrix();
+    float time = m_engine->GetTime() / 1000.0f;
 
     GLint uniView = glGetUniformLocation(m_handle, "view");
     GLint uniProjection = glGetUniformLocation(m_handle, "proj");
+    GLint uniTime = glGetUniformLocation(m_handle, "time");
 
     glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(viewMatrix));
     glUniformMatrix4fv(uniProjection, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+    glUniform1f(uniTime, time);
 }
 
 void ShaderProgram::Unbind()

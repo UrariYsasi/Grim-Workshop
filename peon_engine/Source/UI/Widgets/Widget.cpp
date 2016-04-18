@@ -13,7 +13,8 @@ Widget::Widget() :
     m_scale(1.0f),
     m_parent(nullptr),
     m_width(0),
-    m_height(0)
+    m_height(0),
+    m_isVisible(true)
 {
 }
 
@@ -56,6 +57,11 @@ void Widget::SetHeight(uint32_t height)
     m_height = height;
 }
 
+void Widget::SetVisible(bool visible)
+{
+    m_isVisible = visible;
+}
+
 glm::vec2 Widget::GetPosition() const
 {
     return m_position;
@@ -79,6 +85,11 @@ uint32_t Widget::GetWidth() const
 uint32_t Widget::GetHeight() const
 {
     return m_height;
+}
+
+bool Widget::IsVisible() const
+{
+    return m_isVisible;
 }
 
 }

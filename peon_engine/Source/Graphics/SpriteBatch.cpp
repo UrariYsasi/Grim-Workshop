@@ -44,11 +44,22 @@ void SpriteBatch::AddSprite(const glm::vec3& position, const glm::vec3& rotation
 {
     if (sprite == nullptr || sprite->spriteSheet == nullptr || sprite->shaderProgram == nullptr)
     {
+        grim::utility::Debug::LogError("Invalid sprite added to SpriteBatch.");
         return;
     }
 
     grim::graphics::Texture* texture = sprite->spriteSheet;
     grim::graphics::ShaderProgram* shaderProgram = sprite->shaderProgram;
+
+    if (m_texture == nullptr)
+    {
+        m_texture = texture;
+    }
+
+    if (m_shaderProgram == nullptr)
+    {
+        m_shaderProgram = shaderProgram;
+    }
 
     // If the Texture or ShaderProgram changes, we have to end this batch and begin a new one.
     if (m_texture != texture || m_shaderProgram != shaderProgram)
@@ -65,12 +76,24 @@ void SpriteBatch::AddSprite(const glm::vec3& position, const glm::vec3& rotation
     uint16_t spriteSheetHeight = texture->GetHeight();
     uint16_t spriteSheetRows = spriteSheetHeight / sprite->height;
     uint16_t spriteSheetCols = spriteSheetWidth / sprite->width;
+    sprite->frame = sprite->frame % (spriteSheetRows * spriteSheetCols);
     uint16_t col = static_cast<uint16_t>(sprite->frame / spriteSheetCols);
     uint16_t row = sprite->frame % spriteSheetCols;
     double spriteTexelWidth = (double)sprite->width / spriteSheetWidth;
     double spriteTexelHeight = (double)sprite->height / spriteSheetHeight;
     double spriteTexelX = row * spriteTexelWidth;
     double spriteTexelY = col * spriteTexelHeight;
+
+    if (sprite->geometryWidth > sprite->width)
+    {
+        spriteTexelWidth = 1.0f * (sprite->geometryWidth / sprite->width);
+    }
+
+    if (sprite->geometryHeight > sprite->height)
+    {
+        spriteTexelHeight = 1.0f * (sprite->geometryHeight / sprite->height);
+    }
+
 
     // Create scale matrix
     glm::mat4 scaleMatrix(1.0f);
@@ -84,10 +107,10 @@ void SpriteBatch::AddSprite(const glm::vec3& position, const glm::vec3& rotation
 
     // Calculate vertex positions
     glm::vec4 pos(position, 0.0f);
-    glm::vec4 topLeft = (glm::vec4(-(sprite->width / 2), -(sprite->height / 2), pos.z, 1.0f) * scaleMatrix * rotationMatrix) + pos;
-    glm::vec4 topRight = (glm::vec4((sprite->width / 2), -(sprite->height / 2), pos.z, 1.0f) * scaleMatrix * rotationMatrix) + pos;
-    glm::vec4 bottomLeft = (glm::vec4(-(sprite->width / 2), (sprite->height / 2), pos.z, 1.0f) * scaleMatrix * rotationMatrix) + pos;
-    glm::vec4 bottomRight = (glm::vec4((sprite->width / 2), (sprite->height / 2), pos.z, 1.0f) * scaleMatrix * rotationMatrix) + pos;
+    glm::vec4 topLeft = (glm::vec4(-(sprite->geometryWidth / 2), -(sprite->geometryHeight / 2), pos.z, 1.0f) * scaleMatrix * rotationMatrix) + pos;
+    glm::vec4 topRight = (glm::vec4((sprite->geometryWidth / 2), -(sprite->geometryHeight / 2), pos.z, 1.0f) * scaleMatrix * rotationMatrix) + pos;
+    glm::vec4 bottomLeft = (glm::vec4(-(sprite->geometryWidth / 2), (sprite->geometryHeight / 2), pos.z, 1.0f) * scaleMatrix * rotationMatrix) + pos;
+    glm::vec4 bottomRight = (glm::vec4((sprite->geometryWidth / 2), (sprite->geometryHeight / 2), pos.z, 1.0f) * scaleMatrix * rotationMatrix) + pos;
 
     // Vertices
     AddVertex(grim::graphics::Vertex(glm::vec3(topLeft.x, topLeft.y, topLeft.z), sprite->color, glm::vec2(spriteTexelX, spriteTexelY)));
@@ -148,6 +171,7 @@ void SpriteBatch::Upload()
 {
     if ((m_vertexDataBuffer.size() == 0) || (m_elementDataBuffer.size() == 0))
     {
+        grim::utility::Debug::LogError("Cannot upload empty spritebatch!");
         return;
     }
 
@@ -187,7 +211,7 @@ void SpriteBatch::Upload()
 }
 
 void SpriteBatch::Render()
-{
+{    
     // Bind the VAO for this mesh
     glBindVertexArray(m_VAOHandle);
 

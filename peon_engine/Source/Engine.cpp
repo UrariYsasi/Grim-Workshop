@@ -13,7 +13,8 @@ Engine::Engine() :
     m_renderer(nullptr),
     m_input(nullptr),
     m_ui(nullptr),
-    m_audio(nullptr)
+    m_audio(nullptr),
+    m_timeScale(1.0f)
 {
 }
 
@@ -126,6 +127,11 @@ void Engine::Run()
     }
 }
 
+void Engine::SetTimeScale(float scale)
+{
+    m_timeScale = scale;
+}
+
 grim::graphics::IWindow* Engine::GetWindow()
 {
     return m_window.get();
@@ -153,7 +159,7 @@ grim::ui::IUserInterface* Engine::GetUI()
 
 uint32_t Engine::GetTime()
 {
-    return SDL_GetTicks() - m_gameStartTime;
+    return (SDL_GetTicks() - m_gameStartTime) * m_timeScale;
 }
 
 }

@@ -92,7 +92,7 @@ uint8_t SDLWindow::Initialize()
     // Initialize GL3W
     if (gl3wInit())
     {
-        grim::utility::Debug::LogError("Gl3W failed to initialize!");
+        grim::utility::Debug::LogError("GL3W failed to initialize!");
         return FAILURE;
     }
 

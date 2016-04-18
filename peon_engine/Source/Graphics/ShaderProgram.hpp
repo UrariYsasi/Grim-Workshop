@@ -3,6 +3,8 @@
 namespace grim
 {
 
+class Engine;
+
 namespace graphics
 {
 
@@ -14,7 +16,7 @@ class IRenderer;
 class ShaderProgram
 {
 public:
-    ShaderProgram(grim::graphics::IRenderer* renderer, grim::graphics::Shader* vertexShader, grim::graphics::Shader* fragmentShader);
+    ShaderProgram(grim::Engine* engine, grim::graphics::Shader* vertexShader, grim::graphics::Shader* fragmentShader);
     ~ShaderProgram();
 
     /*
@@ -45,6 +47,8 @@ private:
         The OpenGL handle for the shader program.
     */
     GLuint m_handle;
+
+    grim::Engine* m_engine;
 
     /*
         The Renderer that will manage this ShaderProgram.

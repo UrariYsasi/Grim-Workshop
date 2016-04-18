@@ -39,8 +39,24 @@ struct Rect
         float bottom = y + height;
 
         return (point.x >= left) && (point.x <= right) && (point.y >= top) && (point.y <= bottom);
+    }
 
-        return false;
+    inline bool IsCollidingWith(const Rect other)
+    {
+        float leftA = x;
+        float rightA = x + width;
+        float topA = y;
+        float bottomA = y + height;
+
+        float leftB = other.x;
+        float rightB = other.x + other.width;
+        float topB = other.y;
+        float bottomB = other.y + other.height;
+
+        return !(leftB > rightA
+               || rightB < leftA
+               || topB > bottomA
+               || bottomB < topA);
     }
 };
 

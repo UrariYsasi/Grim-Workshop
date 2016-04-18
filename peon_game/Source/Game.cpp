@@ -311,7 +311,7 @@ bool Game::LoadShader(const std::string& path, const GLenum& shaderType, const s
 
 bool Game::CreateShaderProgram(const std::string& vertexShaderID, const std::string& fragmentShaderID, const std::string& ID)
 {
-    m_shaderProgramMap[ID] = std::make_unique<grim::graphics::ShaderProgram>(GetRenderer(), GetShader(vertexShaderID), GetShader(fragmentShaderID));
+    m_shaderProgramMap[ID] = std::make_unique<grim::graphics::ShaderProgram>(this, GetShader(vertexShaderID), GetShader(fragmentShaderID));
     return true;
 }
 

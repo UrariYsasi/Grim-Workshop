@@ -22,11 +22,13 @@ public:
     void SetScale(const glm::vec2& scale);
     void SetWidth(uint32_t width);
     void SetHeight(uint32_t height);
+    void SetVisible(bool visible);
     glm::vec2 GetPosition() const;
     float GetRotation() const;
     glm::vec2 GetScale() const;
     uint32_t GetWidth() const;
     uint32_t GetHeight() const;
+    bool IsVisible() const;
 
 protected:
     glm::vec2 m_position;
@@ -35,6 +37,7 @@ protected:
     grim::ui::Widget* m_parent;
     uint32_t m_width;
     uint32_t m_height;
+    bool m_isVisible;
 };
 
 }

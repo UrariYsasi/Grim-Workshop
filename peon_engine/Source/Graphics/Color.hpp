@@ -23,6 +23,16 @@ struct Color
         a(a)
     {
     }
+
+    inline bool Color::operator==(const Color& other)
+    {
+        return (r == other.r) && (g == other.g) && (b == other.b) && (a == other.a);
+    }
+
+    inline bool Color::operator!=(const Color& other)
+    {
+        return (r != other.r) || (g != other.g) || (b != other.b) || (a != other.a);
+    }
 };
 
 }

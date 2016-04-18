@@ -53,7 +53,10 @@ void GrimUI::Render()
 {
     for (auto it = m_widgets.begin(); it != m_widgets.end(); it++)
     {
-        (*it)->Render();
+        if ((*it)->IsVisible())
+        {
+            (*it)->Render();
+        }
     }
 }
 
