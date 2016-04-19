@@ -76,6 +76,8 @@ void TextView::Construct()
     m_mesh->UploadVertexData(vertices, sizeof(vertices));
 
     m_isInvalid = false;
+    m_width = surface->w;
+    m_height = surface->h;
 }
 
 void TextView::SetText(const std::string& text)

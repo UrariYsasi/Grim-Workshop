@@ -13,7 +13,7 @@ public:
     Game();
     ~Game();
 
-    virtual uint8_t Initialize();
+    bool Initialize();
     virtual void Run();
     virtual void Terminate();
 

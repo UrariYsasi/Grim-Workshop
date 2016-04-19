@@ -59,7 +59,7 @@ void SDLWindow::SetTitle(const std::string& title)
     SDL_SetWindowTitle(m_SDLWindow, title.c_str());
 }
 
-uint8_t SDLWindow::Initialize()
+bool SDLWindow::Initialize()
 {
     // Create the SDL Window
     m_SDLWindow = SDL_CreateWindow(
@@ -74,7 +74,7 @@ uint8_t SDLWindow::Initialize()
     {
         grim::utility::Debug::LogError("Window could not initialize! SDL error: %s", SDL_GetError());
         SDL_ClearError();
-        return FAILURE;
+        return false;
     }
 
     // Set fullscreen
@@ -93,18 +93,17 @@ uint8_t SDLWindow::Initialize()
     if (gl3wInit())
     {
         grim::utility::Debug::LogError("GL3W failed to initialize!");
-        return FAILURE;
+        return false;
     }
 
     if (!gl3wIsSupported(3, 2))
     {
         grim::utility::Debug::LogError("OpenGL 3.2 not supported!");
-        return FAILURE;
+        return false;
     }
 
     grim::utility::Debug::Log("OpenGL version %s, GLSL version %s", glGetString(GL_VERSION), glGetString(GL_SHADING_LANGUAGE_VERSION));
-
-    return SUCCESS;
+    return true;
 }
 
 void SDLWindow::SwapWindow()

@@ -19,32 +19,44 @@ SDLAudio::~SDLAudio()
     }
 }
 
-uint8_t SDLAudio::LoadSound(const std::string& path, const std::string& id)
+bool SDLAudio::Initialize()
+{
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) != SUCCESS)
+    {
+        grim::utility::Debug::LogError("SDLAudio failed to initialize! SDL_mixer error: %s", Mix_GetError());
+        return false;
+    }
+
+    grim::utility::Debug::LogError("Audio module SDLAudio initialized.");
+    return true;
+}
+
+bool SDLAudio::LoadSound(const std::string& path, const std::string& id)
 {
     Mix_Chunk* mixChunk = Mix_LoadWAV(path.c_str());
     if (mixChunk == nullptr)
     {
         grim::utility::Debug::LogError("SDLAudio failed to load WAV from %s! SDL_mixer error: %s", path.c_str(), Mix_GetError());
-        return FAILURE;
+        return false;
     }
 
     m_soundDatabase.emplace(std::make_pair(id, mixChunk));
 
-    return SUCCESS;
+    return true;
 }
 
-uint8_t SDLAudio::PlaySound(const std::string& id)
+bool SDLAudio::PlaySound(const std::string& id)
 {
     Mix_Chunk* mixChunk = (m_soundDatabase.find(id))->second;
     if (mixChunk == nullptr)
     {
         grim::utility::Debug::LogError("SDLAudio failed to play sound %s! The sound does not exist!", id.c_str());
-        return FAILURE;
+        return false;
     }
 
     Mix_PlayChannel(-1, mixChunk, 0);
 
-    return SUCCESS;
+    return true;
 }
 
 }

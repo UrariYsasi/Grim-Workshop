@@ -55,16 +55,16 @@ World* Game::GetWorld()
     return m_map.get();
 }
 
-uint8_t Game::Initialize()
+bool Game::Initialize()
 {
     /*
         Initialize Engine
     */
 
-    if (Engine::Initialize() != SUCCESS)
+    if (!Engine::Initialize())
     {
         grim::utility::Debug::LogError("Engine initialization failed.");
-        return FAILURE;
+        return false;
     }
 
     /*
@@ -196,7 +196,7 @@ uint8_t Game::Initialize()
     m_spellbook = new grim::ui::SpriteView(m_spellBookSprite.get());
     m_spellbook->SetPosition(glm::vec2(WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f));
     m_spellbook->SetScale(glm::vec2(1.5f, 1.5f));
-    GetUI()->RegisterWidget(m_spellbook);
+    //GetUI()->RegisterWidget(m_spellbook);
 
     m_basicPeonLabel = new grim::ui::TextView("Spells", GetFont("black_family"), GetShaderProgram("basic_shader"));
     m_basicPeonLabel->SetParent(m_spellbook);
@@ -209,7 +209,9 @@ uint8_t Game::Initialize()
     m_testButton->SetPosition(glm::vec2(-170.0f, -100.0f));
     GetUI()->RegisterWidget(m_testButton);
 
-    return SUCCESS;
+    m_testButton->SetOnClick([]() { grim::utility::Debug::Log("Test"); });
+
+    return true;
 }
 
 void Game::Run()
@@ -250,6 +252,19 @@ void Game::Update(float deltaTime)
     if (GetInput()->GetKeyPress(SDLK_m))
     {
         Mix_PlayMusic(m_bgMusic, -1);
+    }
+
+    if (GetInput()->GetKey(SDLK_q))
+    {
+        m_spellbook->SetVisible(true);
+        m_testButton->SetVisible(true);
+        m_basicPeonLabel->SetVisible(true);
+    }
+    else
+    {
+        m_spellbook->SetVisible(false);
+        m_testButton->SetVisible(false);
+        m_basicPeonLabel->SetVisible(false);
     }
 
     m_map->Update(deltaTime);

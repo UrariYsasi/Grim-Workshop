@@ -17,7 +17,7 @@ int main(int argc, char** argv)
     }
 
     Game game;
-    if (game.Initialize() == SUCCESS)
+    if (game.Initialize())
     {
         game.Run();
     }

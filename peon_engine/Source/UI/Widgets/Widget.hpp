@@ -23,6 +23,7 @@ public:
     void SetWidth(uint32_t width);
     void SetHeight(uint32_t height);
     void SetVisible(bool visible);
+    void SetOnClick(std::function<void()> callback);
     glm::vec2 GetPosition() const;
     float GetRotation() const;
     glm::vec2 GetScale() const;
@@ -38,6 +39,7 @@ protected:
     uint32_t m_width;
     uint32_t m_height;
     bool m_isVisible;
+    std::function<void()> m_callbackOnClick;
 };
 
 }

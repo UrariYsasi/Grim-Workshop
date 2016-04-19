@@ -31,7 +31,7 @@ Engine::~Engine()
     SDL_Quit();
 }
 
-uint8_t Engine::Initialize()
+bool Engine::Initialize()
 {
     grim::utility::Debug::EnableFlag(grim::utility::LOGGING | grim::utility::CHEAT);
 
@@ -43,24 +43,7 @@ uint8_t Engine::Initialize()
     {
         grim::utility::Debug::LogError("SDL could not initialize! SDL error: %s", SDL_GetError());
         SDL_ClearError();
-        return FAILURE;
-    }
-
-    /*
-        Initialize SDL_mixer
-    */
-
-    if (grim::utility::Debug::IsFlagEnabled(grim::utility::MIX_AUDIO))
-    {
-        if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) != SUCCESS)
-        {
-            grim::utility::Debug::LogError("SDL_mixer could not initialize! SDL_mixer error: %s", Mix_GetError());
-            return FAILURE;
-        }
-
-        // Set default volume
-        Mix_Volume(-1, MIX_MAX_VOLUME / 6);
-        Mix_VolumeMusic(MIX_MAX_VOLUME / 6);
+        return false;
     }
 
     /*
@@ -70,7 +53,7 @@ uint8_t Engine::Initialize()
     if (TTF_Init() != SUCCESS)
     {
         grim::utility::Debug::Log("SDL_ttf could not initialize! SDL_ttf error: %s", TTF_GetError());
-        return FAILURE;
+        return false;
     }
 
     /*
@@ -86,17 +69,17 @@ uint8_t Engine::Initialize()
     */
 
     m_window = grim::graphics::CreateWindowService(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, IS_WINDOW_FULLSCREEN);
-    if (m_window->Initialize() != SUCCESS)
-    {
-        return FAILURE;
-    }
+    if (!m_window->Initialize()) { return false; }
+
     m_renderer = grim::graphics::CreateRendererService();
     m_ui = grim::ui::CreateUIService(this);
     m_input = grim::ui::CreateInputService();
     m_input->SetQuitCallback(std::bind(&Engine::Terminate, this));
-    m_audio = grim::audio::CreateAudioService();
 
-    return SUCCESS;
+    m_audio = grim::audio::CreateAudioService();
+    if (!m_audio->Initialize()) { return false; }
+
+    return true;
 }
 
 void Engine::Terminate()

@@ -13,7 +13,7 @@ public:
         Initialize the the Engine to prepare it to run.
     */
 
-    uint8_t Initialize();
+    bool Initialize();
 
     void SetTimeScale(float scale);
     grim::graphics::IWindow* GetWindow();
@@ -29,7 +29,7 @@ protected:
         Alert the Engine that it should stop running that and the application should quit.
     */
 
-    void Terminate();
+    virtual void Terminate();
 
     /*
         Run the Engine loop.
@@ -38,7 +38,7 @@ protected:
         the "heartbeat" of the Engine.
     */
 
-    void Run();
+    virtual void Run();
 
     virtual void Update(float deltaTime) = 0;
     virtual void Render() = 0;

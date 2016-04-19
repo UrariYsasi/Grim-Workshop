@@ -18,7 +18,7 @@ public:
     virtual void SetTitle(const std::string& title);
     virtual std::string GetTitle() const;
 
-    virtual uint8_t Initialize();
+    virtual bool Initialize();
     virtual void SwapWindow();
 
 private:

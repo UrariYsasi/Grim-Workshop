@@ -9,8 +9,9 @@ namespace audio
 class IAudio
 {
 public:
-    virtual uint8_t LoadSound(const std::string& path, const std::string& id) = 0;
-    virtual uint8_t PlaySound(const std::string& id) = 0;
+    virtual bool Initialize() = 0;
+    virtual bool LoadSound(const std::string& path, const std::string& id) = 0;
+    virtual bool PlaySound(const std::string& id) = 0;
 };
 
 }

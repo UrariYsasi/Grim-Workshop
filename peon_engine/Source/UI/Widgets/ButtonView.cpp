@@ -11,7 +11,7 @@ ButtonView::ButtonView(grim::graphics::Sprite* background) :
     m_background(background)
 {
     m_width = m_background.GetWidth();
-    m_height = m_background.GetWidth();
+    m_height = m_background.GetHeight();
 }
 
 ButtonView::~ButtonView()

@@ -30,7 +30,7 @@ void GrimUI::Update(float deltaTime)
     bool isMouseClicked = m_engine->GetInput()->GetMouseButtonPress(SDL_BUTTON_LEFT);
     glm::vec2 mousePosition = m_engine->GetInput()->GetMousePosition();
 
-    for (auto it = m_widgets.begin(); it != m_widgets.end(); it++)
+    for (auto it = m_widgets.rbegin(); it != m_widgets.rend(); it++)
     {
         Widget* widget = (*it);
 

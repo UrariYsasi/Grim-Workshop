@@ -24,7 +24,11 @@ Widget::~Widget()
 
 void Widget::OnClick()
 {
-    grim::utility::Debug::Log("Clicked widget at position (%f, %f)", m_position.x, m_position.y);
+    grim::utility::Debug::Log("On click (%f, %f)", m_position.x, m_position.y);
+    if (m_callbackOnClick != nullptr)
+    {
+        m_callbackOnClick();
+    }
 }
 
 void Widget::SetParent(grim::ui::Widget* widget)
@@ -60,6 +64,11 @@ void Widget::SetHeight(uint32_t height)
 void Widget::SetVisible(bool visible)
 {
     m_isVisible = visible;
+}
+
+void Widget::SetOnClick(std::function<void()> callback)
+{
+    m_callbackOnClick = callback;
 }
 
 glm::vec2 Widget::GetPosition() const
