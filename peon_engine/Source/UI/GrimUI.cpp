@@ -31,11 +31,11 @@ bool GrimUI::Initialize()
 
 void GrimUI::Terminate()
 {
-    for (auto it = m_widgets.begin(); it != m_widgets.end(); it++)
+    for (Widget* widget : m_widgets)
     {
-        if (*it != nullptr)
+        if (widget != nullptr)
         {
-            delete (*it);
+            delete (widget);
         }
     }
 

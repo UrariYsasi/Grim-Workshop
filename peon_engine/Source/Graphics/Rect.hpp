@@ -53,10 +53,10 @@ struct Rect
         float topB = other.y;
         float bottomB = other.y + other.height;
 
-        return !(leftB > rightA
-               || rightB < leftA
-               || topB > bottomA
-               || bottomB < topA);
+        return !((leftB > rightA)
+               || (rightB < leftA)
+               || (topB > bottomA)
+               || (bottomB < topA));
     }
 };
 

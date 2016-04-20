@@ -72,8 +72,6 @@ private:
 
 private:
     const static int MAP_SIZE = 32; // The map size, in tiles.
-    const static int MAX_TREE_COUNT = 600; // The amount of trees to place on the map.
-    const static int MAX_ROCK_COUNT = 3; // The amount of rocks to place on the map.
     const static int DAY_LENGTH = 5000; // The time, in milliseconds, in a game day.
     const static int MONTH_LENGTH = 30; // The amount of days in a game month.
     const static int YEAR_LENGTH = 12; // The amount of months in a game year.
