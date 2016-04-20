@@ -9,6 +9,17 @@ namespace graphics
 
 OpenGLRenderer::OpenGLRenderer()
 {
+    // Initialize GL3W
+    if (gl3wInit())
+    {
+        grim::utility::Debug::LogError("GL3W failed to initialize!");
+    }
+
+    if (!gl3wIsSupported(3, 2))
+    {
+        grim::utility::Debug::LogError("OpenGL 3.2 not supported!");
+    }
+
     // Enable alpha blending
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

@@ -9,7 +9,7 @@ namespace graphics
 class SDLWindow : public IWindow
 {
 public:
-    SDLWindow(const uint16_t& width, const uint16_t& height, const std::string& title, const bool isFullScreen);
+    SDLWindow(const uint16_t& width, const uint16_t& height, const std::string& title, bool isFullScreen, bool isOpenGL);
     ~SDLWindow();
 
     virtual SDL_Window* GetSDLWindow() const;
@@ -27,6 +27,7 @@ private:
     glm::vec2 m_size;
     std::string m_title;
     bool m_isFullScreen;
+    bool m_isOpenGL;
 };
 
 }

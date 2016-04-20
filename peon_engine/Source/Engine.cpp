@@ -36,17 +36,6 @@ bool Engine::Initialize()
     grim::utility::Debug::EnableFlag(grim::utility::LOGGING | grim::utility::CHEAT);
 
     /*
-        Initialize SDL
-    */
-
-    if (SDL_Init(SDL_INIT_EVERYTHING) != SUCCESS)
-    {
-        grim::utility::Debug::LogError("SDL could not initialize! SDL error: %s", SDL_GetError());
-        SDL_ClearError();
-        return false;
-    }
-
-    /*
         Initialize SDL_ttf
     */
 
@@ -57,18 +46,10 @@ bool Engine::Initialize()
     }
 
     /*
-        Setup OpenGL profile and version
-    */
-
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
-
-    /*
         Create and Initialize Services
     */
 
-    m_window = grim::graphics::CreateWindowService(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, IS_WINDOW_FULLSCREEN);
+    m_window = grim::graphics::CreateWindowService(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, IS_WINDOW_FULLSCREEN, IS_WINDOW_OPENGL);
     if (!m_window->Initialize()) { return false; }
 
     m_renderer = grim::graphics::CreateRendererService();
