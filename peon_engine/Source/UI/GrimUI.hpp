@@ -13,7 +13,9 @@ class GrimUI : public IUserInterface
 public:
     GrimUI(grim::Engine* engine);
     ~GrimUI();
-
+    
+    virtual bool Initialize();
+    virtual void Terminate();
     virtual void Update(float deltaTime);
     virtual void Render();
     virtual void RegisterWidget(grim::ui::Widget* widget);

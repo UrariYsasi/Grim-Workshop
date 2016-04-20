@@ -14,6 +14,23 @@ GrimUI::GrimUI(grim::Engine* engine) :
 
 GrimUI::~GrimUI()
 {
+}
+
+bool GrimUI::Initialize()
+{
+    // Initialize SDL_ttf
+    if (TTF_Init() != SUCCESS)
+    {
+        grim::utility::Debug::Log("SDL_ttf could not initialize! SDL_ttf error: %s", TTF_GetError());
+        return false;
+    }
+
+    grim::utility::Debug::LogError("UI module GrimUI initialized.");
+    return true;
+}
+
+void GrimUI::Terminate()
+{
     for (auto it = m_widgets.begin(); it != m_widgets.end(); it++)
     {
         if (*it != nullptr)
@@ -23,6 +40,10 @@ GrimUI::~GrimUI()
     }
 
     m_widgets.clear();
+
+    TTF_Quit();
+
+    grim::utility::Debug::LogError("UI module GrimUI terminated.");
 }
 
 void GrimUI::Update(float deltaTime)

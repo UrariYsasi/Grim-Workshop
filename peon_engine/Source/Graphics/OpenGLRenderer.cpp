@@ -43,6 +43,11 @@ bool OpenGLRenderer::Initialize()
     return true;
 }
 
+void OpenGLRenderer::Terminate()
+{
+    grim::utility::Debug::LogError("Renderer module OpenGLRenderer terminated.");
+}
+
 void OpenGLRenderer::Clear()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

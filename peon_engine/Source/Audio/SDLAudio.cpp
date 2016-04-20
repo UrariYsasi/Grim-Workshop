@@ -13,10 +13,6 @@ SDLAudio::SDLAudio()
 
 SDLAudio::~SDLAudio()
 {
-    for (auto it = m_soundDatabase.begin(); it != m_soundDatabase.end(); it++)
-    {
-        Mix_FreeChunk(it->second);
-    }
 }
 
 bool SDLAudio::Initialize()
@@ -29,6 +25,19 @@ bool SDLAudio::Initialize()
 
     grim::utility::Debug::LogError("Audio module SDLAudio initialized.");
     return true;
+}
+
+void SDLAudio::Terminate()
+{
+    for (auto it = m_soundDatabase.begin(); it != m_soundDatabase.end(); it++)
+    {
+        Mix_FreeChunk(it->second);
+    }
+
+    Mix_CloseAudio();
+    Mix_Quit();
+
+    grim::utility::Debug::LogError("Audio module SDLAudio terminated.");
 }
 
 bool SDLAudio::LoadSound(const std::string& path, const std::string& id)

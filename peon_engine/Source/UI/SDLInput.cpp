@@ -11,16 +11,28 @@ SDLInput::SDLInput() :
     m_mousePosition(0),
     m_quitCallback(nullptr)
 {
+}
+
+SDLInput::~SDLInput()
+{
+}
+
+bool SDLInput::Initialize()
+{
     std::fill(m_currentKeys, m_currentKeys + MAX_KEYBOARD_KEYS, false);
     std::fill(m_downKeys, m_downKeys + MAX_KEYBOARD_KEYS, false);
     std::fill(m_upKeys, m_upKeys + MAX_KEYBOARD_KEYS, false);
     std::fill(m_currentMouseButtons, m_currentMouseButtons + MAX_MOUSE_BUTTONS, false);
     std::fill(m_downMouseButtons, m_downMouseButtons + MAX_MOUSE_BUTTONS, false);
     std::fill(m_upMouseButtons, m_upMouseButtons + MAX_MOUSE_BUTTONS, false);
+
+    grim::utility::Debug::LogError("Input module SDLInput initialized.");
+    return true;
 }
 
-SDLInput::~SDLInput()
+void SDLInput::Terminate()
 {
+    grim::utility::Debug::LogError("Input module SDLInput initialized.");
 }
 
 bool SDLInput::GetKey(int key)

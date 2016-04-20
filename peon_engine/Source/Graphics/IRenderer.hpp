@@ -10,6 +10,7 @@ class IRenderer
 {
 public:
     virtual bool Initialize() = 0;
+    virtual void Terminate() = 0;
     virtual void Clear() = 0;
 
     virtual void SetClearColor(const Color& color) = 0;

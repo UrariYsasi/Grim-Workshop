@@ -18,11 +18,6 @@ SDLWindow::SDLWindow(const uint16_t& width, const uint16_t& height, const std::s
 
 SDLWindow::~SDLWindow()
 {
-    // Delete the OpenGL Context
-    SDL_GL_DeleteContext(m_glContext);
-
-    // Delete the SDL Window
-    SDL_DestroyWindow(m_SDLWindow);
 }
 
 bool SDLWindow::Initialize()
@@ -74,15 +69,23 @@ bool SDLWindow::Initialize()
     return true;
 }
 
+void SDLWindow::Terminate()
+{
+    // Delete the OpenGL Context
+    SDL_GL_DeleteContext(m_glContext);
+
+    // Delete the SDL Window
+    SDL_DestroyWindow(m_SDLWindow);
+
+    SDL_Quit();
+
+    grim::utility::Debug::LogError("Window module SDLWindow terminated.");
+}
+
 void SDLWindow::SwapWindow()
 {
     if (!m_isOpenGL) { return; }
     SDL_GL_SwapWindow(m_SDLWindow);
-}
-
-SDL_Window* SDLWindow::GetSDLWindow() const
-{
-    return m_SDLWindow;
 }
 
 void SDLWindow::SetSize(const glm::vec2& size)

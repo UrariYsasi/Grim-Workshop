@@ -14,6 +14,7 @@ public:
     ~SDLAudio();
 
     virtual bool Initialize();
+    virtual void Terminate();
     virtual bool LoadSound(const std::string& path, const std::string& id);
     virtual bool PlaySound(const std::string& id);
 

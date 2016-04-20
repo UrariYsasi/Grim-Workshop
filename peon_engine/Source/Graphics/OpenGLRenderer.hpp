@@ -13,6 +13,7 @@ public:
     ~OpenGLRenderer();
 
     virtual bool Initialize();
+    virtual void Terminate();
     virtual void Clear();
 
     virtual void SetClearColor(const Color& color);

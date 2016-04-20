@@ -12,6 +12,11 @@ public:
     SDLInput();
     ~SDLInput();
 
+    virtual bool Initialize();
+    virtual void Terminate();
+    virtual void Update();
+
+    virtual void SetQuitCallback(std::function<void()> quitCallback);
     virtual bool GetKey(int key);
     virtual bool GetKeyPress(int key);
     virtual bool GetKeyRelease(int key);
@@ -19,9 +24,6 @@ public:
     virtual bool GetMouseButtonPress(int button);
     virtual bool GetMouseButtonRelease(int button);
     virtual glm::vec2 GetMousePosition() const;
-    virtual void SetQuitCallback(std::function<void()> quitCallback);
-
-    virtual void Update();
 
 private:
     const static int MAX_KEYBOARD_KEYS = 256;

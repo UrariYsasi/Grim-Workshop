@@ -20,33 +20,14 @@ Engine::Engine() :
 
 Engine::~Engine()
 {
-    TTF_Quit();
-
-    if (grim::utility::Debug::IsFlagEnabled(grim::utility::MIX_AUDIO))
-    {
-        Mix_CloseAudio();
-        Mix_Quit();
-    }
-
-    SDL_Quit();
 }
 
 bool Engine::Initialize()
 {
-    grim::utility::Debug::EnableFlag(grim::utility::LOGGING | grim::utility::CHEAT);
+    grim::utility::Debug::EnableFlag(grim::utility::LOGGING);
 
     /*
-        Initialize SDL_ttf
-    */
-
-    if (TTF_Init() != SUCCESS)
-    {
-        grim::utility::Debug::Log("SDL_ttf could not initialize! SDL_ttf error: %s", TTF_GetError());
-        return false;
-    }
-
-    /*
-        Create and Initialize Services
+        Create and Initialize Modules
     */
 
     m_window = grim::graphics::CreateWindowService(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, IS_WINDOW_FULLSCREEN, IS_WINDOW_OPENGL);
@@ -56,8 +37,11 @@ bool Engine::Initialize()
     if (!m_renderer->Initialize()) { return false; }
 
     m_ui = grim::ui::CreateUIService(this);
+    if (!m_ui->Initialize()) { return false;  }
+
     m_input = grim::ui::CreateInputService();
     m_input->SetQuitCallback(std::bind(&Engine::Terminate, this));
+    if (!m_input->Initialize()) { return false; }
 
     m_audio = grim::audio::CreateAudioService();
     if (!m_audio->Initialize()) { return false; }
@@ -68,6 +52,12 @@ bool Engine::Initialize()
 void Engine::Terminate()
 {
     m_isRunning = false;
+
+    m_audio->Terminate();
+    m_input->Terminate();
+    m_ui->Terminate();
+    m_renderer->Terminate();
+    m_window->Terminate();
 }
 
 void Engine::Run()

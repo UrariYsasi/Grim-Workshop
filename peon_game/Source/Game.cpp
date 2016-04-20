@@ -27,6 +27,7 @@ Game::Game() :
 
 Game::~Game()
 {
+    // TODO move this SDL stuff to the Engine
     Mix_FreeMusic(m_bgMusic);
 
     for (auto fontIt = m_fontMap.begin(); fontIt != m_fontMap.end(); fontIt++)
@@ -196,7 +197,7 @@ bool Game::Initialize()
     m_spellbook = new grim::ui::SpriteView(m_spellBookSprite.get());
     m_spellbook->SetPosition(glm::vec2(WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f));
     m_spellbook->SetScale(glm::vec2(1.5f, 1.5f));
-    //GetUI()->RegisterWidget(m_spellbook);
+    GetUI()->RegisterWidget(m_spellbook);
 
     m_basicPeonLabel = new grim::ui::TextView("Spells", GetFont("black_family"), GetShaderProgram("basic_shader"));
     m_basicPeonLabel->SetParent(m_spellbook);

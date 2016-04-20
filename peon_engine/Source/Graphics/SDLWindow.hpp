@@ -13,12 +13,12 @@ public:
     ~SDLWindow();
 
     virtual bool Initialize();
+    virtual void Terminate();
     virtual void SwapWindow();
 
-    virtual SDL_Window* GetSDLWindow() const;
     virtual void SetSize(const glm::vec2& size);
-    virtual glm::vec2 GetSize() const;
     virtual void SetTitle(const std::string& title);
+    virtual glm::vec2 GetSize() const;
     virtual std::string GetTitle() const;
 
 private:
