@@ -53,7 +53,7 @@ protected:
 private:
 
     /*
-        Services
+        Modules
     */
 
     std::unique_ptr<grim::graphics::IWindow> m_window;

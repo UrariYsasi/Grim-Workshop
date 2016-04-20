@@ -27,7 +27,7 @@ std::vector<glm::vec2> PoissonDiskGenerator::Generate(const glm::vec2& initialPo
         std::vector<glm::vec2> generatedPoints;
         for (int i = 0; i < precision; i++)
         {
-            double angle = Random::Generate(0.0, 1.0) * M_PI * 2;
+            double angle = Random::Generate(0.0f, 1.0f) * M_PI * 2.0f;
             double distance = innerRadius + (Random::Generate(0.0, 1.0) * outerRadius);
             glm::vec2 offset(distance * std::cos(angle), distance * std::sin(angle));
             glm::vec2 point(point + offset);

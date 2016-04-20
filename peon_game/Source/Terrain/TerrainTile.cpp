@@ -8,7 +8,7 @@ TerrainTile::TerrainTile(Game* game, const glm::vec2& position) :
     m_position(position),
     m_rotation(0.0f),
     m_scale(1.0f),
-    m_origin(16, 16),
+    m_origin(16.0f, 16.0f),
     m_sprite(nullptr)
 {
     int variance = static_cast<int>(std::round(grim::utility::Random::Generate(0.0, 5.0)));

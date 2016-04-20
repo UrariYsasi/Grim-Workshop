@@ -155,7 +155,7 @@ void World::Generate()
     }
 
     // Trees
-    grim::graphics::Rect worldRect(0.0, 0.0, MAP_SIZE * 32, MAP_SIZE * 32);
+    grim::graphics::Rect worldRect(0.0f, 0.0f, (MAP_SIZE - 1) * 32.0f, (MAP_SIZE - 1) * 32.0f);
     std::vector<glm::vec2> outputList = grim::utility::PoissonDiskGenerator::Generate(GetCenter(), 32.0, 64.0, 30, worldRect);
     for (auto pointIt = outputList.begin(); pointIt != outputList.end(); pointIt++)
     {

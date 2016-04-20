@@ -20,6 +20,11 @@ Engine::Engine() :
 
 Engine::~Engine()
 {
+    m_audio->Terminate();
+    m_input->Terminate();
+    m_ui->Terminate();
+    m_renderer->Terminate();
+    m_window->Terminate();
 }
 
 bool Engine::Initialize()
@@ -52,12 +57,6 @@ bool Engine::Initialize()
 void Engine::Terminate()
 {
     m_isRunning = false;
-
-    m_audio->Terminate();
-    m_input->Terminate();
-    m_ui->Terminate();
-    m_renderer->Terminate();
-    m_window->Terminate();
 }
 
 void Engine::Run()
@@ -67,7 +66,7 @@ void Engine::Run()
 
     uint32_t frameStartTime = 0;
     uint32_t frameEndTime = 0;
-    while (m_isRunning == true)
+    while (m_isRunning)
     {
         frameStartTime = SDL_GetTicks();
         float deltaTime = (frameStartTime - frameEndTime) / 1000.0f;

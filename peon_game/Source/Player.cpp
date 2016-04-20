@@ -98,6 +98,7 @@ void Player::Update(float deltaTime)
 
     m_gameCamera->Move(cameraMovement);
 
+    /*
     glm::vec2 worldSize = m_gameWorld->GetSize();
     glm::vec2 cameraPosition = m_gameCamera->GetPosition();
     if (cameraPosition.x < 0.0f)
@@ -119,6 +120,7 @@ void Player::Update(float deltaTime)
     }
 
     m_gameCamera->SetPosition(cameraPosition);
+    */
 
     glm::vec2 mousePositionScreen = m_gameInput->GetMousePosition();
     glm::vec2 mousePositionWorld = m_gameCamera->ConvertToWorld(mousePositionScreen);
