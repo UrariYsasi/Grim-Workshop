@@ -53,6 +53,8 @@ bool Engine::Initialize()
     if (!m_window->Initialize()) { return false; }
 
     m_renderer = grim::graphics::CreateRendererService();
+    if (!m_renderer->Initialize()) { return false; }
+
     m_ui = grim::ui::CreateUIService(this);
     m_input = grim::ui::CreateInputService();
     m_input->SetQuitCallback(std::bind(&Engine::Terminate, this));

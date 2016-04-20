@@ -12,14 +12,14 @@ public:
     SDLWindow(const uint16_t& width, const uint16_t& height, const std::string& title, bool isFullScreen, bool isOpenGL);
     ~SDLWindow();
 
+    virtual bool Initialize();
+    virtual void SwapWindow();
+
     virtual SDL_Window* GetSDLWindow() const;
     virtual void SetSize(const glm::vec2& size);
     virtual glm::vec2 GetSize() const;
     virtual void SetTitle(const std::string& title);
     virtual std::string GetTitle() const;
-
-    virtual bool Initialize();
-    virtual void SwapWindow();
 
 private:
     SDL_Window* m_SDLWindow;

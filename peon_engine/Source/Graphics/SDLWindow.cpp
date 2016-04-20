@@ -25,7 +25,6 @@ SDLWindow::~SDLWindow()
     SDL_DestroyWindow(m_SDLWindow);
 }
 
-
 bool SDLWindow::Initialize()
 {
     // Initialize SDL

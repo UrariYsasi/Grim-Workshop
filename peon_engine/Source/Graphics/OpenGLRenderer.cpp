@@ -9,15 +9,25 @@ namespace graphics
 
 OpenGLRenderer::OpenGLRenderer()
 {
+}
+
+OpenGLRenderer::~OpenGLRenderer()
+{
+}
+
+bool OpenGLRenderer::Initialize()
+{
     // Initialize GL3W
     if (gl3wInit())
     {
         grim::utility::Debug::LogError("GL3W failed to initialize!");
+        return false;
     }
 
     if (!gl3wIsSupported(3, 2))
     {
         grim::utility::Debug::LogError("OpenGL 3.2 not supported!");
+        return false;
     }
 
     // Enable alpha blending
@@ -26,10 +36,16 @@ OpenGLRenderer::OpenGLRenderer()
 
     // Set default clear color
     SetClearColor(Color(0.2f, 0.2f, 0.2f));
+
+    grim::utility::Debug::LogError("Renderer module OpenGLRenderer initialized.");
+    grim::utility::Debug::Log("    - OpenGL version %s", glGetString(GL_VERSION));
+    grim::utility::Debug::Log("    - GLSL version %s", glGetString(GL_SHADING_LANGUAGE_VERSION));
+    return true;
 }
 
-OpenGLRenderer::~OpenGLRenderer()
+void OpenGLRenderer::Clear()
 {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void OpenGLRenderer::SetClearColor(const Color& color)
@@ -45,11 +61,6 @@ void OpenGLRenderer::SetActiveCamera(Camera* camera)
 Camera* OpenGLRenderer::GetActiveCamera()
 {
     return m_activeCamera;
-}
-
-void OpenGLRenderer::Clear()
-{
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 }
