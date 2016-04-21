@@ -124,6 +124,7 @@ bool Game::Initialize()
     GetAudio()->LoadSound("Resources/Sounds/sword.wav", "sword");
     GetAudio()->LoadSound("Resources/Sounds/book_open_00.wav", "book_open_00");
     GetAudio()->LoadSound("Resources/Sounds/book_close_00.wav", "book_close_00");
+    GetAudio()->LoadSound("Resources/Sounds/spell_summon_00.wav", "spell_summon_00");
 
     /*
         Load Music

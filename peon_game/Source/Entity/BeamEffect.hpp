@@ -9,4 +9,8 @@ public:
 
     virtual void Update(float deltaTime);
     virtual void Render(grim::graphics::SpriteBatch& spriteBatch);
+
+private:
+    float m_lifetimeSeconds;
+    grim::utility::Timer m_timer;
 };

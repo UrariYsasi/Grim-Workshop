@@ -71,7 +71,7 @@ private:
     void CleanEntities();
 
 private:
-    const static int MAP_SIZE = 32; // The map size, in tiles.
+    const static int MAP_SIZE = 64; // The map size, in tiles.
     const static int DAY_LENGTH = 5000; // The time, in milliseconds, in a game day.
     const static int MONTH_LENGTH = 30; // The amount of days in a game month.
     const static int YEAR_LENGTH = 12; // The amount of months in a game year.

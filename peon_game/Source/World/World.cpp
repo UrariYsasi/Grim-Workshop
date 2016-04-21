@@ -271,6 +271,7 @@ Entity* World::Spawn(const EntityID& id, const glm::vec2& position)
 
     if (id == ENT_PEON)
     {
+        Spawn(ENT_BEAM_EFFECT, position);
         std::unique_ptr<Peon> ent = std::make_unique<Peon>(m_game, position);
         spawned = ent.get();
         m_entities.push_back(std::move(ent));

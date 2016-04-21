@@ -15,7 +15,7 @@ Peon::Peon(Game* game, const glm::vec2& position) :
 {
     m_game->GetPlayer()->AddPeon();
 
-    m_origin = glm::vec2(0, 0);
+    m_origin = glm::vec2(0, 16);
     m_hitBox = grim::graphics::Rect(-3.0f, 0.0f, 7.0f, 16.0f);
 
     grim::graphics::Texture* texture = m_game->GetTexture("peon");

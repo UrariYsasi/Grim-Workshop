@@ -48,6 +48,7 @@ void PlacementModule::Update(float deltaTime)
         m_game->GetAudio()->PlaySound("select_00");
     }
 
+    /*
     if (m_input->GetKeyPress(SDLK_2))
     {
         m_isPlacing = !m_isPlacing;
@@ -55,13 +56,14 @@ void PlacementModule::Update(float deltaTime)
         m_heldEntitySprite = m_game->GetEntitySprite(m_heldEntityID);
         m_game->GetAudio()->PlaySound("select_00");
     }
+    */
 
     if (m_isPlacing)
     {
         if (m_input->GetMouseButtonPress(SDL_BUTTON_LEFT))
         {
             glm::vec2 mousePosition = m_camera->ConvertToWorld(m_input->GetMousePosition());
-            m_world->Spawn(m_heldEntityID, mousePosition + glm::vec2(0.0f, -16.0f));
+            m_world->Spawn(m_heldEntityID, mousePosition);
             m_game->GetAudio()->PlaySound("drop_00");
         }
 
