@@ -35,6 +35,78 @@ void SDLInput::Terminate()
     grim::utility::Debug::LogError("Input module SDLInput initialized.");
 }
 
+void SDLInput::Update()
+{
+    int x, y;
+    SDL_GetMouseState(&x, &y);
+    m_mousePosition = glm::vec2(x, y);
+
+    for (int i = 0; i < MAX_KEYBOARD_KEYS; i++)
+    {
+        m_downKeys[i] = false;
+        m_upKeys[i] = false;
+    }
+
+    for (int i = 0; i < MAX_MOUSE_BUTTONS; i++)
+    {
+        m_downMouseButtons[i] = false;
+        m_upMouseButtons[i] = false;
+    }
+
+    SDL_Event event;
+    while (SDL_PollEvent(&event) != 0)
+    {
+        int key = event.key.keysym.sym;
+        int mouseButton = event.button.button;
+
+        if (event.type == SDL_KEYDOWN)
+        {
+            if (!m_currentKeys[SDL_GetScancodeFromKey(key)])
+            {
+                m_downKeys[SDL_GetScancodeFromKey(key)] = true;
+            }
+
+            m_currentKeys[SDL_GetScancodeFromKey(key)] = true;
+        }
+        else if (event.type == SDL_KEYUP)
+        {
+            m_upKeys[SDL_GetScancodeFromKey(key)] = true;
+            m_currentKeys[SDL_GetScancodeFromKey(key)] = false;
+        }
+        else if (event.type == SDL_MOUSEBUTTONDOWN)
+        {
+            if (!m_currentMouseButtons[mouseButton])
+            {
+                m_downMouseButtons[mouseButton] = true;
+            }
+
+            m_currentMouseButtons[mouseButton] = true;
+        }
+        else if (event.type == SDL_MOUSEBUTTONUP)
+        {
+            m_upMouseButtons[mouseButton] = true;
+            m_currentMouseButtons[mouseButton] = false;
+        }
+        else if (event.type == SDL_QUIT)
+        {
+            if (m_quitCallback != nullptr)
+            {
+                m_quitCallback();
+            }
+        }
+    }
+}
+
+void SDLInput::InvalidateMouseButtonPress(int button)
+{
+    if (SDL_GetScancodeFromKey(button) >= MAX_MOUSE_BUTTONS)
+    {
+        return;
+    }
+
+    m_downMouseButtons[button] = false;
+}
+
 bool SDLInput::GetKey(int key)
 {
     if (SDL_GetScancodeFromKey(key) >= MAX_KEYBOARD_KEYS)
@@ -103,68 +175,6 @@ glm::vec2 SDLInput::GetMousePosition() const
 void SDLInput::SetQuitCallback(std::function<void()> quitCallback)
 {
     m_quitCallback = quitCallback;
-}
-
-void SDLInput::Update()
-{
-    int x, y;
-    SDL_GetMouseState(&x, &y);
-    m_mousePosition = glm::vec2(x, y);
-
-    for (int i = 0; i < MAX_KEYBOARD_KEYS; i++)
-    {
-        m_downKeys[i] = false;
-        m_upKeys[i] = false;
-    }
-
-    for (int i = 0; i < MAX_MOUSE_BUTTONS; i++)
-    {
-        m_downMouseButtons[i] = false;
-        m_upMouseButtons[i] = false;
-    }
-
-    SDL_Event event;
-    while (SDL_PollEvent(&event) != 0)
-    {
-        int key = event.key.keysym.sym;
-        int mouseButton = event.button.button;
-
-        if (event.type == SDL_KEYDOWN)
-        {
-            if (!m_currentKeys[SDL_GetScancodeFromKey(key)])
-            {
-                m_downKeys[SDL_GetScancodeFromKey(key)] = true;
-            }
-
-            m_currentKeys[SDL_GetScancodeFromKey(key)] = true;
-        }
-        else if (event.type == SDL_KEYUP)
-        {
-            m_upKeys[SDL_GetScancodeFromKey(key)] = true;
-            m_currentKeys[SDL_GetScancodeFromKey(key)] = false;
-        }
-        else if (event.type == SDL_MOUSEBUTTONDOWN)
-        {
-            if (!m_currentMouseButtons[mouseButton])
-            {
-                m_downMouseButtons[mouseButton] = true;
-            }
-
-            m_currentMouseButtons[mouseButton] = true;
-        }
-        else if (event.type == SDL_MOUSEBUTTONUP)
-        {
-            m_upMouseButtons[mouseButton] = true;
-            m_currentMouseButtons[mouseButton] = false;
-        }
-        else if (event.type == SDL_QUIT)
-        {
-            if (m_quitCallback != nullptr)
-            {
-                m_quitCallback();
-            }
-        }
-    }
 }
 
 }

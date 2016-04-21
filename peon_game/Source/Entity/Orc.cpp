@@ -42,15 +42,15 @@ void Orc::Update(float deltaTime)
     }
     else
     {
-        // IF ATTACK ACTION IS NOT ALREADY ATTACKING PEON
+        // IF ATTACK ACTION IS NOT ALREADY ATTACKING ENT_PEON
         if (!attackAction->IsAttackingPeon())
         {
-            // ORC SEARCH FOR PUNY PEONS TO SMASH
+            // ORC SEARCH FOR PUNY ENT_PEONS TO SMASH
             grim::graphics::Rect searchRect(m_position.x - 128, m_position.y - 128, 256, 256);
-            std::list<Entity*> peons = map->GetEntitiesInRect(PEON, searchRect);
+            std::list<Entity*> peons = map->GetEntitiesInRect(ENT_PEON, searchRect);
             if (peons.size() > 0)
             {
-                // ORC SEE PEONS. SMASH DEM!
+                // ORC SEE ENT_PEONS. SMASH DEM!
                 ClearActionStack();
                 Entity* peonEnt = peons.back();
                 PushAction(std::make_unique<AttackAction>(this, peonEnt));

@@ -4,7 +4,7 @@ enum EntityID
     TREE,
     ROCK,
     STRUCTURE_STOCKPILE,
-    PEON,
+    ENT_PEON,
     ORC,
     OBELISK,
     ALTAR,

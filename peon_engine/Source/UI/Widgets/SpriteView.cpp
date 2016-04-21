@@ -20,6 +20,7 @@ SpriteView::~SpriteView()
 
 void SpriteView::Update(float deltaTime)
 {
+    Widget::Update(deltaTime);
 }
 
 void SpriteView::Render()
@@ -39,6 +40,8 @@ void SpriteView::Render()
     m_spriteBatch.Begin();
     m_spriteBatch.AddSprite(renderPosition, renderRotation, renderScale, m_sprite);
     m_spriteBatch.End();
+
+    Widget::Render();
 }
 
 }

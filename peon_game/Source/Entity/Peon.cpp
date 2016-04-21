@@ -9,7 +9,7 @@
 #include "../Player.hpp"
 
 Peon::Peon(Game* game, const glm::vec2& position) :
-    Monster(game, position, PEON),
+    Monster(game, position, ENT_PEON),
     m_isSelected(false),
     m_selectionSprite(nullptr)
 {

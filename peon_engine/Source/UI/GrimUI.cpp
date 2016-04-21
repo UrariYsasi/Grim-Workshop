@@ -55,13 +55,15 @@ void GrimUI::Update(float deltaTime)
     {
         Widget* widget = (*it);
 
-        if (isMouseClicked)
+        if (widget->IsVisible())
         {
-            if ((mousePosition.x > (widget->GetPosition().x - widget->GetWidth() / 2)) && (mousePosition.x < (widget->GetPosition().x + widget->GetWidth() / 2)))
+            grim::graphics::Rect bounds = widget->GetBounds();
+            if (bounds.ContainsPoint(mousePosition))
             {
-                if ((mousePosition.y > (widget->GetPosition().y - widget->GetHeight() / 2)) && (mousePosition.y < (widget->GetPosition().y + widget->GetHeight() / 2)))
+                if (isMouseClicked)
                 {
-                    widget->OnClick();
+                    widget->OnClick(mousePosition);
+                    m_engine->GetInput()->InvalidateMouseButtonPress(SDL_BUTTON_LEFT);
                 }
             }
         }

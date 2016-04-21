@@ -20,6 +20,8 @@ ButtonView::~ButtonView()
 
 void ButtonView::Update(float deltaTime)
 {
+    Widget::Update(deltaTime);
+
     m_background.Update(deltaTime);
     m_background.SetParent(m_parent);
     m_background.SetPosition(m_position);
@@ -29,7 +31,14 @@ void ButtonView::Update(float deltaTime)
 
 void ButtonView::Render()
 {
+    Widget::Render();
+
     m_background.Render();
+}
+
+void ButtonView::OnClick(const glm::vec2& mousePosition)
+{
+    Widget::OnClick(mousePosition);
 }
 
 }

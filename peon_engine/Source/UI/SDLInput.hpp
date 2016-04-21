@@ -15,6 +15,7 @@ public:
     virtual bool Initialize();
     virtual void Terminate();
     virtual void Update();
+    virtual void InvalidateMouseButtonPress(int button);
 
     virtual void SetQuitCallback(std::function<void()> quitCallback);
     virtual bool GetKey(int key);

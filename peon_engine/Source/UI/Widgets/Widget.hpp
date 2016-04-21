@@ -10,11 +10,12 @@ class Widget
 {
 public:
     Widget();
-    ~Widget();
+    virtual ~Widget();
 
-    virtual void Update(float deltaTime) = 0;
-    virtual void Render() = 0;
-    virtual void OnClick();
+    virtual void Update(float deltaTime);
+    virtual void Render();
+    virtual void OnClick(const glm::vec2& mousePosition);
+    virtual void RegisterWidget(grim::ui::Widget* widget);
 
     void SetParent(grim::ui::Widget* widget);
     void SetPosition(const glm::vec2& position);
@@ -29,6 +30,8 @@ public:
     glm::vec2 GetScale() const;
     uint32_t GetWidth() const;
     uint32_t GetHeight() const;
+    grim::graphics::Rect GetBounds() const;
+    grim::graphics::Rect GetLocalBounds() const;
     bool IsVisible() const;
 
 protected:
@@ -39,6 +42,7 @@ protected:
     uint32_t m_width;
     uint32_t m_height;
     bool m_isVisible;
+    std::list<grim::ui::Widget*> m_widgets;
     std::function<void()> m_callbackOnClick;
 };
 

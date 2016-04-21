@@ -20,15 +20,58 @@ Widget::Widget() :
 
 Widget::~Widget()
 {
+    for (Widget* widget : m_widgets)
+    {
+        if (widget != nullptr)
+        {
+            delete (widget);
+        }
+    }
+
+    m_widgets.clear();
 }
 
-void Widget::OnClick()
+void Widget::Update(float deltaTime)
 {
-    grim::utility::Debug::Log("On click (%f, %f)", m_position.x, m_position.y);
+    for (Widget* widget : m_widgets)
+    {
+        widget->Update(deltaTime);
+    }
+}
+
+void Widget::Render()
+{
+    for (Widget* widget : m_widgets)
+    {
+        if (!widget->IsVisible()) { continue; }
+        widget->Render();
+    }
+}
+
+void Widget::OnClick(const glm::vec2& mousePosition)
+{
+    for (Widget* widget : m_widgets)
+    {
+        if (!widget->IsVisible()) { continue; }
+        grim::graphics::Rect bounds = widget->GetLocalBounds();
+
+        if (bounds.ContainsPoint(mousePosition))
+        {
+            widget->OnClick(mousePosition);
+            return;
+        }
+    }
+
     if (m_callbackOnClick != nullptr)
     {
         m_callbackOnClick();
     }
+}
+
+void Widget::RegisterWidget(grim::ui::Widget* widget)
+{
+    widget->SetParent(this);
+    m_widgets.push_back(widget);
 }
 
 void Widget::SetParent(grim::ui::Widget* widget)
@@ -94,6 +137,26 @@ uint32_t Widget::GetWidth() const
 uint32_t Widget::GetHeight() const
 {
     return m_height;
+}
+
+grim::graphics::Rect Widget::GetBounds() const
+{
+    grim::graphics::Rect bounds;
+    bounds.x = m_position.x - ((m_width * m_scale.x) / 2.0);
+    bounds.y = m_position.y - ((m_height * m_scale.y) / 2.0);
+    bounds.width = (m_width * m_scale.x);
+    bounds.height = (m_height * m_scale.y);
+
+    return bounds;
+}
+
+grim::graphics::Rect Widget::GetLocalBounds() const
+{
+    grim::graphics::Rect bounds = GetBounds();
+    bounds.x += m_parent->GetPosition().x;
+    bounds.y += m_parent->GetPosition().y;
+
+    return bounds;
 }
 
 bool Widget::IsVisible() const

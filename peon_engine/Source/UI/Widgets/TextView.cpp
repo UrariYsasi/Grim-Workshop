@@ -34,6 +34,8 @@ TextView::~TextView()
 
 void TextView::Update(float deltaTime)
 {
+    Widget::Update(deltaTime);
+
     if (m_isInvalid)
     {
         Construct();
@@ -42,6 +44,8 @@ void TextView::Update(float deltaTime)
 
 void TextView::Render()
 {
+    Widget::Render();
+
     glm::vec3 renderPosition(m_position.x, m_position.y, 0.0f);
 
     if (m_parent != nullptr)

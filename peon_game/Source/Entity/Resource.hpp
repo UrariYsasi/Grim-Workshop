@@ -18,7 +18,7 @@ public:
     void RemovePeon();
 
 protected:
-    const static int PEON_LIMIT = 3;
+    const static int ENT_PEON_LIMIT = 3;
 
     ItemType m_item;
     int m_peonCount;

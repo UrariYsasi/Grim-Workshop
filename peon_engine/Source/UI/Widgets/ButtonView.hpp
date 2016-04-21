@@ -14,6 +14,7 @@ public:
 
     virtual void Update(float deltaTime);
     virtual void Render();
+    virtual void OnClick(const glm::vec2& mousePosition);
 
 private:
     SpriteView m_background;

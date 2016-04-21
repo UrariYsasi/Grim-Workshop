@@ -195,22 +195,25 @@ bool Game::Initialize()
 
     m_spellBookSprite = std::make_unique<grim::graphics::Sprite>(GetTexture("spellbook"), GetShaderProgram("basic_shader"), 512, 256, 0);
     m_spellbook = new grim::ui::SpriteView(m_spellBookSprite.get());
-    m_spellbook->SetPosition(glm::vec2(WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f));
+    m_spellbook->SetPosition(glm::vec2(WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f + 260.0f));
     m_spellbook->SetScale(glm::vec2(1.5f, 1.5f));
     GetUI()->RegisterWidget(m_spellbook);
 
     m_basicPeonLabel = new grim::ui::TextView("Spells", GetFont("black_family"), GetShaderProgram("basic_shader"));
-    m_basicPeonLabel->SetParent(m_spellbook);
     m_basicPeonLabel->SetPosition(glm::vec2(-200.0f, -160.0f));
-    GetUI()->RegisterWidget(m_basicPeonLabel);
+    m_spellbook->RegisterWidget(m_basicPeonLabel);
 
     m_buttonSprite = std::make_unique<grim::graphics::Sprite>(GetTexture("button"), GetShaderProgram("basic_shader"), 128, 32, 0);
-    m_testButton = new grim::ui::ButtonView(m_buttonSprite.get());
-    m_testButton->SetParent(m_spellbook);
-    m_testButton->SetPosition(glm::vec2(-170.0f, -100.0f));
-    GetUI()->RegisterWidget(m_testButton);
 
-    m_testButton->SetOnClick([]() { grim::utility::Debug::Log("Test"); });
+    m_buttonOne = new grim::ui::ButtonView(m_buttonSprite.get());
+    m_buttonOne->SetPosition(glm::vec2(-160.0f, 0.0f));
+    m_spellbook->RegisterWidget(m_buttonOne);
+
+    m_buttonOne->SetOnClick([this]()
+    {
+        grim::utility::Debug::Log("buttonOne clicked");
+        GetAudio()->PlaySound("select_00");
+    });
 
     return true;
 }
@@ -228,7 +231,7 @@ void Game::Terminate()
 void Game::Update(float deltaTime)
 {
     /*
-        Update Services
+        Update Modules
     */
 
     GetUI()->Update(deltaTime);
@@ -258,13 +261,11 @@ void Game::Update(float deltaTime)
     if (GetInput()->GetKey(SDLK_q))
     {
         m_spellbook->SetVisible(true);
-        m_testButton->SetVisible(true);
         m_basicPeonLabel->SetVisible(true);
     }
     else
     {
         m_spellbook->SetVisible(false);
-        m_testButton->SetVisible(false);
         m_basicPeonLabel->SetVisible(false);
     }
 
