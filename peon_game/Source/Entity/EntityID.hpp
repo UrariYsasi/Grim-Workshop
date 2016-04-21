@@ -9,5 +9,6 @@ enum EntityID
     OBELISK,
     ALTAR,
     ENT_ITEM_DROP,
-    ENT_MONSTER_SPIDER
+    ENT_MONSTER_SPIDER,
+    ENT_BEAM_EFFECT
 };

@@ -35,6 +35,7 @@
     <ClCompile Include="Source\Entity\Action\SmeltAction.cpp" />
     <ClCompile Include="Source\Entity\Action\WithdrawAction.cpp" />
     <ClCompile Include="Source\Entity\Altar.cpp" />
+    <ClCompile Include="Source\Entity\BeamEffect.cpp" />
     <ClCompile Include="Source\Entity\Entity.cpp" />
     <ClCompile Include="Source\Entity\Forge.cpp" />
     <ClCompile Include="Source\Entity\ItemDrop.cpp" />
@@ -71,6 +72,7 @@
     <ClInclude Include="Source\Entity\Action\SmeltAction.hpp" />
     <ClInclude Include="Source\Entity\Action\WithdrawAction.hpp" />
     <ClInclude Include="Source\Entity\Altar.hpp" />
+    <ClInclude Include="Source\Entity\BeamEffect.hpp" />
     <ClInclude Include="Source\Entity\Entity.hpp" />
     <ClInclude Include="Source\Entity\EntityID.hpp" />
     <ClInclude Include="Source\Entity\Forge.hpp" />

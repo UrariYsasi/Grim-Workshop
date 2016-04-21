@@ -13,6 +13,9 @@ public:
     void Update(float deltaTime);
     void Render();
 
+    void SetHeldEntity(EntityID ID);
+    bool IsPlacing() const;
+
 private:
     Player* m_owner;
     Game* m_game;

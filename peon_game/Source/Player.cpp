@@ -125,7 +125,7 @@ void Player::Update(float deltaTime)
     glm::vec2 mousePositionScreen = m_gameInput->GetMousePosition();
     glm::vec2 mousePositionWorld = m_gameCamera->ConvertToWorld(mousePositionScreen);
 
-    if (m_gameInput->GetMouseButtonPress(SDL_BUTTON_LEFT))
+    if ((m_gameInput->GetMouseButtonPress(SDL_BUTTON_LEFT)) && (!m_placementModule.IsPlacing()))
     {
         for (auto it : m_selectedPeons)
         {
@@ -147,7 +147,7 @@ void Player::Update(float deltaTime)
         m_boxSelection.height = mousePositionWorld.y - m_boxSelection.y;
     }
 
-    if (m_gameInput->GetMouseButtonRelease(SDL_BUTTON_LEFT))
+    if ((m_gameInput->GetMouseButtonRelease(SDL_BUTTON_LEFT)) && (!m_placementModule.IsPlacing()))
     {
         if (m_isBoxSelecting)
         {
@@ -179,7 +179,7 @@ void Player::Update(float deltaTime)
         }
     }
 
-    if (m_gameInput->GetMouseButtonPress(SDL_BUTTON_RIGHT))
+    if ((m_gameInput->GetMouseButtonPress(SDL_BUTTON_RIGHT)) && (!m_placementModule.IsPlacing()))
     {
         IssueCommand(mousePositionWorld);
     }
@@ -357,4 +357,9 @@ void Player::RemoveFaith(uint32_t quantity)
 uint32_t Player::GetFaith() const
 {
     return m_faith;
+}
+
+PlacementModule* Player::GetPlacement()
+{
+    return &m_placementModule;
 }

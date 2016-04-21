@@ -19,9 +19,7 @@ Game::Game() :
     m_peonCountWidget(nullptr),
     m_woodCountWidget(nullptr),
     m_faithCountWidget(nullptr),
-    m_basicPeonLabel(nullptr),
-    m_warriorPeonLabel(nullptr),
-    m_wizardPeonLabel(nullptr)
+    m_basicPeonLabel(nullptr)
 {
 }
 
@@ -86,9 +84,11 @@ bool Game::Initialize()
     LoadTexture("Resources/Textures/grass.png", "grass");
     LoadTexture("Resources/Textures/tree.png", "tree");
     LoadTexture("Resources/Textures/gandalf.png", "gandalf");
-    LoadTexture("Resources/Textures/spider.png", "spider", GL_LINEAR_MIPMAP_LINEAR);
-    LoadTexture("Resources/Textures/spellbook.png", "spellbook", GL_LINEAR_MIPMAP_LINEAR);
-    LoadTexture("Resources/Textures/button.png", "button", GL_LINEAR_MIPMAP_LINEAR);
+    LoadTexture("Resources/Textures/spider.png", "spider", GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR);
+    LoadTexture("Resources/Textures/spellbook.png", "spellbook", GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR);
+    LoadTexture("Resources/Textures/button.png", "button", GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR);
+    LoadTexture("Resources/Textures/header.png", "header", GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR);
+    LoadTexture("Resources/Textures/beam.png", "beam", GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR);
 
     /*
         Load Fonts
@@ -97,7 +97,7 @@ bool Game::Initialize()
     grim::utility::Debug::Log("Loading fonts...");
     LoadFont("Resources/Fonts/dos.ttf", "dos");
     LoadFont("Resources/Fonts/hack.ttf", "hack");
-    LoadFont("Resources/Fonts/black_family.ttf", "black_family", 32);
+    LoadFont("Resources/Fonts/black_family.ttf", "black_family", 22);
     LoadFont("Resources/Fonts/black_family_incised.ttf", "black_family_incised", 32);
 
     /*
@@ -122,6 +122,8 @@ bool Game::Initialize()
     GetAudio()->LoadSound("Resources/Sounds/sacrifice_04.wav", "sacrifice_04");
     GetAudio()->LoadSound("Resources/Sounds/damage.wav", "damage");
     GetAudio()->LoadSound("Resources/Sounds/sword.wav", "sword");
+    GetAudio()->LoadSound("Resources/Sounds/book_open_00.wav", "book_open_00");
+    GetAudio()->LoadSound("Resources/Sounds/book_close_00.wav", "book_close_00");
 
     /*
         Load Music
@@ -158,6 +160,8 @@ bool Game::Initialize()
     // Sprites
     m_spriteMap[STRUCTURE_STOCKPILE] = std::make_unique<grim::graphics::Sprite>(GetTexture("structure"), GetShaderProgram("basic_shader"), 32, 32, 8);
     m_spriteMap[ENT_MONSTER_SPIDER] = std::make_unique<grim::graphics::Sprite>(GetTexture("spider"), GetShaderProgram("basic_shader"), 512, 512, 0);
+    m_spriteMap[ENT_PEON] = std::make_unique<grim::graphics::Sprite>(GetTexture("peon"), GetShaderProgram("basic_shader"), 32, 32, 0);
+    m_spriteMap[ENT_BEAM_EFFECT] = std::make_unique<grim::graphics::Sprite>(GetTexture("beam"), GetShaderProgram("basic_shader"), 64, 128, 0);
 
     // Setup the game
     m_mainCamera = std::make_unique<grim::graphics::Camera>(GetRenderer(), WINDOW_WIDTH, WINDOW_HEIGHT, -1.0f, 1.0f);
@@ -173,8 +177,14 @@ bool Game::Initialize()
     m_frameRateWidget->SetPosition(glm::vec2(5.0f, 5.0f));
     GetUI()->RegisterWidget(m_frameRateWidget);
 
+    m_headerSprite = std::make_unique<grim::graphics::Sprite>(GetTexture("header"), GetShaderProgram("basic_shader"), 256, 64, 0);
+    m_header = new grim::ui::SpriteView(m_headerSprite.get());
+    m_header->SetPosition(glm::vec2(WINDOW_WIDTH / 2.0f, 40.0f));
+    m_header->SetScale(glm::vec2(1.3f, 1.3f));
+    GetUI()->RegisterWidget(m_header);
+
     m_dateWidget = new grim::ui::TextView(" ", GetFont("hack"), GetShaderProgram("basic_shader"));
-    m_dateWidget->SetPosition(glm::vec2((WINDOW_WIDTH / 2.0f) - 80.0f, 5.0f));
+    m_dateWidget->SetPosition(glm::vec2((WINDOW_WIDTH / 2.0f) - 85.0f, 5.0f));
     GetUI()->RegisterWidget(m_dateWidget);
 
     m_peonCountWidget = new grim::ui::TextView(" ", GetFont("hack"), GetShaderProgram("basic_shader"));
@@ -189,29 +199,27 @@ bool Game::Initialize()
     m_faithCountWidget->SetPosition(glm::vec2(5.0f, 5.0f + 60.0f));
     GetUI()->RegisterWidget(m_faithCountWidget);
 
-    m_warriorPeonLabel = new grim::ui::TextView("Warrior", GetFont("hack"), GetShaderProgram("basic_shader"));
-    m_warriorPeonLabel->SetPosition(glm::vec2(90.0f, WINDOW_HEIGHT - 20.0f));
-    GetUI()->RegisterWidget(m_warriorPeonLabel);
-
     m_spellBookSprite = std::make_unique<grim::graphics::Sprite>(GetTexture("spellbook"), GetShaderProgram("basic_shader"), 512, 256, 0);
     m_spellbook = new grim::ui::SpriteView(m_spellBookSprite.get());
     m_spellbook->SetPosition(glm::vec2(WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f + 260.0f));
     m_spellbook->SetScale(glm::vec2(1.5f, 1.5f));
+    m_spellbook->SetVisible(false);
     GetUI()->RegisterWidget(m_spellbook);
 
-    m_basicPeonLabel = new grim::ui::TextView("Spells", GetFont("black_family"), GetShaderProgram("basic_shader"));
-    m_basicPeonLabel->SetPosition(glm::vec2(-200.0f, -160.0f));
+    m_basicPeonLabel = new grim::ui::TextView("Peon", GetFont("black_family"), GetShaderProgram("basic_shader"));
+    m_basicPeonLabel->SetPosition(glm::vec2(-240.0f, -140.0f));
     m_spellbook->RegisterWidget(m_basicPeonLabel);
 
     m_buttonSprite = std::make_unique<grim::graphics::Sprite>(GetTexture("button"), GetShaderProgram("basic_shader"), 128, 32, 0);
 
-    m_buttonOne = new grim::ui::ButtonView(m_buttonSprite.get());
-    m_buttonOne->SetPosition(glm::vec2(-160.0f, 0.0f));
-    m_spellbook->RegisterWidget(m_buttonOne);
+    m_peonButton = new grim::ui::ButtonView(GetEntitySprite(ENT_PEON));
+    m_peonButton->SetPosition(glm::vec2(-220.0f, -110.0f));
+    m_peonButton->SetScale(glm::vec2(1.5f, 1.5f));
+    m_spellbook->RegisterWidget(m_peonButton);
 
-    m_buttonOne->SetOnClick([this]()
+    m_peonButton->SetOnClick([this]()
     {
-        grim::utility::Debug::Log("buttonOne clicked");
+        GetPlayer()->GetPlacement()->SetHeldEntity(ENT_PEON);
         GetAudio()->PlaySound("select_00");
     });
 
@@ -258,15 +266,17 @@ void Game::Update(float deltaTime)
         Mix_PlayMusic(m_bgMusic, -1);
     }
 
-    if (GetInput()->GetKey(SDLK_q))
+    if (GetInput()->GetKeyPress(SDLK_q))
     {
         m_spellbook->SetVisible(true);
         m_basicPeonLabel->SetVisible(true);
+        GetAudio()->PlaySound("book_open_00");
     }
-    else
+    else if (GetInput()->GetKeyRelease(SDLK_q))
     {
         m_spellbook->SetVisible(false);
         m_basicPeonLabel->SetVisible(false);
+        GetAudio()->PlaySound("book_close_00");
     }
 
     m_map->Update(deltaTime);
@@ -295,9 +305,9 @@ void Game::Render()
     GetUI()->Render();
 }
 
-bool Game::LoadTexture(const std::string& path, const std::string& ID, const GLenum& scaleMode)
+bool Game::LoadTexture(const std::string& path, const std::string& ID, const GLenum& wrapMode, const GLenum& scaleMode)
 {
-    m_textureMap[ID] = std::make_unique<grim::graphics::Texture>(path, GL_CLAMP_TO_EDGE, scaleMode);
+    m_textureMap[ID] = std::make_unique<grim::graphics::Texture>(path, wrapMode, scaleMode);
     return true;
 }
 

@@ -29,6 +29,8 @@ public:
     void RemoveFaith(uint32_t quantity = 1);
     uint32_t GetFaith() const;
 
+    PlacementModule* GetPlacement();
+
 private:
     void IssueCommand(glm::vec2 position);
 

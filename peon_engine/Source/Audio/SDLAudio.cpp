@@ -23,6 +23,8 @@ bool SDLAudio::Initialize()
         return false;
     }
 
+    Mix_Volume(-1, MIX_MAX_VOLUME / 3.0f);
+
     grim::utility::Debug::LogError("Audio module SDLAudio initialized.");
     return true;
 }

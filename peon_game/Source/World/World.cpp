@@ -10,6 +10,7 @@
 #include "../Entity/Spider.hpp"
 #include "../Entity/Obelisk.hpp"
 #include "../Entity/ItemDrop.hpp"
+#include "../Entity/BeamEffect.hpp"
 #include "../Terrain/TerrainTile.hpp"
 
 World::World(Game* game) :
@@ -268,23 +269,35 @@ Entity* World::Spawn(const EntityID& id, const glm::vec2& position)
 {
     Entity* spawned = nullptr;
 
-    if (id == STRUCTURE_STOCKPILE)
+    if (id == ENT_PEON)
     {
-        std::unique_ptr<Stockpile> stockpile = std::make_unique<Stockpile>(m_game, position);
-        spawned = stockpile.get();
-        m_entities.push_back(std::move(stockpile));
+        std::unique_ptr<Peon> ent = std::make_unique<Peon>(m_game, position);
+        spawned = ent.get();
+        m_entities.push_back(std::move(ent));
     }
     else if (id == ENT_ITEM_DROP)
     {
-        std::unique_ptr<ItemDrop> itemDrop = std::make_unique<ItemDrop>(m_game, position, ItemType::WOOD);
-        spawned = itemDrop.get();
-        m_entities.push_back(std::move(itemDrop));
+        std::unique_ptr<ItemDrop> ent = std::make_unique<ItemDrop>(m_game, position, ItemType::WOOD);
+        spawned = ent.get();
+        m_entities.push_back(std::move(ent));
     }
     else if (id == ENT_MONSTER_SPIDER)
     {
-        std::unique_ptr<Spider> spider = std::make_unique<Spider>(m_game, position);
-        spawned = spider.get();
-        m_entities.push_back(std::move(spider));
+        std::unique_ptr<Spider> ent = std::make_unique<Spider>(m_game, position);
+        spawned = ent.get();
+        m_entities.push_back(std::move(ent));
+    }
+    else if (id == STRUCTURE_STOCKPILE)
+    {
+        std::unique_ptr<Stockpile> ent = std::make_unique<Stockpile>(m_game, position);
+        spawned = ent.get();
+        m_entities.push_back(std::move(ent));
+    }
+    else if (id == ENT_BEAM_EFFECT)
+    {
+        std::unique_ptr<BeamEffect> ent = std::make_unique<BeamEffect>(m_game, position);
+        spawned = ent.get();
+        m_entities.push_back(std::move(ent));
     }
 
     return spawned;

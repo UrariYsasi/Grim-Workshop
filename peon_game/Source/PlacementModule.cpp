@@ -1,7 +1,7 @@
 #include "PCH.hpp"
 #include "PlacementModule.hpp"
 #include "Player.hpp"
-#include "World\World.hpp"
+#include "World/World.hpp"
 #include "Game.hpp"
 
 PlacementModule::PlacementModule(Player* owner) :
@@ -43,8 +43,15 @@ void PlacementModule::Update(float deltaTime)
     if (m_input->GetKeyPress(SDLK_1))
     {
         m_isPlacing = !m_isPlacing;
-        //m_heldEntityID = STRUCTURE_STOCKPILE;
         m_heldEntityID = ENT_MONSTER_SPIDER;
+        m_heldEntitySprite = m_game->GetEntitySprite(m_heldEntityID);
+        m_game->GetAudio()->PlaySound("select_00");
+    }
+
+    if (m_input->GetKeyPress(SDLK_2))
+    {
+        m_isPlacing = !m_isPlacing;
+        m_heldEntityID = ENT_BEAM_EFFECT;
         m_heldEntitySprite = m_game->GetEntitySprite(m_heldEntityID);
         m_game->GetAudio()->PlaySound("select_00");
     }
@@ -54,8 +61,13 @@ void PlacementModule::Update(float deltaTime)
         if (m_input->GetMouseButtonPress(SDL_BUTTON_LEFT))
         {
             glm::vec2 mousePosition = m_camera->ConvertToWorld(m_input->GetMousePosition());
-            m_world->Spawn(m_heldEntityID, mousePosition);
+            m_world->Spawn(m_heldEntityID, mousePosition + glm::vec2(0.0f, -16.0f));
             m_game->GetAudio()->PlaySound("drop_00");
+        }
+
+        if (m_input->GetMouseButtonPress(SDL_BUTTON_RIGHT))
+        {
+            m_isPlacing = false;
         }
     }
 }
@@ -70,8 +82,22 @@ void PlacementModule::Render()
             m_heldEntitySprite->color.a = 0.5f;
 
             m_spriteBatch.Begin();
-            m_spriteBatch.AddSprite(glm::vec3(mousePosition.x, mousePosition.y, 0.0f), glm::vec3(0.0f), glm::vec3(1.0f), m_heldEntitySprite);
+            m_spriteBatch.AddSprite(glm::vec3(mousePosition.x, mousePosition.y - 16.0f, 0.0f), glm::vec3(0.0f), glm::vec3(1.0f), m_heldEntitySprite);
             m_spriteBatch.End();
+
+            m_heldEntitySprite->color.a = 1.0f;
         }
     }
+}
+
+void PlacementModule::SetHeldEntity(EntityID ID)
+{
+    m_isPlacing = true;
+    m_heldEntityID = ID;
+    m_heldEntitySprite = m_game->GetEntitySprite(ID);
+}
+
+bool PlacementModule::IsPlacing() const
+{
+    return m_isPlacing;
 }
