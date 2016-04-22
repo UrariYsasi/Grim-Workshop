@@ -19,7 +19,7 @@ void IdleAction::Update(float deltaTime)
 {
     if (!m_timer.IsStarted())
     {
-        if (m_owner->GetEntityID() == ENT_MONSTER_SPIDER)
+        if (m_owner->GetEntityID() == ENT_MONSTER_SPIDER_QUEEN)
         {
             m_waitTimeSeconds = 1;
         }

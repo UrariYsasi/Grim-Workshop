@@ -3,15 +3,15 @@
 namespace grim
 {
 
+class Engine;
+
 namespace graphics
 {
-
-class IRenderer;
 
 class Camera
 {
 public:
-    Camera(grim::graphics::IRenderer* renderer, float width, float height, float zNear, float zFar);
+    Camera(grim::Engine* engine, float width, float height, float zNear, float zFar);
     ~Camera();
 
     void SetPosition(const glm::vec2& position);
@@ -27,7 +27,7 @@ public:
     glm::vec2 ConvertToScreen(const glm::vec2& coord);
 
 private:
-    grim::graphics::IRenderer* m_renderer;
+    grim::Engine* m_engine;
     glm::vec2 m_position;
     glm::vec3 m_rotation;
 

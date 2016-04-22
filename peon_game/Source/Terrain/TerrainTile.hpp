@@ -1,12 +1,11 @@
 #pragma once
 
-class Game;
-class Prop;
+class Region;
 
 class TerrainTile
 {
 public:
-    TerrainTile(Game* game, const glm::vec2& position);
+    TerrainTile(Region* region, const glm::vec2& position);
     ~TerrainTile();
 
     void SetPosition(const glm::vec2& position);
@@ -14,10 +13,11 @@ public:
 
     void Render(grim::graphics::SpriteBatch& spriteBatch);
 
-private:
-    const static int TILE_SIZE = 32;
+public:
+    const static int SIZE = 32;
 
-    Game* m_game;
+private:
+    Region* m_region;
     glm::vec2 m_position;
     glm::vec3 m_rotation;
     glm::vec3 m_scale;

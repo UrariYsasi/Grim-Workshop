@@ -96,6 +96,7 @@
     <ClInclude Include="Source\Player.hpp" />
     <ClInclude Include="Source\Terrain\TerrainTile.hpp" />
     <ClInclude Include="Source\World\Region.hpp" />
+    <ClInclude Include="Source\World\RegionID.hpp" />
     <ClInclude Include="Source\World\World.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

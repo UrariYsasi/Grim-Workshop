@@ -33,7 +33,7 @@ void Orc::Update(float deltaTime)
     if (attackAction == nullptr)
     {
         // WE NEED ATTACK ACTION! ATTACK DE OBELISK!
-        Entity* obeliskEnt = map->FindEntity(OBELISK);
+        Entity* obeliskEnt = map->FindEntity(ENT_OBELISK);
         if (obeliskEnt != nullptr)
         {
             ClearActionStack();

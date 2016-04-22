@@ -1,0 +1,6 @@
+enum RegionID
+{
+    REGION_OBELISK,
+    REGION_FOREST,
+    REGION_BOSS_SPIDER
+};

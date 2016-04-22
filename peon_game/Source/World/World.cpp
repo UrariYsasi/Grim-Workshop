@@ -12,6 +12,7 @@
 #include "../Entity/ItemDrop.hpp"
 #include "../Entity/BeamEffect.hpp"
 #include "../Terrain/TerrainTile.hpp"
+#include "Region.hpp"
 
 World::World(Game* game) :
     m_game(game),
@@ -25,54 +26,6 @@ World::~World()
 {
 }
 
-Game* World::GetGame()
-{
-    return m_game;
-}
-
-int World::GetDay()
-{
-    return m_day;
-}
-
-std::string World::GetMonth()
-{
-    switch (m_month)
-    {
-    case 1:
-        return "Aerokim";
-    case 2:
-        return "Jaipeto";
-    case 3:
-        return "Avoth";
-    case 4:
-        return "Ino";
-    case 5:
-        return "Odan";
-    case 6:
-        return "Jukra";
-    case 7:
-        return "Taeylom";
-    case 8:
-        return "Aelond";
-    case 9:
-        return "Eima";
-    case 10:
-        return "Draev";
-    case 11:
-        return "Jandas";
-    case 12:
-        return "Eraindr";
-    default:
-        return "UNKNOWN";
-    }
-}
-
-int World::GetYear()
-{
-    return m_year;
-}
-
 void World::Update(float deltaTime)
 {
     CleanEntities();
@@ -84,13 +37,25 @@ void World::Update(float deltaTime)
         Entity* e = (*it).get();
         e->Update(deltaTime);
     }
+
+    // Regions
+    for (auto it = m_regions.begin(); it != m_regions.end(); it++)
+    {
+        (*it).second->Update(deltaTime);
+    }
 }
 
 void World::Render()
 {
     m_spriteBatch.Begin();
 
-    // Z sort
+    // Regions
+    for (auto it = m_regions.begin(); it != m_regions.end(); it++)
+    {
+        (*it).second->Render(m_spriteBatch);
+    }
+
+    // Z sort entities
     m_entities.sort([](std::unique_ptr<Entity> const& a, std::unique_ptr<Entity> const& b)
     {
         glm::vec2 aPos = a->GetPosition();
@@ -98,13 +63,6 @@ void World::Render()
 
         return aPos.y < bPos.y;
     });
-
-    // Terrain
-    for (auto it = m_terrain.begin(); it != m_terrain.end(); it++)
-    {
-        TerrainTile* t = (it->second).get();
-        t->Render(m_spriteBatch);
-    }
 
     // Entities
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
@@ -145,18 +103,12 @@ void World::Generate()
 {
     grim::utility::Debug::Log("Generating world...");
 
-    // Terrain
-    for (int x = 0; x < MAP_SIZE; x++)
-    {
-        for (int y = 0; y < MAP_SIZE; y++)
-        {
-            glm::vec2 position((float)x, (float)y);
-            m_terrain[position] = std::make_unique<TerrainTile>(m_game, position * 32.0f);
-        }
-    }
+    // Explore initial Region
+    ExploreRegion(glm::ivec2(0, 0));
 
     // Trees
-    grim::graphics::Rect worldRect(0.0f, 0.0f, (MAP_SIZE - 1) * 32.0f, (MAP_SIZE - 1) * 32.0f);
+    /*
+    grim::graphics::Rect worldRect(0.0f, 0.0f, (SIZE - 1) * 32.0f, (SIZE - 1) * 32.0f);
     std::vector<glm::vec2> outputList = grim::utility::PoissonDiskGenerator::Generate(GetCenter(), 40.0, 64.0, 30, worldRect);
     for (auto pointIt = outputList.begin(); pointIt != outputList.end(); pointIt++)
     {
@@ -178,91 +130,70 @@ void World::Generate()
     // Obelisk
     // The obelisk gets placed in the center of the map.
     m_entities.push_back(std::make_unique<Obelisk>(m_game, GetCenter()));
+    */
 
     // Peons
-    SpawnPeon(3, GetCenter() - glm::vec2(128, 128));
+    Spawn(ENT_PEON, GetCenter() - glm::vec2(0, 0));
+    Spawn(ENT_PEON, GetCenter() - glm::vec2(-32, 0));
+    Spawn(ENT_PEON, GetCenter() - glm::vec2(32, 0));
 
     grim::utility::Debug::Log("World generation complete.");
 }
 
-/*
-    Delete all entities that have been marked for deletion in the previous frame.
-*/
-void World::CleanEntities()
+Region* World::CreateRegion(const glm::ivec2& coordinates)
 {
-    for (auto it = m_entities.begin(); it != m_entities.end(); it++)
+    if (GetRegion(coordinates) != nullptr)
     {
-        if ((*it)->IsDeleted())
+        return nullptr;
+    }
+
+    std::unique_ptr<Region> pNewRegion = std::make_unique<Region>(this, coordinates);
+    Region* pRegion = pNewRegion.get();
+    pNewRegion->Generate();
+    m_regions.emplace(std::make_pair(coordinates, std::move(pNewRegion)));
+    return pRegion;
+}
+
+void World::ExploreRegion(const glm::ivec2& coordinates)
+{
+    Region* pRegion = GetRegion(coordinates);
+    if (pRegion == nullptr)
+    {
+        // There is no region here to explore! Create it.
+        pRegion = CreateRegion(coordinates);
+        if (pRegion == nullptr)
         {
-            m_entities.erase(it++);
-        }
-    }
-}
-
-/*
-    Create some peons on the map.
-*/
-void World::SpawnPeon(int quantity, const glm::vec2& position)
-{
-    for (int i = 0; i < quantity; i++)
-    {
-        glm::vec2 spawnPos = position + glm::vec2(grim::utility::Random::Generate(-32.0, 32.0), grim::utility::Random::Generate(-32.0, 32.0));
-        m_entities.push_back(std::make_unique<Peon>(m_game, spawnPos));
-    }
-}
-
-/*
-    Create some orcs on the map.
-*/
-void World::SpawnOrc(int quantity)
-{
-    for (int i = 0; i < quantity; i++)
-    {
-        glm::vec2 mousePos = m_game->GetInput()->GetMousePosition();
-        glm::vec2 spawnPos = m_game->GetMainCamera()->ConvertToWorld(mousePos);
-        m_entities.push_back(std::make_unique<Orc>(m_game, spawnPos));
-    }
-}
-
-/*
-    Checks whether a point on the map is passable or not.
-*/
-bool World::IsPassable(const glm::vec2& point)
-{
-    for (auto it = m_entities.begin(); it != m_entities.end(); it++)
-    {
-        grim::graphics::Rect hitBox = (*it)->GetHitBox();
-        if (hitBox.ContainsPoint(point))
-        {
-            return false;
-        }
-    }
-    return true;
-}
-
-Entity* World::GetEntityAtPoint(const glm::vec2& point, int entityID)
-{
-    Entity* ent = nullptr;
-    for (auto it = m_entities.begin(); it != m_entities.end(); it++)
-    {
-        ent = (*it).get();
-        if ((ent->GetEntityID() == entityID) || (entityID == NONE))
-        {
-            grim::graphics::Rect hitBox = ent->GetHitBox();
-            if (hitBox.ContainsPoint(point))
-            {
-                return ent;
-            }
+            return;
         }
     }
 
-    return nullptr;
+    if (pRegion->IsExplored()) 
+    {
+        return; 
+    }
+
+    pRegion->SetIsExplored(true);
+
+    // Create surrounding Regions
+    CreateRegion(coordinates + glm::ivec2(-1, -1)); // Top left
+    CreateRegion(coordinates + glm::ivec2(0, -1));  // Top center
+    CreateRegion(coordinates + glm::ivec2(1, -1));  // Top right
+    CreateRegion(coordinates + glm::ivec2(-1, 0));  // Center left
+    CreateRegion(coordinates + glm::ivec2(1, 0));   // Center right
+    CreateRegion(coordinates + glm::ivec2(-1, 1));  // Bottom left
+    CreateRegion(coordinates + glm::ivec2(0, 1));   // Bottom center
+    CreateRegion(coordinates + glm::ivec2(1, 1));   // Bottom right
+
+    grim::utility::Debug::Log("Explored Region at (%d, %d).", coordinates.x, coordinates.y);
 }
 
-TerrainTile* World::GetTerrainAtPoint(const glm::vec2& point)
+glm::ivec2 World::ConvertToRegionCoordinates(const glm::vec2& position)
 {
-    glm::vec2 tilePosition = glm::vec2(round(point.x / 32), round(point.y / 32));
-    return m_terrain.at(tilePosition).get();
+    glm::ivec2 coordinates;
+    coordinates.x = static_cast<int32_t>(std::floor(position.x / (Region::SIZE * TerrainTile::SIZE)));
+    coordinates.y = static_cast<int32_t>(std::floor(position.y / (Region::SIZE * TerrainTile::SIZE)));
+
+    return coordinates;
 }
 
 Entity* World::Spawn(const EntityID& id, const glm::vec2& position)
@@ -282,7 +213,7 @@ Entity* World::Spawn(const EntityID& id, const glm::vec2& position)
         spawned = ent.get();
         m_entities.push_back(std::move(ent));
     }
-    else if (id == ENT_MONSTER_SPIDER)
+    else if (id == ENT_MONSTER_SPIDER_QUEEN)
     {
         std::unique_ptr<Spider> ent = std::make_unique<Spider>(m_game, position);
         spawned = ent.get();
@@ -300,8 +231,39 @@ Entity* World::Spawn(const EntityID& id, const glm::vec2& position)
         spawned = ent.get();
         m_entities.push_back(std::move(ent));
     }
+    else if (id == ENT_TREE)
+    {
+        std::unique_ptr<Tree> ent = std::make_unique<Tree>(m_game, position);
+        spawned = ent.get();
+        m_entities.push_back(std::move(ent));
+    }
+    else if (id == ENT_OBELISK)
+    {
+        std::unique_ptr<Obelisk> ent = std::make_unique<Obelisk>(m_game, position);
+        spawned = ent.get();
+        m_entities.push_back(std::move(ent));
+    }
 
     return spawned;
+}
+
+Entity* World::GetEntityAtPoint(const glm::vec2& point, int entityID)
+{
+    Entity* ent = nullptr;
+    for (auto it = m_entities.begin(); it != m_entities.end(); it++)
+    {
+        ent = (*it).get();
+        if ((ent->GetEntityID() == entityID) || (entityID == NONE))
+        {
+            grim::graphics::Rect hitBox = ent->GetHitBox();
+            if (hitBox.ContainsPoint(point))
+            {
+                return ent;
+            }
+        }
+    }
+
+    return nullptr;
 }
 
 std::list<Entity*> World::GetEntitiesInRect(int entityID, const grim::graphics::Rect& rect)
@@ -335,31 +297,106 @@ Entity* World::FindEntity(int entityID)
     return nullptr;
 }
 
-std::list<Entity*> World::FindEntitiesInRange(int entityID, const glm::vec2& point, int range)
+void World::CleanEntities()
 {
-    std::list<Entity*> ents;
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
-        Entity* ent = (*it).get();
-        if (ent->GetEntityID() == entityID || entityID == NONE)
+        if ((*it)->IsDeleted())
         {
-            double distance = glm::distance(point, ent->GetPosition());
-            if (distance <= range)
-            {
-                ents.push_back(ent);
-            }
+            m_entities.erase(it++);
         }
     }
-
-    return ents;
 }
 
-glm::vec2 World::GetCenter() const
+Game* World::GetGame()
 {
-    return glm::vec2(((MAP_SIZE - 1) * 32.0f) / 2.0f, ((MAP_SIZE - 1) * 32.0f) / 2.0f);
+    return m_game;
+}
+
+Region* World::GetRegion(const glm::ivec2& coordinates)
+{
+    auto it = m_regions.find(coordinates);
+    if (it != m_regions.end())
+    {
+        return (it->second).get();
+    }
+
+    return nullptr;
+}
+
+uint16_t World::GetDay() const
+{
+    return m_day;
+}
+
+std::string World::GetMonth() const
+{
+    switch (m_month)
+    {
+    case 1:
+        return "Aerokim";
+    case 2:
+        return "Jaipeto";
+    case 3:
+        return "Avoth";
+    case 4:
+        return "Ino";
+    case 5:
+        return "Odan";
+    case 6:
+        return "Jukra";
+    case 7:
+        return "Taeylom";
+    case 8:
+        return "Aelond";
+    case 9:
+        return "Eima";
+    case 10:
+        return "Draev";
+    case 11:
+        return "Jandas";
+    case 12:
+        return "Eraindr";
+    default:
+        return "UNKNOWN";
+    }
+}
+
+uint16_t World::GetYear() const
+{
+    return m_year;
+}
+
+glm::vec2 World::GetCenter() 
+{
+    return glm::vec2((Region::SIZE * TerrainTile::SIZE) / 2, (Region::SIZE * TerrainTile::SIZE) / 2);
 }
 
 glm::vec2 World::GetSize() const
 {
-    return glm::vec2(((MAP_SIZE - 1) * 32.0f), ((MAP_SIZE - 1) * 32.0f));
+    return glm::vec2(((SIZE - 1) * 32.0f), ((SIZE - 1) * 32.0f));
+}
+
+bool World::IsPassable(const glm::vec2& point) const
+{
+    for (auto it = m_entities.begin(); it != m_entities.end(); it++)
+    {
+        grim::graphics::Rect hitBox = (*it)->GetHitBox();
+        if (hitBox.ContainsPoint(point))
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool World::IsRegionExplored(const glm::ivec2& coordinates)
+{
+    Region* pRegion = GetRegion(coordinates);
+    if (pRegion != nullptr)
+    {
+        return pRegion->IsExplored();
+    }
+
+    return false;
 }

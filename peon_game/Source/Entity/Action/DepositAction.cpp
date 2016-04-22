@@ -31,7 +31,7 @@ void DepositAction::Update(float deltaTime)
     // Find the obelisk
     if (m_obelisk == nullptr)
     {
-        Obelisk* obelisk = dynamic_cast<Obelisk*>(m_owner->GetGame()->GetWorld()->FindEntity(OBELISK));
+        Obelisk* obelisk = dynamic_cast<Obelisk*>(m_owner->GetGame()->GetWorld()->FindEntity(ENT_OBELISK));
         if (obelisk == nullptr)
         {
             Complete();

@@ -70,6 +70,7 @@
 #include "Item/ItemType.hpp"
 #include "Entity/EntityID.hpp"
 #include "Entity/Action/ActionID.hpp"
+#include "World/RegionID.hpp"
 
 /*
     glm::vec2 Hash
@@ -83,6 +84,16 @@ struct hash<glm::vec2>
     {
         return ((hash<float>()(vec.x)
             ^ (hash<float>()(vec.y) << 1)) >> 1);
+    }
+};
+
+template <>
+struct hash<glm::ivec2>
+{
+    inline std::size_t operator()(const glm::ivec2& vec) const
+    {
+        return ((hash<int>()(vec.x)
+            ^ (hash<int>()(vec.y) << 1)) >> 1);
     }
 };
 

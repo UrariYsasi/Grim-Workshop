@@ -6,6 +6,7 @@
 #include "Action/AttackAction.hpp"
 #include "Orc.hpp"
 #include "../World/World.hpp"
+#include "../World/Region.hpp"
 #include "../Player.hpp"
 
 Peon::Peon(Game* game, const glm::vec2& position) :
@@ -36,6 +37,7 @@ void Peon::Update(float deltaTime)
 
     World* world = m_game->GetWorld();
 
+
     // If we don't have an attack action already
     AttackAction* attackAction = dynamic_cast<AttackAction*>(FindAction(ATTACK_ACTION));
     if (attackAction == nullptr)
@@ -57,6 +59,13 @@ void Peon::Update(float deltaTime)
     {
         std::unique_ptr<Action> action = std::make_unique<IdleAction>(this);
         m_actionStack.push_back(std::move(action));
+    }
+
+    // Check if we have moved into an unexplored Region
+    glm::ivec2 coordinates = world->ConvertToRegionCoordinates(m_position);
+    if (!world->IsRegionExplored(coordinates))
+    {
+        world->ExploreRegion(coordinates);
     }
 }
 

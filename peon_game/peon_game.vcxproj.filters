@@ -230,5 +230,8 @@
     <ClInclude Include="Source\World\Region.hpp">
       <Filter>Source\World</Filter>
     </ClInclude>
+    <ClInclude Include="Source\World\RegionID.hpp">
+      <Filter>Source\World</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -6,7 +6,7 @@
 #include "../World/World.hpp"
 
 Spider::Spider(Game* game, const glm::vec2& position) :
-    Monster(game, position, ENT_MONSTER_SPIDER)
+    Monster(game, position, ENT_MONSTER_SPIDER_QUEEN)
 {
     m_origin = glm::vec2(0, 128);
     m_hitBox = grim::graphics::Rect(-128, 0, 256, 128);

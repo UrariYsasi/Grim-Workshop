@@ -1,5 +1,6 @@
 #include "PCH.hpp"
 #include "Camera.hpp"
+#include "../Engine.hpp"
 
 namespace grim
 {
@@ -7,10 +8,8 @@ namespace grim
 namespace graphics
 {
 
-// TODO take Engine* instead
-// Need to refactor Renderer first
-Camera::Camera(grim::graphics::IRenderer* renderer, float width, float height, float zNear, float zFar) :
-    m_renderer(renderer),
+Camera::Camera(grim::Engine* engine, float width, float height, float zNear, float zFar) :
+    m_engine(engine),
     m_position(0.0f),
     m_rotation(0.0f),
     m_viewMatrix(1.0f),
@@ -53,6 +52,16 @@ glm::mat4 Camera::GetProjectionMatrix() const
 
 void Camera::Activate()
 {
+    // For debug purposes only
+    if (m_engine->GetInput()->GetKey(SDLK_SPACE))
+    {
+        m_projectionMatrix = glm::ortho(-m_width, m_width * 2.0f, m_height * 2.0f, -m_height, m_zNear, m_zFar);
+    }
+    else
+    {
+        m_projectionMatrix = glm::ortho(0.0f, m_width, m_height, 0.0f, m_zNear, m_zFar);
+    }
+
     // Transform the Camera
     m_viewMatrix = glm::mat4(1.0);
     m_viewMatrix = glm::translate(m_viewMatrix, -glm::vec3(m_position, 0.0f));
@@ -61,7 +70,7 @@ void Camera::Activate()
     m_viewMatrix = glm::rotate(m_viewMatrix, m_rotation.z, glm::vec3(0.0, 0.0, 1.0));
 
     // Set the renderers active Camera
-    m_renderer->SetActiveCamera(this);
+    m_engine->GetRenderer()->SetActiveCamera(this);
 }
 
 void Camera::Move(const glm::vec2& movement)

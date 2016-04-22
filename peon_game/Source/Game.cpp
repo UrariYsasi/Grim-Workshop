@@ -160,13 +160,13 @@ bool Game::Initialize()
 
     // Sprites
     m_spriteMap[STRUCTURE_STOCKPILE] = std::make_unique<grim::graphics::Sprite>(GetTexture("structure"), GetShaderProgram("basic_shader"), 32, 32, 8);
-    m_spriteMap[ENT_MONSTER_SPIDER] = std::make_unique<grim::graphics::Sprite>(GetTexture("spider"), GetShaderProgram("basic_shader"), 512, 512, 0);
+    m_spriteMap[ENT_MONSTER_SPIDER_QUEEN] = std::make_unique<grim::graphics::Sprite>(GetTexture("spider"), GetShaderProgram("basic_shader"), 512, 512, 0);
     m_spriteMap[ENT_PEON] = std::make_unique<grim::graphics::Sprite>(GetTexture("peon"), GetShaderProgram("basic_shader"), 32, 32, 0);
     m_spriteMap[ENT_BEAM_EFFECT] = std::make_unique<grim::graphics::Sprite>(GetTexture("beam"), GetShaderProgram("basic_shader"), 64, 128, 0);
 
     // Setup the game
-    m_mainCamera = std::make_unique<grim::graphics::Camera>(GetRenderer(), WINDOW_WIDTH, WINDOW_HEIGHT, -1.0f, 1.0f);
-    m_uiCamera = std::make_unique<grim::graphics::Camera>(GetRenderer(), WINDOW_WIDTH, WINDOW_HEIGHT, -1.0f, 1.0f);
+    m_mainCamera = std::make_unique<grim::graphics::Camera>(this, WINDOW_WIDTH, WINDOW_HEIGHT, -1.0f, 1.0f);
+    m_uiCamera = std::make_unique<grim::graphics::Camera>(this, WINDOW_WIDTH, WINDOW_HEIGHT, -1.0f, 1.0f);
     m_map = std::make_unique<World>(this);
     m_player = std::make_unique<Player>(this);
 
@@ -252,16 +252,6 @@ void Game::Update(float deltaTime)
         Terminate();
     }
 
-    if (GetInput()->GetKeyPress(SDLK_y))
-    {
-        m_map->SpawnPeon(1, mousePos);
-    }
-
-    if (GetInput()->GetKeyPress(SDLK_u))
-    {
-        m_map->SpawnOrc();
-    }
-
     if (GetInput()->GetKeyPress(SDLK_m))
     {
         Mix_PlayMusic(m_bgMusic, -1);
@@ -302,8 +292,11 @@ void Game::Render()
         Render Services
     */
 
-    m_uiCamera->Activate();
-    GetUI()->Render();
+    if (!GetInput()->GetKey(SDLK_SPACE))
+    {
+        m_uiCamera->Activate();
+        GetUI()->Render();
+    }
 }
 
 bool Game::LoadTexture(const std::string& path, const std::string& ID, const GLenum& wrapMode, const GLenum& scaleMode)

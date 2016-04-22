@@ -5,6 +5,7 @@ class TerrainTile;
 class Entity;
 class Peon;
 class Stockpile;
+class Region;
 
 class World
 {
@@ -12,20 +13,13 @@ public:
     World(Game* game);
     ~World();
 
-    Game* GetGame();
-    int GetDay();
-    std::string GetMonth();
-    int GetYear();
-
     void Update(float deltaTime);
     void Render();
     void ProcessTime();
     void Generate();
-    void SpawnPeon(int quantity, const glm::vec2& position);
-    void SpawnOrc(int quantity = 1);
-    bool IsPassable(const glm::vec2& point);
-    TerrainTile* GetTerrainAtPoint(const glm::vec2& point);
-
+    Region* CreateRegion(const glm::ivec2& coordinates);
+    void ExploreRegion(const glm::ivec2& coordinates);
+    glm::ivec2 ConvertToRegionCoordinates(const glm::vec2& position);
     Entity* Spawn(const EntityID& id, const glm::vec2& position);
 
     /*
@@ -50,36 +44,29 @@ public:
     */
     Entity* FindEntity(int entityID);
 
-    /*
-        Find Entities with the given ID that are near the given point.
-
-        If the given ID is NONE, then it will search for ALL Entities.
-    */
-    std::list<Entity*> FindEntitiesInRange(int entityID, const glm::vec2& point, int range);
-
-    /*
-        Gets the position that is at the center of the world.
-    */
-    glm::vec2 GetCenter() const;
-
-    /*
-        Gets the size of the world, in pixels.
-    */
+    Game* GetGame();
+    Region* GetRegion(const glm::ivec2& coordinates);
+    uint16_t GetDay() const;
+    std::string GetMonth() const;
+    uint16_t GetYear() const;
+    glm::vec2 GetCenter();
     glm::vec2 GetSize() const;
+    bool IsPassable(const glm::vec2& point) const;
+    bool IsRegionExplored(const glm::ivec2& coordinates);
 
 private:
     void CleanEntities();
 
+public:
+    const static uint16_t SIZE = 64; // The map size, in tiles.
+    const static uint16_t DAY_LENGTH = 5000; // The time, in milliseconds, in a game day.
+    const static uint16_t MONTH_LENGTH = 30; // The amount of days in a game month.
+    const static uint16_t YEAR_LENGTH = 12; // The amount of months in a game year.
+
 private:
-    const static int MAP_SIZE = 64; // The map size, in tiles.
-    const static int DAY_LENGTH = 5000; // The time, in milliseconds, in a game day.
-    const static int MONTH_LENGTH = 30; // The amount of days in a game month.
-    const static int YEAR_LENGTH = 12; // The amount of months in a game year.
-
     Game* m_game;
-
-    std::unordered_map<glm::vec2, std::unique_ptr<TerrainTile> > m_terrain;
-    std::list< std::unique_ptr<Entity> > m_entities;
+    std::unordered_map<glm::ivec2, std::unique_ptr<Region>> m_regions;
+    std::list<std::unique_ptr<Entity>> m_entities;
 
     // Time
     grim::utility::Timer m_worldTimer;

@@ -1,14 +1,14 @@
 enum EntityID
 {
     NONE,
-    TREE,
+    ENT_TREE,
     ROCK,
     STRUCTURE_STOCKPILE,
     ENT_PEON,
     ORC,
-    OBELISK,
+    ENT_OBELISK,
     ALTAR,
     ENT_ITEM_DROP,
-    ENT_MONSTER_SPIDER,
+    ENT_MONSTER_SPIDER_QUEEN,
     ENT_BEAM_EFFECT
 };

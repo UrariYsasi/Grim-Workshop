@@ -43,7 +43,7 @@ void PlacementModule::Update(float deltaTime)
     if (m_input->GetKeyPress(SDLK_1))
     {
         m_isPlacing = !m_isPlacing;
-        m_heldEntityID = ENT_MONSTER_SPIDER;
+        m_heldEntityID = ENT_MONSTER_SPIDER_QUEEN;
         m_heldEntitySprite = m_game->GetEntitySprite(m_heldEntityID);
         m_game->GetAudio()->PlaySound("select_00");
     }
