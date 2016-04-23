@@ -34,7 +34,7 @@ void Region::Generate()
     {
         m_ID = REGION_OBELISK;
     }
-    else if (m_coordinates == glm::ivec2(1, 0))
+    else if (m_coordinates == glm::ivec2(2, 0))
     {
         m_ID = REGION_BOSS_SPIDER;
     }
@@ -87,6 +87,13 @@ void Region::GenerateEntities()
     }
 
     // Monsters
+    if (m_ID == REGION_OBELISK)
+    {
+        m_world->Spawn(ENT_PEON, GetCenter() + glm::vec2(0, 64));
+        m_world->Spawn(ENT_PEON, GetCenter() + glm::vec2(-32, 64));
+        m_world->Spawn(ENT_PEON, GetCenter() + glm::vec2(32, 64));
+    }
+
     if (m_ID == REGION_BOSS_SPIDER)
     {
         m_world->Spawn(ENT_MONSTER_SPIDER_QUEEN, GetCenter());

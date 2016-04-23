@@ -12,10 +12,11 @@ public:
     virtual void Update(float deltaTime);
     bool IsAttackingPeon();
 
-private:
-    const double MIN_ATTACK_DISTANCE = 20.0;
+public:
+    const float MIN_ATTACK_DISTANCE = 20.0f;
 
+private:
     Entity* m_target;
     grim::utility::Timer m_timer;
-    double m_attackSpeed; // The attack speed, in seconds.
+    double m_attackSpeedSeconds; // The attack speed, in seconds.
 };

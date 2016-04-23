@@ -62,9 +62,16 @@ void PlacementModule::Update(float deltaTime)
     {
         if (m_input->GetMouseButtonPress(SDL_BUTTON_LEFT))
         {
-            glm::vec2 mousePosition = m_camera->ConvertToWorld(m_input->GetMousePosition());
-            m_world->Spawn(m_heldEntityID, mousePosition);
-            m_game->GetAudio()->PlaySound("drop_00");
+            if (m_owner->GetFaith() >= 20)
+            {
+                glm::vec2 mousePosition = m_camera->ConvertToWorld(m_input->GetMousePosition());
+                m_world->Spawn(m_heldEntityID, mousePosition);
+                m_owner->RemoveFaith(20);
+            }
+            else
+            {
+                m_game->GetAudio()->PlaySound("error_00");
+            }
         }
 
         if (m_input->GetMouseButtonPress(SDL_BUTTON_RIGHT))

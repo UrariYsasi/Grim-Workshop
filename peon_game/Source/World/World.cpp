@@ -133,9 +133,9 @@ void World::Generate()
     */
 
     // Peons
-    Spawn(ENT_PEON, GetCenter() - glm::vec2(0, 0));
-    Spawn(ENT_PEON, GetCenter() - glm::vec2(-32, 0));
-    Spawn(ENT_PEON, GetCenter() - glm::vec2(32, 0));
+    //Spawn(ENT_PEON, GetCenter() - glm::vec2(0, 0));
+    //Spawn(ENT_PEON, GetCenter() - glm::vec2(-32, 0));
+    //Spawn(ENT_PEON, GetCenter() - glm::vec2(32, 0));
 
     grim::utility::Debug::Log("World generation complete.");
 }

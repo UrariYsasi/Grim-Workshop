@@ -6,11 +6,11 @@
 #include "../Peon.hpp"
 
 AttackAction::AttackAction(Monster* owner, Entity* target) :
-    Action(owner, ATTACK_ACTION, "Attack"),
+    Action(owner, ACTION_ATTACK, "Attack"),
     m_target(target),
-    m_attackSpeed(2)
+    m_attackSpeedSeconds(2)
 {
-    m_attackSpeed = grim::utility::Random::Generate(0.5, 2.0);
+    m_attackSpeedSeconds += grim::utility::Random::Generate(-1.0f, 1.0f);
 }
 
 AttackAction::~AttackAction()
@@ -26,9 +26,9 @@ void AttackAction::Update(float deltaTime)
     }
 
     // Check if we are in range of the resource
+    glm::vec2 position = m_owner->GetPosition();
     glm::vec2 targetPosition = m_target->GetPosition();
-    glm::vec2 monsterPosition = m_owner->GetPosition();
-    double distance = glm::distance(monsterPosition, targetPosition);
+    float distance = glm::distance(position, targetPosition);
 
     // If we are too far away, move closer to our target
     if (distance > MIN_ATTACK_DISTANCE)
@@ -46,13 +46,12 @@ void AttackAction::Update(float deltaTime)
     {
         m_timer.Start();
     }
-    else if (m_timer.GetTimeInMilliseconds() > (m_attackSpeed * 1000))
+    else if (m_timer.GetTimeInSeconds() >= m_attackSpeedSeconds)
     {
         m_timer.Stop();
 
         m_owner->GetGame()->GetAudio()->PlaySound("punch_00");
         m_target->Damage();
-        m_owner->GetGame()->GetAudio()->PlaySound("damage");
     }
 }
 

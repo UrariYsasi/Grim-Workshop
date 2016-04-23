@@ -125,6 +125,7 @@ bool Game::Initialize()
     GetAudio()->LoadSound("Resources/Sounds/book_open_00.wav", "book_open_00");
     GetAudio()->LoadSound("Resources/Sounds/book_close_00.wav", "book_close_00");
     GetAudio()->LoadSound("Resources/Sounds/spell_summon_00.wav", "spell_summon_00");
+    GetAudio()->LoadSound("Resources/Sounds/error_00.wav", "error_00");
 
     /*
         Load Music
@@ -140,7 +141,8 @@ bool Game::Initialize()
         }
 
         // Start music
-        //Mix_PlayMusic(m_bgMusic, -1);
+        Mix_VolumeMusic(MIX_MAX_VOLUME / 4);
+        Mix_PlayMusic(m_bgMusic, -1);
     }
 
     /*

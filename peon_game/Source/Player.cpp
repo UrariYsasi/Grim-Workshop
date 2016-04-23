@@ -23,7 +23,7 @@ Player::Player(Game* game) :
     m_isBoxSelecting(false),
     m_boxSelection(0, 0, 0, 0),
     m_boxSelectionMesh(nullptr),
-    m_faith(0),
+    m_faith(100),
     m_placementModule(this)
 {
     m_gameInput = m_game->GetInput();

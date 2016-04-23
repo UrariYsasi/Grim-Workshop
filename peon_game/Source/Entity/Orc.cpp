@@ -29,7 +29,7 @@ void Orc::Update(float deltaTime)
     World* map = m_game->GetWorld();
 
     // LOOK FOR ORC ATTACK ACTION
-    AttackAction* attackAction = dynamic_cast<AttackAction*>(FindAction(ATTACK_ACTION));
+    AttackAction* attackAction = dynamic_cast<AttackAction*>(FindAction(ACTION_ATTACK));
     if (attackAction == nullptr)
     {
         // WE NEED ATTACK ACTION! ATTACK DE OBELISK!

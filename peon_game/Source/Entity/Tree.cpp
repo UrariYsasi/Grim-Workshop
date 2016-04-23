@@ -5,8 +5,8 @@
 Tree::Tree(Game* game, const glm::vec2& position) :
     Resource(game, position, ENT_TREE, ItemType::WOOD)
 {
-    m_origin = glm::vec2(0, 16);
-    m_hitBox = grim::graphics::Rect(-16, -16, 32, 32);
+    m_origin = glm::vec2(0, 32);
+    m_hitBox = grim::graphics::Rect(-5, -16, 10, 16);
     m_positionOffset = glm::vec2(grim::utility::Random::Generate(-6.0, 6.0), grim::utility::Random::Generate(0.0, -6.0));
     m_hp = 1000;
 

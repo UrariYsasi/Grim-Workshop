@@ -17,7 +17,7 @@ Peon::Peon(Game* game, const glm::vec2& position) :
     m_game->GetPlayer()->AddPeon();
 
     m_origin = glm::vec2(0, 16);
-    m_hitBox = grim::graphics::Rect(-3.0f, 0.0f, 7.0f, 16.0f);
+    m_hitBox = grim::graphics::Rect(-3.0f, -16.0f, 7.0f, 16.0f);
 
     grim::graphics::Texture* texture = m_game->GetTexture("peon");
     grim::graphics::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader");
@@ -39,7 +39,7 @@ void Peon::Update(float deltaTime)
 
 
     // If we don't have an attack action already
-    AttackAction* attackAction = dynamic_cast<AttackAction*>(FindAction(ATTACK_ACTION));
+    AttackAction* attackAction = dynamic_cast<AttackAction*>(FindAction(ACTION_ATTACK));
     if (attackAction == nullptr)
     {
         // Search for some Orcs
