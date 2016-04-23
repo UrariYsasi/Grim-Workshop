@@ -3,7 +3,7 @@
 #include "../Game.hpp"
 
 Obelisk::Obelisk(Game* game, const glm::vec2& position) :
-    Prop(game, position, ENT_OBELISK)
+    Entity(game, position, EntityID::STRUCTURE_OBELISK)
 {
     m_origin = glm::vec2(0, 96);
     m_hitBox = grim::graphics::Rect(-32, -32, 64, 64);

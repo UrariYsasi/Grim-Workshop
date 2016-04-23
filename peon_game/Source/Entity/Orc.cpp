@@ -7,10 +7,10 @@
 #include "../World/World.hpp"
 
 Orc::Orc(Game* game, const glm::vec2& position) :
-    Monster(game, position, ORC)
+    Monster(game, position, EntityID::MONSTER_ORC)
 {
-    m_origin = glm::vec2(16, 16);
-    m_hitBox = grim::graphics::Rect(-4, 0, 8, 16);
+    m_origin = glm::vec2(0, 16);
+    m_hitBox = grim::graphics::Rect(-3.0f, -16.0f, 7.0f, 16.0f);
     m_hp = 6;
 
     grim::graphics::Texture* texture = game->GetTexture("orc");
@@ -25,57 +25,10 @@ Orc::~Orc()
 void Orc::Update(float deltaTime)
 {
     Monster::Update(deltaTime);
-
-    World* map = m_game->GetWorld();
-
-    // LOOK FOR ORC ATTACK ACTION
-    AttackAction* attackAction = dynamic_cast<AttackAction*>(FindAction(ACTION_ATTACK));
-    if (attackAction == nullptr)
-    {
-        // WE NEED ATTACK ACTION! ATTACK DE OBELISK!
-        Entity* obeliskEnt = map->FindEntity(ENT_OBELISK);
-        if (obeliskEnt != nullptr)
-        {
-            ClearActionStack();
-            PushAction(std::make_unique<AttackAction>(this, obeliskEnt));
-        }
-    }
-    else
-    {
-        // IF ATTACK ACTION IS NOT ALREADY ATTACKING ENT_PEON
-        if (!attackAction->IsAttackingPeon())
-        {
-            // ORC SEARCH FOR PUNY ENT_PEONS TO SMASH
-            grim::graphics::Rect searchRect(m_position.x - 128, m_position.y - 128, 256, 256);
-            std::list<Entity*> peons = map->GetEntitiesInRect(ENT_PEON, searchRect);
-            if (peons.size() > 0)
-            {
-                // ORC SEE ENT_PEONS. SMASH DEM!
-                ClearActionStack();
-                Entity* peonEnt = peons.back();
-                PushAction(std::make_unique<AttackAction>(this, peonEnt));
-            }
-        }
-    }
 }
 
 void Orc::Render(grim::graphics::SpriteBatch& spriteBatch)
 {
-    if (!IsDead())
-    {
-        spriteBatch.AddSprite(glm::vec3(m_position - m_origin + m_positionOffset, 0.0), glm::vec3(0.0, 0.0, 0.0), glm::vec3(32.0, 32.0, 0), m_sprite.get());
-    }
-
-    // ORC LIKE TO DEBUG
-    /*
-    if (m_actionStack.size() > 0)
-    {
-        renderer->RenderText("dos", (int)(m_position.x), (int)(m_position.y), m_actionStack.back()->GetName());
-    }
-    */
-    //Rect searchRect(m_position.x - 128, m_position.y - 128, 256, 256);
-    //renderer->RenderOutlineRect(searchRect);
-
-    Entity::Render(spriteBatch);
+    spriteBatch.AddSprite(glm::vec3(m_position - m_origin + m_positionOffset, 0.0), glm::vec3(0.0, 0.0, 0.0), m_scale, m_sprite.get());
 }
 

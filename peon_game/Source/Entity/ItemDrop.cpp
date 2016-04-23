@@ -4,8 +4,8 @@
 #include "../Player.hpp"
 
 ItemDrop::ItemDrop(Game* game, const glm::vec2& position, const ItemType& type) :
-    m_type(type),
-    Entity(game, position, ENT_ITEM_DROP)
+    Entity(game, position, EntityID::ITEM_DROP),
+    m_type(type)
 {
     m_origin = glm::vec2(0, 0);
     m_hitBox = grim::graphics::Rect(-16, -16, 32, 32);

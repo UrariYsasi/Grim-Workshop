@@ -41,7 +41,7 @@ void AttackAction::Update(float deltaTime)
         return;
     }
 
-    // Attacking loop
+    // Attack loop
     if (!m_timer.IsStarted())
     {
         m_timer.Start();
@@ -49,10 +49,38 @@ void AttackAction::Update(float deltaTime)
     else if (m_timer.GetTimeInSeconds() >= m_attackSpeedSeconds)
     {
         m_timer.Stop();
+    
+        AttemptAttack();
+    }
+}
 
+void AttackAction::AttemptAttack()
+{
+    grim::graphics::Rect targetBounds = m_target->GetHitBox();
+    grim::graphics::Rect attackBounds = CalculateAttackBounds();
+
+    //m_owner->GetGame()->GetRenderer()->RenderOutlineRect(attackBounds);
+
+    if (attackBounds.IsCollidingWith(targetBounds))
+    {
         m_owner->GetGame()->GetAudio()->PlaySound("punch_00");
         m_target->Damage();
     }
+    else
+    {
+        grim::utility::Debug::Log("Miss!");
+    }
+}
+
+grim::graphics::Rect AttackAction::CalculateAttackBounds()
+{
+    grim::graphics::Rect bounds;
+    bounds.x = m_owner->GetPosition().x + 5.0f;
+    bounds.y = m_owner->GetPosition().y - 10.0f;
+    bounds.width = 5.0f;
+    bounds.height = 10.0f;
+
+    return bounds;
 }
 
 bool AttackAction::IsAttackingPeon()

@@ -3,7 +3,7 @@
 #include "../Game.hpp"
 
 Rock::Rock(Game* game, const glm::vec2& position) :
-    Resource(game, position, ROCK, ItemType::STONE)
+    Resource(game, position, EntityID::RESOURCE_ROCK, ItemType::STONE)
 {
     m_origin = glm::vec2(0, 0);
     m_hitBox = grim::graphics::Rect(-16, -16, 32, 32);

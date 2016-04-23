@@ -161,10 +161,10 @@ bool Game::Initialize()
     CreateShaderProgram("vertex_textured", "fragment_textured", "basic_shader");
 
     // Sprites
-    m_spriteMap[STRUCTURE_STOCKPILE] = std::make_unique<grim::graphics::Sprite>(GetTexture("structure"), GetShaderProgram("basic_shader"), 32, 32, 8);
-    m_spriteMap[ENT_MONSTER_SPIDER_QUEEN] = std::make_unique<grim::graphics::Sprite>(GetTexture("spider"), GetShaderProgram("basic_shader"), 512, 512, 0);
-    m_spriteMap[ENT_PEON] = std::make_unique<grim::graphics::Sprite>(GetTexture("peon"), GetShaderProgram("basic_shader"), 32, 32, 0);
-    m_spriteMap[ENT_BEAM_EFFECT] = std::make_unique<grim::graphics::Sprite>(GetTexture("beam"), GetShaderProgram("basic_shader"), 64, 128, 0);
+    m_spriteMap[EntityID::STRUCTURE_STOCKPILE] = std::make_unique<grim::graphics::Sprite>(GetTexture("structure"), GetShaderProgram("basic_shader"), 32, 32, 8);
+    m_spriteMap[EntityID::MONSTER_SPIDER_QUEEN] = std::make_unique<grim::graphics::Sprite>(GetTexture("spider"), GetShaderProgram("basic_shader"), 512, 512, 0);
+    m_spriteMap[EntityID::PEON] = std::make_unique<grim::graphics::Sprite>(GetTexture("peon"), GetShaderProgram("basic_shader"), 32, 32, 0);
+    m_spriteMap[EntityID::EFFECT_BEAM] = std::make_unique<grim::graphics::Sprite>(GetTexture("beam"), GetShaderProgram("basic_shader"), 64, 128, 0);
 
     // Setup the game
     m_mainCamera = std::make_unique<grim::graphics::Camera>(this, WINDOW_WIDTH, WINDOW_HEIGHT, -1.0f, 1.0f);
@@ -215,14 +215,14 @@ bool Game::Initialize()
 
     m_buttonSprite = std::make_unique<grim::graphics::Sprite>(GetTexture("button"), GetShaderProgram("basic_shader"), 128, 32, 0);
 
-    m_peonButton = new grim::ui::ButtonView(GetEntitySprite(ENT_PEON));
+    m_peonButton = new grim::ui::ButtonView(GetEntitySprite(EntityID::PEON));
     m_peonButton->SetPosition(glm::vec2(-220.0f, -110.0f));
     m_peonButton->SetScale(glm::vec2(1.5f, 1.5f));
     m_spellbook->RegisterWidget(m_peonButton);
 
     m_peonButton->SetOnClick([this]()
     {
-        GetPlayer()->GetPlacement()->SetHeldEntity(ENT_PEON);
+        GetPlayer()->GetPlacement()->SetHeldEntity(EntityID::PEON);
         GetAudio()->PlaySound("select_00");
     });
 

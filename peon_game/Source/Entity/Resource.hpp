@@ -1,12 +1,12 @@
 #pragma once
-#include "Prop.hpp"
+#include "Entity.hpp"
 
 class Monster;
 
-class Resource : public Prop
+class Resource : public Entity
 {
 public:
-    Resource(Game* game, const glm::vec2& position, int entityID, ItemType item);
+    Resource(Game* game, const glm::vec2& position, EntityID ID, ItemType item);
     virtual ~Resource();
 
     virtual ItemType GetItem() const = 0;

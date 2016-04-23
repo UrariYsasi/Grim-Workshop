@@ -13,11 +13,15 @@ public:
     };
 
 public:
-    Entity(Game* game, const glm::vec2& position, int entityID);
+    Entity(Game* game, const glm::vec2& position, EntityID ID);
     virtual ~Entity();
 
+    virtual void Update(float deltaTime);
+    virtual void Render(grim::graphics::SpriteBatch& spriteBatch);
+    void Delete();
+
     Game* GetGame();
-    int GetEntityID();
+    EntityID GetID();
     glm::vec2 GetPosition() const;
     glm::vec2 GetOrigin() const;
     glm::vec2 GetPositionOffset() const;
@@ -26,10 +30,6 @@ public:
     bool IsDeleted() const;
     grim::graphics::Rect GetHitBox() const;
 
-    virtual void Update(float deltaTime);
-    virtual void Render(grim::graphics::SpriteBatch& spriteBatch);
-
-    void Delete();
     bool IsCollidingWithRect(const grim::graphics::Rect& rect) const;
 
     /*
@@ -63,14 +63,14 @@ public:
 
 protected:
     Game* m_game;
-    int m_entityID;
+    EntityID m_ID;
     glm::vec2 m_position;
     glm::vec3 m_scale;
+    glm::vec3 m_rotation;
     glm::vec2 m_origin;
     glm::vec2 m_positionOffset;
     bool m_isDeleted;
     grim::graphics::Rect m_hitBox;
-    grim::graphics::Rect m_selectionHitBox;
     int m_hp;
     bool m_isHeld;
 

@@ -5,8 +5,8 @@
 #include "Action/IdleAction.hpp"
 #include "Action/AttackAction.hpp"
 
-Monster::Monster(Game* game, const glm::vec2& position, int entityID) :
-    Entity(game, position, entityID),
+Monster::Monster(Game* game, const glm::vec2& position, EntityID ID) :
+    Entity(game, position, ID),
     m_heldEntity(nullptr),
     m_moveSpeed(64),
     m_faithWorth(1)

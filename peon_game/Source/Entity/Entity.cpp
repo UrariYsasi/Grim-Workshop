@@ -3,16 +3,16 @@
 #include "../Game.hpp"
 #include "Obelisk.hpp"
 
-Entity::Entity(Game* game, const glm::vec2& position, int entityID) :
+Entity::Entity(Game* game, const glm::vec2& position, EntityID ID) :
     m_game(game),
-    m_entityID(entityID),
+    m_ID(ID),
     m_position(position),
     m_scale(1.0f),
+    m_rotation(0.0f),
     m_origin(0, 0),
     m_positionOffset(0, 0),
     m_isDeleted(false),
     m_hitBox(-16, -16, 16, 16),
-    m_selectionHitBox(-16, -16, 16, 16),
     m_hp(3),
     m_isHeld(false),
     m_consumeStartTime(0),
@@ -32,9 +32,9 @@ Game* Entity::GetGame()
     return m_game;
 }
 
-int Entity::GetEntityID()
+EntityID Entity::GetID()
 {
-    return m_entityID;
+    return m_ID;
 }
 
 glm::vec2 Entity::GetPosition() const

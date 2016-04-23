@@ -19,12 +19,10 @@ public:
 
     grim::graphics::Camera* GetMainCamera();
     World* GetWorld();
-
     grim::graphics::Texture* GetTexture(const std::string& ID);
     TTF_Font* GetFont(const std::string& id);
     grim::graphics::Shader* GetShader(const std::string& ID);
     grim::graphics::ShaderProgram* GetShaderProgram(const std::string& ID);
-
     grim::graphics::Sprite* GetEntitySprite(const EntityID& id);
     Player* GetPlayer();
 

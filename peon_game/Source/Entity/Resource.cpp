@@ -2,8 +2,8 @@
 #include "Resource.hpp"
 #include "Monster.hpp"
 
-Resource::Resource(Game* game, const glm::vec2& position, int entityID, ItemType item) :
-    Prop(game, position, entityID),
+Resource::Resource(Game* game, const glm::vec2& position, EntityID ID, ItemType item) :
+    Entity(game, position, ID),
     m_item(item),
     m_peonCount(0),
     m_peonLimit(3)

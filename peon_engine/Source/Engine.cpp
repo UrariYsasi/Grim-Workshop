@@ -75,6 +75,7 @@ void Engine::Run()
         m_input->Update();
         Update(deltaTime);
         Render();
+        m_renderer->Render();
         m_window->SwapWindow();
 
         m_frameCount++;

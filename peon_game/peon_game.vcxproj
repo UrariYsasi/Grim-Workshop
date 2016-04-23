@@ -43,7 +43,6 @@
     <ClCompile Include="Source\Entity\Obelisk.cpp" />
     <ClCompile Include="Source\Entity\Orc.cpp" />
     <ClCompile Include="Source\Entity\Peon.cpp" />
-    <ClCompile Include="Source\Entity\Prop.cpp" />
     <ClCompile Include="Source\Entity\Resource.cpp" />
     <ClCompile Include="Source\Entity\Rock.cpp" />
     <ClCompile Include="Source\Entity\Spider.cpp" />
@@ -82,7 +81,6 @@
     <ClInclude Include="Source\Entity\Obelisk.hpp" />
     <ClInclude Include="Source\Entity\Orc.hpp" />
     <ClInclude Include="Source\Entity\Peon.hpp" />
-    <ClInclude Include="Source\Entity\Prop.hpp" />
     <ClInclude Include="Source\Entity\Resource.hpp" />
     <ClInclude Include="Source\Entity\Rock.hpp" />
     <ClInclude Include="Source\Entity\Spider.hpp" />

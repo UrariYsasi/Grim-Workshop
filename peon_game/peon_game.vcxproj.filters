@@ -48,9 +48,6 @@
     <ClCompile Include="Source\Entity\Peon.cpp">
       <Filter>Source\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Entity\Prop.cpp">
-      <Filter>Source\Entity</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Entity\Resource.cpp">
       <Filter>Source\Entity</Filter>
     </ClCompile>
@@ -150,9 +147,6 @@
       <Filter>Source\Entity</Filter>
     </ClInclude>
     <ClInclude Include="Source\Entity\Peon.hpp">
-      <Filter>Source\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Entity\Prop.hpp">
       <Filter>Source\Entity</Filter>
     </ClInclude>
     <ClInclude Include="Source\Entity\Resource.hpp">

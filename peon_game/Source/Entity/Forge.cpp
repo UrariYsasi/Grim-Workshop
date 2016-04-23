@@ -3,7 +3,7 @@
 #include "../Game.hpp"
 
 Forge::Forge(Game* game, const glm::vec2& position) :
-    Prop(game, position, NONE)
+    Entity(game, position, EntityID::NONE)
 {
 }
 

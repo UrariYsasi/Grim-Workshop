@@ -10,7 +10,7 @@ PlacementModule::PlacementModule(Player* owner) :
     m_input(nullptr),
     m_camera(nullptr),
     m_isPlacing(false),
-    m_heldEntityID(NONE)
+    m_heldEntityID(EntityID::NONE)
 {
 }
 
@@ -43,7 +43,7 @@ void PlacementModule::Update(float deltaTime)
     if (m_input->GetKeyPress(SDLK_1))
     {
         m_isPlacing = !m_isPlacing;
-        m_heldEntityID = ENT_MONSTER_SPIDER_QUEEN;
+        m_heldEntityID = EntityID::MONSTER_SPIDER_QUEEN;
         m_heldEntitySprite = m_game->GetEntitySprite(m_heldEntityID);
         m_game->GetAudio()->PlaySound("select_00");
     }
@@ -85,7 +85,7 @@ void PlacementModule::Render()
 {
     if (m_isPlacing)
     {
-        if (m_heldEntityID != NONE)
+        if (m_heldEntityID != EntityID::NONE)
         {
             glm::vec2 mousePosition = m_camera->ConvertToWorld(m_input->GetMousePosition());
             m_heldEntitySprite->color.a = 0.5f;

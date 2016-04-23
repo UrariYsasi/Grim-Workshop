@@ -15,6 +15,7 @@ public:
     virtual bool Initialize();
     virtual void Terminate();
     virtual void Clear();
+    virtual void Render();
 
     virtual void SetClearColor(const Color& color);
     virtual void SetActiveCamera(Camera* camera);

@@ -1,7 +1,7 @@
 #pragma once
-#include "Prop.hpp"
+#include "Entity.hpp"
 
-class Altar : public Prop
+class Altar : public Entity
 {
 public:
     Altar(Game* game, const glm::vec2& position);

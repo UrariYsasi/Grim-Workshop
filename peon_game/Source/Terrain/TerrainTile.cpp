@@ -1,7 +1,6 @@
 #include "PCH.hpp"
 #include "TerrainTile.hpp"
 #include "../Game.hpp"
-#include "../Entity/Prop.hpp"
 #include "../World/World.hpp"
 #include "../World/Region.hpp"
 

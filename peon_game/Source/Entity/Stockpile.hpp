@@ -1,8 +1,8 @@
 #pragma once
-#include "Prop.hpp"
+#include "Entity.hpp"
 #include "../Item/Inventory.hpp"
 
-class Stockpile : public Prop
+class Stockpile : public Entity
 {
 public:
     Stockpile(Game* game, const glm::vec2& position);

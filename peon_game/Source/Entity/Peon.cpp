@@ -10,7 +10,7 @@
 #include "../Player.hpp"
 
 Peon::Peon(Game* game, const glm::vec2& position) :
-    Monster(game, position, ENT_PEON),
+    Monster(game, position, EntityID::PEON),
     m_isSelected(false),
     m_selectionSprite(nullptr)
 {
@@ -37,30 +37,6 @@ void Peon::Update(float deltaTime)
 
     World* world = m_game->GetWorld();
 
-
-    // If we don't have an attack action already
-    AttackAction* attackAction = dynamic_cast<AttackAction*>(FindAction(ACTION_ATTACK));
-    if (attackAction == nullptr)
-    {
-        // Search for some Orcs
-        grim::graphics::Rect searchRect(m_position.x - 64, m_position.y - 64, 128, 128);
-        std::list<Entity*> orcs = world->GetEntitiesInRect(ORC, searchRect);
-        if (orcs.size() > 0)
-        {
-            // Found some orcs. Go attack them.
-            ClearActionStack();
-            Entity* orcEnt = orcs.back();
-            PushAction(std::make_unique<AttackAction>(this, orcEnt));
-        }
-    }
-
-    // If this Peon has no actions, add an IdleAction.
-    if (m_actionStack.size() == 0)
-    {
-        std::unique_ptr<Action> action = std::make_unique<IdleAction>(this);
-        m_actionStack.push_back(std::move(action));
-    }
-
     // Check if we have moved into an unexplored Region
     glm::ivec2 coordinates = world->ConvertToRegionCoordinates(m_position);
     if (!world->IsRegionExplored(coordinates))
@@ -71,18 +47,13 @@ void Peon::Update(float deltaTime)
 
 void Peon::Render(grim::graphics::SpriteBatch& spriteBatch)
 {
-    if (!IsDead())
+    if (m_isSelected)
     {
-        if (m_isSelected)
-        {
-            spriteBatch.AddSprite(glm::vec3(m_position - m_origin + glm::vec2(0.0f, 3.0f), 0.0f), glm::vec3(0.0f), glm::vec3(1.0f), m_selectionSprite.get());
-        }
-
-        spriteBatch.AddSprite(glm::vec3(m_position - m_origin + glm::vec2(0.0f, 16.0f), 0.0f), glm::vec3(0.0f), glm::vec3(1.0f + (m_positionOffset.y / 2.75f), 1.0f + (m_positionOffset.y / 2.75f), 0.0f), m_shadowSprite.get());
-        spriteBatch.AddSprite(glm::vec3(m_position - m_origin + m_positionOffset, 0.0f), glm::vec3(0.0f), glm::vec3(1.0f), m_sprite.get());
+        spriteBatch.AddSprite(glm::vec3(m_position - m_origin + glm::vec2(0.0f, 3.0f), 0.0f), glm::vec3(0.0f), glm::vec3(1.0f), m_selectionSprite.get());
     }
 
-    Entity::Render(spriteBatch);
+    spriteBatch.AddSprite(glm::vec3(m_position - m_origin + glm::vec2(0.0f, 16.0f), 0.0f), glm::vec3(0.0f), glm::vec3(1.0f + (m_positionOffset.y / 2.75f), 1.0f + (m_positionOffset.y / 2.75f), 0.0f), m_shadowSprite.get());
+    spriteBatch.AddSprite(glm::vec3(m_position - m_origin + m_positionOffset, 0.0f), glm::vec3(0.0f), glm::vec3(1.0f), m_sprite.get());
 }
 
 void Peon::Select()

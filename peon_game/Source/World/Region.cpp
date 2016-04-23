@@ -83,26 +83,27 @@ void Region::GenerateEntities()
             }
         }
 
-        m_world->Spawn(ENT_TREE, treePosition);
+        m_world->Spawn(EntityID::RESOURCE_TREE, treePosition);
     }
 
     // Monsters
     if (m_ID == REGION_OBELISK)
     {
-        m_world->Spawn(ENT_PEON, GetCenter() + glm::vec2(0, 64));
-        m_world->Spawn(ENT_PEON, GetCenter() + glm::vec2(-32, 64));
-        m_world->Spawn(ENT_PEON, GetCenter() + glm::vec2(32, 64));
+        m_world->Spawn(EntityID::PEON, GetCenter() + glm::vec2(0, 64));
+        m_world->Spawn(EntityID::PEON, GetCenter() + glm::vec2(-32, 64));
+        m_world->Spawn(EntityID::PEON, GetCenter() + glm::vec2(32, 64));
+        m_world->Spawn(EntityID::MONSTER_ORC, GetCenter() + glm::vec2(128, 0));
     }
 
     if (m_ID == REGION_BOSS_SPIDER)
     {
-        m_world->Spawn(ENT_MONSTER_SPIDER_QUEEN, GetCenter());
+        m_world->Spawn(EntityID::MONSTER_SPIDER_QUEEN, GetCenter());
     }
 
     // Structures
     if (m_ID == REGION_OBELISK)
     {
-        m_world->Spawn(ENT_OBELISK, GetCenter());
+        m_world->Spawn(EntityID::STRUCTURE_OBELISK, GetCenter());
     }
 }
 

@@ -3,7 +3,7 @@
 #include "../Game.hpp"
 
 Stockpile::Stockpile(Game* game, const glm::vec2& position) :
-    Prop(game, position, STRUCTURE_STOCKPILE)
+    Entity(game, position, EntityID::STRUCTURE_STOCKPILE)
 {
     m_origin = glm::vec2(0.0f, 0.0f);
     m_hitBox = grim::graphics::Rect(-16.0f, -16.0f, 32.0f, 32.0f);

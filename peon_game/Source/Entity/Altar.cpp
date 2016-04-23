@@ -3,7 +3,7 @@
 #include "../Game.hpp"
 
 Altar::Altar(Game* game, const glm::vec2& position) :
-    Prop(game, position, ALTAR)
+    Entity(game, position, EntityID::STRUCTURE_ALTAR)
 {
     m_origin = glm::vec2(16, 16);
     m_hitBox = grim::graphics::Rect(-16, -16, 32, 32);

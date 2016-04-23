@@ -10,6 +10,9 @@ public:
     virtual ~AttackAction();
 
     virtual void Update(float deltaTime);
+    void AttemptAttack();
+    grim::graphics::Rect CalculateAttackBounds();
+
     bool IsAttackingPeon();
 
 public:

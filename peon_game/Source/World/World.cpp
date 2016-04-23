@@ -196,48 +196,54 @@ glm::ivec2 World::ConvertToRegionCoordinates(const glm::vec2& position)
     return coordinates;
 }
 
-Entity* World::Spawn(const EntityID& id, const glm::vec2& position)
+Entity* World::Spawn(const EntityID& ID, const glm::vec2& position)
 {
     Entity* spawned = nullptr;
 
-    if (id == ENT_PEON)
+    if (ID == EntityID::PEON)
     {
-        Spawn(ENT_BEAM_EFFECT, position);
+        Spawn(EntityID::EFFECT_BEAM, position);
         std::unique_ptr<Peon> ent = std::make_unique<Peon>(m_game, position);
         spawned = ent.get();
         m_entities.push_back(std::move(ent));
     }
-    else if (id == ENT_ITEM_DROP)
+    else if (ID == EntityID::ITEM_DROP)
     {
         std::unique_ptr<ItemDrop> ent = std::make_unique<ItemDrop>(m_game, position, ItemType::WOOD);
         spawned = ent.get();
         m_entities.push_back(std::move(ent));
     }
-    else if (id == ENT_MONSTER_SPIDER_QUEEN)
+    else if (ID == EntityID::MONSTER_ORC)
+    {
+        std::unique_ptr<Orc> ent = std::make_unique<Orc>(m_game, position);
+        spawned = ent.get();
+        m_entities.push_back(std::move(ent));
+    }
+    else if (ID == EntityID::MONSTER_SPIDER_QUEEN)
     {
         std::unique_ptr<Spider> ent = std::make_unique<Spider>(m_game, position);
         spawned = ent.get();
         m_entities.push_back(std::move(ent));
     }
-    else if (id == STRUCTURE_STOCKPILE)
+    else if (ID == EntityID::STRUCTURE_STOCKPILE)
     {
         std::unique_ptr<Stockpile> ent = std::make_unique<Stockpile>(m_game, position);
         spawned = ent.get();
         m_entities.push_back(std::move(ent));
     }
-    else if (id == ENT_BEAM_EFFECT)
+    else if (ID == EntityID::EFFECT_BEAM)
     {
         std::unique_ptr<BeamEffect> ent = std::make_unique<BeamEffect>(m_game, position);
         spawned = ent.get();
         m_entities.push_back(std::move(ent));
     }
-    else if (id == ENT_TREE)
+    else if (ID == EntityID::RESOURCE_TREE)
     {
         std::unique_ptr<Tree> ent = std::make_unique<Tree>(m_game, position);
         spawned = ent.get();
         m_entities.push_back(std::move(ent));
     }
-    else if (id == ENT_OBELISK)
+    else if (ID == EntityID::STRUCTURE_OBELISK)
     {
         std::unique_ptr<Obelisk> ent = std::make_unique<Obelisk>(m_game, position);
         spawned = ent.get();
@@ -247,13 +253,13 @@ Entity* World::Spawn(const EntityID& id, const glm::vec2& position)
     return spawned;
 }
 
-Entity* World::GetEntityAtPoint(const glm::vec2& point, int entityID)
+Entity* World::GetEntityAtPoint(const glm::vec2& point, EntityID ID)
 {
     Entity* ent = nullptr;
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
         ent = (*it).get();
-        if ((ent->GetEntityID() == entityID) || (entityID == NONE))
+        if ((ent->GetID() == ID) || (ID == EntityID::NONE))
         {
             grim::graphics::Rect hitBox = ent->GetHitBox();
             if (hitBox.ContainsPoint(point))
@@ -266,13 +272,13 @@ Entity* World::GetEntityAtPoint(const glm::vec2& point, int entityID)
     return nullptr;
 }
 
-std::list<Entity*> World::GetEntitiesInRect(int entityID, const grim::graphics::Rect& rect)
+std::list<Entity*> World::GetEntitiesInRect(EntityID ID, const grim::graphics::Rect& rect)
 {
     std::list<Entity*> ents;
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
         Entity* ent = (*it).get();
-        if (ent->GetEntityID() == entityID || entityID == NONE)
+        if (ent->GetID() == ID || ID == EntityID::NONE)
         {
             if (ent->IsCollidingWithRect(rect) && !ent->IsDead())
             {
@@ -284,11 +290,11 @@ std::list<Entity*> World::GetEntitiesInRect(int entityID, const grim::graphics::
     return ents;
 }
 
-Entity* World::FindEntity(int entityID)
+Entity* World::FindEntity(EntityID ID)
 {
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
-        if ((*it)->GetEntityID() == entityID || entityID == NONE)
+        if ((*it)->GetID() == ID || ID == EntityID::NONE)
         {
             return (*it).get();
         }

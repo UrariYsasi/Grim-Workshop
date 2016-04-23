@@ -3,7 +3,7 @@
 #include "../Game.hpp"
 
 BeamEffect::BeamEffect(Game* game, const glm::vec2& position) :
-    Entity(game, position, ENT_BEAM_EFFECT),
+    Entity(game, position, EntityID::EFFECT_BEAM),
     m_lifetimeSeconds(0.3f)
 {
     m_scale = glm::vec3(0.5f, 0.5f, 1.0f);

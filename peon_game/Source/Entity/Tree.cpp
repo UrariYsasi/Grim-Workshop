@@ -3,7 +3,7 @@
 #include "../Game.hpp"
 
 Tree::Tree(Game* game, const glm::vec2& position) :
-    Resource(game, position, ENT_TREE, ItemType::WOOD)
+    Resource(game, position, EntityID::RESOURCE_TREE, ItemType::WOOD)
 {
     m_origin = glm::vec2(0, 32);
     m_hitBox = grim::graphics::Rect(-5, -16, 10, 16);

@@ -20,14 +20,14 @@ public:
     Region* CreateRegion(const glm::ivec2& coordinates);
     void ExploreRegion(const glm::ivec2& coordinates);
     glm::ivec2 ConvertToRegionCoordinates(const glm::vec2& position);
-    Entity* Spawn(const EntityID& id, const glm::vec2& position);
+    Entity* Spawn(const EntityID& ID, const glm::vec2& position);
 
     /*
         Gets the Entity with the given ID that is currently colliding with the given point.
 
         If the give ID is NONE, then it will return any Entity.
     */
-    Entity* GetEntityAtPoint(const glm::vec2& point, int entityID = NONE);
+    Entity* GetEntityAtPoint(const glm::vec2& point, EntityID ID = EntityID::NONE);
 
     /*
         Finds and returns all Entities with the given ID that are contained
@@ -35,14 +35,14 @@ public:
 
         If the ID given is NONE, it will return all Entity types.
     */
-    std::list<Entity*> GetEntitiesInRect(int entityID, const grim::graphics::Rect& rect);
+    std::list<Entity*> GetEntitiesInRect(EntityID ID, const grim::graphics::Rect& rect);
 
     /*
         Finds and returns the first Entity with the given ID.
 
         This is used to find unique Entities, such as the Obelisk.
     */
-    Entity* FindEntity(int entityID);
+    Entity* FindEntity(EntityID ID);
 
     Game* GetGame();
     Region* GetRegion(const glm::ivec2& coordinates);
