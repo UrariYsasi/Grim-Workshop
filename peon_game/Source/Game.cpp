@@ -19,7 +19,8 @@ Game::Game() :
     m_peonCountWidget(nullptr),
     m_woodCountWidget(nullptr),
     m_faithCountWidget(nullptr),
-    m_basicPeonLabel(nullptr)
+    m_basicPeonLabel(nullptr),
+    m_mesh(grim::graphics::PrimitiveType::LINE_LOOP)
 {
 }
 
@@ -227,6 +228,17 @@ bool Game::Initialize()
     });
 
     m_material = std::make_unique<grim::graphics::Material>(GetTexture("doosk"), GetShaderProgram("basic_shader"));
+    m_mesh.AddVertex(grim::graphics::Vertex(glm::vec3(0.0f, 0.0f, 0.0f)));
+    m_mesh.AddVertex(grim::graphics::Vertex(glm::vec3(256.0f, 0.0f, 0.0f)));
+    m_mesh.AddVertex(grim::graphics::Vertex(glm::vec3(0.0f, 256.0f, 0.0f)));
+    m_mesh.AddVertex(grim::graphics::Vertex(glm::vec3(256.0f, 256.0f, 0.0f)));
+
+    m_mesh.AddIndex(0);
+    m_mesh.AddIndex(1);
+    m_mesh.AddIndex(3);
+    m_mesh.AddIndex(2);
+
+    grim::utility::Debug::Log("Mesh created with %d vertices and %d indices", m_mesh.GetVertexCount(), m_mesh.GetIndexCount());
 
     return true;
 }
@@ -301,6 +313,10 @@ void Game::Render()
         m_uiCamera->Activate();
         GetUI()->Render();
     }
+
+    // RenderCommand test
+    grim::graphics::RenderCommand command(&m_mesh, m_material.get());
+    GetRenderer()->Submit(command);
 }
 
 bool Game::LoadTexture(const std::string& path, const std::string& ID, const GLenum& wrapMode, const GLenum& scaleMode)

@@ -6,76 +6,25 @@ namespace grim
 namespace graphics
 {
 
-/*
-    A renderable Mesh.
-*/
 class Mesh
 {
 public:
-    Mesh(grim::graphics::ShaderProgram* shaderProgram, grim::graphics::Texture* texture);
+    Mesh(const PrimitiveType& primitiveType);
     ~Mesh();
 
-    /*
-        Render the sprite at the given position, with the given rotation and scale.
-    */
-    void Render(const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale);
+    void AddVertex(const Vertex& vertex);
+    void AddIndex(const uint32_t& index);
 
-    /*
-        Upload a new vertex array to the Mesh.
-    */
-    void UploadVertexData(GLfloat* vertices, unsigned int verticesSize);
-
-    /*
-        Upload a new element array to the Mesh.
-    */
-    void UploadElementData(GLuint* elements, unsigned int elementsSize);
-
-    /*
-        Set the OpenGL render mode of the Mesh.
-    */
-    void SetRenderMode(GLenum mode);
+    PrimitiveType GetPrimitiveType() const;
+    std::vector<Vertex> GetVertexData() const;
+    std::vector<uint32_t> GetIndexData() const;
+    uint32_t GetVertexCount() const;
+    uint32_t GetIndexCount() const;
 
 private:
-
-    /*
-        The ShaderProgram for this Mesh.
-    */
-    grim::graphics::ShaderProgram* m_shaderProgram;
-
-    /*
-        The Texture for this Mesh.
-    */
-    grim::graphics::Texture* m_texture;
-
-    /*
-        The model matrix for this Mesh.
-    */
-    glm::mat4 m_modelMatrix;
-
-    /*
-        The OpenGL handle for the VAO.
-    */
-    GLuint m_VAOHandle;
-
-    /*
-        The OpenGL handle for the VBO.
-    */
-    GLuint m_VBOHandle;
-
-    /*
-        The OpenGL handle for the EBO.
-    */
-    GLuint m_EBOHandle;
-
-    /*
-        The OpenGL render mode that this Mesh will be rendered with.
-    */
-    GLenum m_mode;
-
-    /*
-        The number of OpenGL elements to render with glDrawElements().
-    */
-    GLuint m_elementCount;
+    PrimitiveType m_primitiveType;
+    std::vector<Vertex> m_vertexData;
+    std::vector<uint32_t> m_indexData;
 };
 
 }

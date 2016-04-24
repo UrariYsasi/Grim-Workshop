@@ -17,15 +17,15 @@ TextView::TextView(const std::string& text, TTF_Font* font, grim::graphics::Shad
     m_isInvalid(true)
 {
     m_texture = std::make_unique<grim::graphics::Texture>("doosk.png");
-    m_mesh = std::make_unique <grim::graphics::Mesh>(shaderProgram, m_texture.get());
+    //m_mesh = std::make_unique <grim::graphics::Mesh>(shaderProgram, m_texture.get());
 
     GLuint elements[] = {
         0, 1, 2,
         2, 3, 1
     };
 
-    m_mesh->UploadElementData(elements, sizeof(elements));
-    m_mesh->SetRenderMode(GL_TRIANGLES);
+    //m_mesh->UploadElementData(elements, sizeof(elements));
+    //m_mesh->SetRenderMode(GL_TRIANGLES);
 }
 
 TextView::~TextView()
@@ -57,7 +57,7 @@ void TextView::Render()
 
     glm::vec3 renderRotation(0.0f, 0.0f, m_rotation);
     glm::vec3 renderScale(m_scale.x, m_scale.y, 1.0f);
-    m_mesh->Render(renderPosition, renderRotation, renderScale);
+    //m_mesh->Render(renderPosition, renderRotation, renderScale);
 }
 
 void TextView::Construct()
@@ -77,7 +77,7 @@ void TextView::Construct()
         0.0f + surface->w, 0.0f + surface->h, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f
     };
 
-    m_mesh->UploadVertexData(vertices, sizeof(vertices));
+    //m_mesh->UploadVertexData(vertices, sizeof(vertices));
 
     m_isInvalid = false;
     m_width = surface->w;

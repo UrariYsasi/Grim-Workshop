@@ -29,15 +29,6 @@ Player::Player(Game* game) :
     m_gameInput = m_game->GetInput();
     m_gameCamera = m_game->GetMainCamera();
     m_gameWorld = m_game->GetWorld();
-
-    // Create the box selection mesh
-    GLuint elements[] = {
-        0, 1, 3, 2
-    };
-
-    m_boxSelectionMesh = std::make_unique<grim::graphics::Mesh>(m_game->GetShaderProgram("basic_shader"), nullptr);
-    m_boxSelectionMesh->UploadElementData(elements, sizeof(elements));
-    m_boxSelectionMesh->SetRenderMode(GL_LINE_LOOP);
 }
 
 Player::~Player()
@@ -194,6 +185,7 @@ void Player::Render()
 {
     if (m_isBoxSelecting)
     {
+        /*
         if (std::abs(m_boxSelection.width) >= 5 || std::abs(m_boxSelection.height) >= 5)
         {
             GLfloat vertices[] = {
@@ -210,6 +202,7 @@ void Player::Render()
             m_boxSelectionMesh->UploadVertexData(vertices, sizeof(vertices));
             m_boxSelectionMesh->Render(glm::vec3(0.0), glm::vec3(0.0), glm::vec3(1, 1, 0));
         }
+        */
     }
 
     /*

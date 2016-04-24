@@ -101,4 +101,5 @@ private:
     grim::ui::ButtonView* m_peonButton;
 
     std::unique_ptr<grim::graphics::Material> m_material;
+    grim::graphics::Mesh m_mesh;
 };

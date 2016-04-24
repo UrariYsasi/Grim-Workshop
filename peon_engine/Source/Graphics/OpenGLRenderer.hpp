@@ -16,6 +16,7 @@ public:
     virtual void Terminate();
     virtual void Clear();
     virtual void Render();
+    virtual void Submit(const RenderCommand& command);
 
     virtual void SetClearColor(const Color& color);
     virtual void SetActiveCamera(Camera* camera);
@@ -23,6 +24,7 @@ public:
 
 private:
     Camera* m_activeCamera;
+    std::vector<RenderCommand> m_renderQueue;
 };
 
 }

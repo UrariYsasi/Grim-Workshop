@@ -7,131 +7,50 @@ namespace grim
 namespace graphics
 {
 
-Mesh::Mesh(grim::graphics::ShaderProgram* shaderProgram, grim::graphics::Texture* texture) :
-    m_shaderProgram(shaderProgram),
-    m_texture(texture),
-    m_modelMatrix(1.0),
-    m_VAOHandle(0),
-    m_VBOHandle(0),
-    m_EBOHandle(0),
-    m_mode(GL_TRIANGLES),
-    m_elementCount(0)
+Mesh::Mesh(const PrimitiveType& primitiveType) :
+    m_primitiveType(primitiveType)
 {
-    // Create a VAO
-    glGenVertexArrays(1, &m_VAOHandle);
-
-    // Create a VBO
-    glGenBuffers(1, &m_VBOHandle);
-
-    // Create an EBO
-    glGenBuffers(1, &m_EBOHandle);
 }
 
 Mesh::~Mesh()
 {
-    // Delete buffers
-    glDeleteBuffers(1, &m_EBOHandle);
-    glDeleteBuffers(1, &m_VBOHandle);
-    glDeleteVertexArrays(1, &m_VAOHandle);
+    m_vertexData.clear();
+    m_indexData.clear();
 }
 
-void Mesh::Render(const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale)
+void Mesh::AddVertex(const Vertex& vertex)
 {
-    // Bind the VAO for this mesh
-    glBindVertexArray(m_VAOHandle);
-
-    // Bind the EBO for this mesh
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBOHandle);
-
-    // Bind our ShaderProgram
-    m_shaderProgram->Bind();
-
-    // Transform the mesh
-    m_modelMatrix = glm::mat4(1.0);
-    m_modelMatrix = glm::translate(m_modelMatrix, position);
-    m_modelMatrix = glm::scale(m_modelMatrix, scale);
-    m_modelMatrix = glm::rotate(m_modelMatrix, rotation.x, glm::vec3(1.0, 0.0, 0.0));
-    m_modelMatrix = glm::rotate(m_modelMatrix, rotation.y, glm::vec3(0.0, 1.0, 0.0));
-    m_modelMatrix = glm::rotate(m_modelMatrix, rotation.z, glm::vec3(0.0, 0.0, 1.0));
-
-    // Upload our model matrix
-    GLuint uniModel = glGetUniformLocation(m_shaderProgram->GetHandle(), "model");
-    glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(m_modelMatrix));
-
-    // Bind our Texture
-    if (m_texture != nullptr)
-    {
-        m_texture->Bind();
-    }
-
-    // Render the mesh
-    glDrawElements(m_mode, m_elementCount, GL_UNSIGNED_INT, 0);
-
-    // Unbind our Texture
-    if (m_texture != nullptr)
-    {
-        m_texture->Unbind();
-    }
-
-    // Unbind our ShaderProgram
-    m_shaderProgram->Unbind();
-
-    // Unbind the EBO
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-    // Unbind the vertex array
-    glBindVertexArray(0);
+    m_vertexData.push_back(vertex);
 }
 
-void Mesh::UploadVertexData(GLfloat* vertices, unsigned int verticesSize)
+void Mesh::AddIndex(const uint32_t& index)
 {
-    // Bind the VAO
-    glBindVertexArray(m_VAOHandle);
-
-    // Bind the VBO and upload the vertex data
-    glBindBuffer(GL_ARRAY_BUFFER, m_VBOHandle);
-    glBufferData(GL_ARRAY_BUFFER, verticesSize, vertices, GL_STATIC_DRAW);
-
-    GLint positionAttribute = glGetAttribLocation(m_shaderProgram->GetHandle(), "inPosition");
-    GLint colorAttribute = glGetAttribLocation(m_shaderProgram->GetHandle(), "inColor");
-    GLint uvAttribute = glGetAttribLocation(m_shaderProgram->GetHandle(), "inTexCoord");
-
-    glEnableVertexAttribArray(positionAttribute);
-    glEnableVertexAttribArray(colorAttribute);
-    glEnableVertexAttribArray(uvAttribute);
-    glVertexAttribPointer(positionAttribute, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(GLfloat), 0);
-    glVertexAttribPointer(colorAttribute, 4, GL_FLOAT, GL_FALSE, 9 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
-    glVertexAttribPointer(uvAttribute, 2, GL_FLOAT, GL_FALSE, 9 * sizeof(GLfloat), (void*)(7 * sizeof(GLfloat)));
-
-    // Unbind the VBO
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-    // Unbind the VAO
-    glBindVertexArray(0);
+    m_indexData.push_back(index);
 }
 
-void Mesh::UploadElementData(GLuint* elements, unsigned int elementsSize)
+PrimitiveType Mesh::GetPrimitiveType() const
 {
-    // Bind the VAO
-    glBindVertexArray(m_VAOHandle);
-
-    // Bind the EBO and upload the vertex data
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBOHandle);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementsSize, elements, GL_STATIC_DRAW);
-
-    // Unbind the EBO
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-    // Unbind the VAO
-    glBindVertexArray(0);
-
-    // Set our element count
-    m_elementCount = (elementsSize / sizeof(elements[0]));
+    return m_primitiveType;
 }
 
-void Mesh::SetRenderMode(GLenum mode)
+std::vector<Vertex> Mesh::GetVertexData() const
 {
-    m_mode = mode;
+    return m_vertexData;
+}
+
+std::vector<uint32_t> Mesh::GetIndexData() const
+{
+    return m_indexData;
+}
+
+uint32_t Mesh::GetVertexCount() const
+{
+    return m_vertexData.size();
+}
+
+uint32_t Mesh::GetIndexCount() const
+{
+    return m_indexData.size();
 }
 
 }

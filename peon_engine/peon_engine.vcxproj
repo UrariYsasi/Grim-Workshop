@@ -155,6 +155,7 @@
     <ClInclude Include="Source\Graphics\IRenderer.hpp" />
     <ClInclude Include="Source\Graphics\Material.hpp" />
     <ClInclude Include="Source\Graphics\Mesh.hpp" />
+    <ClInclude Include="Source\Graphics\PrimitiveType.hpp" />
     <ClInclude Include="Source\Graphics\Rect.hpp" />
     <ClInclude Include="Source\Graphics\OpenGLRenderer.hpp" />
     <ClInclude Include="Source\Graphics\RenderCommand.hpp" />

@@ -55,7 +55,23 @@ void OpenGLRenderer::Clear()
 
 void OpenGLRenderer::Render()
 {
+    // TODO: Sort m_renderQueue!
 
+    uint32_t renderCommandCount = 0;
+    while (!m_renderQueue.empty())
+    {
+        RenderCommand command = m_renderQueue.back();
+        m_renderQueue.pop_back();
+
+        renderCommandCount++;
+    }
+
+    grim::utility::Debug::Log("Rendered %d commands", renderCommandCount);
+}
+
+void OpenGLRenderer::Submit(const RenderCommand& command)
+{
+    m_renderQueue.push_back(command);
 }
 
 void OpenGLRenderer::SetClearColor(const Color& color)

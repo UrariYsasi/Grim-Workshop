@@ -33,6 +33,32 @@ struct Vertex
         v(textureCoordinate.y)
     {
     }
+
+    Vertex(const glm::vec3& position, const graphics::Color& color) :
+        x(position.x),
+        y(position.y),
+        z(position.z),
+        r(color.r),
+        g(color.g),
+        b(color.b),
+        a(color.a),
+        u(0.0f),
+        v(0.0f)
+    {
+    }
+
+    Vertex(const glm::vec3& position) :
+        x(position.x),
+        y(position.y),
+        z(position.z),
+        r(1.0f),
+        g(1.0f),
+        b(1.0f),
+        a(1.0f),
+        u(0.0f),
+        v(0.0f)
+    {
+    }
 };
 
 }
