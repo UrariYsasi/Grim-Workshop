@@ -18,6 +18,8 @@
 #include "Graphics/Sprite.hpp"
 #include "Graphics/SpriteBatch.hpp"
 #include "Graphics/Mesh.hpp"
+#include "Graphics/Material.hpp"
+#include "Graphics/RenderCommand.hpp"
 #include "Graphics/IWindow.hpp"
 #include "Graphics/SDLWindow.hpp"
 #include "Graphics/WindowFactory.hpp"

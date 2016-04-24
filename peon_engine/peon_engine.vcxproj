@@ -153,9 +153,11 @@
     <ClInclude Include="Source\Graphics\Camera.hpp" />
     <ClInclude Include="Source\Graphics\Color.hpp" />
     <ClInclude Include="Source\Graphics\IRenderer.hpp" />
+    <ClInclude Include="Source\Graphics\Material.hpp" />
     <ClInclude Include="Source\Graphics\Mesh.hpp" />
     <ClInclude Include="Source\Graphics\Rect.hpp" />
     <ClInclude Include="Source\Graphics\OpenGLRenderer.hpp" />
+    <ClInclude Include="Source\Graphics\RenderCommand.hpp" />
     <ClInclude Include="Source\Graphics\RendererFactory.hpp" />
     <ClInclude Include="Source\Graphics\SDLWindow.hpp" />
     <ClInclude Include="Source\Graphics\Shader.hpp" />

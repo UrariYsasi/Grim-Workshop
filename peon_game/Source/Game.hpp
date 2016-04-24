@@ -7,14 +7,6 @@ class TerrainTile;
 class World;
 class Player;
 
-struct Test
-{
-    Test(int* newID, std::string newName) : ID(newID), name(newName) {};
-
-    int* ID;
-    std::string name;
-};
-
 class Game : public grim::Engine
 {
 public:
@@ -108,5 +100,5 @@ private:
     std::unique_ptr<grim::graphics::Sprite> m_buttonSprite;
     grim::ui::ButtonView* m_peonButton;
 
-    std::vector<Test> testVec;
+    std::unique_ptr<grim::graphics::Material> m_material;
 };
