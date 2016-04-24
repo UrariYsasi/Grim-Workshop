@@ -6,10 +6,10 @@ class Entity;
 class MoveAction : public Action
 {
 public:
-    MoveAction(Monster* owner, const glm::vec2& destination);
+    MoveAction(Monster* owner, const glm::vec3& destination);
     virtual ~MoveAction();
 
-    glm::vec2 GetDestination() const;
+    glm::vec3 GetDestination() const;
 
     virtual void Update(float deltaTime);
 
@@ -30,7 +30,7 @@ public:
     void SetMinimumRange(int range);
 
 private:
-    glm::vec2 m_destination;
+    glm::vec3 m_destination;
     Entity* m_followTarget;
     int m_range;
 

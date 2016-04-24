@@ -13,20 +13,20 @@ public:
     };
 
 public:
-    Entity(Game* game, const glm::vec2& position, EntityID ID);
+    Entity(Game* game, const glm::vec3& position, EntityID ID);
     virtual ~Entity();
 
     virtual void Update(float deltaTime);
     virtual void Render(grim::graphics::SpriteBatch& spriteBatch);
     void Delete();
 
+    void SetTransform(const grim::graphics::Transform& transform);
+    void SetPositionOffset(const glm::vec3& positionOffset);
     Game* GetGame();
     EntityID GetID();
-    glm::vec2 GetPosition() const;
-    glm::vec2 GetOrigin() const;
-    glm::vec2 GetPositionOffset() const;
-    void SetPosition(const glm::vec2& position);
-    void SetPositionOffset(const glm::vec2& positionOffset);
+    grim::graphics::Transform GetTransform() const;
+    glm::vec3 GetOrigin() const;
+    glm::vec3 GetPositionOffset() const;
     bool IsDeleted() const;
     grim::graphics::Rect GetHitBox() const;
 
@@ -64,11 +64,10 @@ public:
 protected:
     Game* m_game;
     EntityID m_ID;
-    glm::vec2 m_position;
-    glm::vec3 m_scale;
+    grim::graphics::Transform m_transform;
     glm::vec3 m_rotation;
-    glm::vec2 m_origin;
-    glm::vec2 m_positionOffset;
+    glm::vec3 m_origin;
+    glm::vec3 m_positionOffset;
     bool m_isDeleted;
     grim::graphics::Rect m_hitBox;
     int m_hp;
@@ -77,8 +76,8 @@ protected:
     uint32_t m_consumeStartTime;
     bool m_isBeingConsumed;
     Obelisk* m_consumer;
-    glm::vec2 m_start;
-    glm::vec2 m_end;
+    glm::vec3 m_start;
+    glm::vec3 m_end;
 
     Direction m_direction;
     std::unique_ptr<grim::graphics::Sprite> m_sprite;

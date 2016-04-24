@@ -36,8 +36,8 @@ void WithdrawAction::Update(float deltaTime)
     else
     {
         // Check if we are in range of the stockpile
-        glm::vec2 targetCenter = m_target->GetPosition();
-        glm::vec2 monsterCenter = m_owner->GetPosition();
+        glm::vec3 targetCenter = m_target->GetTransform().position;;
+        glm::vec3 monsterCenter = m_owner->GetTransform().position;;
         double distance = glm::distance(monsterCenter, targetCenter);
 
         if (distance <= MIN_DISTANCE)
@@ -58,7 +58,7 @@ void WithdrawAction::Update(float deltaTime)
         else
         {
             // We aren't close enough. Move to the stockpile.
-            m_owner->PushAction(std::make_unique<MoveAction>(m_owner, m_target->GetPosition()));
+            m_owner->PushAction(std::make_unique<MoveAction>(m_owner, m_target->GetTransform().position));
             return;
         }
     }

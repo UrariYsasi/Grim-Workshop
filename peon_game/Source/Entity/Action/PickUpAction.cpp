@@ -24,8 +24,8 @@ void PickUpAction::Update(float deltaTime)
     }
 
     // Check if we are in range of the target
-    glm::vec2 targetPosition = m_target->GetPosition();
-    glm::vec2 monsterPosition = m_owner->GetPosition();
+    glm::vec3 targetPosition = m_target->GetTransform().position;
+    glm::vec3 monsterPosition = m_owner->GetTransform().position;
     double distance = glm::distance(monsterPosition, targetPosition);
 
     if (distance <= MIN_PICK_UP_DISTANCE)
@@ -38,7 +38,7 @@ void PickUpAction::Update(float deltaTime)
     else
     {
         // We aren't close enough.
-        m_owner->PushAction(std::make_unique<MoveAction>(m_owner, m_target->GetPosition()));
+        m_owner->PushAction(std::make_unique<MoveAction>(m_owner, m_target->GetTransform().position));
     }
 }
 

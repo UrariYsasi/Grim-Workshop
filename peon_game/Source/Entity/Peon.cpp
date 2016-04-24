@@ -9,14 +9,14 @@
 #include "../World/Region.hpp"
 #include "../Player.hpp"
 
-Peon::Peon(Game* game, const glm::vec2& position) :
+Peon::Peon(Game* game, const glm::vec3& position) :
     Monster(game, position, EntityID::PEON),
     m_isSelected(false),
     m_selectionSprite(nullptr)
 {
     m_game->GetPlayer()->AddPeon();
 
-    m_origin = glm::vec2(0, 16);
+    m_origin.y = 16.0f;
     m_hitBox = grim::graphics::Rect(-3.0f, -16.0f, 7.0f, 16.0f);
 
     grim::graphics::Texture* texture = m_game->GetTexture("peon");
@@ -38,7 +38,7 @@ void Peon::Update(float deltaTime)
     World* world = m_game->GetWorld();
 
     // Check if we have moved into an unexplored Region
-    glm::ivec2 coordinates = world->ConvertToRegionCoordinates(m_position);
+    glm::ivec2 coordinates = world->ConvertToRegionCoordinates(m_transform.position);
     if (!world->IsRegionExplored(coordinates))
     {
         world->ExploreRegion(coordinates);
@@ -49,11 +49,11 @@ void Peon::Render(grim::graphics::SpriteBatch& spriteBatch)
 {
     if (m_isSelected)
     {
-        spriteBatch.AddSprite(glm::vec3(m_position - m_origin + glm::vec2(0.0f, 3.0f), 0.0f), glm::vec3(0.0f), glm::vec3(1.0f), m_selectionSprite.get());
+        spriteBatch.AddSprite(m_transform.position - m_origin + glm::vec3(0.0f, 3.0f, 0.0f), m_transform.rotation, m_transform.scale, m_selectionSprite.get());
     }
 
-    spriteBatch.AddSprite(glm::vec3(m_position - m_origin + glm::vec2(0.0f, 16.0f), 0.0f), glm::vec3(0.0f), glm::vec3(1.0f + (m_positionOffset.y / 2.75f), 1.0f + (m_positionOffset.y / 2.75f), 0.0f), m_shadowSprite.get());
-    spriteBatch.AddSprite(glm::vec3(m_position - m_origin + m_positionOffset, 0.0f), glm::vec3(0.0f), glm::vec3(1.0f), m_sprite.get());
+    spriteBatch.AddSprite(m_transform.position - m_origin + glm::vec3(0.0f, 16.0f, 0.0f), m_transform.rotation, glm::vec3(1.0f + (m_positionOffset.y / 2.75f), 1.0f + (m_positionOffset.y / 2.75f), 0.0f), m_shadowSprite.get());
+    spriteBatch.AddSprite(m_transform.position - m_origin + m_positionOffset, m_transform.rotation, m_transform.scale, m_sprite.get());
 }
 
 void Peon::Select()

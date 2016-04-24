@@ -142,7 +142,7 @@ bool Game::Initialize()
 
         // Start music
         Mix_VolumeMusic(MIX_MAX_VOLUME / 4);
-        Mix_PlayMusic(m_bgMusic, -1);
+        //Mix_PlayMusic(m_bgMusic, -1);
     }
 
     /*
@@ -225,6 +225,39 @@ bool Game::Initialize()
         GetPlayer()->GetPlacement()->SetHeldEntity(EntityID::PEON);
         GetAudio()->PlaySound("select_00");
     });
+
+    int zero = 0;
+    int one = 1;
+    int two = 2;
+    int three = 3;
+
+    testVec.push_back(Test(&zero, "Steve"));
+    testVec.push_back(Test(&one, "Steve"));
+    testVec.push_back(Test(&two, "Linda"));
+    testVec.push_back(Test(&three, "Phil"));
+    testVec.push_back(Test(&zero, "Steve"));
+    testVec.push_back(Test(&zero, "Phil"));
+    testVec.push_back(Test(&three, "Linda"));
+    testVec.push_back(Test(&one, "Steve"));
+    testVec.push_back(Test(&three, "Linda"));
+    testVec.push_back(Test(&three, "Linda"));
+
+    for (Test t : testVec)
+    {
+        grim::utility::Debug::Log("%d : %s", *t.ID, t.name.c_str());
+    }
+    
+    grim::utility::Debug::Log("Sorting...");
+
+    std::sort(testVec.begin(), testVec.end(),[](const Test& a, const Test& b)
+    {
+        return (a.ID < b.ID);
+    });
+
+    for (Test t : testVec)
+    {
+        grim::utility::Debug::Log("%d : %s", *t.ID, t.name.c_str());
+    }
 
     return true;
 }

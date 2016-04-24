@@ -44,8 +44,8 @@ void GatherAction::Update(float deltaTime)
     ItemType item = m_target->GetItem();
 
     // Check if we are in range of the resource
-    glm::vec2 targetCenter = m_target->GetPosition();
-    glm::vec2 monsterCenter = m_owner->GetPosition();
+    glm::vec3 targetCenter = m_target->GetTransform().position;
+    glm::vec3 monsterCenter = m_owner->GetTransform().position;
     double distance = glm::distance(monsterCenter, targetCenter);
 
     if (distance <= MIN_GATHER_DISTANCE)
@@ -72,7 +72,7 @@ void GatherAction::Update(float deltaTime)
             m_totalGathers = 0;
             m_target->Damage();
             m_ownerInventory->GiveItem(item, static_cast<uint16_t>(grim::utility::Random::Generate(1.0, 3.0)));
-            Entity* itemDrop = m_owner->GetGame()->GetWorld()->Spawn(EntityID::ITEM_DROP, m_owner->GetPosition());
+            Entity* itemDrop = m_owner->GetGame()->GetWorld()->Spawn(EntityID::ITEM_DROP, m_owner->GetTransform().position);
             m_owner->SetHeldEntity(itemDrop);
             m_owner->PushAction(std::make_unique<DepositAction>(m_owner));
         }
@@ -80,7 +80,7 @@ void GatherAction::Update(float deltaTime)
     else
     {
         // We aren't close enough. Move to the resource.
-        m_owner->PushAction(std::make_unique<MoveAction>(m_owner, m_target->GetPosition()));
+        m_owner->PushAction(std::make_unique<MoveAction>(m_owner, m_target->GetTransform().position));
     }
 }
 

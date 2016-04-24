@@ -58,10 +58,10 @@ void World::Render()
     // Z sort entities
     m_entities.sort([](std::unique_ptr<Entity> const& a, std::unique_ptr<Entity> const& b)
     {
-        glm::vec2 aPos = a->GetPosition();
-        glm::vec2 bPos = b->GetPosition();
+        float aY = a->GetTransform().position.y;
+        float bY = b->GetTransform().position.y;
 
-        return aPos.y < bPos.y;
+        return aY < bY;
     });
 
     // Entities
@@ -187,7 +187,7 @@ void World::ExploreRegion(const glm::ivec2& coordinates)
     grim::utility::Debug::Log("Explored Region at (%d, %d).", coordinates.x, coordinates.y);
 }
 
-glm::ivec2 World::ConvertToRegionCoordinates(const glm::vec2& position)
+glm::ivec2 World::ConvertToRegionCoordinates(const glm::vec3& position)
 {
     glm::ivec2 coordinates;
     coordinates.x = static_cast<int32_t>(std::floor(position.x / (Region::SIZE * TerrainTile::SIZE)));
@@ -196,7 +196,7 @@ glm::ivec2 World::ConvertToRegionCoordinates(const glm::vec2& position)
     return coordinates;
 }
 
-Entity* World::Spawn(const EntityID& ID, const glm::vec2& position)
+Entity* World::Spawn(const EntityID& ID, const glm::vec3& position)
 {
     Entity* spawned = nullptr;
 

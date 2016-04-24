@@ -4,7 +4,7 @@
 class Altar : public Entity
 {
 public:
-    Altar(Game* game, const glm::vec2& position);
+    Altar(Game* game, const glm::vec3& position);
     virtual ~Altar();
 
     virtual void Update(float deltaTime);

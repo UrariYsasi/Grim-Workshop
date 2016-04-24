@@ -2,7 +2,7 @@
 #include "Forge.hpp"
 #include "../Game.hpp"
 
-Forge::Forge(Game* game, const glm::vec2& position) :
+Forge::Forge(Game* game, const glm::vec3& position) :
     Entity(game, position, EntityID::NONE)
 {
 }

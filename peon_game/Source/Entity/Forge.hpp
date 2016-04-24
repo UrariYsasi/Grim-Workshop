@@ -4,7 +4,7 @@
 class Forge : public Entity
 {
 public:
-    Forge(Game* game, const glm::vec2& position);
+    Forge(Game* game, const glm::vec3& position);
     virtual ~Forge();
 
     virtual void Update(float deltaTime);

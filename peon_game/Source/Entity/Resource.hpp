@@ -6,7 +6,7 @@ class Monster;
 class Resource : public Entity
 {
 public:
-    Resource(Game* game, const glm::vec2& position, EntityID ID, ItemType item);
+    Resource(Game* game, const glm::vec3& position, EntityID ID, ItemType item);
     virtual ~Resource();
 
     virtual ItemType GetItem() const = 0;

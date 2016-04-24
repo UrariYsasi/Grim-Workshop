@@ -4,7 +4,7 @@
 class BeamEffect : public Entity
 {
 public:
-    BeamEffect(Game* game, const glm::vec2& position);
+    BeamEffect(Game* game, const glm::vec3& position);
     virtual ~BeamEffect();
 
     virtual void Update(float deltaTime);

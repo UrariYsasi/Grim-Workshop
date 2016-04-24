@@ -2,7 +2,7 @@
 #include "Resource.hpp"
 #include "Monster.hpp"
 
-Resource::Resource(Game* game, const glm::vec2& position, EntityID ID, ItemType item) :
+Resource::Resource(Game* game, const glm::vec3& position, EntityID ID, ItemType item) :
     Entity(game, position, ID),
     m_item(item),
     m_peonCount(0),

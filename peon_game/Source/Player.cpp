@@ -318,7 +318,7 @@ void Player::IssueCommand(glm::vec2 position)
                 }
 
                 peon->ClearActionStack();
-                peon->PushAction(std::make_unique<MoveAction>(peon, position));
+                peon->PushAction(std::make_unique<MoveAction>(peon, glm::vec3(position, 0.0f)));
             }
         }
     }

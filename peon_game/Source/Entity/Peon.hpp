@@ -4,7 +4,7 @@
 class Peon : public Monster
 {
 public:
-    Peon(Game* game, const glm::vec2& position);
+    Peon(Game* game, const glm::vec3& position);
     virtual ~Peon();
 
     virtual void Update(float deltaTime);

@@ -4,7 +4,7 @@
 class Spider : public Monster
 {
 public:
-    Spider(Game* game, const glm::vec2& position);
+    Spider(Game* game, const glm::vec3& position);
     virtual ~Spider();
 
     virtual void Update(float deltaTime);

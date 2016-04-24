@@ -210,5 +210,8 @@
     <ClInclude Include="Source\UI\Widgets\ButtonView.hpp">
       <Filter>Source\UI\Widgets</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Graphics\Transform.hpp">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

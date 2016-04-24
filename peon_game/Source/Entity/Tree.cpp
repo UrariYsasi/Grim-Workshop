@@ -2,12 +2,12 @@
 #include "Tree.hpp"
 #include "../Game.hpp"
 
-Tree::Tree(Game* game, const glm::vec2& position) :
+Tree::Tree(Game* game, const glm::vec3& position) :
     Resource(game, position, EntityID::RESOURCE_TREE, ItemType::WOOD)
 {
-    m_origin = glm::vec2(0, 32);
+    m_origin.y = 32.0f;
     m_hitBox = grim::graphics::Rect(-5, -16, 10, 16);
-    m_positionOffset = glm::vec2(grim::utility::Random::Generate(-6.0, 6.0), grim::utility::Random::Generate(0.0, -6.0));
+    m_positionOffset = glm::vec3(grim::utility::Random::Generate(-6.0f, 6.0f), grim::utility::Random::Generate(0.0f, -6.0f), 0.0f);
     m_hp = 1000;
 
     grim::graphics::Texture* texture = m_game->GetTexture("resource");
@@ -30,7 +30,7 @@ void Tree::Update(float deltaTime)
 
 void Tree::Render(grim::graphics::SpriteBatch& spriteBatch)
 {
-    spriteBatch.AddSprite(glm::vec3(m_position - m_origin + m_positionOffset, 0.0f), glm::vec3(0.0f), glm::vec3(1.0f), m_sprite.get());
+    spriteBatch.AddSprite(m_transform.position - m_origin + m_positionOffset, m_transform.rotation, m_transform.scale, m_sprite.get());
 
     Entity::Render(spriteBatch);
 }

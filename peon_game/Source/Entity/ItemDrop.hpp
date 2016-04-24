@@ -4,7 +4,7 @@
 class ItemDrop : public Entity
 {
 public:
-    ItemDrop(Game* game, const glm::vec2& position, const ItemType& type);
+    ItemDrop(Game* game, const glm::vec3& position, const ItemType& type);
     virtual ~ItemDrop();
 
     ItemType GetItem() const;

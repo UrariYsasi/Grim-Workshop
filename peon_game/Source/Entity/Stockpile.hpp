@@ -5,7 +5,7 @@
 class Stockpile : public Entity
 {
 public:
-    Stockpile(Game* game, const glm::vec2& position);
+    Stockpile(Game* game, const glm::vec3& position);
     virtual ~Stockpile();
 
     Inventory* GetInventory();

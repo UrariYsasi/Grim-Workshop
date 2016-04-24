@@ -65,7 +65,7 @@ void PlacementModule::Update(float deltaTime)
             if (m_owner->GetFaith() >= 20)
             {
                 glm::vec2 mousePosition = m_camera->ConvertToWorld(m_input->GetMousePosition());
-                m_world->Spawn(m_heldEntityID, mousePosition);
+                m_world->Spawn(m_heldEntityID, glm::vec3(mousePosition, 0.0f));
                 m_owner->RemoveFaith(20);
             }
             else

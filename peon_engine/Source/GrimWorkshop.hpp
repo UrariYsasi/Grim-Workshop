@@ -13,6 +13,7 @@
 #include "Graphics/ShaderProgram.hpp"
 #include "Graphics/Rect.hpp"
 #include "Graphics/Vertex.hpp"
+#include "Graphics/Transform.hpp"
 #include "Graphics/Texture.hpp"
 #include "Graphics/Sprite.hpp"
 #include "Graphics/SpriteBatch.hpp"

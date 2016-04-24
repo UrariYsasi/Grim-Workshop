@@ -32,8 +32,8 @@ void SmeltAction::Update(float deltaTime)
     }
 
     // Check if we are within range
-    glm::vec2 targetCenter = m_forge->GetPosition();
-    glm::vec2 monsterCenter = m_owner->GetPosition();
+    glm::vec3 targetCenter = m_forge->GetTransform().position;
+    glm::vec3 monsterCenter = m_owner->GetTransform().position;
     double distance = glm::distance(monsterCenter, targetCenter);
 
     if (distance <= MIN_DISTANCE)
@@ -60,7 +60,7 @@ void SmeltAction::Update(float deltaTime)
     else
     {
         // We aren't close enough. Move to the resource.
-        m_owner->PushAction(std::make_unique<MoveAction>(m_owner, m_forge->GetPosition()));
+        m_owner->PushAction(std::make_unique<MoveAction>(m_owner, m_forge->GetTransform().position));
         return;
     }
 }

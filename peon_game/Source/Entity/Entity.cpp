@@ -3,14 +3,12 @@
 #include "../Game.hpp"
 #include "Obelisk.hpp"
 
-Entity::Entity(Game* game, const glm::vec2& position, EntityID ID) :
+Entity::Entity(Game* game, const glm::vec3& position, EntityID ID) :
     m_game(game),
     m_ID(ID),
-    m_position(position),
-    m_scale(1.0f),
-    m_rotation(0.0f),
-    m_origin(0, 0),
-    m_positionOffset(0, 0),
+    m_transform(position, glm::vec3(0.0f), glm::vec3(1.0f)),
+    m_origin(0.0f, 0.0f, 0.0f),
+    m_positionOffset(0.0f, 0.0f, 0.0f),
     m_isDeleted(false),
     m_hitBox(-16, -16, 16, 16),
     m_hp(3),
@@ -37,27 +35,27 @@ EntityID Entity::GetID()
     return m_ID;
 }
 
-glm::vec2 Entity::GetPosition() const
+grim::graphics::Transform Entity::GetTransform() const
 {
-    return m_position;
+    return m_transform;
 }
 
-glm::vec2 Entity::GetOrigin() const
+glm::vec3 Entity::GetOrigin() const
 {
     return m_origin;
 }
 
-glm::vec2 Entity::GetPositionOffset() const
+glm::vec3 Entity::GetPositionOffset() const
 {
     return m_positionOffset;
 }
 
-void Entity::SetPosition(const glm::vec2& position)
+void Entity::SetTransform(const grim::graphics::Transform& transform)
 {
-    m_position = position;
+    m_transform = transform;
 }
 
-void Entity::SetPositionOffset(const glm::vec2& positionOffset)
+void Entity::SetPositionOffset(const glm::vec3& positionOffset)
 {
     m_positionOffset = positionOffset;
 }
@@ -69,22 +67,20 @@ bool Entity::IsDeleted() const
 
 grim::graphics::Rect Entity::GetHitBox() const
 {
-    return grim::graphics::Rect(m_position.x + m_hitBox.x, m_position.y + m_hitBox.y, m_hitBox.width, m_hitBox.height);
+    grim::graphics::Rect bounds;
+    bounds.x = m_transform.position.x + m_hitBox.x;
+    bounds.y = m_transform.position.y + m_hitBox.y;
+    bounds.width = m_hitBox.width;
+    bounds.height = m_hitBox.height;
+
+    return bounds;
 }
 
 void Entity::Update(float deltaTime)
 {
     if (m_isBeingConsumed)
     {
-        m_position = (m_position + 0.03f * (m_end - m_start));
-        m_sprite->color.a = (m_sprite->color.a - 0.03f);
-        m_scale.x = (m_scale.x * 0.9f);
-        m_scale.y = (m_scale.x * 0.9f);
-
-        if (glm::distance(m_position, m_end) <= 5.0f)
-        {
-            Delete();
-        }
+        Delete();
     }
 }
 
@@ -188,12 +184,6 @@ bool Entity::IsHeld()
 void Entity::Consume(Obelisk* obelisk)
 {
     m_isBeingConsumed = true;
-    m_consumer = obelisk;
-    m_start = m_position;
-    m_end = m_consumer->GetPosition() + glm::vec2(0.0f, -235.0f);
-
-    // TODO: Sprite coloring on consume?
-    //m_sprite->color = grim::graphics::Color(1.0f, 1.0f, 1.0f, 0.75f);
 }
 
 void Entity::SetDirection(const Direction& direction)

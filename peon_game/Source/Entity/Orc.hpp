@@ -4,7 +4,7 @@
 class Orc : public Monster
 {
 public:
-    Orc(Game* game, const glm::vec2& position);
+    Orc(Game* game, const glm::vec3& position);
     virtual ~Orc();
 
     virtual void Update(float deltaTime);

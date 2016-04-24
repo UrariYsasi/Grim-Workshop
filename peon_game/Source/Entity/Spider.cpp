@@ -5,10 +5,10 @@
 #include "Peon.hpp"
 #include "../World/World.hpp"
 
-Spider::Spider(Game* game, const glm::vec2& position) :
+Spider::Spider(Game* game, const glm::vec3& position) :
     Monster(game, position, EntityID::MONSTER_SPIDER_QUEEN)
 {
-    m_origin = glm::vec2(0, 128);
+    m_origin.y = 128.0f;
     m_hitBox = grim::graphics::Rect(-128, 0, 256, 128);
     m_hp = 6;
     m_faithWorth = 100;
@@ -29,9 +29,9 @@ void Spider::Update(float deltaTime)
 
 void Spider::Render(grim::graphics::SpriteBatch& spriteBatch)
 {
-    float scaleX = (m_direction == Direction::LEFT) ? m_scale.x : -m_scale.x;
+    float scaleX = (m_direction == Direction::LEFT) ? m_transform.scale.x : -m_transform.scale.x;
 
-    spriteBatch.AddSprite(glm::vec3(m_position.x - m_origin.x, m_position.y - m_origin.y, 0.0f), glm::vec3(0.0f), glm::vec3(scaleX / 2.0f, m_scale.y / 2.0f, m_scale.z), m_sprite.get());
+    spriteBatch.AddSprite(m_transform.position - m_origin, m_transform.rotation, glm::vec3(scaleX / 2.0f, m_transform.scale.y / 2.0f, m_transform.scale.z), m_sprite.get());
 
     Entity::Render(spriteBatch);
 }

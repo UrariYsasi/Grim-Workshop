@@ -2,10 +2,9 @@
 #include "Stockpile.hpp"
 #include "../Game.hpp"
 
-Stockpile::Stockpile(Game* game, const glm::vec2& position) :
+Stockpile::Stockpile(Game* game, const glm::vec3& position) :
     Entity(game, position, EntityID::STRUCTURE_STOCKPILE)
 {
-    m_origin = glm::vec2(0.0f, 0.0f);
     m_hitBox = grim::graphics::Rect(-16.0f, -16.0f, 32.0f, 32.0f);
 
     grim::graphics::Texture* texture = game->GetTexture("structure");
@@ -28,7 +27,7 @@ void Stockpile::Update(float deltaTime)
 
 void Stockpile::Render(grim::graphics::SpriteBatch& spriteBatch)
 {
-    spriteBatch.AddSprite(glm::vec3(m_position - m_origin + m_positionOffset, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(32.0f, 32.0f, 0.0f), m_sprite.get());
+    spriteBatch.AddSprite(m_transform.position - m_origin + m_positionOffset, m_transform.rotation, m_transform.scale, m_sprite.get());
 
     Entity::Render(spriteBatch);
 }

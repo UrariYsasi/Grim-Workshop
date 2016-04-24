@@ -27,8 +27,8 @@ void SacrificeAction::Update(float deltaTime)
     }
 
     // Check if we are in range of the altar
-    glm::vec2 targetCenter = m_altar->GetPosition();
-    glm::vec2 monsterCenter = m_owner->GetPosition();
+    glm::vec3 targetCenter = m_altar->GetTransform().position;
+    glm::vec3 monsterCenter = m_owner->GetTransform().position;
     double distance = glm::distance(monsterCenter, targetCenter);
 
     if (distance <= MIN_DISTANCE)
@@ -40,7 +40,7 @@ void SacrificeAction::Update(float deltaTime)
 
         m_owner->GetGame()->GetAudio()->PlaySound("sacrifice_04");
 
-        m_owner->GetGame()->GetWorld()->Spawn(EntityID::PEON, m_altar->GetPosition());
+        m_owner->GetGame()->GetWorld()->Spawn(EntityID::PEON, m_altar->GetTransform().position);
 
         // Complete the action
         Complete();
@@ -48,6 +48,6 @@ void SacrificeAction::Update(float deltaTime)
     else
     {
         // We aren't close enough. Move.
-        m_owner->PushAction(std::make_unique<MoveAction>(m_owner, m_altar->GetPosition()));
+        m_owner->PushAction(std::make_unique<MoveAction>(m_owner, m_altar->GetTransform().position));
     }
 }

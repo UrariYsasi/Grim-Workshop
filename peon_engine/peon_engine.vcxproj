@@ -163,6 +163,7 @@
     <ClInclude Include="Source\Graphics\Sprite.hpp" />
     <ClInclude Include="Source\Graphics\SpriteBatch.hpp" />
     <ClInclude Include="Source\Graphics\Texture.hpp" />
+    <ClInclude Include="Source\Graphics\Transform.hpp" />
     <ClInclude Include="Source\Graphics\Vertex.hpp" />
     <ClInclude Include="Source\Graphics\IWindow.hpp" />
     <ClInclude Include="Source\Graphics\WindowFactory.hpp" />

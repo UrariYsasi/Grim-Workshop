@@ -19,8 +19,8 @@ public:
     void Generate();
     Region* CreateRegion(const glm::ivec2& coordinates);
     void ExploreRegion(const glm::ivec2& coordinates);
-    glm::ivec2 ConvertToRegionCoordinates(const glm::vec2& position);
-    Entity* Spawn(const EntityID& ID, const glm::vec2& position);
+    glm::ivec2 ConvertToRegionCoordinates(const glm::vec3& position);
+    Entity* Spawn(const EntityID& ID, const glm::vec3& position);
 
     /*
         Gets the Entity with the given ID that is currently colliding with the given point.

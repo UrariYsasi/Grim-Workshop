@@ -4,7 +4,7 @@
 class Obelisk : public Entity
 {
 public:
-    Obelisk(Game* game, const glm::vec2& position);
+    Obelisk(Game* game, const glm::vec3& position);
     virtual ~Obelisk();
 
     virtual void Update(float deltaTime);

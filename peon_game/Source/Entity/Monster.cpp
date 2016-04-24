@@ -5,7 +5,7 @@
 #include "Action/IdleAction.hpp"
 #include "Action/AttackAction.hpp"
 
-Monster::Monster(Game* game, const glm::vec2& position, EntityID ID) :
+Monster::Monster(Game* game, const glm::vec3& position, EntityID ID) :
     Entity(game, position, ID),
     m_heldEntity(nullptr),
     m_moveSpeed(64),
@@ -58,8 +58,10 @@ void Monster::Update(float deltaTime)
     if (m_heldEntity != nullptr)
     {
         grim::graphics::Rect hitBox = m_heldEntity->GetHitBox();
-        glm::vec2 holdPoint(m_position.x, GetHitBox().y - 5.0f);
-        m_heldEntity->SetPosition(holdPoint);
+        grim::graphics::Transform transform = m_heldEntity->GetTransform();
+        transform.position.x = m_transform.position.x;
+        transform.position.y = GetHitBox().y - 5.0f;
+        m_heldEntity->SetTransform(transform);
     }
 }
 

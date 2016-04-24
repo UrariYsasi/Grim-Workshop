@@ -26,14 +26,14 @@ void AttackAction::Update(float deltaTime)
     }
 
     // Check if we are in range of the resource
-    glm::vec2 position = m_owner->GetPosition();
-    glm::vec2 targetPosition = m_target->GetPosition();
+    glm::vec3 position = m_owner->GetTransform().position;
+    glm::vec3 targetPosition = m_target->GetTransform().position;
     float distance = glm::distance(position, targetPosition);
 
     // If we are too far away, move closer to our target
     if (distance > MIN_ATTACK_DISTANCE)
     {
-        auto moveAction = std::make_unique<MoveAction>(m_owner, glm::vec2(0, 0));
+        auto moveAction = std::make_unique<MoveAction>(m_owner, glm::vec3(0.0f));
         moveAction->SetFollowTarget(m_target);
         moveAction->SetMinimumRange((int)MIN_ATTACK_DISTANCE - 5);
         m_owner->PushAction(std::move(moveAction));
@@ -75,8 +75,8 @@ void AttackAction::AttemptAttack()
 grim::graphics::Rect AttackAction::CalculateAttackBounds()
 {
     grim::graphics::Rect bounds;
-    bounds.x = m_owner->GetPosition().x + 5.0f;
-    bounds.y = m_owner->GetPosition().y - 10.0f;
+    bounds.x = m_owner->GetTransform().position.x + 5.0f;
+    bounds.y = m_owner->GetTransform().position.y - 10.0f;
     bounds.width = 5.0f;
     bounds.height = 10.0f;
 

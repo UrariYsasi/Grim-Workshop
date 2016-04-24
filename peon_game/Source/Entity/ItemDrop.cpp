@@ -3,11 +3,10 @@
 #include "../Game.hpp"
 #include "../Player.hpp"
 
-ItemDrop::ItemDrop(Game* game, const glm::vec2& position, const ItemType& type) :
+ItemDrop::ItemDrop(Game* game, const glm::vec3& position, const ItemType& type) :
     Entity(game, position, EntityID::ITEM_DROP),
     m_type(type)
 {
-    m_origin = glm::vec2(0, 0);
     m_hitBox = grim::graphics::Rect(-16, -16, 32, 32);
 
     grim::graphics::Texture* texture = game->GetTexture("item");
@@ -31,7 +30,7 @@ void ItemDrop::Update(float deltaTime)
 
 void ItemDrop::Render(grim::graphics::SpriteBatch& spriteBatch)
 {
-    spriteBatch.AddSprite(glm::vec3(m_position - m_origin + m_positionOffset, 0.0f), glm::vec3(0.0f), glm::vec3(1.0f), m_sprite.get());
+    spriteBatch.AddSprite(m_transform.position - m_origin + m_positionOffset, m_transform.rotation, m_transform.scale, m_sprite.get());
 
     Entity::Render(spriteBatch);
 }

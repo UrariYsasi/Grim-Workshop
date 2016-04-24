@@ -42,8 +42,8 @@ void DepositAction::Update(float deltaTime)
     }
 
     // Check if we are in range of the obelisk
-    glm::vec2 targetPosition = m_obelisk->GetPosition();
-    glm::vec2 ownerPosition = m_owner->GetPosition();
+    glm::vec3 targetPosition = m_obelisk->GetTransform().position;
+    glm::vec3 ownerPosition = m_owner->GetTransform().position;
     float distance = glm::distance(ownerPosition, targetPosition);
 
     if (distance <= MIN_DISTANCE)
@@ -62,7 +62,7 @@ void DepositAction::Update(float deltaTime)
     else
     {
         // We aren't close enough. Move.
-        std::unique_ptr<MoveAction> moveAction = std::make_unique<MoveAction>(m_owner, m_obelisk->GetPosition());
+        std::unique_ptr<MoveAction> moveAction = std::make_unique<MoveAction>(m_owner, m_obelisk->GetTransform().position);
         moveAction->SetMinimumRange(MIN_DISTANCE);
         m_owner->PushAction(std::move(moveAction));
     }
