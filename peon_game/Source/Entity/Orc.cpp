@@ -13,9 +13,9 @@ Orc::Orc(Game* game, const glm::vec3& position) :
     m_hitBox = grim::graphics::Rect(-3.0f, -16.0f, 7.0f, 16.0f);
     m_hp = 6;
 
-    grim::graphics::Texture* texture = game->GetTexture("orc");
-    grim::graphics::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader"); 
-    m_sprite = std::make_unique<grim::graphics::Sprite>(texture, shaderProgram, 32, 32, 0);
+    //grim::graphics::Texture* texture = game->GetTexture("orc");
+    //grim::graphics::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader"); 
+    //m_sprite = std::make_unique<grim::graphics::Sprite>(texture, shaderProgram, 32, 32, 0);
 }
 
 Orc::~Orc()
@@ -27,8 +27,8 @@ void Orc::Update(float deltaTime)
     Monster::Update(deltaTime);
 }
 
-void Orc::Render(grim::graphics::SpriteBatch& spriteBatch)
+void Orc::Render()
 {
-    spriteBatch.AddSprite(m_transform.position - m_origin + m_positionOffset, m_transform.rotation, m_transform.scale, m_sprite.get());
+    //spriteBatch.AddSprite(m_transform.position - m_origin + m_positionOffset, m_transform.rotation, m_transform.scale, m_sprite.get());
 }
 

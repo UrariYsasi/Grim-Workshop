@@ -9,9 +9,9 @@ ItemDrop::ItemDrop(Game* game, const glm::vec3& position, const ItemType& type) 
 {
     m_hitBox = grim::graphics::Rect(-16, -16, 32, 32);
 
-    grim::graphics::Texture* texture = game->GetTexture("item");
-    grim::graphics::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader");
-    m_sprite = std::make_unique<grim::graphics::Sprite>(texture, shaderProgram, 32, 32, 1);
+    //grim::graphics::Texture* texture = game->GetTexture("item");
+    //grim::graphics::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader");
+    //m_sprite = std::make_unique<grim::graphics::Sprite>(texture, shaderProgram, 32, 32, 1);
 }
 
 ItemDrop::~ItemDrop()
@@ -28,11 +28,11 @@ void ItemDrop::Update(float deltaTime)
     Entity::Update(deltaTime);
 }
 
-void ItemDrop::Render(grim::graphics::SpriteBatch& spriteBatch)
+void ItemDrop::Render()
 {
-    spriteBatch.AddSprite(m_transform.position - m_origin + m_positionOffset, m_transform.rotation, m_transform.scale, m_sprite.get());
+    //spriteBatch.AddSprite(m_transform.position - m_origin + m_positionOffset, m_transform.rotation, m_transform.scale, m_sprite.get());
 
-    Entity::Render(spriteBatch);
+    Entity::Render();
 }
 
 void ItemDrop::Consume(Obelisk* obelisk)

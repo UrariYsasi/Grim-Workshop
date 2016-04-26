@@ -13,9 +13,9 @@ Spider::Spider(Game* game, const glm::vec3& position) :
     m_hp = 6;
     m_faithWorth = 100;
 
-    grim::graphics::Texture* texture = game->GetTexture("spider");
-    grim::graphics::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader"); 
-    m_sprite = std::make_unique<grim::graphics::Sprite>(texture, shaderProgram, 512, 512, 0);
+    //grim::graphics::Texture* texture = game->GetTexture("spider");
+    //grim::graphics::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader"); 
+    //m_sprite = std::make_unique<grim::graphics::Sprite>(texture, shaderProgram, 512, 512, 0);
 }
 
 Spider::~Spider()
@@ -27,11 +27,11 @@ void Spider::Update(float deltaTime)
     Monster::Update(deltaTime);
 }
 
-void Spider::Render(grim::graphics::SpriteBatch& spriteBatch)
+void Spider::Render()
 {
     float scaleX = (m_direction == Direction::LEFT) ? m_transform.scale.x : -m_transform.scale.x;
 
-    spriteBatch.AddSprite(m_transform.position - m_origin, m_transform.rotation, glm::vec3(scaleX / 2.0f, m_transform.scale.y / 2.0f, m_transform.scale.z), m_sprite.get());
+    //spriteBatch.AddSprite(m_transform.position - m_origin, m_transform.rotation, glm::vec3(scaleX / 2.0f, m_transform.scale.y / 2.0f, m_transform.scale.z), m_sprite.get());
 
-    Entity::Render(spriteBatch);
+    Entity::Render();
 }

@@ -14,6 +14,7 @@ public:
 
     void AddVertex(const Vertex& vertex);
     void AddIndex(const uint32_t& index);
+    void ClearData();
 
     PrimitiveType GetPrimitiveType() const;
     std::vector<Vertex> GetVertexData() const;

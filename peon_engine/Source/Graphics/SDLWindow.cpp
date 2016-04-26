@@ -29,6 +29,8 @@ bool SDLWindow::Initialize()
         return false;
     }
 
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_DEBUG_FLAG);
+
     // Create the SDL Window
     uint32_t openGLFlag = (m_isOpenGL ? SDL_WINDOW_OPENGL : 0);
     m_SDLWindow = SDL_CreateWindow(

@@ -6,35 +6,22 @@
 
 TerrainTile::TerrainTile(Region* region, const glm::vec2& position) :
     m_region(region),
-    m_position(position),
-    m_rotation(0.0f),
-    m_scale(1.0f),
+    m_transform(glm::vec3(position.x, position.y, 0.0f), glm::vec3(0.0f), glm::vec3(1.0f)),
     m_origin(16.0f, 16.0f),
-    m_sprite(nullptr)
+    m_sprite(m_region->GetWorld()->GetGame()->GetMaterial("sprite_terrain"), 32, 32, 0)
 {
     Game* game = m_region->GetWorld()->GetGame();
-    int variance = static_cast<int>(std::round(grim::utility::Random::Generate(0.0, 5.0)));
-    grim::graphics::Texture* texture = game->GetTexture("terrain");
-    grim::graphics::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader");
-    m_sprite = std::make_unique<grim::graphics::Sprite>(texture, shaderProgram, 32, 32, variance);
+    uint32_t variance = static_cast<uint32_t>(std::round(grim::utility::Random::Generate(0.0, 5.0)));
+    m_sprite.SetFrame(variance);
 }
 
 TerrainTile::~TerrainTile()
 {
 }
 
-void TerrainTile::SetPosition(const glm::vec2& position)
+void TerrainTile::Render()
 {
-    m_position = position;
-}
-
-glm::vec2 TerrainTile::GetPosition() const
-{
-    return m_position;
-}
-
-void TerrainTile::Render(grim::graphics::SpriteBatch& spriteBatch)
-{
+    /*
     if (!m_region->IsExplored())
     {
         m_sprite->color = grim::graphics::Color(0.96f, 0.96f, 0.96f);
@@ -43,6 +30,8 @@ void TerrainTile::Render(grim::graphics::SpriteBatch& spriteBatch)
     {
         m_sprite->color = grim::graphics::Color(1.0f, 1.0f, 1.0f);
     }
+    */
 
-    spriteBatch.AddSprite(glm::vec3(m_position, 0.0f), m_rotation, m_scale, m_sprite.get());
+    grim::graphics::RenderCommand tileCommand(&m_sprite, m_transform);
+    m_region->GetWorld()->GetGame()->GetRenderer()->Submit(tileCommand);
 }

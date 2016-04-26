@@ -17,7 +17,7 @@ void Altar::Update(float deltaTime)
 {
 }
 
-void Altar::Render(grim::graphics::SpriteBatch& spriteBatch)
+void Altar::Render()
 {
-    Entity::Render(spriteBatch);
+    Entity::Render();
 }

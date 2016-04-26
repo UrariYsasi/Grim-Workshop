@@ -6,31 +6,38 @@ namespace grim
 namespace graphics
 {
 
-/*
-    A 2D, renderable sprite.
-*/
-struct Sprite
+class Sprite
 {
-    grim::graphics::Texture* spriteSheet;
-    grim::graphics::ShaderProgram* shaderProgram;
-    grim::graphics::Color color;
-    uint16_t width;
-    uint16_t height;
-    uint16_t frame;
-    uint16_t geometryWidth;
-    uint16_t geometryHeight;
+public:
+    Sprite(Material* material, uint32_t width, uint32_t height, uint32_t frame);
+    Sprite(Material* material);
 
-    Sprite(grim::graphics::Texture* spriteSheet, grim::graphics::ShaderProgram* shaderProgram, uint16_t width, uint16_t height, uint16_t frame, const grim::graphics::Color& color = graphics::Color(1, 1, 1, 1)) :
-        spriteSheet(spriteSheet),
-        shaderProgram(shaderProgram),
-        width(width),
-        height(height),
-        frame(frame),
-        color(color),
-        geometryWidth(width),
-        geometryHeight(height)
-    {
-    }
+    void SetWidth(const uint32_t& width);
+    void SetHeight(const uint32_t& height);
+    void SetMeshWidth(const float& meshWidth);
+    void SetMeshHeight(const float& meshHeight);
+    void SetFrame(const uint32_t& frame);
+
+    Mesh* GetMesh();
+    Material* GetMaterial() const;
+    uint32_t GetWidth() const;
+    uint32_t GetHeight() const;
+    float GetMeshWidth() const;
+    float GetMeshHeight() const;
+    uint32_t GetFrame() const;
+
+private:
+    void Construct();
+
+private:
+    Mesh m_mesh;
+    Material* m_material;
+    uint32_t m_width;
+    uint32_t m_height;
+    float m_meshWidth;
+    float m_meshHeight;
+    uint32_t m_frame;
+
 };
 
 }

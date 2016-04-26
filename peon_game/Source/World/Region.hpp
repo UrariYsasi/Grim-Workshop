@@ -10,7 +10,7 @@ public:
     ~Region();
 
     void Update(float deltaTime);
-    void Render(grim::graphics::SpriteBatch& spriteBatch);
+    void Render();
     void Generate();
 
     void SetIsExplored(bool isExplored);

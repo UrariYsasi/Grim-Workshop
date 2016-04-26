@@ -37,9 +37,6 @@
     <ClCompile Include="Source\Graphics\Texture.cpp">
       <Filter>Source\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Graphics\SpriteBatch.cpp">
-      <Filter>Source\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="Source\UI\Widgets\Widget.cpp">
       <Filter>Source\UI\Widgets</Filter>
     </ClCompile>
@@ -100,6 +97,9 @@
     <ClCompile Include="Source\Graphics\Mesh.cpp">
       <Filter>Source\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Graphics\Sprite.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\PCH.hpp">
@@ -118,9 +118,6 @@
       <Filter>Source\Utility</Filter>
     </ClInclude>
     <ClInclude Include="Source\Graphics\ShaderProgram.hpp">
-      <Filter>Source\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Graphics\SpriteBatch.hpp">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Source\Graphics\Texture.hpp">

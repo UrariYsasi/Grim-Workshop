@@ -17,7 +17,7 @@ public:
     virtual ~Entity();
 
     virtual void Update(float deltaTime);
-    virtual void Render(grim::graphics::SpriteBatch& spriteBatch);
+    virtual void Render();
     void Delete();
 
     void SetTransform(const grim::graphics::Transform& transform);

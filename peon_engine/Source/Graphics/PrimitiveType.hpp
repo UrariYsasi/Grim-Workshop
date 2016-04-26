@@ -9,7 +9,8 @@ namespace graphics
 enum class PrimitiveType
 {
     TRIANGLES,
-    LINE_LOOP
+    LINE_LOOP,
+    LINES
 };
 
 }

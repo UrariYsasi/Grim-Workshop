@@ -127,7 +127,7 @@
     <ClCompile Include="Source\Graphics\SDLWindow.cpp" />
     <ClCompile Include="Source\Graphics\Shader.cpp" />
     <ClCompile Include="Source\Graphics\ShaderProgram.cpp" />
-    <ClCompile Include="Source\Graphics\SpriteBatch.cpp" />
+    <ClCompile Include="Source\Graphics\Sprite.cpp" />
     <ClCompile Include="Source\Graphics\Texture.cpp" />
     <ClCompile Include="Source\Graphics\WindowFactory.cpp" />
     <ClCompile Include="Source\PCH.cpp">
@@ -164,7 +164,6 @@
     <ClInclude Include="Source\Graphics\Shader.hpp" />
     <ClInclude Include="Source\Graphics\ShaderProgram.hpp" />
     <ClInclude Include="Source\Graphics\Sprite.hpp" />
-    <ClInclude Include="Source\Graphics\SpriteBatch.hpp" />
     <ClInclude Include="Source\Graphics\Texture.hpp" />
     <ClInclude Include="Source\Graphics\Transform.hpp" />
     <ClInclude Include="Source\Graphics\Vertex.hpp" />

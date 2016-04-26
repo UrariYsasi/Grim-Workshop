@@ -19,12 +19,10 @@ Peon::Peon(Game* game, const glm::vec3& position) :
     m_origin.y = 16.0f;
     m_hitBox = grim::graphics::Rect(-3.0f, -16.0f, 7.0f, 16.0f);
 
-    grim::graphics::Texture* texture = m_game->GetTexture("peon");
-    grim::graphics::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader");
     uint8_t col = static_cast<uint8_t>(std::round(grim::utility::Random::Generate(-0.4f, 4.4f)));
-    m_sprite = std::make_unique<grim::graphics::Sprite>(texture, shaderProgram, 32, 32, col);
-    m_selectionSprite = std::make_unique<grim::graphics::Sprite>(texture, shaderProgram, 32, 32, 57);
-    m_shadowSprite = std::make_unique<grim::graphics::Sprite>(texture, shaderProgram, 32, 32, 58, grim::graphics::Color(1, 1, 1, .5));
+    m_sprite = std::make_unique<grim::graphics::Sprite>(m_game->GetMaterial("sprite_peon"), 32, 32, col);
+    m_selectionSprite = std::make_unique<grim::graphics::Sprite>(m_game->GetMaterial("sprite_peon"), 32, 32, 57);
+    m_shadowSprite = std::make_unique<grim::graphics::Sprite>(m_game->GetMaterial("sprite_peon"), 32, 32, 58);
 }
 
 Peon::~Peon()
@@ -45,15 +43,30 @@ void Peon::Update(float deltaTime)
     }
 }
 
-void Peon::Render(grim::graphics::SpriteBatch& spriteBatch)
+void Peon::Render()
 {
+    grim::graphics::Transform peonTransform = m_transform;
+    peonTransform.position -= m_origin;
+    peonTransform.position += m_positionOffset;
+    grim::graphics::RenderCommand peonCommand(m_sprite.get(), peonTransform);
+
+    grim::graphics::Transform shadowTransform = m_transform;
+    shadowTransform.position -= m_origin;
+    shadowTransform.position += glm::vec3(0.0f, 16.0f, 0.0f);
+    shadowTransform.scale = glm::vec3(1.0f + (m_positionOffset.y / 2.75f), 1.0f + (m_positionOffset.y / 2.75f), 0.0f);
+    grim::graphics::RenderCommand shadowCommand(m_shadowSprite.get(), shadowTransform);
+
     if (m_isSelected)
     {
-        spriteBatch.AddSprite(m_transform.position - m_origin + glm::vec3(0.0f, 3.0f, 0.0f), m_transform.rotation, m_transform.scale, m_selectionSprite.get());
+        grim::graphics::Transform selectionTransform = m_transform;
+        selectionTransform.position -= m_origin;
+        selectionTransform.position += glm::vec3(0.0f, 3.0f, 0.0f);
+        grim::graphics::RenderCommand selectionCommand(m_selectionSprite.get(), selectionTransform);
+        //m_game->GetRenderer()->Submit(selectionCommand);
     }
 
-    spriteBatch.AddSprite(m_transform.position - m_origin + glm::vec3(0.0f, 16.0f, 0.0f), m_transform.rotation, glm::vec3(1.0f + (m_positionOffset.y / 2.75f), 1.0f + (m_positionOffset.y / 2.75f), 0.0f), m_shadowSprite.get());
-    spriteBatch.AddSprite(m_transform.position - m_origin + m_positionOffset, m_transform.rotation, m_transform.scale, m_sprite.get());
+    m_game->GetRenderer()->Submit(peonCommand);
+    //m_game->GetRenderer()->Submit(shadowCommand);
 }
 
 void Peon::Select()

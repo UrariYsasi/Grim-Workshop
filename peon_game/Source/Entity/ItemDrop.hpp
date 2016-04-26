@@ -10,7 +10,7 @@ public:
     ItemType GetItem() const;
 
     virtual void Update(float deltaTime);
-    virtual void Render(grim::graphics::SpriteBatch& spriteBatch);
+    virtual void Render();
     virtual void Consume(Obelisk* obelisk);
 
 private:

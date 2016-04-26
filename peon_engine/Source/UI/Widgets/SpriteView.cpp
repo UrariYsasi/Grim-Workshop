@@ -10,8 +10,8 @@ namespace ui
 SpriteView::SpriteView(grim::graphics::Sprite* sprite) :
     m_sprite(sprite)
 {
-    m_width = m_sprite->width;
-    m_height = m_sprite->height;
+    m_width = m_sprite->GetWidth();
+    m_height = m_sprite->GetHeight();
 }
 
 SpriteView::~SpriteView()
@@ -37,9 +37,9 @@ void SpriteView::Render()
     glm::vec3 renderRotation(0.0f, 0.0f, m_rotation);
     glm::vec3 renderScale(m_scale.x, m_scale.y, 1.0f);
 
-    m_spriteBatch.Begin();
-    m_spriteBatch.AddSprite(renderPosition, renderRotation, renderScale, m_sprite);
-    m_spriteBatch.End();
+    //m_spriteBatch.Begin();
+    //m_spriteBatch.AddSprite(renderPosition, renderRotation, renderScale, m_sprite);
+    //m_spriteBatch.End();
 
     Widget::Render();
 }

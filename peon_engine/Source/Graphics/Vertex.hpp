@@ -11,6 +11,8 @@ namespace graphics
 */
 struct Vertex
 {
+    const static uint16_t SIZE = 9;
+
     float x;
     float y;
     float z;

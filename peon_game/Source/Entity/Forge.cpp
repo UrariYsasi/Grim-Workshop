@@ -15,7 +15,7 @@ void Forge::Update(float deltaTime)
 {
 }
 
-void Forge::Render(grim::graphics::SpriteBatch& spriteBatch)
+void Forge::Render()
 {
-    Entity::Render(spriteBatch);
+    Entity::Render();
 }

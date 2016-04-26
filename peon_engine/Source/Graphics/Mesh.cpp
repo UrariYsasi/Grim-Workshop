@@ -28,6 +28,12 @@ void Mesh::AddIndex(const uint32_t& index)
     m_indexData.push_back(index);
 }
 
+void Mesh::ClearData()
+{
+    m_vertexData.clear();
+    m_indexData.clear();
+}
+
 PrimitiveType Mesh::GetPrimitiveType() const
 {
     return m_primitiveType;

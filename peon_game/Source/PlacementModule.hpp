@@ -25,6 +25,5 @@ private:
     
     bool m_isPlacing;
     EntityID m_heldEntityID;
-    grim::graphics::SpriteBatch m_spriteBatch;
     grim::graphics::Sprite* m_heldEntitySprite;
 };

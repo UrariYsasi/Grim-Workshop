@@ -47,12 +47,10 @@ void World::Update(float deltaTime)
 
 void World::Render()
 {
-    m_spriteBatch.Begin();
-
     // Regions
     for (auto it = m_regions.begin(); it != m_regions.end(); it++)
     {
-        (*it).second->Render(m_spriteBatch);
+        (*it).second->Render();
     }
 
     // Z sort entities
@@ -68,10 +66,8 @@ void World::Render()
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
         Entity* e = it->get();
-        e->Render(m_spriteBatch);
+        e->Render();
     }
-
-    m_spriteBatch.End();
 }
 
 void World::ProcessTime()

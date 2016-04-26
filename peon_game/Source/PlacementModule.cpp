@@ -88,13 +88,13 @@ void PlacementModule::Render()
         if (m_heldEntityID != EntityID::NONE)
         {
             glm::vec2 mousePosition = m_camera->ConvertToWorld(m_input->GetMousePosition());
-            m_heldEntitySprite->color.a = 0.5f;
+            //m_heldEntitySprite->color.a = 0.5f;
 
-            m_spriteBatch.Begin();
-            m_spriteBatch.AddSprite(glm::vec3(mousePosition.x, mousePosition.y - 16.0f, 0.0f), glm::vec3(0.0f), glm::vec3(1.0f), m_heldEntitySprite);
-            m_spriteBatch.End();
+            //m_spriteBatch.Begin();
+            //m_spriteBatch.AddSprite(glm::vec3(mousePosition.x, mousePosition.y - 16.0f, 0.0f), glm::vec3(0.0f), glm::vec3(1.0f), m_heldEntitySprite);
+            //m_spriteBatch.End();
 
-            m_heldEntitySprite->color.a = 1.0f;
+            //m_heldEntitySprite->color.a = 1.0f;
         }
     }
 }

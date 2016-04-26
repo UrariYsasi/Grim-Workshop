@@ -23,6 +23,7 @@ public:
     TTF_Font* GetFont(const std::string& id);
     grim::graphics::Shader* GetShader(const std::string& ID);
     grim::graphics::ShaderProgram* GetShaderProgram(const std::string& ID);
+    grim::graphics::Material* GetMaterial(const std::string& ID);
     grim::graphics::Sprite* GetEntitySprite(const EntityID& id);
     Player* GetPlayer();
 
@@ -50,6 +51,8 @@ private:
     */
     bool CreateShaderProgram(const std::string& vertexShaderID, const std::string& fragmentShaderID, const std::string& ID);
 
+    bool CreateMaterial(const std::string& ID, grim::graphics::Texture* const texture, grim::graphics::ShaderProgram* const shaderProgram);
+
     /*
         Read a file and output its contents in string form.
     */
@@ -72,6 +75,9 @@ private:
 
     // Shader programs
     std::map<std::string, std::unique_ptr<grim::graphics::ShaderProgram>> m_shaderProgramMap;
+
+    // Materials
+    std::map<std::string, std::unique_ptr<grim::graphics::Material>> m_materialMap;
 
     // Sprites
     std::map<EntityID, std::unique_ptr<grim::graphics::Sprite>> m_spriteMap;
@@ -99,7 +105,4 @@ private:
 
     std::unique_ptr<grim::graphics::Sprite> m_buttonSprite;
     grim::ui::ButtonView* m_peonButton;
-
-    std::unique_ptr<grim::graphics::Material> m_material;
-    grim::graphics::Mesh m_mesh;
 };

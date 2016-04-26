@@ -19,12 +19,12 @@ void Region::Update(float deltaTime)
 {
 }
 
-void Region::Render(grim::graphics::SpriteBatch& spriteBatch)
+void Region::Render()
 {
     // Render terrain
     for (auto it = m_terrain.begin(); it != m_terrain.end(); it++)
     {
-        (*it)->Render(spriteBatch);
+        (*it)->Render();
     }
 }
 

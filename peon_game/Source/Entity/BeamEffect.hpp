@@ -8,7 +8,7 @@ public:
     virtual ~BeamEffect();
 
     virtual void Update(float deltaTime);
-    virtual void Render(grim::graphics::SpriteBatch& spriteBatch);
+    virtual void Render();
 
 private:
     float m_lifetimeSeconds;

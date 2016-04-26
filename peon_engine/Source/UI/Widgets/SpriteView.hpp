@@ -17,7 +17,6 @@ public:
 
 private:
     grim::graphics::Sprite* m_sprite;
-    grim::graphics::SpriteBatch m_spriteBatch;
 };
 
 }

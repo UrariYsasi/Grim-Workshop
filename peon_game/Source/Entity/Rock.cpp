@@ -8,9 +8,9 @@ Rock::Rock(Game* game, const glm::vec3& position) :
     m_hitBox = grim::graphics::Rect(-16, -16, 32, 32);
     m_hp = 10;
 
-    grim::graphics::Texture* texture = game->GetTexture("resource");
-    grim::graphics::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader");
-    m_sprite = std::make_unique<grim::graphics::Sprite>(texture, shaderProgram, 32, 32, 2);
+    //grim::graphics::Texture* texture = game->GetTexture("resource");
+    //grim::graphics::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader");
+    //m_sprite = std::make_unique<grim::graphics::Sprite>(texture, shaderProgram, 32, 32, 2);
 }
 
 Rock::~Rock()
@@ -36,9 +36,9 @@ void Rock::Update(float deltaTime)
 {
 }
 
-void Rock::Render(grim::graphics::SpriteBatch& spriteBatch)
+void Rock::Render()
 {
-    spriteBatch.AddSprite(m_transform.position - m_origin + m_positionOffset, m_transform.rotation, m_transform.scale, m_sprite.get());
+    //spriteBatch.AddSprite(m_transform.position - m_origin + m_positionOffset, m_transform.rotation, m_transform.scale, m_sprite.get());
 
-    Entity::Render(spriteBatch);
+    Entity::Render();
 }

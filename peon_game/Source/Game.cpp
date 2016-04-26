@@ -19,8 +19,7 @@ Game::Game() :
     m_peonCountWidget(nullptr),
     m_woodCountWidget(nullptr),
     m_faithCountWidget(nullptr),
-    m_basicPeonLabel(nullptr),
-    m_mesh(grim::graphics::PrimitiveType::LINE_LOOP)
+    m_basicPeonLabel(nullptr)
 {
 }
 
@@ -76,7 +75,7 @@ bool Game::Initialize()
     LoadTexture("Resources/Textures/item.png", "item");
     LoadTexture("Resources/Textures/orc.png", "orc");
     LoadTexture("Resources/Textures/resource.png", "resource");
-    LoadTexture("Resources/Textures/terrain.png", "terrain");
+    LoadTexture("Resources/Textures/terrain.png", "terrain", GL_CLAMP_TO_EDGE, GL_NEAREST);
     LoadTexture("Resources/Textures/structure.png", "structure");
     LoadTexture("Resources/Textures/obelisk.png", "obelisk");
     LoadTexture("Resources/Textures/doosk.png", "doosk");
@@ -161,11 +160,21 @@ bool Game::Initialize()
     grim::utility::Debug::Log("Creating shader programs...");
     CreateShaderProgram("vertex_textured", "fragment_textured", "basic_shader");
 
+    /*
+        Create Materials
+    */
+
+    grim::utility::Debug::Log("Creating materials...");
+    CreateMaterial("sprite_terrain", GetTexture("terrain"), GetShaderProgram("basic_shader"));
+    CreateMaterial("sprite_tree", GetTexture("resource"), GetShaderProgram("basic_shader"));
+    CreateMaterial("sprite_peon", GetTexture("peon"), GetShaderProgram("basic_shader"));
+    CreateMaterial("effect_beam", GetTexture("beam"), GetShaderProgram("basic_shader"));
+
     // Sprites
-    m_spriteMap[EntityID::STRUCTURE_STOCKPILE] = std::make_unique<grim::graphics::Sprite>(GetTexture("structure"), GetShaderProgram("basic_shader"), 32, 32, 8);
-    m_spriteMap[EntityID::MONSTER_SPIDER_QUEEN] = std::make_unique<grim::graphics::Sprite>(GetTexture("spider"), GetShaderProgram("basic_shader"), 512, 512, 0);
-    m_spriteMap[EntityID::PEON] = std::make_unique<grim::graphics::Sprite>(GetTexture("peon"), GetShaderProgram("basic_shader"), 32, 32, 0);
-    m_spriteMap[EntityID::EFFECT_BEAM] = std::make_unique<grim::graphics::Sprite>(GetTexture("beam"), GetShaderProgram("basic_shader"), 64, 128, 0);
+    m_spriteMap[EntityID::STRUCTURE_STOCKPILE] = nullptr;
+    m_spriteMap[EntityID::MONSTER_SPIDER_QUEEN] = nullptr;
+    m_spriteMap[EntityID::PEON] = std::make_unique<grim::graphics::Sprite>(GetMaterial("sprite_peon"), 32, 32, 0);
+    m_spriteMap[EntityID::EFFECT_BEAM] = std::make_unique<grim::graphics::Sprite>(GetMaterial("effect_beam"));
 
     // Setup the game
     m_mainCamera = std::make_unique<grim::graphics::Camera>(this, WINDOW_WIDTH, WINDOW_HEIGHT, -1.0f, 1.0f);
@@ -181,7 +190,7 @@ bool Game::Initialize()
     m_frameRateWidget->SetPosition(glm::vec2(5.0f, 5.0f));
     GetUI()->RegisterWidget(m_frameRateWidget);
 
-    m_headerSprite = std::make_unique<grim::graphics::Sprite>(GetTexture("header"), GetShaderProgram("basic_shader"), 256, 64, 0);
+    m_headerSprite = std::make_unique<grim::graphics::Sprite>(GetMaterial("sprite_terrain"));
     m_header = new grim::ui::SpriteView(m_headerSprite.get());
     m_header->SetPosition(glm::vec2(WINDOW_WIDTH / 2.0f, 40.0f));
     m_header->SetScale(glm::vec2(1.3f, 1.3f));
@@ -203,7 +212,7 @@ bool Game::Initialize()
     m_faithCountWidget->SetPosition(glm::vec2(5.0f, 5.0f + 60.0f));
     GetUI()->RegisterWidget(m_faithCountWidget);
 
-    m_spellBookSprite = std::make_unique<grim::graphics::Sprite>(GetTexture("spellbook"), GetShaderProgram("basic_shader"), 512, 256, 0);
+    m_spellBookSprite = std::make_unique<grim::graphics::Sprite>(GetMaterial("sprite_terrain"));
     m_spellbook = new grim::ui::SpriteView(m_spellBookSprite.get());
     m_spellbook->SetPosition(glm::vec2(WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f + 260.0f));
     m_spellbook->SetScale(glm::vec2(1.5f, 1.5f));
@@ -214,7 +223,7 @@ bool Game::Initialize()
     m_basicPeonLabel->SetPosition(glm::vec2(-240.0f, -140.0f));
     m_spellbook->RegisterWidget(m_basicPeonLabel);
 
-    m_buttonSprite = std::make_unique<grim::graphics::Sprite>(GetTexture("button"), GetShaderProgram("basic_shader"), 128, 32, 0);
+    m_buttonSprite = std::make_unique<grim::graphics::Sprite>(GetMaterial("sprite_terrain"));
 
     m_peonButton = new grim::ui::ButtonView(GetEntitySprite(EntityID::PEON));
     m_peonButton->SetPosition(glm::vec2(-220.0f, -110.0f));
@@ -226,19 +235,6 @@ bool Game::Initialize()
         GetPlayer()->GetPlacement()->SetHeldEntity(EntityID::PEON);
         GetAudio()->PlaySound("select_00");
     });
-
-    m_material = std::make_unique<grim::graphics::Material>(GetTexture("doosk"), GetShaderProgram("basic_shader"));
-    m_mesh.AddVertex(grim::graphics::Vertex(glm::vec3(0.0f, 0.0f, 0.0f)));
-    m_mesh.AddVertex(grim::graphics::Vertex(glm::vec3(256.0f, 0.0f, 0.0f)));
-    m_mesh.AddVertex(grim::graphics::Vertex(glm::vec3(0.0f, 256.0f, 0.0f)));
-    m_mesh.AddVertex(grim::graphics::Vertex(glm::vec3(256.0f, 256.0f, 0.0f)));
-
-    m_mesh.AddIndex(0);
-    m_mesh.AddIndex(1);
-    m_mesh.AddIndex(3);
-    m_mesh.AddIndex(2);
-
-    grim::utility::Debug::Log("Mesh created with %d vertices and %d indices", m_mesh.GetVertexCount(), m_mesh.GetIndexCount());
 
     return true;
 }
@@ -302,7 +298,9 @@ void Game::Render()
 
     m_mainCamera->Activate();
     m_map->Render();
-    m_player->Render();
+    //m_player->Render();
+
+    GetRenderer()->Render();
 
     /*
         Render Services
@@ -313,10 +311,6 @@ void Game::Render()
         m_uiCamera->Activate();
         GetUI()->Render();
     }
-
-    // RenderCommand test
-    grim::graphics::RenderCommand command(&m_mesh, m_material.get());
-    GetRenderer()->Submit(command);
 }
 
 bool Game::LoadTexture(const std::string& path, const std::string& ID, const GLenum& wrapMode, const GLenum& scaleMode)
@@ -356,6 +350,12 @@ bool Game::CreateShaderProgram(const std::string& vertexShaderID, const std::str
     return true;
 }
 
+bool Game::CreateMaterial(const std::string& ID, grim::graphics::Texture* const texture, grim::graphics::ShaderProgram* const shaderProgram)
+{
+    m_materialMap[ID] = std::make_unique<grim::graphics::Material>(texture, shaderProgram);
+    return true;
+}
+
 grim::graphics::Texture* Game::GetTexture(const std::string& ID)
 {
     return m_textureMap[ID].get();
@@ -374,6 +374,11 @@ grim::graphics::Shader* Game::GetShader(const std::string& ID)
 grim::graphics::ShaderProgram* Game::GetShaderProgram(const std::string& ID)
 {
     return m_shaderProgramMap[ID].get();
+}
+
+grim::graphics::Material* Game::GetMaterial(const std::string& ID)
+{
+    return m_materialMap[ID].get();
 }
 
 std::string Game::ReadFile(const std::string& path)
