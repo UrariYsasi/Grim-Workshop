@@ -75,7 +75,7 @@ bool Game::Initialize()
     LoadTexture("Resources/Textures/item.png", "item");
     LoadTexture("Resources/Textures/orc.png", "orc");
     LoadTexture("Resources/Textures/resource.png", "resource");
-    LoadTexture("Resources/Textures/terrain.png", "terrain", GL_CLAMP_TO_EDGE, GL_NEAREST);
+    LoadTexture("Resources/Textures/terrain.png", "terrain", false, GL_CLAMP_TO_EDGE, GL_NEAREST);
     LoadTexture("Resources/Textures/structure.png", "structure");
     LoadTexture("Resources/Textures/obelisk.png", "obelisk");
     LoadTexture("Resources/Textures/doosk.png", "doosk");
@@ -84,11 +84,11 @@ bool Game::Initialize()
     LoadTexture("Resources/Textures/grass.png", "grass");
     LoadTexture("Resources/Textures/tree.png", "tree");
     LoadTexture("Resources/Textures/gandalf.png", "gandalf");
-    LoadTexture("Resources/Textures/spider.png", "spider", GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR);
-    LoadTexture("Resources/Textures/spellbook.png", "spellbook", GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR);
-    LoadTexture("Resources/Textures/button.png", "button", GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR);
-    LoadTexture("Resources/Textures/header.png", "header", GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR);
-    LoadTexture("Resources/Textures/beam.png", "beam", GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR);
+    LoadTexture("Resources/Textures/spider.png", "spider", true, GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR);
+    LoadTexture("Resources/Textures/spellbook.png", "spellbook", true, GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR);
+    LoadTexture("Resources/Textures/button.png", "button", true, GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR);
+    LoadTexture("Resources/Textures/header.png", "header", true, GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR);
+    LoadTexture("Resources/Textures/beam.png", "beam", true, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR);
 
     /*
         Load Fonts
@@ -166,7 +166,7 @@ bool Game::Initialize()
 
     grim::utility::Debug::Log("Creating materials...");
     CreateMaterial("sprite_terrain", GetTexture("terrain"), GetShaderProgram("basic_shader"));
-    CreateMaterial("sprite_tree", GetTexture("resource"), GetShaderProgram("basic_shader"));
+    CreateMaterial("sprite_resource", GetTexture("resource"), GetShaderProgram("basic_shader"));
     CreateMaterial("sprite_peon", GetTexture("peon"), GetShaderProgram("basic_shader"));
     CreateMaterial("effect_beam", GetTexture("beam"), GetShaderProgram("basic_shader"));
 
@@ -308,14 +308,14 @@ void Game::Render()
 
     if (!GetInput()->GetKey(SDLK_SPACE))
     {
-        m_uiCamera->Activate();
-        GetUI()->Render();
+        //m_uiCamera->Activate();
+        //GetUI()->Render();
     }
 }
 
-bool Game::LoadTexture(const std::string& path, const std::string& ID, const GLenum& wrapMode, const GLenum& scaleMode)
+bool Game::LoadTexture(const std::string& path, const std::string& ID, const bool& isOpaque, const GLenum& wrapMode, const GLenum& scaleMode)
 {
-    m_textureMap[ID] = std::make_unique<grim::graphics::Texture>(path, wrapMode, scaleMode);
+    m_textureMap[ID] = std::make_unique<grim::graphics::Texture>(path, isOpaque, wrapMode, scaleMode);
     return true;
 }
 

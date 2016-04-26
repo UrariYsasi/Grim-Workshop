@@ -17,7 +17,7 @@ Entity::Entity(Game* game, const glm::vec3& position, EntityID ID) :
     m_isBeingConsumed(false),
     m_consumer(nullptr),
     m_direction(Direction::RIGHT),
-    m_sprite(nullptr)
+    m_sprite()
 {
 }
 

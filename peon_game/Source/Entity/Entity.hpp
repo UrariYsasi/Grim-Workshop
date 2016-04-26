@@ -80,5 +80,5 @@ protected:
     glm::vec3 m_end;
 
     Direction m_direction;
-    std::unique_ptr<grim::graphics::Sprite> m_sprite;
+    grim::graphics::Sprite m_sprite;
 };

@@ -153,7 +153,7 @@ bool OpenGLRenderer::Initialize()
 
     //glEnable(GL_CULL_FACE);
 
-    //glEnable(GL_DEPTH_TEST);
+    glEnable(GL_DEPTH_TEST);
 
     glEnable(GL_DEBUG_OUTPUT);
     glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
@@ -188,7 +188,7 @@ void OpenGLRenderer::Clear()
 
 void OpenGLRenderer::Render()
 {
-    //std::sort(m_renderQueue.begin(), m_renderQueue.end());
+    std::sort(m_renderQueue.begin(), m_renderQueue.end());
 
     for (auto it = m_renderQueue.begin(); it != m_renderQueue.end(); it++)
     {

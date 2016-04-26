@@ -15,6 +15,6 @@ public:
 
 private:
     bool m_isSelected;
-    std::unique_ptr<grim::graphics::Sprite> m_selectionSprite;
-    std::unique_ptr<grim::graphics::Sprite> m_shadowSprite;
+    grim::graphics::Sprite m_selectionSprite;
+    grim::graphics::Sprite m_shadowSprite;
 };

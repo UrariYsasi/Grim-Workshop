@@ -6,7 +6,7 @@
 
 TerrainTile::TerrainTile(Region* region, const glm::vec2& position) :
     m_region(region),
-    m_transform(glm::vec3(position.x, position.y, 0.0f), glm::vec3(0.0f), glm::vec3(1.0f)),
+    m_transform(glm::vec3(position.x, position.y, 0.0f), glm::vec3(0.0f), glm::vec3(0.5f)),
     m_origin(16.0f, 16.0f),
     m_sprite(m_region->GetWorld()->GetGame()->GetMaterial("sprite_terrain"), 32, 32, 0)
 {

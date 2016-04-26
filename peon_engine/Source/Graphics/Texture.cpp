@@ -7,7 +7,8 @@ namespace grim
 namespace graphics
 {
 
-Texture::Texture(const std::string& path, const GLenum& wrapMode, const GLenum& scaleMode) :
+Texture::Texture(const std::string& path, const bool& isOpaque, const GLenum& wrapMode, const GLenum& scaleMode) :
+    m_isOpaque(isOpaque),
     m_handle(-1),
     m_width(0),
     m_height(0),
@@ -78,6 +79,11 @@ void Texture::SetData(void* data, GLuint internalFormat, GLuint format, int widt
     Bind();
     glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, m_width, m_height, 0, format, GL_UNSIGNED_BYTE, data);
     Unbind();
+}
+
+bool Texture::IsOpaque() const
+{
+    return m_isOpaque;
 }
 
 void Texture::Bind()

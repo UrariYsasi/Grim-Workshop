@@ -24,8 +24,18 @@ Sprite::Sprite(Material* material) :
 {
 }
 
+Sprite::Sprite() :
+    Sprite(nullptr, 0, 0, 0)
+{
+}
+
 void Sprite::Construct()
 {
+    if (m_material == nullptr || m_width == 0 || m_height == 0)
+    {
+        return;
+    }
+
     // TODO origin points
 
     // Calculate texture region

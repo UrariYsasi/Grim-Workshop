@@ -12,7 +12,7 @@ namespace graphics
 class Texture
 {
 public:
-    Texture(const std::string& textureFileName, const GLenum& wrapMode = GL_CLAMP_TO_EDGE, const GLenum& scaleMode = GL_NEAREST);
+    Texture(const std::string& textureFileName, const bool& isOpaque = true, const GLenum& wrapMode = GL_CLAMP_TO_EDGE, const GLenum& scaleMode = GL_NEAREST);
     ~Texture();
 
     /*
@@ -27,6 +27,8 @@ public:
     void SetWidth(int width);
     void SetHeight(int height);
 
+    bool IsOpaque() const;
+
     /*
         Bind the Texture for rendering.
     */
@@ -38,6 +40,8 @@ public:
     void Unbind();
 
 private:
+    bool m_isOpaque;
+
     /*
         The OpenGL handle for the texture.
     */

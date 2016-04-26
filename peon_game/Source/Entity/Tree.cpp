@@ -10,9 +10,7 @@ Tree::Tree(Game* game, const glm::vec3& position) :
     m_positionOffset = glm::vec3(grim::utility::Random::Generate(-6.0f, 6.0f), grim::utility::Random::Generate(0.0f, -6.0f), 0.0f);
     m_hp = 1000;
 
-    //grim::graphics::Texture* texture = m_game->GetTexture("resource");
-    //grim::graphics::ShaderProgram* shaderProgram = m_game->GetShaderProgram("basic_shader");
-    //m_sprite = std::make_unique<grim::graphics::Sprite>(texture, shaderProgram, 32, 64, 0);
+    m_sprite = grim::graphics::Sprite(m_game->GetMaterial("sprite_resource"), 32, 64, 0);
 }
 
 Tree::~Tree()
@@ -30,7 +28,10 @@ void Tree::Update(float deltaTime)
 
 void Tree::Render()
 {
-    //spriteBatch.AddSprite(m_transform.position - m_origin + m_positionOffset, m_transform.rotation, m_transform.scale, m_sprite.get());
+    grim::graphics::Transform treeTransform = m_transform;
+    treeTransform.position -= m_origin;
+    grim::graphics::RenderCommand treeCommand(&m_sprite, treeTransform);
+    m_game->GetRenderer()->Submit(treeCommand);
 
     Entity::Render();
 }

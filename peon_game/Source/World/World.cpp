@@ -54,6 +54,7 @@ void World::Render()
     }
 
     // Z sort entities
+    /*
     m_entities.sort([](std::unique_ptr<Entity> const& a, std::unique_ptr<Entity> const& b)
     {
         float aY = a->GetTransform().position.y;
@@ -61,6 +62,7 @@ void World::Render()
 
         return aY < bY;
     });
+    */
 
     // Entities
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)

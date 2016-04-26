@@ -11,6 +11,7 @@ class Sprite
 public:
     Sprite(Material* material, uint32_t width, uint32_t height, uint32_t frame);
     Sprite(Material* material);
+    Sprite();
 
     void SetWidth(const uint32_t& width);
     void SetHeight(const uint32_t& height);
