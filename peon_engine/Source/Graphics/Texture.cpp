@@ -7,8 +7,19 @@ namespace grim
 namespace graphics
 {
 
-Texture::Texture(const std::string& path, const bool& isOpaque, const GLenum& wrapMode, const GLenum& scaleMode) :
+Texture::Texture() :
+    Texture(true, GL_CLAMP_TO_EDGE, GL_NEAREST)
+{
+}
+
+Texture::Texture(const bool& isOpaque) :
+    Texture(isOpaque, GL_CLAMP_TO_EDGE, GL_NEAREST)
+{
+}
+
+Texture::Texture(const bool& isOpaque, const GLenum& wrapMode, const GLenum& scaleMode) :
     m_isOpaque(isOpaque),
+    m_isBound(false),
     m_handle(-1),
     m_width(0),
     m_height(0),
@@ -19,14 +30,6 @@ Texture::Texture(const std::string& path, const bool& isOpaque, const GLenum& wr
 
     // Bind the texture
     Bind();
-
-    // Upload the image data to the texture
-    m_data = SOIL_load_image(path.c_str(), &m_width, &m_height, 0, SOIL_LOAD_RGBA);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_data);
-    SOIL_free_image_data(m_data);
-
-    // Generate mipmaps
-    glGenerateMipmap(GL_TEXTURE_2D);
 
     // Set the texture parameters
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapMode);
@@ -44,6 +47,28 @@ Texture::~Texture()
 {
     // Delete the OpenGL texture
     glDeleteTextures(1, &m_handle);
+}
+
+bool Texture::LoadFromFile(const std::string& path)
+{
+    // Upload the image data to the texture
+    m_data = SOIL_load_image(path.c_str(), &m_width, &m_height, 0, SOIL_LOAD_RGBA);
+    if (m_data == nullptr)
+    {
+        return false;
+    }
+    
+    Bind();
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_data);
+    SOIL_free_image_data(m_data);
+
+    // Generate mipmaps
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+    Unbind();
+
+    return true;
 }
 
 GLuint Texture::GetHandle() const
@@ -88,12 +113,24 @@ bool Texture::IsOpaque() const
 
 void Texture::Bind()
 {
+    if (m_isBound)
+    {
+        return;
+    }
+
     glBindTexture(GL_TEXTURE_2D, m_handle);
+    m_isBound = true;
 }
 
 void Texture::Unbind()
 {
+    if (!m_isBound)
+    {
+        return;
+    }
+
     glBindTexture(GL_TEXTURE_2D, 0);
+    m_isBound = false;
 }
 
 }

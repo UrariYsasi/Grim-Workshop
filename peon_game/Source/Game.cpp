@@ -75,7 +75,7 @@ bool Game::Initialize()
     LoadTexture("Resources/Textures/item.png", "item");
     LoadTexture("Resources/Textures/orc.png", "orc");
     LoadTexture("Resources/Textures/resource.png", "resource");
-    LoadTexture("Resources/Textures/terrain.png", "terrain", false, GL_CLAMP_TO_EDGE, GL_NEAREST);
+    LoadTexture("Resources/Textures/terrain.png", "terrain", true, GL_CLAMP_TO_EDGE, GL_NEAREST);
     LoadTexture("Resources/Textures/structure.png", "structure");
     LoadTexture("Resources/Textures/obelisk.png", "obelisk");
     LoadTexture("Resources/Textures/doosk.png", "doosk");
@@ -84,11 +84,11 @@ bool Game::Initialize()
     LoadTexture("Resources/Textures/grass.png", "grass");
     LoadTexture("Resources/Textures/tree.png", "tree");
     LoadTexture("Resources/Textures/gandalf.png", "gandalf");
-    LoadTexture("Resources/Textures/spider.png", "spider", true, GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR);
-    LoadTexture("Resources/Textures/spellbook.png", "spellbook", true, GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR);
-    LoadTexture("Resources/Textures/button.png", "button", true, GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR);
-    LoadTexture("Resources/Textures/header.png", "header", true, GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR);
-    LoadTexture("Resources/Textures/beam.png", "beam", true, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR);
+    LoadTexture("Resources/Textures/spider.png", "spider", false, GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR);
+    LoadTexture("Resources/Textures/spellbook.png", "spellbook", false, GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR);
+    LoadTexture("Resources/Textures/button.png", "button", false, GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR);
+    LoadTexture("Resources/Textures/header.png", "header", false, GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR);
+    LoadTexture("Resources/Textures/beam.png", "beam", false, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR);
 
     /*
         Load Fonts
@@ -149,16 +149,26 @@ bool Game::Initialize()
         Load Shaders
     */
 
+    // TODO REFACTOR THIS
     grim::utility::Debug::Log("Loading shaders...");
     LoadShader("Resources/Shaders/vertex.glsl", GL_VERTEX_SHADER, "vertex_textured");
     LoadShader("Resources/Shaders/fragment.glsl", GL_FRAGMENT_SHADER, "fragment_textured");
+    CreateShaderProgram("vertex_textured", "fragment_textured", "basic_shader");
+    m_shaderMap["vertex_textured"] = nullptr;
+    m_shaderMap["fragment_textured"] = nullptr;
+
+    LoadShader("Resources/Shaders/flat_vertex.glsl", GL_VERTEX_SHADER, "flat_vertex");
+    LoadShader("Resources/Shaders/flat_fragment.glsl", GL_FRAGMENT_SHADER, "flat_fragment");
+    CreateShaderProgram("flat_vertex", "flat_fragment", "shader_flat");
+    m_shaderMap["flat_vertex"] = nullptr;
+    m_shaderMap["flat_fragment"] = nullptr;
 
     /*
         Create ShaderPrograms
     */
 
     grim::utility::Debug::Log("Creating shader programs...");
-    CreateShaderProgram("vertex_textured", "fragment_textured", "basic_shader");
+    //CreateShaderProgram("vertex_textured", "fragment_textured", "basic_shader");
 
     /*
         Create Materials
@@ -168,7 +178,10 @@ bool Game::Initialize()
     CreateMaterial("sprite_terrain", GetTexture("terrain"), GetShaderProgram("basic_shader"));
     CreateMaterial("sprite_resource", GetTexture("resource"), GetShaderProgram("basic_shader"));
     CreateMaterial("sprite_peon", GetTexture("peon"), GetShaderProgram("basic_shader"));
+    CreateMaterial("sprite_obelisk", GetTexture("obelisk"), GetShaderProgram("basic_shader"));
+    CreateMaterial("sprite_spider_queen", GetTexture("spider"), GetShaderProgram("basic_shader"));
     CreateMaterial("effect_beam", GetTexture("beam"), GetShaderProgram("basic_shader"));
+    CreateMaterial("flat_black", GetTexture("beam"), GetShaderProgram("shader_flat"));
 
     // Sprites
     m_spriteMap[EntityID::STRUCTURE_STOCKPILE] = nullptr;
@@ -186,46 +199,48 @@ bool Game::Initialize()
 
     m_map->Generate();
 
-    m_frameRateWidget = new grim::ui::TextView(" ", GetFont("hack"), GetShaderProgram("basic_shader"));
+    grim::graphics::Material textMaterial(nullptr, GetShaderProgram("basic_shader"));
+
+    m_frameRateWidget = new grim::ui::TextView(this, "FPS: 55", GetFont("hack"), textMaterial);
     m_frameRateWidget->SetPosition(glm::vec2(5.0f, 5.0f));
     GetUI()->RegisterWidget(m_frameRateWidget);
 
     m_headerSprite = std::make_unique<grim::graphics::Sprite>(GetMaterial("sprite_terrain"));
-    m_header = new grim::ui::SpriteView(m_headerSprite.get());
+    m_header = new grim::ui::SpriteView(this, m_headerSprite.get());
     m_header->SetPosition(glm::vec2(WINDOW_WIDTH / 2.0f, 40.0f));
     m_header->SetScale(glm::vec2(1.3f, 1.3f));
     GetUI()->RegisterWidget(m_header);
 
-    m_dateWidget = new grim::ui::TextView(" ", GetFont("hack"), GetShaderProgram("basic_shader"));
+    m_dateWidget = new grim::ui::TextView(this, " ", GetFont("hack"), textMaterial);
     m_dateWidget->SetPosition(glm::vec2((WINDOW_WIDTH / 2.0f) - 85.0f, 5.0f));
     GetUI()->RegisterWidget(m_dateWidget);
 
-    m_peonCountWidget = new grim::ui::TextView(" ", GetFont("hack"), GetShaderProgram("basic_shader"));
+    m_peonCountWidget = new grim::ui::TextView(this, " ", GetFont("hack"), textMaterial);
     m_peonCountWidget->SetPosition(glm::vec2(5.0f, 5.0f + 20.0f));
     GetUI()->RegisterWidget(m_peonCountWidget);
 
-    m_woodCountWidget = new grim::ui::TextView(" ", GetFont("hack"), GetShaderProgram("basic_shader"));
+    m_woodCountWidget = new grim::ui::TextView(this, " ", GetFont("hack"), textMaterial);
     m_woodCountWidget->SetPosition(glm::vec2(5.0f, 5.0f + 40.0f));
     GetUI()->RegisterWidget(m_woodCountWidget);
 
-    m_faithCountWidget = new grim::ui::TextView(" ", GetFont("hack"), GetShaderProgram("basic_shader"));
+    m_faithCountWidget = new grim::ui::TextView(this, " ", GetFont("hack"), textMaterial);
     m_faithCountWidget->SetPosition(glm::vec2(5.0f, 5.0f + 60.0f));
     GetUI()->RegisterWidget(m_faithCountWidget);
 
     m_spellBookSprite = std::make_unique<grim::graphics::Sprite>(GetMaterial("sprite_terrain"));
-    m_spellbook = new grim::ui::SpriteView(m_spellBookSprite.get());
+    m_spellbook = new grim::ui::SpriteView(this, m_spellBookSprite.get());
     m_spellbook->SetPosition(glm::vec2(WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f + 260.0f));
     m_spellbook->SetScale(glm::vec2(1.5f, 1.5f));
     m_spellbook->SetVisible(false);
     GetUI()->RegisterWidget(m_spellbook);
 
-    m_basicPeonLabel = new grim::ui::TextView("Peon", GetFont("black_family"), GetShaderProgram("basic_shader"));
+    m_basicPeonLabel = new grim::ui::TextView(this, "Peon", GetFont("black_family"), textMaterial);
     m_basicPeonLabel->SetPosition(glm::vec2(-240.0f, -140.0f));
     m_spellbook->RegisterWidget(m_basicPeonLabel);
 
     m_buttonSprite = std::make_unique<grim::graphics::Sprite>(GetMaterial("sprite_terrain"));
 
-    m_peonButton = new grim::ui::ButtonView(GetEntitySprite(EntityID::PEON));
+    m_peonButton = new grim::ui::ButtonView(this, GetEntitySprite(EntityID::PEON));
     m_peonButton->SetPosition(glm::vec2(-220.0f, -110.0f));
     m_peonButton->SetScale(glm::vec2(1.5f, 1.5f));
     m_spellbook->RegisterWidget(m_peonButton);
@@ -298,9 +313,7 @@ void Game::Render()
 
     m_mainCamera->Activate();
     m_map->Render();
-    //m_player->Render();
-
-    GetRenderer()->Render();
+    m_player->Render();
 
     /*
         Render Services
@@ -308,14 +321,18 @@ void Game::Render()
 
     if (!GetInput()->GetKey(SDLK_SPACE))
     {
-        //m_uiCamera->Activate();
-        //GetUI()->Render();
+        m_uiCamera->Activate();
+        GetUI()->Render();
     }
+
+    // TODO fix camera stuff
+    m_mainCamera->Activate();
 }
 
 bool Game::LoadTexture(const std::string& path, const std::string& ID, const bool& isOpaque, const GLenum& wrapMode, const GLenum& scaleMode)
 {
-    m_textureMap[ID] = std::make_unique<grim::graphics::Texture>(path, isOpaque, wrapMode, scaleMode);
+    m_textureMap[ID] = std::make_unique<grim::graphics::Texture>(isOpaque, wrapMode, scaleMode);
+    m_textureMap[ID]->LoadFromFile(path);
     return true;
 }
 

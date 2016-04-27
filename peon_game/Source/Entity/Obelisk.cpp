@@ -5,11 +5,9 @@
 Obelisk::Obelisk(Game* game, const glm::vec3& position) :
     Entity(game, position, EntityID::STRUCTURE_OBELISK)
 {
-    m_origin.y = 96.0f;
     m_hitBox = grim::graphics::Rect(-32, -32, 64, 64);
-    //grim::graphics::Texture* texture = game->GetTexture("obelisk");
-    //grim::graphics::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader");
-    //m_sprite = std::make_unique<grim::graphics::Sprite>(texture, shaderProgram, 64, 288, 0);
+    m_sprite = grim::graphics::Sprite(m_game->GetMaterial("sprite_obelisk"));
+    m_origin.y = 144;
 }
 
 Obelisk::~Obelisk()
@@ -26,7 +24,10 @@ void Obelisk::Update(float deltaTime)
 
 void Obelisk::Render()
 {
-    //spriteBatch.AddSprite(m_transform.position - m_origin + m_positionOffset, m_transform.rotation, m_transform.scale, m_sprite.get());
+    grim::graphics::Transform obeliskTransform = m_transform;
+    obeliskTransform.position -= m_origin;
+    grim::graphics::RenderCommand obeliskCommand(&m_sprite, obeliskTransform);
+    m_game->GetRenderer()->Submit(obeliskCommand);
 
     Entity::Render();
 }

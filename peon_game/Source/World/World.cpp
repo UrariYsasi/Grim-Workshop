@@ -53,22 +53,16 @@ void World::Render()
         (*it).second->Render();
     }
 
-    // Z sort entities
-    /*
-    m_entities.sort([](std::unique_ptr<Entity> const& a, std::unique_ptr<Entity> const& b)
-    {
-        float aY = a->GetTransform().position.y;
-        float bY = b->GetTransform().position.y;
-
-        return aY < bY;
-    });
-    */
-
     // Entities
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
         Entity* e = it->get();
-        e->Render();
+
+        if (!ShouldCullEntity(e))
+        {
+            CalculateEntityDepth(e);
+            e->Render();
+        }
     }
 }
 
@@ -103,37 +97,6 @@ void World::Generate()
 
     // Explore initial Region
     ExploreRegion(glm::ivec2(0, 0));
-
-    // Trees
-    /*
-    grim::graphics::Rect worldRect(0.0f, 0.0f, (SIZE - 1) * 32.0f, (SIZE - 1) * 32.0f);
-    std::vector<glm::vec2> outputList = grim::utility::PoissonDiskGenerator::Generate(GetCenter(), 40.0, 64.0, 30, worldRect);
-    for (auto pointIt = outputList.begin(); pointIt != outputList.end(); pointIt++)
-    {
-        glm::vec2 spawnPosition = (*pointIt);
-
-        // Discard point if it's too close to map center
-        if (glm::distance(spawnPosition, GetCenter()) > 300.0)
-        {
-            m_entities.push_back(std::make_unique<Tree>(m_game, spawnPosition));
-        }
-    }
-
-    // Altar
-    //m_entities.push_back(std::make_unique<Altar>(m_game, glm::vec2(-256, -128)));
-
-    // Stockpile
-    //m_entities.push_back(std::make_unique<Stockpile>(m_game, GetCenter() + glm::vec2(96.0f, 0.0f)));
-
-    // Obelisk
-    // The obelisk gets placed in the center of the map.
-    m_entities.push_back(std::make_unique<Obelisk>(m_game, GetCenter()));
-    */
-
-    // Peons
-    //Spawn(ENT_PEON, GetCenter() - glm::vec2(0, 0));
-    //Spawn(ENT_PEON, GetCenter() - glm::vec2(-32, 0));
-    //Spawn(ENT_PEON, GetCenter() - glm::vec2(32, 0));
 
     grim::utility::Debug::Log("World generation complete.");
 }
@@ -200,7 +163,7 @@ Entity* World::Spawn(const EntityID& ID, const glm::vec3& position)
 
     if (ID == EntityID::PEON)
     {
-        Spawn(EntityID::EFFECT_BEAM, position);
+        Spawn(EntityID::EFFECT_BEAM, position + glm::vec3(0.0f, 0.0f, 0.001f));
         std::unique_ptr<Peon> ent = std::make_unique<Peon>(m_game, position);
         spawned = ent.get();
         m_entities.push_back(std::move(ent));
@@ -249,6 +212,35 @@ Entity* World::Spawn(const EntityID& ID, const glm::vec3& position)
     }
 
     return spawned;
+}
+
+void World::CalculateEntityDepth(Entity* const entity)
+{
+    grim::graphics::Transform entityTransform = entity->GetTransform();
+    float currentY = m_game->GetMainCamera()->ConvertToScreen(glm::vec2(entityTransform.position.x, entityTransform.position.y)).y;
+    float normalizedY = (currentY / m_game->GetMainCamera()->GetHeight());
+    float zLayer = normalizedY * 0.001f;
+
+    entityTransform.position.z = zLayer;
+    entity->SetTransform(entityTransform);
+}
+
+bool World::ShouldCullEntity(Entity* const entity)
+{
+    grim::graphics::Camera* mainCamera = m_game->GetMainCamera();
+    grim::graphics::Transform entityTransform = entity->GetTransform();
+    glm::vec2 screenPosition = mainCamera->ConvertToScreen(glm::vec2(entityTransform.position.x, entityTransform.position.y));
+    glm::vec2 normalizedScreenPosition = screenPosition / glm::vec2(mainCamera->GetWidth(), mainCamera->GetHeight());
+
+    float minX = -0.1f;
+    float maxX = 1.1f;
+    float minY = -0.1f;
+    float maxY = 1.1f;
+
+    return ((normalizedScreenPosition.x < minX) ||
+            (normalizedScreenPosition.x > maxX) ||
+            (normalizedScreenPosition.y < minY) ||
+            (normalizedScreenPosition.y > maxY));
 }
 
 Entity* World::GetEntityAtPoint(const glm::vec2& point, EntityID ID)

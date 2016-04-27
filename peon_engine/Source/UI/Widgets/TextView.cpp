@@ -1,5 +1,6 @@
 #include "PCH.hpp"
 #include "TextView.hpp"
+#include "../../Graphics/RenderCommand.hpp"
 #include "../../Graphics/Mesh.hpp"
 #include "../../Graphics/Texture.hpp"
 
@@ -9,23 +10,16 @@ namespace grim
 namespace ui
 {
 
-TextView::TextView(const std::string& text, TTF_Font* font, grim::graphics::ShaderProgram* shaderProgram) :
+TextView::TextView(Engine* const engine, const std::string& text, TTF_Font* font, const grim::graphics::Material& material) :
+    Widget(engine),
     m_text(text),
     m_font(font),
-    m_mesh(nullptr),
-    m_texture(nullptr),
+    m_mesh(),
+    m_material(material),
+    m_texture(false),
     m_isInvalid(true)
 {
-    m_texture = std::make_unique<grim::graphics::Texture>("doosk.png");
-    //m_mesh = std::make_unique <grim::graphics::Mesh>(shaderProgram, m_texture.get());
-
-    GLuint elements[] = {
-        0, 1, 2,
-        2, 3, 1
-    };
-
-    //m_mesh->UploadElementData(elements, sizeof(elements));
-    //m_mesh->SetRenderMode(GL_TRIANGLES);
+    Construct();
 }
 
 TextView::~TextView()
@@ -46,7 +40,7 @@ void TextView::Render()
 {
     Widget::Render();
 
-    glm::vec3 renderPosition(m_position.x, m_position.y, 0.0f);
+    glm::vec3 renderPosition(m_position.x, m_position.y, 1.0f);
 
     if (m_parent != nullptr)
     {
@@ -57,27 +51,39 @@ void TextView::Render()
 
     glm::vec3 renderRotation(0.0f, 0.0f, m_rotation);
     glm::vec3 renderScale(m_scale.x, m_scale.y, 1.0f);
-    //m_mesh->Render(renderPosition, renderRotation, renderScale);
+
+    grim::graphics::Transform transform(renderPosition, renderRotation, renderScale);
+    grim::graphics::RenderCommand command(&m_mesh, &m_material, transform);
+    m_engine->GetRenderer()->Submit(command);
 }
 
 void TextView::Construct()
 {
+    m_mesh.ClearData();
+
     SDL_Surface* surface = TTF_RenderText_Blended(m_font, m_text.c_str(), SDL_Color{0, 0, 0, 255});
-    m_texture->SetData(surface->pixels, GL_RGBA, GL_BGRA, surface->w, surface->h);
+    m_texture.SetData(surface->pixels, GL_RGBA, GL_BGRA, surface->w, surface->h);
     SDL_FreeSurface(surface);
 
-    GLfloat vertices[] = {
-        // Top left
-        0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-        // Top right
-        0.0f + surface->w, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-        // Bottom left
-        0.0f, 0.0f + surface->h, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-        // Bottom right
-        0.0f + surface->w, 0.0f + surface->h, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f
-    };
+    m_material.texture = &m_texture;
 
-    //m_mesh->UploadVertexData(vertices, sizeof(vertices));
+    grim::graphics::Color color(1.0f, 1.0f, 1.0f);
+    grim::graphics::Vertex topLeft(glm::vec3(0.0f, 0.0f, 0.0f), color, glm::vec2(0.0f, 0.0f));
+    grim::graphics::Vertex topRight(glm::vec3(surface->w, 0.0f, 0.0f), color, glm::vec2(1.0f, 0.0f));
+    grim::graphics::Vertex bottomLeft(glm::vec3(0.0f, surface->h, 0.0f), color, glm::vec2(0.0f, 1.0f));
+    grim::graphics::Vertex bottomRight(glm::vec3(surface->w, surface->h, 0.0f), color, glm::vec2(1.0f, 1.0f));
+
+    m_mesh.AddVertex(topLeft);
+    m_mesh.AddVertex(topRight);
+    m_mesh.AddVertex(bottomLeft);
+    m_mesh.AddVertex(bottomRight);
+
+    m_mesh.AddIndex(0);
+    m_mesh.AddIndex(1);
+    m_mesh.AddIndex(2);
+    m_mesh.AddIndex(2);
+    m_mesh.AddIndex(3);
+    m_mesh.AddIndex(1);
 
     m_isInvalid = false;
     m_width = surface->w;

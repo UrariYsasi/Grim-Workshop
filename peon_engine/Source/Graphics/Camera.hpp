@@ -20,6 +20,8 @@ public:
     glm::vec2 GetPosition() const;
     glm::mat4 GetViewMatrix() const;
     glm::mat4 GetProjectionMatrix() const;
+    float GetWidth() const;
+    float GetHeight() const;
 
     void Activate();
     void Move(const glm::vec2& movement);

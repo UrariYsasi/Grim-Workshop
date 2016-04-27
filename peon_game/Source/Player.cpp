@@ -22,7 +22,7 @@ Player::Player(Game* game) :
     m_cameraSpeed(CAMERA_SPEED_NORMAL),
     m_isBoxSelecting(false),
     m_boxSelection(0, 0, 0, 0),
-    m_boxSelectionMesh(nullptr),
+    m_boxSelectionMesh(grim::graphics::PrimitiveType::LINE_LOOP),
     m_faith(100),
     m_placementModule(this)
 {
@@ -33,7 +33,6 @@ Player::Player(Game* game) :
 
 Player::~Player()
 {
-    m_boxSelectionMesh.reset();
 }
 
 void Player::Update(float deltaTime)
@@ -183,31 +182,37 @@ void Player::Update(float deltaTime)
 
 void Player::Render()
 {
+    m_boxSelectionMesh.ClearData();
+
     if (m_isBoxSelecting)
     {
-        /*
         if (std::abs(m_boxSelection.width) >= 5 || std::abs(m_boxSelection.height) >= 5)
         {
-            GLfloat vertices[] = {
-                // Top left
-                m_boxSelection.x, m_boxSelection.y, 0.0f, 0.0f, 0.0f, 0.0f, 0.5f, 0.0f, 0.0f,
-                // Top right
-                m_boxSelection.x + m_boxSelection.width, m_boxSelection.y, 0.0f, 0.0f, 0.0f, 0.0f, 0.5f, 0.0f, 0.0f,
-                // Bottom left
-                m_boxSelection.x, m_boxSelection.y + m_boxSelection.height, 0.0f, 0.0f, 0.0f, 0.0f, 0.5f, 0.0f, 0.0f,
-                // Bottom right
-                m_boxSelection.x + m_boxSelection.width, m_boxSelection.y + m_boxSelection.height, 0.0f, 0.0f, 0.0f, 0.0f, 0.5f, 0.0f, 0.0f
-            };
+            grim::graphics::Vertex topLeft(glm::vec3(m_boxSelection.x, m_boxSelection.y, 1.0f));
+            grim::graphics::Vertex topRight(glm::vec3(m_boxSelection.x + m_boxSelection.width, m_boxSelection.y, 1.0f));
+            grim::graphics::Vertex bottomLeft(glm::vec3(m_boxSelection.x, m_boxSelection.y + m_boxSelection.height, 1.0f));
+            grim::graphics::Vertex bottomRight(glm::vec3(m_boxSelection.x + m_boxSelection.width, m_boxSelection.y + m_boxSelection.height, 1.0f));
 
-            m_boxSelectionMesh->UploadVertexData(vertices, sizeof(vertices));
-            m_boxSelectionMesh->Render(glm::vec3(0.0), glm::vec3(0.0), glm::vec3(1, 1, 0));
+            m_boxSelectionMesh.AddVertex(topLeft);
+            m_boxSelectionMesh.AddVertex(topRight);
+            m_boxSelectionMesh.AddVertex(bottomLeft);
+            m_boxSelectionMesh.AddVertex(bottomRight);
+
+            m_boxSelectionMesh.AddIndex(0);
+            m_boxSelectionMesh.AddIndex(1);
+            m_boxSelectionMesh.AddIndex(3);
+            m_boxSelectionMesh.AddIndex(2);
+
+            grim::graphics::Transform boxSelectionTransform;
+            grim::graphics::RenderCommand command(&m_boxSelectionMesh, m_game->GetMaterial("flat_black"), boxSelectionTransform);
+            m_game->GetRenderer()->Submit(command);
         }
-        */
     }
 
     /*
         Render Modules
     */
+
     m_placementModule.Render();
 }
 

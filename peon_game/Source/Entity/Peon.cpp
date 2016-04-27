@@ -46,14 +46,13 @@ void Peon::Update(float deltaTime)
 
 void Peon::Render()
 {
-    m_transform.position.z = 0.1f;
-
     grim::graphics::Transform peonTransform = m_transform;
     peonTransform.position -= m_origin;
     peonTransform.position += m_positionOffset;
     grim::graphics::RenderCommand peonCommand(&m_sprite, peonTransform);
 
     grim::graphics::Transform shadowTransform = m_transform;
+    shadowTransform.position.z -= 0.0001f;
     shadowTransform.position -= m_origin;
     shadowTransform.position += glm::vec3(0.0f, 16.0f, 0.0f);
     shadowTransform.scale = glm::vec3(1.0f + (m_positionOffset.y / 2.75f), 1.0f + (m_positionOffset.y / 2.75f), 0.0f);
@@ -62,6 +61,7 @@ void Peon::Render()
     if (m_isSelected)
     {
         grim::graphics::Transform selectionTransform = m_transform;
+        selectionTransform.position.z -= 0.0002f;
         selectionTransform.position -= m_origin;
         selectionTransform.position += glm::vec3(0.0f, 3.0f, 0.0f);
         grim::graphics::RenderCommand selectionCommand(&m_selectionSprite, selectionTransform);

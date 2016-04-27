@@ -18,7 +18,7 @@ namespace ui
 class TextView : public Widget
 {
 public:
-    TextView(const std::string& text, TTF_Font* font, grim::graphics::ShaderProgram* shaderProgram);
+    TextView(Engine* const engine, const std::string& text, TTF_Font* font, const grim::graphics::Material& material);
     ~TextView();
 
     virtual void Update(float deltaTime);
@@ -33,8 +33,9 @@ private:
 private:
     std::string m_text;
     TTF_Font* m_font;
-    std::unique_ptr<grim::graphics::Mesh> m_mesh;
-    std::unique_ptr<grim::graphics::Texture> m_texture;
+    grim::graphics::Mesh m_mesh;
+    grim::graphics::Material m_material;
+    grim::graphics::Texture m_texture;
     bool m_isInvalid;
 };
 

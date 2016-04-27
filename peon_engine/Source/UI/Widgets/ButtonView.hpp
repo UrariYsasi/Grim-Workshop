@@ -3,13 +3,15 @@
 namespace grim
 {
 
+class Engine;
+
 namespace ui
 {
 
 class ButtonView : public Widget
 {
 public:
-    ButtonView(grim::graphics::Sprite* background);
+    ButtonView(Engine* const engine, grim::graphics::Sprite* background);
     ~ButtonView();
 
     virtual void Update(float deltaTime);

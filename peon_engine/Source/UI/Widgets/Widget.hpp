@@ -3,13 +3,15 @@
 namespace grim
 {
 
+class Engine;
+
 namespace ui
 {
 
 class Widget
 {
 public:
-    Widget();
+    Widget(Engine* engine);
     virtual ~Widget();
 
     virtual void Update(float deltaTime);
@@ -35,6 +37,7 @@ public:
     bool IsVisible() const;
 
 protected:
+    Engine* m_engine;
     glm::vec2 m_position;
     float m_rotation;
     glm::vec2 m_scale;

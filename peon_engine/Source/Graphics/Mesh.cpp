@@ -7,6 +7,11 @@ namespace grim
 namespace graphics
 {
 
+Mesh::Mesh() :
+    Mesh(PrimitiveType::TRIANGLES)
+{
+}
+
 Mesh::Mesh(const PrimitiveType& primitiveType) :
     m_primitiveType(primitiveType)
 {
@@ -18,12 +23,12 @@ Mesh::~Mesh()
     m_indexData.clear();
 }
 
-void Mesh::AddVertex(const Vertex& vertex)
+void Mesh::AddVertex(const Vertex vertex)
 {
     m_vertexData.push_back(vertex);
 }
 
-void Mesh::AddIndex(const uint32_t& index)
+void Mesh::AddIndex(const uint32_t index)
 {
     m_indexData.push_back(index);
 }

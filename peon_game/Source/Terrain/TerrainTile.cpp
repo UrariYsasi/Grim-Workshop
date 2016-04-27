@@ -6,7 +6,7 @@
 
 TerrainTile::TerrainTile(Region* region, const glm::vec2& position) :
     m_region(region),
-    m_transform(glm::vec3(position.x, position.y, 0.0f), glm::vec3(0.0f), glm::vec3(0.5f)),
+    m_transform(glm::vec3(position.x, position.y, 0.0f), glm::vec3(0.0f), glm::vec3(1.0f)),
     m_origin(16.0f, 16.0f),
     m_sprite(m_region->GetWorld()->GetGame()->GetMaterial("sprite_terrain"), 32, 32, 0)
 {
@@ -34,4 +34,9 @@ void TerrainTile::Render()
 
     grim::graphics::RenderCommand tileCommand(&m_sprite, m_transform);
     m_region->GetWorld()->GetGame()->GetRenderer()->Submit(tileCommand);
+}
+
+grim::graphics::Transform TerrainTile::GetTransform() const
+{
+    return m_transform;
 }

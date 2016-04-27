@@ -188,7 +188,10 @@ void OpenGLRenderer::Clear()
 
 void OpenGLRenderer::Render()
 {
+    // Batch Sort
     std::sort(m_renderQueue.begin(), m_renderQueue.end());
+
+    PaintersSort();
 
     for (auto it = m_renderQueue.begin(); it != m_renderQueue.end(); it++)
     {
@@ -203,7 +206,7 @@ void OpenGLRenderer::Render()
     RenderBatch();
     ClearBatch();
 
-    grim::utility::Debug::Log("Processed %d commands in %d render batches", m_renderCommandCount, m_renderBatchCount);
+    //grim::utility::Debug::Log("Processed %d commands in %d render batches", m_renderCommandCount, m_renderBatchCount);
     m_renderCommandCount = 0;
     m_renderBatchCount = 0;
 }
@@ -294,17 +297,28 @@ void OpenGLRenderer::UploadBatch()
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBOHandle);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices[0]) * m_indexData.size(), indices, GL_DYNAMIC_DRAW);
 
-    // Setup shader attributes
-    GLint positionAttribute = glGetAttribLocation(m_currentMaterial->shaderProgram->GetHandle(), "inPosition");
-    GLint colorAttribute = glGetAttribLocation(m_currentMaterial->shaderProgram->GetHandle(), "inColor");
-    GLint uvAttribute = glGetAttribLocation(m_currentMaterial->shaderProgram->GetHandle(), "inTexCoord");
+    GLuint shaderHandle = m_currentMaterial->shaderProgram->GetHandle();
 
-    glEnableVertexAttribArray(positionAttribute);
-    glEnableVertexAttribArray(colorAttribute);
-    glEnableVertexAttribArray(uvAttribute);
-    glVertexAttribPointer(positionAttribute, 3, GL_FLOAT, GL_FALSE, Vertex::SIZE * sizeof(GLfloat), 0);
-    glVertexAttribPointer(colorAttribute, 4, GL_FLOAT, GL_FALSE, Vertex::SIZE * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
-    glVertexAttribPointer(uvAttribute, 2, GL_FLOAT, GL_FALSE, Vertex::SIZE * sizeof(GLfloat), (void*)(7 * sizeof(GLfloat)));
+    GLint positionAttribute = glGetAttribLocation(shaderHandle, "inPosition");
+    if (positionAttribute != -1)
+    {
+        glEnableVertexAttribArray(positionAttribute);
+        glVertexAttribPointer(positionAttribute, 3, GL_FLOAT, GL_FALSE, Vertex::SIZE * sizeof(GLfloat), 0);
+    }
+
+    GLint colorAttribute = glGetAttribLocation(shaderHandle, "inColor");
+    if (colorAttribute != -1)
+    {
+        glEnableVertexAttribArray(colorAttribute);
+        glVertexAttribPointer(colorAttribute, 4, GL_FLOAT, GL_FALSE, Vertex::SIZE * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
+    }
+
+    GLint uvAttribute = glGetAttribLocation(shaderHandle, "inTexCoord");
+    if (uvAttribute != -1)
+    {
+        glEnableVertexAttribArray(uvAttribute);
+        glVertexAttribPointer(uvAttribute, 2, GL_FLOAT, GL_FALSE, Vertex::SIZE * sizeof(GLfloat), (void*)(7 * sizeof(GLfloat)));
+    }
 
     // Unbind the VBO
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -377,6 +391,19 @@ void OpenGLRenderer::ClearBatch()
     m_indexData.clear();
     m_currentMaterial = nullptr;
     m_currentPrimitive = PrimitiveType::TRIANGLES;
+}
+
+void OpenGLRenderer::PaintersSort()
+{
+    std::sort(m_renderQueue.begin(), m_renderQueue.end(), [](const RenderCommand& a, const RenderCommand& b)
+    {
+        if ((a.material->texture != nullptr) && (a.material->texture->IsOpaque()))
+        {
+            return true;
+        }
+
+        return a.transform.position.z < b.transform.position.z;
+    });
 }
 
 void OpenGLRenderer::SetClearColor(const Color& color)

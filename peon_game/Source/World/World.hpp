@@ -21,6 +21,8 @@ public:
     void ExploreRegion(const glm::ivec2& coordinates);
     glm::ivec2 ConvertToRegionCoordinates(const glm::vec3& position);
     Entity* Spawn(const EntityID& ID, const glm::vec3& position);
+    void CalculateEntityDepth(Entity* const entity);
+    bool ShouldCullEntity(Entity* const entity);
 
     /*
         Gets the Entity with the given ID that is currently colliding with the given point.

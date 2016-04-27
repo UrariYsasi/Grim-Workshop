@@ -24,7 +24,11 @@ void Region::Render()
     // Render terrain
     for (auto it = m_terrain.begin(); it != m_terrain.end(); it++)
     {
-        (*it)->Render();
+        TerrainTile* tile = it->get();
+        if (!ShouldCullTile(tile))
+        {
+            tile->Render();
+        }
     }
 }
 
@@ -45,6 +49,24 @@ void Region::Generate()
 
     GenerateTerrain();
     GenerateEntities();
+}
+
+bool Region::ShouldCullTile(TerrainTile* const tile)
+{
+    grim::graphics::Camera* mainCamera = m_world->GetGame()->GetMainCamera();
+    grim::graphics::Transform entityTransform = tile->GetTransform();
+    glm::vec2 screenPosition = mainCamera->ConvertToScreen(glm::vec2(entityTransform.position.x, entityTransform.position.y));
+    glm::vec2 normalizedScreenPosition = screenPosition / glm::vec2(mainCamera->GetWidth(), mainCamera->GetHeight());
+
+    float minX = -0.1f;
+    float maxX = 1.1f;
+    float minY = -0.1f;
+    float maxY = 1.1f;
+
+    return ((normalizedScreenPosition.x < minX) ||
+        (normalizedScreenPosition.x > maxX) ||
+        (normalizedScreenPosition.y < minY) ||
+        (normalizedScreenPosition.y > maxY));
 }
 
 void Region::GenerateTerrain()
@@ -92,7 +114,7 @@ void Region::GenerateEntities()
         m_world->Spawn(EntityID::PEON, glm::vec3(GetCenter().x, GetCenter().y + 64.0f, 0.0f));
         m_world->Spawn(EntityID::PEON, glm::vec3(GetCenter().x - 32.0f, GetCenter().y + 64.0f, 0.0f));
         m_world->Spawn(EntityID::PEON, glm::vec3(GetCenter().x + 32.0f, GetCenter().y + 64.0f, 0.0f));
-        m_world->Spawn(EntityID::MONSTER_ORC, glm::vec3(GetCenter().x + 128.0f, GetCenter().y, 0.0f));
+        //m_world->Spawn(EntityID::MONSTER_ORC, glm::vec3(GetCenter().x + 128.0f, GetCenter().y, 0.0f));
     }
 
     if (m_ID == REGION_BOSS_SPIDER)

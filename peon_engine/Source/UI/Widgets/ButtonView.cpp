@@ -4,11 +4,14 @@
 namespace grim
 {
 
+class Engine;
+
 namespace ui
 {
 
-ButtonView::ButtonView(grim::graphics::Sprite* background) :
-    m_background(background)
+ButtonView::ButtonView(Engine* const engine, grim::graphics::Sprite* background) :
+    Widget(engine),
+    m_background(engine, background)
 {
     m_width = m_background.GetWidth();
     m_height = m_background.GetHeight();

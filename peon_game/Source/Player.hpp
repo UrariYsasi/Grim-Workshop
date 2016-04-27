@@ -49,7 +49,7 @@ private:
     bool m_isBoxSelecting;
     grim::graphics::Rect m_boxSelection;
     std::list<Entity*> m_selectedPeons;
-    std::unique_ptr<grim::graphics::Mesh> m_boxSelectionMesh;
+    grim::graphics::Mesh m_boxSelectionMesh;
 
     uint32_t m_faith;
 

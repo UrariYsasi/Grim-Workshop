@@ -12,17 +12,20 @@ struct Material
     ShaderProgram* shaderProgram;
     Color color;
 
-    Material(Texture* texture, ShaderProgram* shaderProgram, Color color) :
-        texture(texture),
-        shaderProgram(shaderProgram),
-        color(color)
+    Material() :
+        Material(nullptr, nullptr, Color(1.0f, 1.0f, 1.0f))
     {
     }
 
     Material(Texture* texture, ShaderProgram* shaderProgram) :
+        Material(texture, shaderProgram, Color(1.0f, 1.0f, 1.0f))
+    {
+    }
+
+    Material(Texture* texture, ShaderProgram* shaderProgram, Color color) :
         texture(texture),
         shaderProgram(shaderProgram),
-        color(1.0f, 1.0f, 1.0f)
+        color(color)
     {
     }
 };

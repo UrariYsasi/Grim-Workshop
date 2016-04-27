@@ -7,7 +7,8 @@ namespace grim
 namespace ui
 {
 
-Widget::Widget() :
+Widget::Widget(Engine* engine) :
+    m_engine(engine),
     m_position(0.0f),
     m_rotation(0.0f),
     m_scale(1.0f),

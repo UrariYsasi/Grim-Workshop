@@ -50,6 +50,16 @@ glm::mat4 Camera::GetProjectionMatrix() const
     return m_projectionMatrix;
 }
 
+float Camera::GetWidth() const
+{
+    return m_width;
+}
+
+float Camera::GetHeight() const
+{
+    return m_height;
+}
+
 void Camera::Activate()
 {
     // For debug purposes only

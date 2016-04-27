@@ -7,7 +7,8 @@ namespace grim
 namespace ui
 {
 
-SpriteView::SpriteView(grim::graphics::Sprite* sprite) :
+SpriteView::SpriteView(Engine* const engine, grim::graphics::Sprite* sprite) :
+    Widget(engine),
     m_sprite(sprite)
 {
     m_width = m_sprite->GetWidth();

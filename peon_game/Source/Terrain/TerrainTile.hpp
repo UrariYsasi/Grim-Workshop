@@ -10,6 +10,8 @@ public:
 
     void Render();
 
+    grim::graphics::Transform GetTransform() const;
+
 public:
     const static int SIZE = 32;
 

@@ -12,8 +12,12 @@ namespace graphics
 class Texture
 {
 public:
-    Texture(const std::string& textureFileName, const bool& isOpaque = true, const GLenum& wrapMode = GL_CLAMP_TO_EDGE, const GLenum& scaleMode = GL_NEAREST);
+    Texture();
+    Texture(const bool& isOpaque);
+    Texture(const bool& isOpaque, const GLenum& wrapMode, const GLenum& scaleMode);
     ~Texture();
+
+    bool LoadFromFile(const std::string& path);
 
     /*
         Returns the OpenGL handle for this Texture.
@@ -41,6 +45,7 @@ public:
 
 private:
     bool m_isOpaque;
+    bool m_isBound;
 
     /*
         The OpenGL handle for the texture.

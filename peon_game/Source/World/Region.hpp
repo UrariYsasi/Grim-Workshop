@@ -12,6 +12,7 @@ public:
     void Update(float deltaTime);
     void Render();
     void Generate();
+    bool ShouldCullTile(TerrainTile* const tile);
 
     void SetIsExplored(bool isExplored);
     bool IsExplored() const;

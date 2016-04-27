@@ -20,6 +20,7 @@ public:
 
     virtual void SetClearColor(const Color& color);
     virtual void SetActiveCamera(Camera* camera);
+
     virtual Camera* GetActiveCamera();
 
 private:
@@ -27,6 +28,7 @@ private:
     virtual void UploadBatch();
     virtual void RenderBatch();
     virtual void ClearBatch();
+    void PaintersSort();
 
 private:
     Camera* m_activeCamera;

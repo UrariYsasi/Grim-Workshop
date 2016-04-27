@@ -9,11 +9,12 @@ namespace graphics
 class Mesh
 {
 public:
+    Mesh();
     Mesh(const PrimitiveType& primitiveType);
     ~Mesh();
 
-    void AddVertex(const Vertex& vertex);
-    void AddIndex(const uint32_t& index);
+    void AddVertex(const Vertex vertex);
+    void AddIndex(const uint32_t index);
     void ClearData();
 
     PrimitiveType GetPrimitiveType() const;
