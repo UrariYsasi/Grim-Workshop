@@ -16,7 +16,7 @@ Entity::Entity(Game* game, const glm::vec3& position, EntityID ID) :
     m_consumeStartTime(0),
     m_isBeingConsumed(false),
     m_consumer(nullptr),
-    m_direction(Direction::RIGHT),
+    m_direction(1.0f, 0.0f, 0.0f),
     m_sprite()
 {
 }
@@ -186,12 +186,12 @@ void Entity::Consume(Obelisk* obelisk)
     m_isBeingConsumed = true;
 }
 
-void Entity::SetDirection(const Direction& direction)
+void Entity::SetDirection(glm::vec3 direction)
 {
     m_direction = direction;
 }
 
-Entity::Direction Entity::GetDirection() const
+glm::vec3 Entity::GetDirection() const
 {
     return m_direction;
 }

@@ -28,7 +28,16 @@ void Spider::Update(float deltaTime)
 
 void Spider::Render()
 {
-    float scaleX = (m_direction == Direction::LEFT) ? m_transform.scale.x : -m_transform.scale.x;
+    float scaleX = m_transform.scale.x;
+
+    if (m_direction.x < 0)
+    {
+        scaleX = m_transform.scale.x;
+    }
+    else
+    {
+        scaleX = -m_transform.scale.x;
+    }
 
     grim::graphics::Transform spiderTransform = m_transform;
     spiderTransform.position -= m_origin;

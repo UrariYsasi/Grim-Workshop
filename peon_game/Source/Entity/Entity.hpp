@@ -6,13 +6,6 @@ class Obelisk;
 class Entity
 {
 public:
-    enum class Direction
-    {
-        LEFT,
-        RIGHT
-    };
-
-public:
     Entity(Game* game, const glm::vec3& position, EntityID ID);
     virtual ~Entity();
 
@@ -58,8 +51,8 @@ public:
 
     virtual void Consume(Obelisk* obelisk);
 
-    void SetDirection(const Direction& direction);
-    Direction GetDirection() const;
+    void SetDirection(glm::vec3 direction);
+    glm::vec3 GetDirection() const;
 
 protected:
     Game* m_game;
@@ -79,6 +72,6 @@ protected:
     glm::vec3 m_start;
     glm::vec3 m_end;
 
-    Direction m_direction;
+    glm::vec3 m_direction;
     grim::graphics::Sprite m_sprite;
 };

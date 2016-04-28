@@ -180,11 +180,14 @@ bool Game::Initialize()
     CreateMaterial("sprite_peon", GetTexture("peon"), GetShaderProgram("basic_shader"));
     CreateMaterial("sprite_obelisk", GetTexture("obelisk"), GetShaderProgram("basic_shader"));
     CreateMaterial("sprite_spider_queen", GetTexture("spider"), GetShaderProgram("basic_shader"));
+    CreateMaterial("sprite_item", GetTexture("item"), GetShaderProgram("basic_shader"));
     CreateMaterial("effect_beam", GetTexture("beam"), GetShaderProgram("basic_shader"));
     CreateMaterial("flat_black", GetTexture("beam"), GetShaderProgram("shader_flat"));
     CreateMaterial("sprite_ui_header", GetTexture("header"), GetShaderProgram("basic_shader"));
     CreateMaterial("sprite_ui_spellbook", GetTexture("spellbook"), GetShaderProgram("basic_shader"));
     CreateMaterial("effect_beam", GetTexture("beam"), GetShaderProgram("basic_shader"));
+
+    GetMaterial("effect_beam")->color.a = 0.75f;
 
     // Sprites
     m_spriteMap[EntityID::STRUCTURE_STOCKPILE] = nullptr;

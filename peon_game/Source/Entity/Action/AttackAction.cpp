@@ -59,8 +59,6 @@ void AttackAction::AttemptAttack()
     grim::graphics::Rect targetBounds = m_target->GetHitBox();
     grim::graphics::Rect attackBounds = CalculateAttackBounds();
 
-    //m_owner->GetGame()->GetRenderer()->RenderOutlineRect(attackBounds);
-
     if (attackBounds.IsCollidingWith(targetBounds))
     {
         m_owner->GetGame()->GetAudio()->PlaySound("punch_00");
