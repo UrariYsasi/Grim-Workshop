@@ -31,7 +31,8 @@ struct RenderCommand
 
     bool RenderCommand::operator<(const RenderCommand& other) {
         return (mesh->GetPrimitiveType() < other.mesh->GetPrimitiveType()) ||
-               ((mesh->GetPrimitiveType() == other.mesh->GetPrimitiveType()) && (material < other.material));
+               ((mesh->GetPrimitiveType() == other.mesh->GetPrimitiveType()) && (material < other.material)) ||
+               ((mesh->GetPrimitiveType() == other.mesh->GetPrimitiveType()) && (material == other.material) && (layer < other.layer));
     }
 };
 
