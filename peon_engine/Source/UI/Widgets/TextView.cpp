@@ -53,7 +53,7 @@ void TextView::Render()
     glm::vec3 renderScale(m_scale.x, m_scale.y, 1.0f);
 
     grim::graphics::Transform transform(renderPosition, renderRotation, renderScale);
-    grim::graphics::RenderCommand command(&m_mesh, &m_material, transform);
+    grim::graphics::RenderCommand command(&m_mesh, &m_material, transform, 1);
     m_engine->GetRenderer()->Submit(command);
 }
 

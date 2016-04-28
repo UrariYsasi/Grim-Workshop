@@ -18,6 +18,7 @@ public:
     virtual void Render();
     virtual void Submit(const RenderCommand& command);
 
+    virtual void SetLayerCamera(const uint8_t layer, Camera* camera);
     virtual void SetClearColor(const Color& color);
     virtual void SetActiveCamera(Camera* camera);
 
@@ -40,8 +41,12 @@ private:
     GLuint m_EBOHandle;
     PrimitiveType m_currentPrimitive;
     Material* m_currentMaterial;
+    uint8_t m_currentLayer;
     std::vector<Vertex> m_vertexData;
     std::vector<uint32_t> m_indexData;
+
+    Camera* m_cameraScene;
+    Camera* m_cameraUI;
 };
 
 }

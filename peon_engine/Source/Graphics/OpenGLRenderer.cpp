@@ -13,7 +13,10 @@ OpenGLRenderer::OpenGLRenderer() :
     m_VBOHandle(0),
     m_EBOHandle(0),
     m_currentPrimitive(PrimitiveType::TRIANGLES),
-    m_currentMaterial(nullptr)
+    m_currentMaterial(nullptr),
+    m_cameraScene(nullptr),
+    m_cameraUI(nullptr),
+    m_currentLayer(0)
 {
 }
 
@@ -216,11 +219,24 @@ void OpenGLRenderer::Submit(const RenderCommand& command)
     m_renderQueue.push_back(command);
 }
 
+void OpenGLRenderer::SetLayerCamera(const uint8_t layer, Camera* camera)
+{
+    if (layer == 0)
+    {
+        m_cameraScene = camera;
+    }
+    else if (layer == 1)
+    {
+        m_cameraUI = camera;
+    }
+}
+
 void OpenGLRenderer::Process(const RenderCommand& command)
 {
     Mesh* mesh = command.mesh;
     Material* material = command.material;
     Transform transform = command.transform;
+    uint8_t layer = command.layer;
 
     if ((mesh == nullptr) || (material == nullptr))
     {
@@ -232,7 +248,7 @@ void OpenGLRenderer::Process(const RenderCommand& command)
         m_currentMaterial = material;
     }
 
-    if ((m_currentPrimitive != mesh->GetPrimitiveType()) || (m_currentMaterial != material))
+    if ((m_currentPrimitive != mesh->GetPrimitiveType()) || (m_currentMaterial != material) || (m_currentLayer != layer))
     {
         UploadBatch();
         RenderBatch();
@@ -241,6 +257,7 @@ void OpenGLRenderer::Process(const RenderCommand& command)
 
     m_currentPrimitive = mesh->GetPrimitiveType();
     m_currentMaterial = material;
+    m_currentLayer = layer;
 
     glm::mat4 modelMatrix(1.0f);
     modelMatrix = glm::translate(modelMatrix, transform.position);
@@ -337,6 +354,26 @@ void OpenGLRenderer::RenderBatch()
     // Bind the EBO
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBOHandle);
 
+    // Bind the correct camera for this layer   
+    if (m_currentLayer == 0)
+    {
+        if (m_cameraScene == nullptr)
+        {
+            return;
+        }
+
+        m_cameraScene->Activate();
+    }
+    else if (m_currentLayer = 1)
+    {
+        if (m_cameraUI == nullptr)
+        {
+            return;
+        }
+
+        m_cameraUI->Activate();
+    }
+
     // Bind our ShaderProgram
     m_currentMaterial->shaderProgram->Bind();
 
@@ -391,6 +428,7 @@ void OpenGLRenderer::ClearBatch()
     m_indexData.clear();
     m_currentMaterial = nullptr;
     m_currentPrimitive = PrimitiveType::TRIANGLES;
+    m_currentLayer = 0;
 }
 
 void OpenGLRenderer::PaintersSort()

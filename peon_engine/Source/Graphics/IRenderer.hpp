@@ -14,6 +14,7 @@ public:
     virtual void Clear() = 0;
     virtual void Render() = 0;
     virtual void Submit(const RenderCommand& command) = 0;
+    virtual void SetLayerCamera(const uint8_t layer, Camera* camera) = 0;
 
     virtual void SetClearColor(const Color& color) = 0;
     virtual void SetActiveCamera(Camera* camera) = 0;

@@ -197,6 +197,9 @@ bool Game::Initialize()
 
     m_mainCamera->SetCenter(m_map->GetCenter());
 
+    GetRenderer()->SetLayerCamera(0, m_mainCamera.get());
+    GetRenderer()->SetLayerCamera(1, m_uiCamera.get());
+
     m_map->Generate();
 
     grim::graphics::Material textMaterial(nullptr, GetShaderProgram("basic_shader"));
@@ -311,7 +314,6 @@ void Game::Render()
 {
     GetRenderer()->Clear();
 
-    m_mainCamera->Activate();
     m_map->Render();
     m_player->Render();
 
@@ -321,12 +323,8 @@ void Game::Render()
 
     if (!GetInput()->GetKey(SDLK_SPACE))
     {
-        m_uiCamera->Activate();
         GetUI()->Render();
     }
-
-    // TODO fix camera stuff
-    m_mainCamera->Activate();
 }
 
 bool Game::LoadTexture(const std::string& path, const std::string& ID, const bool& isOpaque, const GLenum& wrapMode, const GLenum& scaleMode)

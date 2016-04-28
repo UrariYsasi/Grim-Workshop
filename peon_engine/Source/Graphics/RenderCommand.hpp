@@ -11,18 +11,21 @@ struct RenderCommand
     Mesh* mesh;
     Material* material;
     Transform transform;
+    uint8_t layer;
 
-    RenderCommand(Mesh* const mesh, Material* const material, const Transform& transform) :
+    RenderCommand(Mesh* const mesh, Material* const material, const Transform& transform, const uint8_t layer = 0) :
         mesh(mesh),
         material(material),
-        transform(transform)
+        transform(transform),
+        layer(layer)
     {
     }
 
-    RenderCommand(Sprite* const sprite, const Transform& transform) :
+    RenderCommand(Sprite* const sprite, const Transform& transform, const uint8_t layer = 0) :
         mesh(sprite->GetMesh()),
         material(sprite->GetMaterial()),
-        transform(transform)
+        transform(transform),
+        layer(layer)
     {
     }
 
