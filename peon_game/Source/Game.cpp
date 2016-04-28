@@ -182,6 +182,9 @@ bool Game::Initialize()
     CreateMaterial("sprite_spider_queen", GetTexture("spider"), GetShaderProgram("basic_shader"));
     CreateMaterial("effect_beam", GetTexture("beam"), GetShaderProgram("basic_shader"));
     CreateMaterial("flat_black", GetTexture("beam"), GetShaderProgram("shader_flat"));
+    CreateMaterial("sprite_ui_header", GetTexture("header"), GetShaderProgram("basic_shader"));
+    CreateMaterial("sprite_ui_spellbook", GetTexture("spellbook"), GetShaderProgram("basic_shader"));
+    CreateMaterial("effect_beam", GetTexture("beam"), GetShaderProgram("basic_shader"));
 
     // Sprites
     m_spriteMap[EntityID::STRUCTURE_STOCKPILE] = nullptr;
@@ -208,10 +211,11 @@ bool Game::Initialize()
     m_frameRateWidget->SetPosition(glm::vec2(5.0f, 5.0f));
     GetUI()->RegisterWidget(m_frameRateWidget);
 
-    m_headerSprite = std::make_unique<grim::graphics::Sprite>(GetMaterial("sprite_terrain"));
+    m_headerSprite = std::make_unique<grim::graphics::Sprite>(GetMaterial("sprite_ui_header"));
     m_header = new grim::ui::SpriteView(this, m_headerSprite.get());
     m_header->SetPosition(glm::vec2(WINDOW_WIDTH / 2.0f, 40.0f));
     m_header->SetScale(glm::vec2(1.3f, 1.3f));
+    m_header->SetZLayer(0.8f);
     GetUI()->RegisterWidget(m_header);
 
     m_dateWidget = new grim::ui::TextView(this, " ", GetFont("hack"), textMaterial);
@@ -230,11 +234,12 @@ bool Game::Initialize()
     m_faithCountWidget->SetPosition(glm::vec2(5.0f, 5.0f + 60.0f));
     GetUI()->RegisterWidget(m_faithCountWidget);
 
-    m_spellBookSprite = std::make_unique<grim::graphics::Sprite>(GetMaterial("sprite_terrain"));
+    m_spellBookSprite = std::make_unique<grim::graphics::Sprite>(GetMaterial("sprite_ui_spellbook"));
     m_spellbook = new grim::ui::SpriteView(this, m_spellBookSprite.get());
     m_spellbook->SetPosition(glm::vec2(WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f + 260.0f));
     m_spellbook->SetScale(glm::vec2(1.5f, 1.5f));
     m_spellbook->SetVisible(false);
+    m_spellbook->SetZLayer(0.8f);
     GetUI()->RegisterWidget(m_spellbook);
 
     m_basicPeonLabel = new grim::ui::TextView(this, "Peon", GetFont("black_family"), textMaterial);
@@ -246,6 +251,7 @@ bool Game::Initialize()
     m_peonButton = new grim::ui::ButtonView(this, GetEntitySprite(EntityID::PEON));
     m_peonButton->SetPosition(glm::vec2(-220.0f, -110.0f));
     m_peonButton->SetScale(glm::vec2(1.5f, 1.5f));
+    m_peonButton->SetZLayer(0.9f);
     m_spellbook->RegisterWidget(m_peonButton);
 
     m_peonButton->SetOnClick([this]()

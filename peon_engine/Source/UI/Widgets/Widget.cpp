@@ -10,6 +10,7 @@ namespace ui
 Widget::Widget(Engine* engine) :
     m_engine(engine),
     m_position(0.0f),
+    m_zLayer(1.0f),
     m_rotation(0.0f),
     m_scale(1.0f),
     m_parent(nullptr),
@@ -93,6 +94,11 @@ void Widget::SetRotation(float rotation)
 void Widget::SetScale(const glm::vec2& scale)
 {
     m_scale = scale;
+}
+
+void Widget::SetZLayer(const float zLayer)
+{
+    m_zLayer = zLayer;
 }
 
 void Widget::SetWidth(uint32_t width)

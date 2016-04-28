@@ -40,7 +40,7 @@ void TextView::Render()
 {
     Widget::Render();
 
-    glm::vec3 renderPosition(m_position.x, m_position.y, 1.0f);
+    glm::vec3 renderPosition(m_position.x, m_position.y, m_zLayer);
 
     if (m_parent != nullptr)
     {

@@ -362,7 +362,11 @@ void OpenGLRenderer::RenderBatch()
             return;
         }
 
-        m_cameraScene->Activate();
+        if (m_cameraScene != m_activeCamera)
+        {
+            //glEnable(GL_DEPTH_TEST);
+            m_cameraScene->Activate();
+        }
     }
     else if (m_currentLayer = 1)
     {
@@ -371,7 +375,11 @@ void OpenGLRenderer::RenderBatch()
             return;
         }
 
-        m_cameraUI->Activate();
+        if (m_cameraUI != m_activeCamera)
+        {
+            //glDisable(GL_DEPTH_TEST);
+            m_cameraUI->Activate();
+        }
     }
 
     // Bind our ShaderProgram

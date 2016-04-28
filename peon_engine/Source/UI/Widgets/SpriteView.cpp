@@ -26,7 +26,7 @@ void SpriteView::Update(float deltaTime)
 
 void SpriteView::Render()
 {
-    glm::vec3 renderPosition(m_position.x, m_position.y, 0.0f);
+    glm::vec3 renderPosition(m_position.x, m_position.y, m_zLayer);
 
     if (m_parent != nullptr)
     {
@@ -38,9 +38,9 @@ void SpriteView::Render()
     glm::vec3 renderRotation(0.0f, 0.0f, m_rotation);
     glm::vec3 renderScale(m_scale.x, m_scale.y, 1.0f);
 
-    //m_spriteBatch.Begin();
-    //m_spriteBatch.AddSprite(renderPosition, renderRotation, renderScale, m_sprite);
-    //m_spriteBatch.End();
+    grim::graphics::Transform transform(renderPosition, renderRotation, renderScale);
+    grim::graphics::RenderCommand command(m_sprite, transform, 1);
+    m_engine->GetRenderer()->Submit(command);
 
     Widget::Render();
 }

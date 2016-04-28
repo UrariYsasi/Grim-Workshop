@@ -23,10 +23,12 @@ public:
     void SetPosition(const glm::vec2& position);
     void SetRotation(float rotation);
     void SetScale(const glm::vec2& scale);
+    void SetZLayer(const float zLayer);
     void SetWidth(uint32_t width);
     void SetHeight(uint32_t height);
     void SetVisible(bool visible);
     void SetOnClick(std::function<void()> callback);
+
     glm::vec2 GetPosition() const;
     float GetRotation() const;
     glm::vec2 GetScale() const;
@@ -39,6 +41,7 @@ public:
 protected:
     Engine* m_engine;
     glm::vec2 m_position;
+    float m_zLayer;
     float m_rotation;
     glm::vec2 m_scale;
     grim::ui::Widget* m_parent;

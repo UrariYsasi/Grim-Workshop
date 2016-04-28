@@ -4,7 +4,7 @@
 
 BeamEffect::BeamEffect(Game* game, const glm::vec3& position) :
     Entity(game, position, EntityID::EFFECT_BEAM),
-    m_lifetimeSeconds(1.0f)
+    m_lifetimeSeconds(0.1f)
 {
     m_transform.scale = glm::vec3(0.5f, 0.5f, 1.0f);
     m_sprite = grim::graphics::Sprite(m_game->GetMaterial("effect_beam"));
@@ -22,7 +22,7 @@ BeamEffect::~BeamEffect()
 
 void BeamEffect::Update(float deltaTime)
 {
-    m_transform.scale.x -= 0.02f;
+    m_transform.scale.x -= (5.0f * deltaTime);
 
     if (m_timer.GetTimeInSeconds() >= m_lifetimeSeconds)
     {

@@ -30,6 +30,7 @@ void ButtonView::Update(float deltaTime)
     m_background.SetPosition(m_position);
     m_background.SetRotation(m_rotation);
     m_background.SetScale(m_scale);
+    m_background.SetZLayer(m_zLayer);
 }
 
 void ButtonView::Render()
