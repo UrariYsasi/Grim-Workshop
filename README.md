@@ -1,4 +1,4 @@
-# Project Peon
+# Project Peon (Legacy)
 
 An experimental strategy game where you lead a group of cultists on their journey to enlightenment after they have woken up at the base of a strange monument in the forest, with no recollection of what brought them there.
 
