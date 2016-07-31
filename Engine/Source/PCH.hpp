@@ -40,9 +40,3 @@
 #include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL_opengl.h>
 #endif
-
-/*
-    Grim Workshop
-*/
-
-#include "Engine.hpp"
