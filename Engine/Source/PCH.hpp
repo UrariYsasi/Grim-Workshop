@@ -5,6 +5,7 @@
 */
 
 #include <iostream>
+#include <algorithm>
 
 /*
     GL3W

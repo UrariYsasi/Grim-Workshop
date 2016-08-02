@@ -15,6 +15,9 @@ bool Game::Initialize()
         return false;
     }
 
+    m_engine->SubscribeUpdate(&Game::Update);
+    m_engine->AddRenderSubscription(&Game::Render);
+
     std::cout << "Game initialized." << std::endl;
 
     return true;
@@ -28,4 +31,14 @@ void Game::Terminate()
 void Game::Run()
 {
     m_engine.Run();
+}
+
+void Game::Update()
+{
+
+}
+
+void Game::Render()
+{
+
 }

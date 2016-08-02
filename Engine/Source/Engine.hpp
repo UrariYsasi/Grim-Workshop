@@ -25,6 +25,9 @@ public:
     */
     void Run();
 
+    void Update(const float& deltaTimeSeconds);
+    void Render();
+
 private:
     bool m_isRunning;
 };

@@ -22,6 +22,9 @@ public:
     */
     void Run();
 
+    void Update();
+    void Render();
+
 private:
     grim::Engine m_engine;
 };
