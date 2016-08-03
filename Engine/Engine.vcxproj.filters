@@ -5,6 +5,12 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Source\Graphics">
+      <UniqueIdentifier>{8a05d9e7-bdcf-4247-8246-723651e2083c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Modules">
+      <UniqueIdentifier>{983665fa-5a49-4307-bd4c-101de2d9b139}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Engine.hpp">
@@ -13,10 +19,34 @@
     <ClInclude Include="Source\PCH.hpp">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="Source\IGame.hpp">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Modules\IWindowModule.hpp">
+      <Filter>Source\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Modules\IModule.hpp">
+      <Filter>Source\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\OpenGLWindow.hpp">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GrimWorkshop.hpp">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Modules\ModuleFactory.hpp">
+      <Filter>Source\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Engine.cpp">
       <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\OpenGLWindow.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Modules\ModuleFactory.cpp">
+      <Filter>Source\Modules</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

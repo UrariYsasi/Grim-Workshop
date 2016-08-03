@@ -69,7 +69,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)External\SDL2\include;$(SolutionDir)External\SDL2 TTF\include;$(SolutionDir)External\SDL2 Mixer\include;$(SolutionDir)External\SOIL\include;$(SolutionDir)External\GL3W\include;$(SolutionDir)External\GLM\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)External\SDL2\include;$(SolutionDir)External\SDL2 TTF\include;$(SolutionDir)External\SDL2 Mixer\include;$(SolutionDir)External\SOIL\include;$(SolutionDir)External\GL3W\include;$(SolutionDir)External\GLM\include;$(SolutionDir)Engine\Source;$(IncludePath)</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;$(SolutionDir)External\SDL2\lib\win32;$(SolutionDir)External\SDL2 TTF\lib\x86;$(SolutionDir)External\SDL2 Mixer\lib\x86;$(SolutionDir)External\SOIL\lib;$(SolutionDir)External\GL3W\lib;$(IncludePath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -120,12 +120,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Source\Engine.hpp" />
+    <ClInclude Include="Source\Graphics\OpenGLWindow.hpp" />
+    <ClInclude Include="Source\GrimWorkshop.hpp" />
+    <ClInclude Include="Source\IGame.hpp" />
+    <ClInclude Include="Source\Modules\IModule.hpp" />
+    <ClInclude Include="Source\Modules\IWindowModule.hpp" />
+    <ClInclude Include="Source\Modules\ModuleFactory.hpp" />
     <ClInclude Include="Source\PCH.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Engine.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Source\Graphics\OpenGLWindow.cpp" />
+    <ClCompile Include="Source\Modules\ModuleFactory.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

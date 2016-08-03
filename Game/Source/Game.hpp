@@ -1,6 +1,14 @@
+/*
+    Game.hpp
+    Peon Game
+
+    Declan Hopkins
+    8/1/2016
+*/
+
 #pragma once
 
-class Game
+class Game : grim::IGame
 {
 public:
     Game();
@@ -15,15 +23,15 @@ public:
     /*
         Terminate the Game.
     */
-    void Terminate();
+    virtual void Terminate() override;
 
     /*
         Run the Game.
     */
     void Run();
 
-    void Update();
-    void Render();
+    virtual void Update() override;
+    virtual void Render() override;
 
 private:
     grim::Engine m_engine;

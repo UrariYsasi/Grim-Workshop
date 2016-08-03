@@ -1,3 +1,11 @@
+/*
+    Engine.hpp
+    Peon Engine
+
+    Declan Hopkins
+    8/1/2016
+*/
+
 #pragma once
 
 namespace grim
@@ -6,7 +14,7 @@ namespace grim
 class Engine
 {
 public:
-    Engine();
+    Engine(IGame* const game);
 
     /*
         Initialize the Engine and Engine Modules.
@@ -25,11 +33,18 @@ public:
     */
     void Run();
 
-    void Update(const float& deltaTimeSeconds);
+    void Update();
     void Render();
 
 private:
     bool m_isRunning;
+    IGame* m_game;
+
+    /*
+        Engine Modules
+    */
+
+    std::unique_ptr<IWindowModule> m_windowModule;
 };
 
 }

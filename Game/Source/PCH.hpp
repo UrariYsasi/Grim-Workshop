@@ -1,3 +1,11 @@
+/*
+    PCH.hpp
+    Peon Game
+
+    Declan Hopkins
+    8/1/2016
+*/
+
 #pragma once
 
 /*
@@ -5,6 +13,10 @@
 */
 
 #include <iostream>
+#include <algorithm>
+#include <vector>
+#include <functional>
+#include <memory>
 
 /*
     GL3W
@@ -45,7 +57,7 @@
     Grim Workshop
 */
 
-#include "Engine.hpp"
+#include "GrimWorkshop.hpp"
 
 /*
     Game

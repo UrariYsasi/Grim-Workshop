@@ -1,3 +1,11 @@
+/*
+    PCH.hpp
+    Peon Engine
+
+    Declan Hopkins
+    8/1/2016
+*/
+
 #pragma once
 
 /*
@@ -6,6 +14,9 @@
 
 #include <iostream>
 #include <algorithm>
+#include <vector>
+#include <functional>
+#include <memory>
 
 /*
     GL3W
@@ -41,3 +52,9 @@
 #include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL_opengl.h>
 #endif
+
+/*
+    Engine
+*/
+
+#include "GrimWorkshop.hpp"
