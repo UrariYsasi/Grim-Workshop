@@ -63,6 +63,7 @@ void Engine::Terminate()
     */
 
     m_windowModule->Terminate();
+    m_timeModule->Terminate();
 
     std::cout << "Engine terminated." << std::endl;
 }
