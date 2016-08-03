@@ -1,5 +1,5 @@
 /*
-    OpenGLWindow.cpp
+    OpenGLWindowModule.cpp
     Peon Engine
 
     Declan Hopkins
@@ -7,12 +7,12 @@
 */
 
 #include "PCH.hpp"
-#include "OpenGLWindow.hpp"
+#include "OpenGLWindowModule.hpp"
 
 namespace grim
 {
 
-OpenGLWindow::OpenGLWindow(Engine* const engine, const std::string& title, const uint16_t& width, const uint16_t& height, const bool& isFullscreen) :
+OpenGLWindowModule::OpenGLWindowModule(Engine* const engine, const std::string& title, const uint16_t& width, const uint16_t& height, const bool& isFullscreen) :
     m_engine(engine),
     m_window(nullptr),
     m_glContext(),
@@ -22,11 +22,11 @@ OpenGLWindow::OpenGLWindow(Engine* const engine, const std::string& title, const
 {
 }
 
-OpenGLWindow::~OpenGLWindow()
+OpenGLWindowModule::~OpenGLWindowModule()
 {
 }
 
-bool OpenGLWindow::Initialize()
+bool OpenGLWindowModule::Initialize()
 {
     if (m_engine == nullptr)
     {
@@ -73,11 +73,11 @@ bool OpenGLWindow::Initialize()
     // Turn VSYNC off
     SDL_GL_SetSwapInterval(0);
 
-    std::cout << "Window Module OpenGLWindow initialized." << std::endl;
+    std::cout << "Window Module OpenGLWindowModule initialized." << std::endl;
     return true;
 }
 
-void OpenGLWindow::Terminate()
+void OpenGLWindowModule::Terminate()
 {
     // Delete the OpenGL context
     SDL_GL_DeleteContext(m_glContext);
@@ -93,10 +93,10 @@ void OpenGLWindow::Terminate()
         SDL_Quit();
     }
 
-    std::cout << "Window Module OpenGLWindow terminated." << std::endl;
+    std::cout << "Window Module OpenGLWindowModule terminated." << std::endl;
 }
 
-void OpenGLWindow::HandleWindowEvents()
+void OpenGLWindowModule::HandleWindowEvents()
 {
     SDL_Event event;
     while (SDL_PollEvent(&event) != 0)
@@ -108,22 +108,22 @@ void OpenGLWindow::HandleWindowEvents()
     }
 }
 
-void OpenGLWindow::Display()
+void OpenGLWindowModule::Display()
 {
     SDL_GL_SwapWindow(m_window);
 }
 
-void OpenGLWindow::SetSize(const glm::ivec2& size)
+void OpenGLWindowModule::SetSize(const glm::ivec2& size)
 {
     SDL_SetWindowSize(m_window, size.x, size.y);
 }
 
-void OpenGLWindow::SetTitle(const std::string& title)
+void OpenGLWindowModule::SetTitle(const std::string& title)
 {
     SDL_SetWindowTitle(m_window, title.c_str());
 }
 
-glm::ivec2 OpenGLWindow::GetSize() const
+glm::ivec2 OpenGLWindowModule::GetSize() const
 {
     int width = 0;
     int height = 0;
@@ -132,7 +132,7 @@ glm::ivec2 OpenGLWindow::GetSize() const
     return glm::ivec2(width, height);
 }
 
-std::string OpenGLWindow::GetTitle() const
+std::string OpenGLWindowModule::GetTitle() const
 {
     return SDL_GetWindowTitle(m_window);
 }

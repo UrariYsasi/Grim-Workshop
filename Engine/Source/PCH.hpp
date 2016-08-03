@@ -17,6 +17,7 @@
 #include <vector>
 #include <functional>
 #include <memory>
+#include <chrono>
 
 /*
     GL3W

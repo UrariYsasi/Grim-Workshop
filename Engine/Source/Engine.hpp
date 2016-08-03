@@ -36,15 +36,19 @@ public:
     void Update();
     void Render();
 
+    double GetDeltaTimeSeconds() const;
+
 private:
     bool m_isRunning;
     IGame* m_game;
+    double m_deltaTimeSeconds;
 
     /*
         Engine Modules
     */
 
     std::unique_ptr<IWindowModule> m_windowModule;
+    std::unique_ptr<ITimeModule> m_timeModule;
 };
 
 }

@@ -11,6 +11,9 @@
     <Filter Include="Source\Modules">
       <UniqueIdentifier>{983665fa-5a49-4307-bd4c-101de2d9b139}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Utilities">
+      <UniqueIdentifier>{35239bb2-bb57-4cf4-9070-ccd020968cc7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Engine.hpp">
@@ -28,25 +31,34 @@
     <ClInclude Include="Source\Modules\IModule.hpp">
       <Filter>Source\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Graphics\OpenGLWindow.hpp">
-      <Filter>Source\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="Source\GrimWorkshop.hpp">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\Modules\ModuleFactory.hpp">
       <Filter>Source\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Modules\ITimeModule.hpp">
+      <Filter>Source\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\OpenGLWindowModule.hpp">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utilities\GrimTimeModule.hpp">
+      <Filter>Source\Utilities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Engine.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Graphics\OpenGLWindow.cpp">
-      <Filter>Source\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Modules\ModuleFactory.cpp">
       <Filter>Source\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\OpenGLWindowModule.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utilities\GrimTimeModule.cpp">
+      <Filter>Source\Utilities</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

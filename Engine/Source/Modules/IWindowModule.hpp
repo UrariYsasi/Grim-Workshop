@@ -16,7 +16,6 @@ namespace grim
 class IWindowModule : public IModule
 {
 public:
-
     /*
         Poll the OS for window events and handle them accordingly.
     */

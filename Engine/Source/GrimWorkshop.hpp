@@ -15,7 +15,9 @@
 #include "IGame.hpp"
 #include "Modules/IModule.hpp"
 #include "Modules/IWindowModule.hpp"
-#include "Graphics/OpenGLWindow.hpp"
+#include "Modules/ITimeModule.hpp"
+#include "Utilities/GrimTimeModule.hpp"
+#include "Graphics/OpenGLWindowModule.hpp"
 #include "Modules/ModuleFactory.hpp"
 #include "Engine.hpp"
 

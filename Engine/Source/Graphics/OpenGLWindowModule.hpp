@@ -1,5 +1,5 @@
 /*
-    OpenGLWindow.hpp
+    OpenGLWindowModule.hpp
     Peon Engine
 
     Declan Hopkins
@@ -15,11 +15,11 @@ namespace grim
 
 class Engine;
 
-class OpenGLWindow : public IWindowModule
+class OpenGLWindowModule : public IWindowModule
 {
 public:
-    OpenGLWindow(Engine* const engine, const std::string& title, const uint16_t& width, const uint16_t& height, const bool& isFullscreen);
-    ~OpenGLWindow();
+    OpenGLWindowModule(Engine* const engine, const std::string& title, const uint16_t& width, const uint16_t& height, const bool& isFullscreen);
+    ~OpenGLWindowModule();
 
     /*
         IModule Interface
