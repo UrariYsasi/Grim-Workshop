@@ -17,7 +17,14 @@ namespace grim
 class IGame
 {
 public:
+    /*
+        Terminate the Game.
+        
+        Frees any resources owned by the Game. This function is called before the Engine
+        terminates.
+    */
     virtual void Terminate() = 0;
+
     virtual void Update() = 0;
     virtual void Render() = 0;
 };

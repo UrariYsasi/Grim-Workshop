@@ -21,8 +21,16 @@ public:
     OpenGLWindow(Engine* const engine, const std::string& title, const uint16_t& width, const uint16_t& height, const bool& isFullscreen);
     ~OpenGLWindow();
 
+    /*
+        IModule Interface
+    */
+
     virtual bool Initialize() override;
     virtual void Terminate() override;
+
+    /*
+        IWindowModule Interface
+    */
     virtual void HandleWindowEvents() override;
     virtual void Display() override;
 

@@ -21,15 +21,15 @@ public:
     bool Initialize();
 
     /*
-        Terminate the Game.
-    */
-    virtual void Terminate() override;
-
-    /*
         Run the Game.
     */
     void Run();
 
+    /*
+        IGame Interface
+    */
+
+    virtual void Terminate() override;
     virtual void Update() override;
     virtual void Render() override;
 
