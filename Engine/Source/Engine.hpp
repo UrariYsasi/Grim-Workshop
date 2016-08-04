@@ -25,22 +25,30 @@ public:
 
     /*
         Terminate the Engine and Engine Modules.
+
+        This frees all Engine resources and should be called after the Engine loop has stopped.
     */
     void Terminate();
 
     /*
-        Run the Engine and Engine Modules.
+        Start running the Engine loop.
     */
     void Run();
 
     /*
-        Stop the Engine loop.
+        Stop running the Engine loop.
     */
     void Stop();
 
     void Update();
     void Render();
 
+    /*
+        Get the Engine delta time. 
+        
+        This is the time that it took to execute the last frame, and is used for framerate 
+        independence.
+    */
     double GetDeltaTimeSeconds() const;
 
 private:

@@ -21,7 +21,7 @@ public:
     bool Initialize();
 
     /*
-        Run the Game.
+        Start running the Game.
     */
     void Run();
 
