@@ -26,7 +26,7 @@ bool Engine::Initialize()
     // Make sure that we have a game to run
     if (m_game == nullptr)
     {
-        std::cout << "No game was provided to the Engine!" << std::endl;
+        LOG_ERROR() << "No game was provided to the Engine!";
         return false;
     }
 
@@ -37,18 +37,18 @@ bool Engine::Initialize()
     m_timeModule = ModuleFactory::CreateTimeModule();
     if (!m_timeModule->Initialize())
     {
-        std::cout << "Time Module failed to initialize!" << std::endl;
+        LOG_ERROR() << "Time Module failed to initialize!";
         return false;
     }
 
     m_windowModule = ModuleFactory::CreateWindowModule(this);
     if (!m_windowModule->Initialize())
     {
-        std::cout << "Window Module failed to initialize!" << std::endl;
+        LOG_ERROR() << "Window Module failed to initialize!";
         return false;
     }
 
-    std::cout << "Engine initialized." << std::endl;
+    LOG() << "Engine initialized.";
     return true;
 }
 
@@ -65,7 +65,7 @@ void Engine::Terminate()
     m_windowModule->Terminate();
     m_timeModule->Terminate();
 
-    std::cout << "Engine terminated." << std::endl;
+    LOG() << "Engine terminated.";
 }
 
 void Engine::Run()

@@ -16,8 +16,8 @@ namespace grim
 class ModuleFactory
 {
 public:
-    static std::unique_ptr<IWindowModule> CreateWindowModule(Engine* const engine);
     static std::unique_ptr<ITimeModule> CreateTimeModule();
+    static std::unique_ptr<IWindowModule> CreateWindowModule(Engine* const engine);
 };
 
 }

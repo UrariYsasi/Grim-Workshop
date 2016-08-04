@@ -10,10 +10,14 @@
 
 int main(int argc, char** argv)
 {
+    // Clear the log file
+    grim::Log::Clear();
+
+    // Initialize and run the game
     Game game;
     if (!game.Initialize())
     {
-        std::cout << "Game initialization failed!" << std::endl;
+        LOG_ERROR() << "Game initialization failed!";
     }
     else
     {

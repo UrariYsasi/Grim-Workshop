@@ -13,6 +13,7 @@
 */
 
 #include "IGame.hpp"
+#include "Utilities/Log.hpp"
 #include "Modules/IModule.hpp"
 #include "Modules/IWindowModule.hpp"
 #include "Modules/ITimeModule.hpp"
@@ -29,3 +30,4 @@
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 800
 #define WINDOW_IS_FULLSCREEN false
+#define LOG_FILE_NAME "game.log"

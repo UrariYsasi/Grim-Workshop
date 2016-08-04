@@ -25,13 +25,13 @@ bool GrimTimeModule::Initialize()
 {
     m_startTimePoint = std::chrono::high_resolution_clock::now();
 
-    std::cout << "Time Module GrimTimeModule initialized." << std::endl;
+    LOG() << "Time Module GrimTimeModule initialized.";
     return true;
 }
 
 void GrimTimeModule::Terminate()
 {
-    std::cout << "Time Module GrimTimeModule terminated." << std::endl;
+    LOG() << "Time Module GrimTimeModule terminated.";
 }
 
 double GrimTimeModule::GetTimeSeconds() const

@@ -18,17 +18,17 @@ bool Game::Initialize()
 {
     if (!m_engine.Initialize())
     {
-        std::cout << "Engine initialization failed!" << std::endl;
+        LOG_ERROR() << "Engine initialization failed!";
         return false;
     }
 
-    std::cout << "Game initialized." << std::endl;
+    LOG() << "Game initialized.";
     return true;
 }
 
 void Game::Terminate()
 {
-    std::cout << "Game terminated." << std::endl;
+    LOG() << "Game terminated.";
 }
 
 void Game::Run()
@@ -38,10 +38,8 @@ void Game::Run()
 
 void Game::Update()
 {
-    //std::cout << "Game Update()" << std::endl;
 }
 
 void Game::Render()
 {
-    //std::cout << "Game Render()" << std::endl;
 }

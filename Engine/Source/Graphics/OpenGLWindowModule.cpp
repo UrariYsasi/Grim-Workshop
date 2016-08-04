@@ -30,14 +30,14 @@ bool OpenGLWindowModule::Initialize()
 {
     if (m_engine == nullptr)
     {
-        std::cout << "No engine was provided for Window Module!" << std::endl;
+        LOG_ERROR() << "No engine was provided for Window Module!";
         return false;
     }
 
     // Initialize the SDL video subsystem
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
     {
-        std::cout << "SDL video failed to initialize! SDL error: " << SDL_GetError() << std::endl;
+        LOG_ERROR() << "SDL video failed to initialize! SDL error: " << SDL_GetError();
         return false;
     }
 
@@ -52,7 +52,7 @@ bool OpenGLWindowModule::Initialize()
 
     if (m_window == nullptr)
     {
-        std::cout << "Window could not be created! SDL error: " << SDL_GetError() << std::endl;
+        LOG_ERROR() << "Window could not be created! SDL error: " << SDL_GetError();
         return false;
     }
 
@@ -73,7 +73,7 @@ bool OpenGLWindowModule::Initialize()
     // Turn VSYNC off
     SDL_GL_SetSwapInterval(0);
 
-    std::cout << "Window Module OpenGLWindowModule initialized." << std::endl;
+    LOG() << "Window Module OpenGLWindowModule initialized.";
     return true;
 }
 
@@ -93,7 +93,7 @@ void OpenGLWindowModule::Terminate()
         SDL_Quit();
     }
 
-    std::cout << "Window Module OpenGLWindowModule terminated." << std::endl;
+    LOG() << "Window Module OpenGLWindowModule terminated.";
 }
 
 void OpenGLWindowModule::HandleWindowEvents()
