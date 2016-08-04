@@ -28,6 +28,8 @@ OpenGLWindowModule::~OpenGLWindowModule()
 
 bool OpenGLWindowModule::Initialize()
 {
+    LOG() << "Window Module OpenGLWindowModule initializing...";
+
     if (m_engine == nullptr)
     {
         LOG_ERROR() << "No engine was provided for Window Module!";
@@ -79,6 +81,8 @@ bool OpenGLWindowModule::Initialize()
 
 void OpenGLWindowModule::Terminate()
 {
+    LOG() << "Window Module OpenGLWindowModule terminating...";
+
     // Delete the OpenGL context
     SDL_GL_DeleteContext(m_glContext);
 
@@ -103,7 +107,7 @@ void OpenGLWindowModule::HandleWindowEvents()
     {
         if (event.type == SDL_QUIT)
         {
-            m_engine->Terminate();
+            m_engine->Stop();
         }
     }
 }

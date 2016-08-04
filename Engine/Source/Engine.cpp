@@ -23,6 +23,8 @@ Engine::Engine(IGame* const game) :
 
 bool Engine::Initialize()
 {
+    LOG() << "Engine initializing...";
+
     // Make sure that we have a game to run
     if (m_game == nullptr)
     {
@@ -37,6 +39,7 @@ bool Engine::Initialize()
     m_timeModule = ModuleFactory::CreateTimeModule();
     if (!m_timeModule->Initialize())
     {
+        m_timeModule = nullptr;
         LOG_ERROR() << "Time Module failed to initialize!";
         return false;
     }
@@ -44,6 +47,7 @@ bool Engine::Initialize()
     m_windowModule = ModuleFactory::CreateWindowModule(this);
     if (!m_windowModule->Initialize())
     {
+        m_windowModule = nullptr;
         LOG_ERROR() << "Window Module failed to initialize!";
         return false;
     }
@@ -54,16 +58,14 @@ bool Engine::Initialize()
 
 void Engine::Terminate()
 {
-    m_isRunning = false;
-
-    m_game->Terminate();
+    LOG() << "Engine terminating...";
 
     /*
         Terminate modules
     */
 
-    m_windowModule->Terminate();
-    m_timeModule->Terminate();
+    if (m_windowModule != nullptr) { m_windowModule->Terminate(); }
+    if (m_timeModule != nullptr) { m_timeModule->Terminate(); }
 
     LOG() << "Engine terminated.";
 }
@@ -89,6 +91,11 @@ void Engine::Run()
 
         frameEndTimeSeconds = m_timeModule->GetTimeSeconds();
     }
+}
+
+void Engine::Stop()
+{
+    m_isRunning = false;
 }
 
 void Engine::Update()

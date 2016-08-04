@@ -8,7 +8,7 @@
 
 #pragma once
 
-class Game : grim::IGame
+class Game : public grim::IGame
 {
 public:
     Game();
@@ -34,5 +34,5 @@ public:
     virtual void Render() override;
 
 private:
-    grim::Engine m_engine;
+    std::unique_ptr<grim::Engine> m_engine;
 };

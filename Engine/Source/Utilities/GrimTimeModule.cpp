@@ -23,6 +23,8 @@ GrimTimeModule::~GrimTimeModule()
 
 bool GrimTimeModule::Initialize()
 {
+    LOG() << "Time Module GrimTimeModule initializing...";
+
     m_startTimePoint = std::chrono::high_resolution_clock::now();
 
     LOG() << "Time Module GrimTimeModule initialized.";
@@ -31,6 +33,7 @@ bool GrimTimeModule::Initialize()
 
 void GrimTimeModule::Terminate()
 {
+    LOG() << "Time Module GrimTimeModule terminating...";
     LOG() << "Time Module GrimTimeModule terminated.";
 }
 

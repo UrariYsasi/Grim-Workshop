@@ -33,6 +33,11 @@ public:
     */
     void Run();
 
+    /*
+        Stop the Engine loop.
+    */
+    void Stop();
+
     void Update();
     void Render();
 

@@ -10,13 +10,16 @@
 #include "Game.hpp"
 
 Game::Game() :
-    m_engine(this)
+    m_engine(nullptr)
 {
 }
 
 bool Game::Initialize()
 {
-    if (!m_engine.Initialize())
+    LOG() << "Game initializing...";
+
+    m_engine = std::make_unique<grim::Engine>(this);
+    if (!m_engine->Initialize())
     {
         LOG_ERROR() << "Engine initialization failed!";
         return false;
@@ -28,12 +31,18 @@ bool Game::Initialize()
 
 void Game::Terminate()
 {
+    LOG() << "Game terminating...";
+
+    m_engine->Terminate();
+
     LOG() << "Game terminated.";
 }
 
 void Game::Run()
 {
-    m_engine.Run();
+    LOG() << "Running game...";
+
+    m_engine->Run();
 }
 
 void Game::Update()
