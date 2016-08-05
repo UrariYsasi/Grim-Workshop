@@ -21,6 +21,14 @@ public:
     bool Initialize();
 
     /*
+        Terminate the Game.
+
+        Frees any resources owned by the Game. This function is called before the Engine
+        terminates.
+    */
+    void Terminate();
+
+    /*
         Start running the Game.
     */
     void Run();
@@ -29,7 +37,6 @@ public:
         IGame Interface
     */
 
-    virtual void Terminate() override;
     virtual void Update() override;
     virtual void Render() override;
 
