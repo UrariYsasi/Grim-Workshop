@@ -5,7 +5,8 @@
     Declan Hopkins
     8/2/2016
 
-    A Window Module that supports and displays a window with an OpenGL context.
+    A Window Module that supports and displays a window with an OpenGL context. Using this Module 
+    requires that the Renderer Module is using the OpenGL API.
 */
 
 #pragma once

@@ -91,7 +91,7 @@ void OpenGLWindowModule::Terminate()
 
     SDL_QuitSubSystem(SDL_INIT_VIDEO);
 
-    // If there are no SDL subsystems running, we can safely terminate SDL2.
+    // If there are no SDL subsystems running, we need to terminate SDL2.
     if (!SDL_WasInit(SDL_INIT_EVERYTHING))
     {
         SDL_Quit();

@@ -16,8 +16,9 @@ Engine::Engine(IGame* const game) :
     m_isRunning(false),
     m_game(game),
     m_deltaTimeSeconds(0.0),
+    m_timeModule(nullptr),
     m_windowModule(nullptr),
-    m_timeModule(nullptr)
+    m_rendererModule(nullptr)
 {
 }
 
@@ -52,6 +53,14 @@ bool Engine::Initialize()
         return false;
     }
 
+    m_rendererModule = ModuleFactory::CreateRendererModule();
+    if (!m_rendererModule->Initialize())
+    {
+        m_rendererModule = nullptr;
+        LOG_ERROR() << "Renderer Module failed to initialize!";
+        return false;
+    }
+
     LOG() << "Engine initialized.";
     return true;
 }
@@ -64,8 +73,9 @@ void Engine::Terminate()
         Terminate modules
     */
 
-    if (m_windowModule != nullptr) { m_windowModule->Terminate(); }
     if (m_timeModule != nullptr) { m_timeModule->Terminate(); }
+    if (m_windowModule != nullptr) { m_windowModule->Terminate(); }
+    if (m_rendererModule != nullptr) { m_rendererModule->Terminate(); }
 
     LOG() << "Engine terminated.";
 }
@@ -106,7 +116,9 @@ void Engine::Update()
 
 void Engine::Render()
 {
+    m_rendererModule->Clear();
     m_game->Render();
+    m_rendererModule->Render();
     m_windowModule->Display();
 }
 

@@ -49,6 +49,12 @@
     <ClInclude Include="Source\Modules\IWindowModule.hpp">
       <Filter>Source\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Modules\IRendererModule.hpp">
+      <Filter>Source\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\OpenGLRendererModule.hpp">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Engine.cpp">
@@ -65,6 +71,9 @@
     </ClCompile>
     <ClCompile Include="Source\Utilities\Log.cpp">
       <Filter>Source\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\OpenGLRendererModule.cpp">
+      <Filter>Source\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

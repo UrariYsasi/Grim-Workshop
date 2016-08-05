@@ -26,7 +26,7 @@ public:
     /*
         Terminate the Engine and Engine Modules.
 
-        This frees all Engine resources and should be called after the Engine loop has stopped.
+        This frees all Engine resources. It should ONLY be called after the Engine loop has stopped!
     */
     void Terminate();
 
@@ -60,8 +60,9 @@ private:
         Engine Modules
     */
 
-    std::unique_ptr<IWindowModule> m_windowModule;
     std::unique_ptr<ITimeModule> m_timeModule;
+    std::unique_ptr<IWindowModule> m_windowModule;
+    std::unique_ptr<IRendererModule> m_rendererModule;
 };
 
 }
