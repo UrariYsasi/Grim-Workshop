@@ -37,6 +37,30 @@ public:
     virtual void Clear() override;
     virtual void Render() override;
     virtual void Submit() override;
+
+private:
+    /*
+        The OpenGL handle for the vertex array object.
+
+        A VAO is an OpenGL object that stores all the state needed to supply vertex data to the
+        GPU. It stores the format of the vertex data, as well as the buffer objects.
+    */
+    GLuint m_VAOHandle;
+
+    /*
+        The OpenGL handle for the vertex buffer object.
+
+        A VBO is a buffer object which is used as the source for vertex array data. 
+    */
+    GLuint m_VBOHandle;
+
+    /*
+        The OpenGL handle for the element buffer object.
+
+        An EBO is a buffer object which is used as the source for vertex indices. This is used in 
+        conjunction with the VBO to ensure that vertices are drawn in the correct order.
+    */
+    GLuint m_EBOHandle;
 };
 
 }
