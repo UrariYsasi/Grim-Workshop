@@ -61,6 +61,7 @@ private:
     */
 
     std::unique_ptr<ITimeModule> m_timeModule;
+    std::unique_ptr<IAssetModule> m_assetModule;
     std::unique_ptr<IWindowModule> m_windowModule;
     std::unique_ptr<IRendererModule> m_rendererModule;
 };

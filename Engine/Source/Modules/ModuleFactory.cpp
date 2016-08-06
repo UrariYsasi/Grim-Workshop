@@ -17,6 +17,11 @@ std::unique_ptr<ITimeModule> ModuleFactory::CreateTimeModule()
     return std::make_unique<GrimTimeModule>();
 }
 
+std::unique_ptr<IAssetModule> ModuleFactory::CreateAssetModule()
+{
+    return std::make_unique<GrimAssetModule>();
+}
+
 std::unique_ptr<IWindowModule> ModuleFactory::CreateWindowModule(Engine* const engine)
 {
     return std::make_unique<OpenGLWindowModule>(engine, WINDOW_TITLE, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_IS_FULLSCREEN);

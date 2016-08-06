@@ -14,7 +14,7 @@
     <Filter Include="Source\Utilities">
       <UniqueIdentifier>{35239bb2-bb57-4cf4-9070-ccd020968cc7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Resources">
+    <Filter Include="Source\Assets">
       <UniqueIdentifier>{5e84eb9b-b52e-4455-bcdc-1b84f8102ea4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -64,6 +64,15 @@
     <ClInclude Include="Source\Graphics\Mesh.hpp">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Assets\IAsset.hpp">
+      <Filter>Source\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Modules\IAssetModule.hpp">
+      <Filter>Source\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Assets\GrimAssetModule.hpp">
+      <Filter>Source\Assets</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Engine.cpp">
@@ -86,6 +95,9 @@
     </ClCompile>
     <ClCompile Include="Source\Graphics\Mesh.cpp">
       <Filter>Source\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Assets\GrimAssetModule.cpp">
+      <Filter>Source\Assets</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

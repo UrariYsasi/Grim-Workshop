@@ -120,6 +120,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Assets\GrimAssetModule.hpp" />
+    <ClInclude Include="Source\Assets\IAsset.hpp" />
     <ClInclude Include="Source\Engine.hpp" />
     <ClInclude Include="Source\Graphics\Mesh.hpp" />
     <ClInclude Include="Source\Graphics\OpenGLRendererModule.hpp" />
@@ -129,6 +131,7 @@
     <ClInclude Include="Source\IGame.hpp" />
     <ClInclude Include="Source\Modules\IModule.hpp" />
     <ClInclude Include="Source\Modules\IRendererModule.hpp" />
+    <ClInclude Include="Source\Modules\IAssetModule.hpp" />
     <ClInclude Include="Source\Modules\ITimeModule.hpp" />
     <ClInclude Include="Source\Modules\IWindowModule.hpp" />
     <ClInclude Include="Source\Modules\ModuleFactory.hpp" />
@@ -137,6 +140,7 @@
     <ClInclude Include="Source\Utilities\GrimTimeModule.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Assets\GrimAssetModule.cpp" />
     <ClCompile Include="Source\Engine.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
