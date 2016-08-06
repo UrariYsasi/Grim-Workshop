@@ -19,6 +19,8 @@
 #include "Modules/ITimeModule.hpp"
 #include "Modules/IRendererModule.hpp"
 #include "Utilities/GrimTimeModule.hpp"
+#include "Graphics/Vertex.hpp"
+#include "Graphics/Mesh.hpp"
 #include "Graphics/OpenGLWindowModule.hpp"
 #include "Graphics/OpenGLRendererModule.hpp"
 #include "Modules/ModuleFactory.hpp"

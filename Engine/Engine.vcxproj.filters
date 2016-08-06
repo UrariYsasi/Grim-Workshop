@@ -14,6 +14,9 @@
     <Filter Include="Source\Utilities">
       <UniqueIdentifier>{35239bb2-bb57-4cf4-9070-ccd020968cc7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Resources">
+      <UniqueIdentifier>{5e84eb9b-b52e-4455-bcdc-1b84f8102ea4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Engine.hpp">
@@ -55,6 +58,12 @@
     <ClInclude Include="Source\Graphics\OpenGLRendererModule.hpp">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Graphics\Vertex.hpp">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\Mesh.hpp">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Engine.cpp">
@@ -73,6 +82,9 @@
       <Filter>Source\Utilities</Filter>
     </ClCompile>
     <ClCompile Include="Source\Graphics\OpenGLRendererModule.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\Mesh.cpp">
       <Filter>Source\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
