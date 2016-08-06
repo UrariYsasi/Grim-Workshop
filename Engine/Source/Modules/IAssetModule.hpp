@@ -5,8 +5,8 @@
     Declan Hopkins
     8/6/2016
 
-    An Engine Module responsible for loading game assets and storing them for later usage. This
-    module depends on Asset Loaders to load assets properly.
+    An Engine Module responsible for importing game assets and storing them for later usage. This
+    module depends on Asset importers to load assets properly.
 */
 
 #pragma once
@@ -18,11 +18,12 @@ class IAssetModule : public IModule
 {
 public:
     /*
-        Load all the game assets and store them for later use.
+        Import all the game assets and store them for later use.
 
-        This should be called before the game starts.
+        Assets will be imported from the default asset directory. This should be called before 
+        the game starts.
     */
-    virtual void LoadAssets() = 0;
+    virtual void ImportAssets() = 0;
 
     /*
         Find the Asset with the given ID.

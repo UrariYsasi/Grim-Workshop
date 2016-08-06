@@ -17,7 +17,8 @@ class ModuleFactory
 {
 public:
     static std::unique_ptr<ITimeModule> CreateTimeModule();
-    static std::unique_ptr<IAssetModule> CreateAssetModule();
+    static std::unique_ptr<IFileModule> CreateFileModule();
+    static std::unique_ptr<IAssetModule> CreateAssetModule(Engine* const engine);
     static std::unique_ptr<IWindowModule> CreateWindowModule(Engine* const engine);
     static std::unique_ptr<IRendererModule> CreateRendererModule();
 };

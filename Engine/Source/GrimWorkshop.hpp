@@ -16,11 +16,13 @@
 #include "Utilities/Log.hpp"
 #include "Assets/IAsset.hpp"
 #include "Modules/IModule.hpp"
+#include "Modules/IFileModule.hpp"
 #include "Modules/IWindowModule.hpp"
 #include "Modules/ITimeModule.hpp"
 #include "Modules/IRendererModule.hpp"
 #include "Modules/IAssetModule.hpp"
 #include "Utilities/GrimTimeModule.hpp"
+#include "Utilities/WindowsFileModule.hpp"
 #include "Graphics/Vertex.hpp"
 #include "Graphics/Mesh.hpp"
 #include "Graphics/OpenGLWindowModule.hpp"
@@ -37,4 +39,5 @@
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 800
 #define WINDOW_IS_FULLSCREEN false
+#define ASSETS_DIRECTORY_PATH "Assets/"
 #define LOG_FILE_NAME "game.log"

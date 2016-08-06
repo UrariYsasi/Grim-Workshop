@@ -1,2 +1,0 @@
-basic_vert
-basic_frag

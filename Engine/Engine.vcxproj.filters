@@ -73,6 +73,12 @@
     <ClInclude Include="Source\Assets\GrimAssetModule.hpp">
       <Filter>Source\Assets</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Modules\IFileModule.hpp">
+      <Filter>Source\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utilities\WindowsFileModule.hpp">
+      <Filter>Source\Utilities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Engine.cpp">
@@ -98,6 +104,9 @@
     </ClCompile>
     <ClCompile Include="Source\Assets\GrimAssetModule.cpp">
       <Filter>Source\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utilities\WindowsFileModule.cpp">
+      <Filter>Source\Utilities</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

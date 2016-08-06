@@ -51,6 +51,12 @@ public:
     */
     double GetDeltaTimeSeconds() const;
 
+    ITimeModule* GetTimeModule() const;
+    IFileModule* GetFileModule() const;
+    IAssetModule* GetAssetModule() const;
+    IWindowModule* GetWindowModule() const;
+    IRendererModule* GetRendererModule() const;
+
 private:
     bool m_isRunning;
     IGame* m_game;
@@ -61,6 +67,7 @@ private:
     */
 
     std::unique_ptr<ITimeModule> m_timeModule;
+    std::unique_ptr<IFileModule> m_fileModule;
     std::unique_ptr<IAssetModule> m_assetModule;
     std::unique_ptr<IWindowModule> m_windowModule;
     std::unique_ptr<IRendererModule> m_rendererModule;

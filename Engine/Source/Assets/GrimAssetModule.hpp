@@ -14,7 +14,7 @@ namespace grim
 class GrimAssetModule : public IAssetModule
 {
 public:
-    GrimAssetModule();
+    GrimAssetModule(Engine* const engine);
     ~GrimAssetModule();
 
     /*
@@ -27,10 +27,12 @@ public:
     /*
         IAssetModule Interface
     */
-    virtual void LoadAssets() override;
+    virtual void ImportAssets() override;
     virtual IAsset* FindAsset(const std::string& ID) override;
 
 private:
+    Engine* m_engine;
+    IFileModule* m_fileModule;
     std::map<std::string, std::unique_ptr<IAsset>> m_assetMap;
 };
 
