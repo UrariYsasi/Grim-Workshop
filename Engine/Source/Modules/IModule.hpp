@@ -5,7 +5,7 @@
     Declan Hopkins
     8/2/2016
 
-    The base Engine module interface. Provides a common interface for initializing and terminating
+    The base Engine Module interface. Provides a common interface for initializing and terminating
     modules.
 */
 

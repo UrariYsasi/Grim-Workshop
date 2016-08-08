@@ -13,7 +13,8 @@ namespace grim
 {
 
 GrimAssetModule::GrimAssetModule(Engine* const engine) :
-    m_engine(engine)
+    m_engine(engine),
+    m_shaderImporter(nullptr)
 {
 }
 
@@ -38,6 +39,8 @@ bool GrimAssetModule::Initialize()
         return false;
     }
 
+    m_shaderImporter = std::make_unique<OpenGLShaderAssetImporter>();
+
     ImportAssets();
 
     LOG() << "Asset Module GrimAssetModule initialized.";
@@ -57,13 +60,45 @@ void GrimAssetModule::ImportAssets()
 {
     LOG() << "Loading Assets...";
 
-    std::vector<std::string> files = m_fileModule->FindAllFiles(ASSETS_DIRECTORY_PATH);
+    std::vector<std::string> files = m_fileModule->FindAllFiles(ASSET_DIRECTORY_PATH);
     for (auto it = files.begin(); it != files.end(); it++)
     {
-        LOG() << "Importing " << *(it);
+        std::string path = *(it);
+        std::string ID = path;
+        IAssetImporter* importer = nullptr;
+
+        if (m_shaderImporter->CanImport(path))
+        {
+            importer = m_shaderImporter.get();
+        }
+
+        if (importer == nullptr)
+        {
+            continue;
+        }
+
+        std::unique_ptr<IAsset> asset = importer->Import(path);
+        if (asset == nullptr)
+        {
+            LOG_ERROR() << "Asset " << ID << " failed to import!";
+            continue;
+        }
+
+        AddAsset(ID, std::move(asset));
     }
 
     LOG() << "Loaded Assets.";
+}
+
+void GrimAssetModule::AddAsset(const std::string& ID, std::unique_ptr<IAsset> asset)
+{
+    if (asset == nullptr)
+    {
+        LOG_ERROR() << "Asset " << ID << " could not be added, as it was nullptr!";
+        return;
+    }
+
+    m_assetMap[ID] = std::move(asset);
 }
 
 IAsset* GrimAssetModule::FindAsset(const std::string& ID)

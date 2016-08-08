@@ -15,6 +15,10 @@
 #include "IGame.hpp"
 #include "Utilities/Log.hpp"
 #include "Assets/IAsset.hpp"
+#include "Assets/IShaderAsset.hpp"
+#include "Assets/Importers/IAssetImporter.hpp"
+#include "Assets/Importers/IShaderAssetImporter.hpp"
+#include "Assets/Importers/OpenGLShaderAssetImporter.hpp"
 #include "Modules/IModule.hpp"
 #include "Modules/IFileModule.hpp"
 #include "Modules/IWindowModule.hpp"
@@ -39,5 +43,5 @@
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 800
 #define WINDOW_IS_FULLSCREEN false
-#define ASSETS_DIRECTORY_PATH "Assets/"
+#define ASSET_DIRECTORY_PATH "Assets/"
 #define LOG_FILE_NAME "game.log"

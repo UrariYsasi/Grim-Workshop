@@ -17,6 +17,9 @@
     <Filter Include="Source\Assets">
       <UniqueIdentifier>{5e84eb9b-b52e-4455-bcdc-1b84f8102ea4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Assets\Importers">
+      <UniqueIdentifier>{c73ee82c-450e-4780-9228-a333727d9577}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Engine.hpp">
@@ -79,6 +82,18 @@
     <ClInclude Include="Source\Utilities\WindowsFileModule.hpp">
       <Filter>Source\Utilities</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Assets\Importers\IAssetImporter.hpp">
+      <Filter>Source\Assets\Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Assets\Importers\IShaderAssetImporter.hpp">
+      <Filter>Source\Assets\Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Assets\Importers\OpenGLShaderAssetImporter.hpp">
+      <Filter>Source\Assets\Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Assets\IShaderAsset.hpp">
+      <Filter>Source\Assets</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Engine.cpp">
@@ -107,6 +122,9 @@
     </ClCompile>
     <ClCompile Include="Source\Utilities\WindowsFileModule.cpp">
       <Filter>Source\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Assets\Importers\OpenGLShaderAssetImporter.cpp">
+      <Filter>Source\Assets\Importers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
