@@ -126,6 +126,7 @@
     <ClInclude Include="Source\Assets\Importers\IShaderAssetImporter.hpp" />
     <ClInclude Include="Source\Assets\Importers\OpenGLShaderAssetImporter.hpp" />
     <ClInclude Include="Source\Assets\IShaderAsset.hpp" />
+    <ClInclude Include="Source\Assets\OpenGLShaderAsset.hpp" />
     <ClInclude Include="Source\Engine.hpp" />
     <ClInclude Include="Source\Graphics\Mesh.hpp" />
     <ClInclude Include="Source\Graphics\OpenGLRendererModule.hpp" />
@@ -148,6 +149,7 @@
   <ItemGroup>
     <ClCompile Include="Source\Assets\GrimAssetModule.cpp" />
     <ClCompile Include="Source\Assets\Importers\OpenGLShaderAssetImporter.cpp" />
+    <ClCompile Include="Source\Assets\OpenGLShaderAsset.cpp" />
     <ClCompile Include="Source\Engine.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>

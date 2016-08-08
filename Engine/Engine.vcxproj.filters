@@ -94,6 +94,9 @@
     <ClInclude Include="Source\Assets\IShaderAsset.hpp">
       <Filter>Source\Assets</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Assets\OpenGLShaderAsset.hpp">
+      <Filter>Source\Assets</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Engine.cpp">
@@ -125,6 +128,9 @@
     </ClCompile>
     <ClCompile Include="Source\Assets\Importers\OpenGLShaderAssetImporter.cpp">
       <Filter>Source\Assets\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Assets\OpenGLShaderAsset.cpp">
+      <Filter>Source\Assets</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

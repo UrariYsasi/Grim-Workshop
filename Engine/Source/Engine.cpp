@@ -55,14 +55,6 @@ bool Engine::Initialize()
         return false;
     }
 
-    m_assetModule = ModuleFactory::CreateAssetModule(this);
-    if (!m_assetModule->Initialize())
-    {
-        m_assetModule = nullptr;
-        LOG_ERROR() << "Asset Module failed to initialize!";
-        return false;
-    }
-
     m_windowModule = ModuleFactory::CreateWindowModule(this);
     if (!m_windowModule->Initialize())
     {
@@ -76,6 +68,14 @@ bool Engine::Initialize()
     {
         m_rendererModule = nullptr;
         LOG_ERROR() << "Renderer Module failed to initialize!";
+        return false;
+    }
+
+    m_assetModule = ModuleFactory::CreateAssetModule(this);
+    if (!m_assetModule->Initialize())
+    {
+        m_assetModule = nullptr;
+        LOG_ERROR() << "Asset Module failed to initialize!";
         return false;
     }
 

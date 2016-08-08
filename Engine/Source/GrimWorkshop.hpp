@@ -16,6 +16,7 @@
 #include "Utilities/Log.hpp"
 #include "Assets/IAsset.hpp"
 #include "Assets/IShaderAsset.hpp"
+#include "Assets/OpenGLShaderAsset.hpp"
 #include "Assets/Importers/IAssetImporter.hpp"
 #include "Assets/Importers/IShaderAssetImporter.hpp"
 #include "Assets/Importers/OpenGLShaderAssetImporter.hpp"

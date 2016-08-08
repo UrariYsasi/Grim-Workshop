@@ -53,9 +53,9 @@ public:
 
     ITimeModule* GetTimeModule() const;
     IFileModule* GetFileModule() const;
-    IAssetModule* GetAssetModule() const;
     IWindowModule* GetWindowModule() const;
     IRendererModule* GetRendererModule() const;
+    IAssetModule* GetAssetModule() const;
 
 private:
     bool m_isRunning;
@@ -68,9 +68,9 @@ private:
 
     std::unique_ptr<ITimeModule> m_timeModule;
     std::unique_ptr<IFileModule> m_fileModule;
-    std::unique_ptr<IAssetModule> m_assetModule;
     std::unique_ptr<IWindowModule> m_windowModule;
     std::unique_ptr<IRendererModule> m_rendererModule;
+    std::unique_ptr<IAssetModule> m_assetModule;
 };
 
 }
