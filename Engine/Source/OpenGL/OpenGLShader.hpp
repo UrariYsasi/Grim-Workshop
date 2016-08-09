@@ -1,11 +1,11 @@
 /*
-    OpenGLShaderAsset.hpp
+    OpenGLShader.hpp
     Peon Engine
 
     Declan Hopkins
     8/8/2016
 
-    An OpenGL Shader. This needs to be linked to an OpenGLShaderProgramAsset.
+    An OpenGL Shader. This needs to be linked to an OpenGLShaderProgram.
 */
 
 #pragma once
@@ -13,11 +13,11 @@
 namespace grim
 {
 
-class OpenGLShaderAsset : public IShaderAsset
+class OpenGLShader : public IShader
 {
 public:
-    OpenGLShaderAsset(const GLuint& handle, const GLenum& type);
-    ~OpenGLShaderAsset();
+    OpenGLShader(const GLuint& handle, const GLenum& type);
+    ~OpenGLShader();
 
     GLuint GetHandle() const;
     GLenum GetType() const;

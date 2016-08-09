@@ -1,5 +1,5 @@
 /*
-    OpenGLShaderAssetImporter.hpp
+    OpenGLShaderImporter.hpp
     Peon Engine
 
     Declan Hopkins
@@ -13,14 +13,14 @@
 namespace grim
 {
 
-class OpenGLShaderAssetImporter : public IShaderAssetImporter
+class OpenGLShaderImporter : public AssetImporter
 {
 public:
-    OpenGLShaderAssetImporter();
-    ~OpenGLShaderAssetImporter();
+    OpenGLShaderImporter(IAssetModule* const assetModule, IFileModule* const fileModule);
+    virtual ~OpenGLShaderImporter();
 
     /*
-        IShaderAssetImporter Interface
+        AssetImporter Interface
     */
 
     virtual std::unique_ptr<IAsset> Import(const std::string& path) override;

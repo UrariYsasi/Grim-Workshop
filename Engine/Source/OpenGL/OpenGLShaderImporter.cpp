@@ -1,5 +1,5 @@
 /*
-    OpenGLShaderAssetImporter.cpp
+    OpenGLShaderImporter.cpp
     Peon Engine
 
     Declan Hopkins
@@ -7,20 +7,21 @@
 */
 
 #include "PCH.hpp"
-#include "OpenGLShaderAssetImporter.hpp"
+#include "OpenGLShaderImporter.hpp"
 
 namespace grim
 {
 
-OpenGLShaderAssetImporter::OpenGLShaderAssetImporter()
+OpenGLShaderImporter::OpenGLShaderImporter(IAssetModule* const assetModule, IFileModule* const fileModule) :
+    AssetImporter(assetModule, fileModule)
 {
 }
 
-OpenGLShaderAssetImporter::~OpenGLShaderAssetImporter()
+OpenGLShaderImporter::~OpenGLShaderImporter()
 {
 }
 
-std::unique_ptr<IAsset> OpenGLShaderAssetImporter::Import(const std::string& path)
+std::unique_ptr<IAsset> OpenGLShaderImporter::Import(const std::string& path)
 {
     LOG() << "Importing Shader " << path;
 
@@ -92,10 +93,10 @@ std::unique_ptr<IAsset> OpenGLShaderAssetImporter::Import(const std::string& pat
     }
 
     // Create and return the Shader asset
-    return std::make_unique<OpenGLShaderAsset>(handle, shaderType);
+    return std::make_unique<OpenGLShader>(handle, shaderType);
 }
 
-bool OpenGLShaderAssetImporter::CanImport(const std::string& path)
+bool OpenGLShaderImporter::CanImport(const std::string& path)
 {
     // Get the file extension
     if (path.find_last_of(".") != std::string::npos)
@@ -108,13 +109,6 @@ bool OpenGLShaderAssetImporter::CanImport(const std::string& path)
     }
 
     return false;
-}
-
-std::string GetFileExtension(const std::string& FileName)
-{
-    if (FileName.find_last_of(".") != std::string::npos)
-        return FileName.substr(FileName.find_last_of(".") + 1);
-    return "";
 }
 
 }

@@ -17,6 +17,8 @@ public:
     GrimAssetModule(Engine* const engine);
     ~GrimAssetModule();
 
+    std::string GetFileName(const std::string& path) const;
+
     /*
         IModule Interface
     */
@@ -35,12 +37,7 @@ private:
     Engine* m_engine;
     IFileModule* m_fileModule;
     std::map<std::string, std::unique_ptr<IAsset>> m_assetMap;
-
-    /*
-        Asset Importers
-    */
-
-    std::unique_ptr<IShaderAssetImporter> m_shaderImporter;
+    std::vector<std::unique_ptr<AssetImporter>> m_importers;
 };
 
 }

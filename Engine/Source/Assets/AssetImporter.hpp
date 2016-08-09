@@ -1,5 +1,5 @@
 /*
-    IAssetImporter.hpp
+    AssetImporter.hpp
     Peon Engine
 
     Declan Hopkins
@@ -14,9 +14,15 @@
 namespace grim
 {
 
-class IAssetImporter
+class IAssetModule;
+class IFileModule;
+
+class AssetImporter
 {
 public:
+    AssetImporter(IAssetModule* const assetModule, IFileModule* const fileModule);
+    virtual ~AssetImporter();
+
     /*
         Import an Asset.
 
@@ -30,6 +36,10 @@ public:
         Check if this importer knows how to import a certain Asset.
     */
     virtual bool CanImport(const std::string& path) = 0;
+
+protected:
+    IAssetModule* m_assetModule;
+    IFileModule* m_fileModule;
 };
 
 }

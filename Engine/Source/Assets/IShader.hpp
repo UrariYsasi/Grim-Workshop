@@ -1,5 +1,5 @@
 /*
-    IShaderAsset.hpp
+    IShader.hpp
     Peon Engine
 
     Declan Hopkins
@@ -13,7 +13,7 @@
 namespace grim
 {
 
-class IShaderAsset : public IAsset
+class IShader : public IAsset
 {
 };
 

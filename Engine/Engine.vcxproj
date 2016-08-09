@@ -122,15 +122,17 @@
   <ItemGroup>
     <ClInclude Include="Source\Assets\GrimAssetModule.hpp" />
     <ClInclude Include="Source\Assets\IAsset.hpp" />
-    <ClInclude Include="Source\Assets\Importers\IAssetImporter.hpp" />
-    <ClInclude Include="Source\Assets\Importers\IShaderAssetImporter.hpp" />
-    <ClInclude Include="Source\Assets\Importers\OpenGLShaderAssetImporter.hpp" />
-    <ClInclude Include="Source\Assets\IShaderAsset.hpp" />
-    <ClInclude Include="Source\Assets\OpenGLShaderAsset.hpp" />
+    <ClInclude Include="Source\Assets\AssetImporter.hpp" />
+    <ClInclude Include="Source\OpenGL\OpenGLShaderImporter.hpp" />
+    <ClInclude Include="Source\OpenGL\OpenGLShaderProgramImporter.hpp" />
+    <ClInclude Include="Source\Assets\IShader.hpp" />
+    <ClInclude Include="Source\Assets\IShaderProgram.hpp" />
+    <ClInclude Include="Source\OpenGL\OpenGLShader.hpp" />
+    <ClInclude Include="Source\OpenGL\OpenGLShaderProgram.hpp" />
     <ClInclude Include="Source\Engine.hpp" />
     <ClInclude Include="Source\Graphics\Mesh.hpp" />
-    <ClInclude Include="Source\Graphics\OpenGLRendererModule.hpp" />
-    <ClInclude Include="Source\Graphics\OpenGLWindowModule.hpp" />
+    <ClInclude Include="Source\OpenGL\OpenGLRendererModule.hpp" />
+    <ClInclude Include="Source\OpenGL\OpenGLWindowModule.hpp" />
     <ClInclude Include="Source\Graphics\Vertex.hpp" />
     <ClInclude Include="Source\GrimWorkshop.hpp" />
     <ClInclude Include="Source\IGame.hpp" />
@@ -144,25 +146,28 @@
     <ClInclude Include="Source\PCH.hpp" />
     <ClInclude Include="Source\Utilities\Log.hpp" />
     <ClInclude Include="Source\Utilities\GrimTimeModule.hpp" />
-    <ClInclude Include="Source\Utilities\WindowsFileModule.hpp" />
+    <ClInclude Include="Source\Windows\WindowsFileModule.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Assets\GrimAssetModule.cpp" />
-    <ClCompile Include="Source\Assets\Importers\OpenGLShaderAssetImporter.cpp" />
-    <ClCompile Include="Source\Assets\OpenGLShaderAsset.cpp" />
+    <ClCompile Include="Source\Assets\AssetImporter.cpp" />
+    <ClCompile Include="Source\OpenGL\OpenGLShaderImporter.cpp" />
+    <ClCompile Include="Source\OpenGL\OpenGLShaderProgramImporter.cpp" />
+    <ClCompile Include="Source\OpenGL\OpenGLShader.cpp" />
+    <ClCompile Include="Source\OpenGL\OpenGLShaderProgram.cpp" />
     <ClCompile Include="Source\Engine.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Source\Graphics\Mesh.cpp" />
-    <ClCompile Include="Source\Graphics\OpenGLRendererModule.cpp" />
-    <ClCompile Include="Source\Graphics\OpenGLWindowModule.cpp" />
+    <ClCompile Include="Source\OpenGL\OpenGLRendererModule.cpp" />
+    <ClCompile Include="Source\OpenGL\OpenGLWindowModule.cpp" />
     <ClCompile Include="Source\Modules\ModuleFactory.cpp" />
     <ClCompile Include="Source\Utilities\Log.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="Source\Utilities\GrimTimeModule.cpp" />
-    <ClCompile Include="Source\Utilities\WindowsFileModule.cpp" />
+    <ClCompile Include="Source\Windows\WindowsFileModule.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

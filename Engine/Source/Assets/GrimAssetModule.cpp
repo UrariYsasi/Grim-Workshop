@@ -13,8 +13,7 @@ namespace grim
 {
 
 GrimAssetModule::GrimAssetModule(Engine* const engine) :
-    m_engine(engine),
-    m_shaderImporter(nullptr)
+    m_engine(engine)
 {
 }
 
@@ -39,7 +38,8 @@ bool GrimAssetModule::Initialize()
         return false;
     }
 
-    m_shaderImporter = std::make_unique<OpenGLShaderAssetImporter>();
+    m_importers.push_back(std::make_unique<OpenGLShaderImporter>(this, m_fileModule));
+    m_importers.push_back(std::make_unique<OpenGLShaderProgramImporter>(this, m_fileModule));
 
     ImportAssets();
 
@@ -51,6 +51,7 @@ void GrimAssetModule::Terminate()
 {
     LOG() << "Asset Module GrimAssetModule terminating...";
 
+    m_importers.clear();
     m_assetMap.clear();
 
     LOG() << "Asset Module GrimAssetModule terminated.";
@@ -64,27 +65,25 @@ void GrimAssetModule::ImportAssets()
     for (auto it = files.begin(); it != files.end(); it++)
     {
         std::string path = *(it);
-        std::string ID = path;
-        IAssetImporter* importer = nullptr;
+        std::string ID = GetFileName(path);
 
-        if (m_shaderImporter->CanImport(path))
+        for (auto importerIt = m_importers.begin(); importerIt != m_importers.end(); importerIt++)
         {
-            importer = m_shaderImporter.get();
-        }
+            AssetImporter* importer = importerIt->get();
 
-        if (importer == nullptr)
-        {
-            continue;
-        }
+            if (importer->CanImport(path))
+            {
+                std::unique_ptr<IAsset> asset = importer->Import(path);
+                if (asset == nullptr)
+                {
+                    LOG_ERROR() << "Asset " << ID << " failed to import!";
+                    continue;
+                }
 
-        std::unique_ptr<IAsset> asset = importer->Import(path);
-        if (asset == nullptr)
-        {
-            LOG_ERROR() << "Asset " << ID << " failed to import!";
-            continue;
+                AddAsset(ID, std::move(asset));
+                break;
+            }
         }
-
-        AddAsset(ID, std::move(asset));
     }
 
     LOG() << "Loaded Assets.";
@@ -99,6 +98,7 @@ void GrimAssetModule::AddAsset(const std::string& ID, std::unique_ptr<IAsset> as
     }
 
     m_assetMap[ID] = std::move(asset);
+    LOG() << "Asset " << ID << " added.";
 }
 
 IAsset* GrimAssetModule::FindAsset(const std::string& ID)
@@ -113,5 +113,23 @@ IAsset* GrimAssetModule::FindAsset(const std::string& ID)
     return nullptr;
 }
 
+std::string GrimAssetModule::GetFileName(const std::string& path) const
+{
+    std::string fileName = path;
+
+    auto slash = path.find_last_of("\\/");
+    if (slash != std::string::npos)
+    {
+        fileName = path.substr(slash + 1, path.size() - slash - 1);
+    }
+
+    auto period = fileName.find_last_of(".");
+    if (period != std::string::npos)
+    {
+        fileName = fileName.substr(0, period);
+    }
+
+    return fileName;
+}
 
 }
