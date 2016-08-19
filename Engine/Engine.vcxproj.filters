@@ -8,19 +8,19 @@
     <Filter Include="Source\Graphics">
       <UniqueIdentifier>{8a05d9e7-bdcf-4247-8246-723651e2083c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Modules">
-      <UniqueIdentifier>{983665fa-5a49-4307-bd4c-101de2d9b139}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Utilities">
       <UniqueIdentifier>{35239bb2-bb57-4cf4-9070-ccd020968cc7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\Assets">
       <UniqueIdentifier>{5e84eb9b-b52e-4455-bcdc-1b84f8102ea4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\OpenGL">
+    <Filter Include="Source\Platform">
+      <UniqueIdentifier>{2941d632-f1ae-4014-8a5f-3c88c6faca48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Graphics\OpenGL">
       <UniqueIdentifier>{622bc5ba-1640-46f0-be5a-83a2efdc1bc7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Windows">
+    <Filter Include="Source\Platform\Windows">
       <UniqueIdentifier>{77865688-851f-4718-b5e6-c862a8c64162}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -37,26 +37,11 @@
     <ClInclude Include="Source\GrimWorkshop.hpp">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Modules\ModuleFactory.hpp">
-      <Filter>Source\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Modules\ITimeModule.hpp">
-      <Filter>Source\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Utilities\GrimTimeModule.hpp">
       <Filter>Source\Utilities</Filter>
     </ClInclude>
     <ClInclude Include="Source\Utilities\Log.hpp">
       <Filter>Source\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Modules\IModule.hpp">
-      <Filter>Source\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Modules\IWindowModule.hpp">
-      <Filter>Source\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Modules\IRendererModule.hpp">
-      <Filter>Source\Modules</Filter>
     </ClInclude>
     <ClInclude Include="Source\Graphics\Vertex.hpp">
       <Filter>Source\Graphics</Filter>
@@ -67,52 +52,64 @@
     <ClInclude Include="Source\Assets\IAsset.hpp">
       <Filter>Source\Assets</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Modules\IAssetModule.hpp">
-      <Filter>Source\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Assets\GrimAssetModule.hpp">
       <Filter>Source\Assets</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Modules\IFileModule.hpp">
-      <Filter>Source\Modules</Filter>
+    <ClInclude Include="Source\Platform\Windows\WindowsFileModule.hpp">
+      <Filter>Source\Platform\Windows</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Assets\IShaderProgram.hpp">
+    <ClInclude Include="Source\Graphics\OpenGL\OpenGLShader.hpp">
+      <Filter>Source\Graphics\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\OpenGL\OpenGLShaderProgram.hpp">
+      <Filter>Source\Graphics\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\OpenGL\OpenGLWindowModule.hpp">
+      <Filter>Source\Graphics\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\IShaderProgram.hpp">
       <Filter>Source\Assets</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Assets\IShader.hpp">
+    <ClInclude Include="Source\Graphics\IShader.hpp">
       <Filter>Source\Assets</Filter>
     </ClInclude>
-    <ClInclude Include="Source\OpenGL\OpenGLRendererModule.hpp">
-      <Filter>Source\OpenGL</Filter>
+    <ClInclude Include="Source\Assets\IAssetModule.hpp">
+      <Filter>Source\Assets</Filter>
     </ClInclude>
-    <ClInclude Include="Source\OpenGL\OpenGLWindowModule.hpp">
-      <Filter>Source\OpenGL</Filter>
+    <ClInclude Include="Source\Platform\IFileModule.hpp">
+      <Filter>Source\Platform</Filter>
     </ClInclude>
-    <ClInclude Include="Source\OpenGL\OpenGLShaderProgram.hpp">
-      <Filter>Source\OpenGL</Filter>
+    <ClInclude Include="Source\Graphics\IRendererModule.hpp">
+      <Filter>Source\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Source\OpenGL\OpenGLShader.hpp">
-      <Filter>Source\OpenGL</Filter>
+    <ClInclude Include="Source\Graphics\IWindowModule.hpp">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utilities\ITimeModule.hpp">
+      <Filter>Source\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ModuleFactory.hpp">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\IModule.hpp">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\OpenGL\OpenGLShaderProgramImporter.hpp">
+      <Filter>Source\Graphics\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\OpenGL\OpenGLShaderImporter.hpp">
+      <Filter>Source\Graphics\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="Source\Assets\AssetImporter.hpp">
       <Filter>Source\Assets</Filter>
     </ClInclude>
-    <ClInclude Include="Source\OpenGL\OpenGLShaderProgramImporter.hpp">
-      <Filter>Source\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\OpenGL\OpenGLShaderImporter.hpp">
-      <Filter>Source\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Windows\WindowsFileModule.hpp">
-      <Filter>Source\Windows</Filter>
+    <ClInclude Include="Source\Graphics\OpenGL\OpenGLRendererModule.hpp">
+      <Filter>Source\Graphics\OpenGL</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Engine.cpp">
       <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Modules\ModuleFactory.cpp">
-      <Filter>Source\Modules</Filter>
     </ClCompile>
     <ClCompile Include="Source\Utilities\GrimTimeModule.cpp">
       <Filter>Source\Utilities</Filter>
@@ -126,29 +123,32 @@
     <ClCompile Include="Source\Assets\GrimAssetModule.cpp">
       <Filter>Source\Assets</Filter>
     </ClCompile>
-    <ClCompile Include="Source\OpenGL\OpenGLRendererModule.cpp">
-      <Filter>Source\OpenGL</Filter>
+    <ClCompile Include="Source\Platform\Windows\WindowsFileModule.cpp">
+      <Filter>Source\Platform\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="Source\OpenGL\OpenGLWindowModule.cpp">
-      <Filter>Source\OpenGL</Filter>
+    <ClCompile Include="Source\Graphics\OpenGL\OpenGLShader.cpp">
+      <Filter>Source\Graphics\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="Source\OpenGL\OpenGLShader.cpp">
-      <Filter>Source\OpenGL</Filter>
+    <ClCompile Include="Source\Graphics\OpenGL\OpenGLShaderProgram.cpp">
+      <Filter>Source\Graphics\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="Source\OpenGL\OpenGLShaderProgram.cpp">
-      <Filter>Source\OpenGL</Filter>
+    <ClCompile Include="Source\Graphics\OpenGL\OpenGLWindowModule.cpp">
+      <Filter>Source\Graphics\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ModuleFactory.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\OpenGL\OpenGLShaderImporter.cpp">
+      <Filter>Source\Graphics\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\OpenGL\OpenGLShaderProgramImporter.cpp">
+      <Filter>Source\Graphics\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="Source\Assets\AssetImporter.cpp">
       <Filter>Source\Assets</Filter>
     </ClCompile>
-    <ClCompile Include="Source\OpenGL\OpenGLShaderImporter.cpp">
-      <Filter>Source\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\OpenGL\OpenGLShaderProgramImporter.cpp">
-      <Filter>Source\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Windows\WindowsFileModule.cpp">
-      <Filter>Source\Windows</Filter>
+    <ClCompile Include="Source\Graphics\OpenGL\OpenGLRendererModule.cpp">
+      <Filter>Source\Graphics\OpenGL</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
