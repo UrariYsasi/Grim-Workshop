@@ -38,7 +38,7 @@ void SacrificeAction::Update(float deltaTime)
 
         offering->Delete();
 
-        m_owner->GetGame()->GetAudio()->PlaySound("sacrifice_04");
+        m_owner->GetGame()->GetEngine()->GetAudio()->PlaySound("sacrifice_04");
 
         m_owner->GetGame()->GetWorld()->Spawn(EntityID::PEON, m_altar->GetTransform().position);
 

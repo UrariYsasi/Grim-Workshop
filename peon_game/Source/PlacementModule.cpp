@@ -45,7 +45,7 @@ void PlacementModule::Update(float deltaTime)
         m_isPlacing = !m_isPlacing;
         m_heldEntityID = EntityID::MONSTER_SPIDER_QUEEN;
         m_heldEntitySprite = m_game->GetEntitySprite(m_heldEntityID);
-        m_game->GetAudio()->PlaySound("select_00");
+        m_game->GetEngine()->GetAudio()->PlaySound("select_00");
     }
 
     /*
@@ -72,7 +72,7 @@ void PlacementModule::Update(float deltaTime)
             }
             else
             {
-                m_game->GetAudio()->PlaySound("error_00");
+                m_game->GetEngine()->GetAudio()->PlaySound("error_00");
             }
         }
 

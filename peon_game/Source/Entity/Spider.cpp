@@ -43,7 +43,7 @@ void Spider::Render()
     spiderTransform.position -= m_origin;
     spiderTransform.scale.x = scaleX;
     grim::graphics::RenderCommand spiderCommand(&m_sprite, spiderTransform);
-    m_game->GetRenderer()->Submit(spiderCommand);
+    m_game->GetEngine()->GetRenderer()->Submit(spiderCommand);
 
     Entity::Render();
 }

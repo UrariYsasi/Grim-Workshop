@@ -65,11 +65,11 @@ void Peon::Render()
         selectionTransform.position -= m_origin;
         selectionTransform.position += glm::vec3(0.0f, 3.0f, 0.0f);
         grim::graphics::RenderCommand selectionCommand(&m_selectionSprite, selectionTransform);
-        m_game->GetRenderer()->Submit(selectionCommand);
+        m_game->GetEngine()->GetRenderer()->Submit(selectionCommand);
     }
 
-    m_game->GetRenderer()->Submit(shadowCommand);
-    m_game->GetRenderer()->Submit(peonCommand);
+    m_game->GetEngine()->GetRenderer()->Submit(shadowCommand);
+    m_game->GetEngine()->GetRenderer()->Submit(peonCommand);
 }
 
 void Peon::Select()

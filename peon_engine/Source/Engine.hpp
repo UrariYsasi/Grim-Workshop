@@ -1,3 +1,11 @@
+/*
+    Engine.hpp
+    Engine
+
+    Declan Hopkins
+    8/31/2016
+*/
+
 #pragma once
 
 namespace grim
@@ -6,11 +14,11 @@ namespace grim
 class Engine
 {
 public:
-    Engine();
+    Engine(IGame* const game);
     ~Engine();
 
     /*
-        Initialize the the Engine to prepare it to run.
+        Initialize the the Engine and prepare it to run.
     */
 
     bool Initialize();
@@ -22,8 +30,6 @@ public:
     grim::ui::IInput* GetInput();
     grim::ui::IUserInterface* GetUI();
     uint32_t GetTime();
-
-protected:
 
     /*
         Alert the Engine that it should stop running that and the application should quit.
@@ -40,10 +46,11 @@ protected:
 
     virtual void Run();
 
-    virtual void Update(float deltaTime) = 0;
-    virtual void Render() = 0;
+    virtual void Update(float deltaTime);
+    virtual void Render();
 
-protected:
+public:
+    IGame* m_game;
     bool m_isRunning;
     uint32_t m_frameCount;
     uint16_t m_frameRate;

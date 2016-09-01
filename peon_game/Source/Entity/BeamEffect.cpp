@@ -11,7 +11,7 @@ BeamEffect::BeamEffect(Game* game, const glm::vec3& position) :
     m_sprite.SetMeshHeight(m_sprite.GetHeight() * 20.0f);
     m_origin.y = (m_sprite.GetMeshHeight() * m_transform.scale.y) / 2.0f;
 
-    m_game->GetAudio()->PlaySound("spell_summon_00");
+    m_game->GetEngine()->GetAudio()->PlaySound("spell_summon_00");
 
     m_timer.Start();
 }
@@ -35,7 +35,7 @@ void BeamEffect::Render()
     grim::graphics::Transform beamTransform = m_transform;
     beamTransform.position -= m_origin;
     grim::graphics::RenderCommand beamCommand(&m_sprite, beamTransform);
-    m_game->GetRenderer()->Submit(beamCommand);
+    m_game->GetEngine()->GetRenderer()->Submit(beamCommand);
 
     Entity::Render();
 }

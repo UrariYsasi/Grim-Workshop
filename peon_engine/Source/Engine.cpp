@@ -1,10 +1,19 @@
+/*
+    Engine.cpp
+    Engine
+
+    Declan Hopkins
+    8/31/2016
+*/
+
 #include "PCH.hpp"
 #include "Engine.hpp"
 
 namespace grim
 {
 
-Engine::Engine() :
+Engine::Engine(IGame* const game) :
+    m_game(game),
     m_isRunning(false),
     m_frameCount(0),
     m_frameRate(0),
@@ -81,6 +90,16 @@ void Engine::Run()
         m_frameCount++;
         m_frameRate = static_cast<uint16_t>(std::round(((float)m_frameCount / (SDL_GetTicks() - m_gameStartTime)) * 1000.0f));
     }
+}
+
+void Engine::Update(float deltaTime)
+{
+    m_game->Update();
+}
+
+void Engine::Render()
+{
+    m_game->Render();
 }
 
 void Engine::SetTimeScale(float scale)

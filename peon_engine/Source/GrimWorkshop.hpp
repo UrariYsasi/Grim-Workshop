@@ -40,6 +40,7 @@
 #include "UI/IUserInterface.hpp"
 #include "UI/GrimUI.hpp"
 #include "UI/UIFactory.hpp"
+#include "IGame.hpp"
 #include "Engine.hpp"
 
 /*

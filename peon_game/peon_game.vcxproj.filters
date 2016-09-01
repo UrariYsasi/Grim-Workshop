@@ -27,9 +27,6 @@
     <ClCompile Include="Source\Player.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Source\PlacementModule.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -117,6 +114,9 @@
     <ClCompile Include="Source\World\Region.cpp">
       <Filter>Source\World</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\PCH.hpp">
@@ -126,9 +126,6 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\Player.hpp">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game.hpp">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\World\World.hpp">
@@ -226,6 +223,9 @@
     </ClInclude>
     <ClInclude Include="Source\World\RegionID.hpp">
       <Filter>Source\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game.hpp">
+      <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

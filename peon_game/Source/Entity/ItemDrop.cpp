@@ -31,7 +31,7 @@ void ItemDrop::Render()
     grim::graphics::Transform transform = m_transform;
     transform.position -= m_origin;
     grim::graphics::RenderCommand command(&m_sprite, transform);
-    m_game->GetRenderer()->Submit(command);
+    m_game->GetEngine()->GetRenderer()->Submit(command);
 
     Entity::Render();
 }

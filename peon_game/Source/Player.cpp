@@ -26,7 +26,7 @@ Player::Player(Game* game) :
     m_faith(100),
     m_placementModule(this)
 {
-    m_gameInput = m_game->GetInput();
+    m_gameInput = m_game->GetEngine()->GetInput();
     m_gameCamera = m_game->GetMainCamera();
     m_gameWorld = m_game->GetWorld();
 }
@@ -165,7 +165,7 @@ void Player::Update(float deltaTime)
 
         if (m_selectedPeons.size() > 0)
         {
-            m_game->GetAudio()->PlaySound("select_01");
+            m_game->GetEngine()->GetAudio()->PlaySound("select_01");
         }
     }
 
@@ -205,7 +205,7 @@ void Player::Render()
 
             grim::graphics::Transform boxSelectionTransform;
             grim::graphics::RenderCommand command(&m_boxSelectionMesh, m_game->GetMaterial("flat_black"), boxSelectionTransform);
-            m_game->GetRenderer()->Submit(command);
+            m_game->GetEngine()->GetRenderer()->Submit(command);
         }
     }
 

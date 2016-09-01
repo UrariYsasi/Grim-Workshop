@@ -1,3 +1,11 @@
+/*
+    Game.cpp
+    Game
+
+    Declan Hopkins
+    8/31/2016
+*/
+
 #include "PCH.hpp"
 #include "Game.hpp"
 #include "Entity/Peon.hpp"
@@ -13,7 +21,7 @@
 #include "Player.hpp"
 
 Game::Game() :
-    Engine(),
+    m_engine(this),
     m_bgMusic(nullptr),
     m_frameRateWidget(nullptr),
     m_peonCountWidget(nullptr),
@@ -60,7 +68,7 @@ bool Game::Initialize()
         Initialize Engine
     */
 
-    if (!Engine::Initialize())
+    if (!m_engine.Initialize())
     {
         grim::utility::Debug::LogError("Engine initialization failed.");
         return false;
@@ -105,27 +113,27 @@ bool Game::Initialize()
     */
 
     grim::utility::Debug::Log("Loading sounds...");
-    GetAudio()->LoadSound("Resources/Sounds/select_00.wav", "select_00");
-    GetAudio()->LoadSound("Resources/Sounds/select_01.wav", "select_01");
-    GetAudio()->LoadSound("Resources/Sounds/woodcutting_00.wav", "woodcutting_00");
-    GetAudio()->LoadSound("Resources/Sounds/mining_00.wav", "mining_00");
-    GetAudio()->LoadSound("Resources/Sounds/mining_01.wav", "mining_01");
-    GetAudio()->LoadSound("Resources/Sounds/mining_02.wav", "mining_02");
-    GetAudio()->LoadSound("Resources/Sounds/drop_00.wav", "drop_00");
-    GetAudio()->LoadSound("Resources/Sounds/drop_01.wav", "drop_01");
-    GetAudio()->LoadSound("Resources/Sounds/death_00.wav", "death_00");
-    GetAudio()->LoadSound("Resources/Sounds/punch_00.wav", "punch_00");
-    GetAudio()->LoadSound("Resources/Sounds/sacrifice_00.wav", "sacrifice_00");
-    GetAudio()->LoadSound("Resources/Sounds/sacrifice_01.wav", "sacrifice_01");
-    GetAudio()->LoadSound("Resources/Sounds/sacrifice_02.wav", "sacrifice_02");
-    GetAudio()->LoadSound("Resources/Sounds/sacrifice_03.wav", "sacrifice_03");
-    GetAudio()->LoadSound("Resources/Sounds/sacrifice_04.wav", "sacrifice_04");
-    GetAudio()->LoadSound("Resources/Sounds/damage.wav", "damage");
-    GetAudio()->LoadSound("Resources/Sounds/sword.wav", "sword");
-    GetAudio()->LoadSound("Resources/Sounds/book_open_00.wav", "book_open_00");
-    GetAudio()->LoadSound("Resources/Sounds/book_close_00.wav", "book_close_00");
-    GetAudio()->LoadSound("Resources/Sounds/spell_summon_00.wav", "spell_summon_00");
-    GetAudio()->LoadSound("Resources/Sounds/error_00.wav", "error_00");
+    m_engine.GetAudio()->LoadSound("Resources/Sounds/select_00.wav", "select_00");
+    m_engine.GetAudio()->LoadSound("Resources/Sounds/select_01.wav", "select_01");
+    m_engine.GetAudio()->LoadSound("Resources/Sounds/woodcutting_00.wav", "woodcutting_00");
+    m_engine.GetAudio()->LoadSound("Resources/Sounds/mining_00.wav", "mining_00");
+    m_engine.GetAudio()->LoadSound("Resources/Sounds/mining_01.wav", "mining_01");
+    m_engine.GetAudio()->LoadSound("Resources/Sounds/mining_02.wav", "mining_02");
+    m_engine.GetAudio()->LoadSound("Resources/Sounds/drop_00.wav", "drop_00");
+    m_engine.GetAudio()->LoadSound("Resources/Sounds/drop_01.wav", "drop_01");
+    m_engine.GetAudio()->LoadSound("Resources/Sounds/death_00.wav", "death_00");
+    m_engine.GetAudio()->LoadSound("Resources/Sounds/punch_00.wav", "punch_00");
+    m_engine.GetAudio()->LoadSound("Resources/Sounds/sacrifice_00.wav", "sacrifice_00");
+    m_engine.GetAudio()->LoadSound("Resources/Sounds/sacrifice_01.wav", "sacrifice_01");
+    m_engine.GetAudio()->LoadSound("Resources/Sounds/sacrifice_02.wav", "sacrifice_02");
+    m_engine.GetAudio()->LoadSound("Resources/Sounds/sacrifice_03.wav", "sacrifice_03");
+    m_engine.GetAudio()->LoadSound("Resources/Sounds/sacrifice_04.wav", "sacrifice_04");
+    m_engine.GetAudio()->LoadSound("Resources/Sounds/damage.wav", "damage");
+    m_engine.GetAudio()->LoadSound("Resources/Sounds/sword.wav", "sword");
+    m_engine.GetAudio()->LoadSound("Resources/Sounds/book_open_00.wav", "book_open_00");
+    m_engine.GetAudio()->LoadSound("Resources/Sounds/book_close_00.wav", "book_close_00");
+    m_engine.GetAudio()->LoadSound("Resources/Sounds/spell_summon_00.wav", "spell_summon_00");
+    m_engine.GetAudio()->LoadSound("Resources/Sounds/error_00.wav", "error_00");
 
     /*
         Load Music
@@ -196,62 +204,62 @@ bool Game::Initialize()
     m_spriteMap[EntityID::EFFECT_BEAM] = std::make_unique<grim::graphics::Sprite>(GetMaterial("effect_beam"));
 
     // Setup the game
-    m_mainCamera = std::make_unique<grim::graphics::Camera>(this, WINDOW_WIDTH, WINDOW_HEIGHT, -1.0f, 1.0f);
-    m_uiCamera = std::make_unique<grim::graphics::Camera>(this, WINDOW_WIDTH, WINDOW_HEIGHT, -1.0f, 1.0f);
+    m_mainCamera = std::make_unique<grim::graphics::Camera>(&m_engine, WINDOW_WIDTH, WINDOW_HEIGHT, -1.0f, 1.0f);
+    m_uiCamera = std::make_unique<grim::graphics::Camera>(&m_engine, WINDOW_WIDTH, WINDOW_HEIGHT, -1.0f, 1.0f);
     m_map = std::make_unique<World>(this);
     m_player = std::make_unique<Player>(this);
 
     m_mainCamera->SetCenter(m_map->GetCenter());
 
-    GetRenderer()->SetLayerCamera(0, m_mainCamera.get());
-    GetRenderer()->SetLayerCamera(1, m_uiCamera.get());
+    m_engine.GetRenderer()->SetLayerCamera(0, m_mainCamera.get());
+    m_engine.GetRenderer()->SetLayerCamera(1, m_uiCamera.get());
 
     m_map->Generate();
 
     grim::graphics::Material textMaterial(nullptr, GetShaderProgram("basic_shader"));
 
-    m_frameRateWidget = new grim::ui::TextView(this, "FPS: 55", GetFont("hack"), textMaterial);
+    m_frameRateWidget = new grim::ui::TextView(&m_engine, "FPS: 55", GetFont("hack"), textMaterial);
     m_frameRateWidget->SetPosition(glm::vec2(5.0f, 5.0f));
-    GetUI()->RegisterWidget(m_frameRateWidget);
+    m_engine.GetUI()->RegisterWidget(m_frameRateWidget);
 
     m_headerSprite = std::make_unique<grim::graphics::Sprite>(GetMaterial("sprite_ui_header"));
-    m_header = new grim::ui::SpriteView(this, m_headerSprite.get());
+    m_header = new grim::ui::SpriteView(&m_engine, m_headerSprite.get());
     m_header->SetPosition(glm::vec2(WINDOW_WIDTH / 2.0f, 40.0f));
     m_header->SetScale(glm::vec2(1.3f, 1.3f));
     m_header->SetZLayer(0.8f);
-    GetUI()->RegisterWidget(m_header);
+    m_engine.GetUI()->RegisterWidget(m_header);
 
-    m_dateWidget = new grim::ui::TextView(this, " ", GetFont("hack"), textMaterial);
+    m_dateWidget = new grim::ui::TextView(&m_engine, " ", GetFont("hack"), textMaterial);
     m_dateWidget->SetPosition(glm::vec2((WINDOW_WIDTH / 2.0f) - 85.0f, 5.0f));
-    GetUI()->RegisterWidget(m_dateWidget);
+    m_engine.GetUI()->RegisterWidget(m_dateWidget);
 
-    m_peonCountWidget = new grim::ui::TextView(this, " ", GetFont("hack"), textMaterial);
+    m_peonCountWidget = new grim::ui::TextView(&m_engine, " ", GetFont("hack"), textMaterial);
     m_peonCountWidget->SetPosition(glm::vec2(5.0f, 5.0f + 20.0f));
-    GetUI()->RegisterWidget(m_peonCountWidget);
+    m_engine.GetUI()->RegisterWidget(m_peonCountWidget);
 
-    m_woodCountWidget = new grim::ui::TextView(this, " ", GetFont("hack"), textMaterial);
+    m_woodCountWidget = new grim::ui::TextView(&m_engine, " ", GetFont("hack"), textMaterial);
     m_woodCountWidget->SetPosition(glm::vec2(5.0f, 5.0f + 40.0f));
-    GetUI()->RegisterWidget(m_woodCountWidget);
+    m_engine.GetUI()->RegisterWidget(m_woodCountWidget);
 
-    m_faithCountWidget = new grim::ui::TextView(this, " ", GetFont("hack"), textMaterial);
+    m_faithCountWidget = new grim::ui::TextView(&m_engine, " ", GetFont("hack"), textMaterial);
     m_faithCountWidget->SetPosition(glm::vec2(5.0f, 5.0f + 60.0f));
-    GetUI()->RegisterWidget(m_faithCountWidget);
+    m_engine.GetUI()->RegisterWidget(m_faithCountWidget);
 
     m_spellBookSprite = std::make_unique<grim::graphics::Sprite>(GetMaterial("sprite_ui_spellbook"));
-    m_spellbook = new grim::ui::SpriteView(this, m_spellBookSprite.get());
+    m_spellbook = new grim::ui::SpriteView(&m_engine, m_spellBookSprite.get());
     m_spellbook->SetPosition(glm::vec2(WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f + 260.0f));
     m_spellbook->SetScale(glm::vec2(1.5f, 1.5f));
     m_spellbook->SetVisible(false);
     m_spellbook->SetZLayer(0.8f);
-    GetUI()->RegisterWidget(m_spellbook);
+    m_engine.GetUI()->RegisterWidget(m_spellbook);
 
-    m_basicPeonLabel = new grim::ui::TextView(this, "Peon", GetFont("black_family"), textMaterial);
+    m_basicPeonLabel = new grim::ui::TextView(&m_engine, "Peon", GetFont("black_family"), textMaterial);
     m_basicPeonLabel->SetPosition(glm::vec2(-240.0f, -140.0f));
     m_spellbook->RegisterWidget(m_basicPeonLabel);
 
     m_buttonSprite = std::make_unique<grim::graphics::Sprite>(GetMaterial("sprite_terrain"));
 
-    m_peonButton = new grim::ui::ButtonView(this, GetEntitySprite(EntityID::PEON));
+    m_peonButton = new grim::ui::ButtonView(&m_engine, GetEntitySprite(EntityID::PEON));
     m_peonButton->SetPosition(glm::vec2(-220.0f, -110.0f));
     m_peonButton->SetScale(glm::vec2(1.5f, 1.5f));
     m_peonButton->SetZLayer(0.9f);
@@ -260,7 +268,7 @@ bool Game::Initialize()
     m_peonButton->SetOnClick([this]()
     {
         GetPlayer()->GetPlacement()->SetHeldEntity(EntityID::PEON);
-        GetAudio()->PlaySound("select_00");
+        m_engine.GetAudio()->PlaySound("select_00");
     });
 
     return true;
@@ -268,51 +276,51 @@ bool Game::Initialize()
 
 void Game::Run()
 {
-    Engine::Run();
+    m_engine.Run();
 }
 
 void Game::Terminate()
 {
-    Engine::Terminate();
+    m_engine.Terminate();
 }
 
-void Game::Update(float deltaTime)
+void Game::Update()
 {
     /*
         Update Modules
     */
 
-    GetUI()->Update(deltaTime);
+    m_engine.GetUI()->Update(0.016f);
 
-    glm::vec2 mousePos = m_mainCamera->ConvertToWorld(GetInput()->GetMousePosition());
+    glm::vec2 mousePos = m_mainCamera->ConvertToWorld(m_engine.GetInput()->GetMousePosition());
 
-    if (GetInput()->GetKeyPress(SDLK_ESCAPE))
+    if (m_engine.GetInput()->GetKeyPress(SDLK_ESCAPE))
     {
         Terminate();
     }
 
-    if (GetInput()->GetKeyPress(SDLK_m))
+    if (m_engine.GetInput()->GetKeyPress(SDLK_m))
     {
         Mix_PlayMusic(m_bgMusic, -1);
     }
 
-    if (GetInput()->GetKeyPress(SDLK_q))
+    if (m_engine.GetInput()->GetKeyPress(SDLK_q))
     {
         m_spellbook->SetVisible(true);
         m_basicPeonLabel->SetVisible(true);
-        GetAudio()->PlaySound("book_open_00");
+        m_engine.GetAudio()->PlaySound("book_open_00");
     }
-    else if (GetInput()->GetKeyRelease(SDLK_q))
+    else if (m_engine.GetInput()->GetKeyRelease(SDLK_q))
     {
         m_spellbook->SetVisible(false);
         m_basicPeonLabel->SetVisible(false);
-        GetAudio()->PlaySound("book_close_00");
+        m_engine.GetAudio()->PlaySound("book_close_00");
     }
 
-    m_map->Update(deltaTime);
-    m_player->Update(deltaTime);
+    m_map->Update(0.016f);
+    m_player->Update(0.016f);
 
-    m_frameRateWidget->SetText("FPS: " + std::to_string(m_frameRate));
+    m_frameRateWidget->SetText("FPS: " + std::to_string(m_engine.m_frameRate));
     m_dateWidget->SetText(std::to_string(m_map->GetDay()) + " " + m_map->GetMonth() + ", Year " + std::to_string(m_map->GetYear()));
     m_peonCountWidget->SetText("Peons: " + std::to_string(m_player->GetPeonCount()));
     m_woodCountWidget->SetText("Wood: " + std::to_string(m_player->GetInventory()->CountItem(ItemType::WOOD)));
@@ -321,7 +329,7 @@ void Game::Update(float deltaTime)
 
 void Game::Render()
 {
-    GetRenderer()->Clear();
+    m_engine.GetRenderer()->Clear();
 
     m_map->Render();
     m_player->Render();
@@ -330,9 +338,9 @@ void Game::Render()
         Render Services
     */
 
-    if (!GetInput()->GetKey(SDLK_SPACE))
+    if (!m_engine.GetInput()->GetKey(SDLK_SPACE))
     {
-        GetUI()->Render();
+        m_engine.GetUI()->Render();
     }
 }
 
@@ -370,7 +378,7 @@ bool Game::LoadShader(const std::string& path, const GLenum& shaderType, const s
 
 bool Game::CreateShaderProgram(const std::string& vertexShaderID, const std::string& fragmentShaderID, const std::string& ID)
 {
-    m_shaderProgramMap[ID] = std::make_unique<grim::graphics::ShaderProgram>(this, GetShader(vertexShaderID), GetShader(fragmentShaderID));
+    m_shaderProgramMap[ID] = std::make_unique<grim::graphics::ShaderProgram>(&m_engine, GetShader(vertexShaderID), GetShader(fragmentShaderID));
     return true;
 }
 
@@ -428,4 +436,9 @@ grim::graphics::Sprite* Game::GetEntitySprite(const EntityID& id)
 Player* Game::GetPlayer()
 {
     return m_player.get();
+}
+
+grim::Engine* const Game::GetEngine()
+{
+    return &m_engine;
 }

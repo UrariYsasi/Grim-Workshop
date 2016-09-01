@@ -27,7 +27,7 @@ void Obelisk::Render()
     grim::graphics::Transform obeliskTransform = m_transform;
     obeliskTransform.position -= m_origin;
     grim::graphics::RenderCommand obeliskCommand(&m_sprite, obeliskTransform);
-    m_game->GetRenderer()->Submit(obeliskCommand);
+    m_game->GetEngine()->GetRenderer()->Submit(obeliskCommand);
 
     Entity::Render();
 }

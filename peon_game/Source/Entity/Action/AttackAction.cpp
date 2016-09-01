@@ -61,7 +61,7 @@ void AttackAction::AttemptAttack()
 
     if (attackBounds.IsCollidingWith(targetBounds))
     {
-        m_owner->GetGame()->GetAudio()->PlaySound("punch_00");
+        m_owner->GetGame()->GetEngine()->GetAudio()->PlaySound("punch_00");
         m_target->Damage();
     }
     else

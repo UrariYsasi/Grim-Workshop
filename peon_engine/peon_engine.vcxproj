@@ -169,6 +169,7 @@
     <ClInclude Include="Source\Graphics\Vertex.hpp" />
     <ClInclude Include="Source\Graphics\IWindow.hpp" />
     <ClInclude Include="Source\Graphics\WindowFactory.hpp" />
+    <ClInclude Include="Source\IGame.hpp" />
     <ClInclude Include="Source\PCH.hpp" />
     <ClInclude Include="Source\GrimWorkshop.hpp" />
     <ClInclude Include="Source\Audio\IAudio.hpp" />

@@ -33,7 +33,7 @@ void TerrainTile::Render()
     */
 
     grim::graphics::RenderCommand tileCommand(&m_sprite, m_transform);
-    m_region->GetWorld()->GetGame()->GetRenderer()->Submit(tileCommand);
+    m_region->GetWorld()->GetGame()->GetEngine()->GetRenderer()->Submit(tileCommand);
 }
 
 grim::graphics::Transform TerrainTile::GetTransform() const

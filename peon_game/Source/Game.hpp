@@ -1,3 +1,11 @@
+/*
+    Game.hpp
+    Game
+
+    Declan Hopkins
+    8/31/2016
+*/
+
 #pragma once
 
 class Entity;
@@ -7,7 +15,7 @@ class TerrainTile;
 class World;
 class Player;
 
-class Game : public grim::Engine
+class Game : public grim::IGame
 {
 public:
     Game();
@@ -26,11 +34,12 @@ public:
     grim::graphics::Material* GetMaterial(const std::string& ID);
     grim::graphics::Sprite* GetEntitySprite(const EntityID& id);
     Player* GetPlayer();
+    grim::Engine* const GetEngine();
+
+    virtual void Update() override;
+    virtual void Render() override;
 
 private:
-    void Update(float deltaTime);
-    void Render();
-
     bool LoadFont(const std::string& path, const std::string& id, const int& size = 16);
 
     /*
@@ -59,6 +68,8 @@ private:
     std::string ReadFile(const std::string& path);
 
 private:
+    grim::Engine m_engine;
+
     std::unique_ptr<grim::graphics::Camera> m_mainCamera;
     std::unique_ptr<grim::graphics::Camera> m_uiCamera;
     std::unique_ptr<World> m_map;

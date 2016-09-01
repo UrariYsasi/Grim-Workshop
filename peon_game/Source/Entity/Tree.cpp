@@ -31,7 +31,7 @@ void Tree::Render()
     grim::graphics::Transform treeTransform = m_transform;
     treeTransform.position -= m_origin;
     grim::graphics::RenderCommand treeCommand(&m_sprite, treeTransform);
-    m_game->GetRenderer()->Submit(treeCommand);
+    m_game->GetEngine()->GetRenderer()->Submit(treeCommand);
 
     Entity::Render();
 }

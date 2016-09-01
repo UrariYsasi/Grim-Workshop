@@ -219,5 +219,8 @@
     <ClInclude Include="Source\Graphics\PrimitiveType.hpp">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="Source\IGame.hpp">
+      <Filter>Source</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
