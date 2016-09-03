@@ -82,7 +82,7 @@ void Engine::Run()
         frameEndTime = frameStartTime;
 
         m_input->Update();
-        Update(deltaTime);
+        Update();
         Render();
         m_renderer->Render();
         m_window->SwapWindow();
@@ -92,7 +92,12 @@ void Engine::Run()
     }
 }
 
-void Engine::Update(float deltaTime)
+void Engine::Stop()
+{
+    m_isRunning = false;
+}
+
+void Engine::Update()
 {
     m_game->Update();
 }

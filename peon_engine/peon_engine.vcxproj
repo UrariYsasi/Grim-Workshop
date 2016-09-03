@@ -71,7 +71,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <TargetExt>.lib</TargetExt>
     <IncludePath>$(SolutionDir)..\SDL2\SDL_ttf_VS2015\include;$(SolutionDir)..\SDL2\SDL_VS2015\include;$(SolutionDir)..\SDL2\SDL2_mixer_VS2015\include;$(SolutionDir)..\SOIL\include;$(SolutionDir)..\GL3W\GL3W\include;$(SolutionDir)..\GLM\glm;$(ProjectDir)Source;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)..\SDL2\SDL_ttf_VS2015\lib\x86;$(SolutionDir)..\SDL2\SDL_VS2015\lib\win32;$(SolutionDir)..\SDL2\SDL2_mixer_VS2015\lib\x86;$(SolutionDir)..\GL3W\GL3W\lib;$(SolutionDir)..\SOIL\lib;$(LibraryPath);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
+    <LibraryPath>$(LibraryPath);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

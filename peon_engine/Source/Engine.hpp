@@ -18,10 +18,31 @@ public:
     ~Engine();
 
     /*
-        Initialize the the Engine and prepare it to run.
-    */
+        Initialize the Engine and Engine Modules.
 
+        Return: Success boolean.
+    */
     bool Initialize();
+
+    /*
+        Terminate the Engine and Engine Modules.
+
+        This frees all Engine resources. It should ONLY be called after the Engine loop has stopped!
+    */
+    void Terminate();
+
+    /*
+        Start running the Engine loop.
+    */
+    void Run();
+
+    /*
+        Stop running the Engine loop.
+    */
+    void Stop();
+
+    void Update();
+    void Render();
 
     void SetTimeScale(float scale);
     grim::graphics::IWindow* GetWindow();
@@ -31,27 +52,11 @@ public:
     grim::ui::IUserInterface* GetUI();
     uint32_t GetTime();
 
-    /*
-        Alert the Engine that it should stop running that and the application should quit.
-    */
-
-    virtual void Terminate();
-
-    /*
-        Run the Engine loop.
-
-        The loop processes input, updates logic, and then renders. This is essentially
-        the "heartbeat" of the Engine.
-    */
-
-    virtual void Run();
-
-    virtual void Update(float deltaTime);
-    virtual void Render();
+private:
+    bool m_isRunning;
+    IGame* m_game;
 
 public:
-    IGame* m_game;
-    bool m_isRunning;
     uint32_t m_frameCount;
     uint16_t m_frameRate;
     uint32_t m_gameStartTime;
