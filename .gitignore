@@ -28,13 +28,9 @@
 *.out
 *.app
 
-# Folders
-/Peon/Binaries/
-
 # Other
 .DS_STORE
-.pyxel
-*.pyxel
+
 
 ### VisualStudio ###
 ## Ignore Visual Studio temporary files, build results, and
