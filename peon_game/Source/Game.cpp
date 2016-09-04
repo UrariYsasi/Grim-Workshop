@@ -422,9 +422,9 @@ std::string Game::ReadFile(const std::string& path)
         return "*FAILURE*";
     }
 
-    std::ostringstream ss;  
+    std::ostringstream ss;
     ss << input.rdbuf();
-    
+
     return ss.str();
 }
 
