@@ -4,6 +4,7 @@
     Engine Includes
 */
 
+#include "Utility/Logger.hpp"
 #include "Audio/IAudio.hpp"
 #include "Audio/SDLAudio.hpp"
 #include "Audio/AudioFactory.hpp"
@@ -55,6 +56,7 @@ const bool IS_WINDOW_FULLSCREEN = false;
 const bool IS_WINDOW_OPENGL = true;
 const std::string WINDOW_TITLE = "Grim Workshop";
 const grim::graphics::Color RED(1.0f, 0.0f, 0.0f, 1.0f);
+#define LOG_FILE_NAME "game.log"
 
 /*
     Typedefs

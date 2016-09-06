@@ -38,11 +38,59 @@ Engine::~Engine()
 
 bool Engine::Initialize()
 {
-    grim::utility::Debug::EnableFlag(grim::utility::LOGGING);
+    LOG() << "Engine initializing...";
 
     /*
         Create and Initialize Modules
     */
+
+    /*
+    m_timeModule = ModuleFactory::CreateTimeModule();
+    if (!m_timeModule->Initialize())
+    {
+        m_timeModule = nullptr;
+        LOG_ERROR() << "Time Module failed to initialize!";
+        return false;
+    }
+
+    m_fileModule = ModuleFactory::CreateFileModule();
+    if (!m_fileModule->Initialize())
+    {
+        m_fileModule = nullptr;
+        LOG_ERROR() << "File Module failed to initialize!";
+        return false;
+    }
+    */
+
+    /*
+    m_windowModule = ModuleFactory::CreateWindowModule(this);
+    if (!m_windowModule->Initialize())
+    {
+        m_windowModule = nullptr;
+        LOG_ERROR() << "Window Module failed to initialize!";
+        return false;
+    }
+    */
+
+    /*
+    m_rendererModule = ModuleFactory::CreateRendererModule();
+    if (!m_rendererModule->Initialize())
+    {
+        m_rendererModule = nullptr;
+        LOG_ERROR() << "Renderer Module failed to initialize!";
+        return false;
+    }
+
+    m_assetModule = ModuleFactory::CreateAssetModule(this);
+    if (!m_assetModule->Initialize())
+    {
+        m_assetModule = nullptr;
+        LOG_ERROR() << "Asset Module failed to initialize!";
+        return false;
+    }
+    */
+
+    // LEGACY
 
     m_window = grim::graphics::CreateWindowService(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, IS_WINDOW_FULLSCREEN, IS_WINDOW_OPENGL);
     if (!m_window->Initialize()) { return false; }
@@ -60,6 +108,7 @@ bool Engine::Initialize()
     m_audio = grim::audio::CreateAudioService();
     if (!m_audio->Initialize()) { return false; }
 
+    LOG() << "Engine initialized.";
     return true;
 }
 

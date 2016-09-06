@@ -142,6 +142,7 @@
     <ClCompile Include="Source\UI\Widgets\TextView.cpp" />
     <ClCompile Include="Source\UI\Widgets\Widget.cpp" />
     <ClCompile Include="Source\Utility\Debug.cpp" />
+    <ClCompile Include="Source\Utility\Logger.cpp" />
     <ClCompile Include="Source\Utility\PoissonDiskGenerator.cpp" />
     <ClCompile Include="Source\Utility\Random.cpp" />
     <ClCompile Include="Source\Utility\Timer.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="Source\UI\Widgets\TextView.hpp" />
     <ClInclude Include="Source\UI\Widgets\Widget.hpp" />
     <ClInclude Include="Source\Utility\Debug.hpp" />
+    <ClInclude Include="Source\Utility\Logger.hpp" />
     <ClInclude Include="Source\Utility\PoissonDiskGenerator.hpp" />
     <ClInclude Include="Source\Utility\Random.hpp" />
     <ClInclude Include="Source\Utility\Timer.hpp" />
