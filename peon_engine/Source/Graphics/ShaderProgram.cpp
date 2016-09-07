@@ -40,7 +40,7 @@ void ShaderProgram::Bind()
     graphics::Camera* activeCamera = m_renderer->GetActiveCamera();
     glm::mat4 viewMatrix = activeCamera->GetViewMatrix();
     glm::mat4 projectionMatrix = activeCamera->GetProjectionMatrix();
-    float time = m_engine->GetTime() / 1000.0f;
+    float time = m_engine->GetTimeModule()->GetTimeMilliseconds();
 
     GLint uniView = glGetUniformLocation(m_handle, "view");
     GLint uniProjection = glGetUniformLocation(m_handle, "proj");

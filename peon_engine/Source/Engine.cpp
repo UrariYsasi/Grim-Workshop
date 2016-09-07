@@ -190,14 +190,14 @@ grim::ui::IUserInterface* Engine::GetUI()
     return m_ui.get();
 }
 
-uint32_t Engine::GetTime()
-{
-    return m_timeModule->GetTimeMilliseconds();
-}
-
 graphics::IWindowModule* Engine::GetWindowModule()
 {
     return m_windowModule.get();
+}
+
+utility::ITimeModule* Engine::GetTimeModule()
+{
+    return m_timeModule.get();
 }
 
 }

@@ -48,9 +48,9 @@ public:
     grim::audio::IAudio* GetAudio();
     grim::ui::IInput* GetInput();
     grim::ui::IUserInterface* GetUI();
-    uint32_t GetTime();
 
     graphics::IWindowModule* GetWindowModule();
+    utility::ITimeModule* GetTimeModule();
 
 private:
     bool m_isRunning;
