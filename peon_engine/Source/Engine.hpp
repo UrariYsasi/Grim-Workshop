@@ -44,7 +44,6 @@ public:
     void Update();
     void Render();
 
-    void SetTimeScale(float scale);
     grim::graphics::IRenderer* GetRenderer();
     grim::audio::IAudio* GetAudio();
     grim::ui::IInput* GetInput();
@@ -61,8 +60,6 @@ private:
 public:
     uint32_t m_frameCount;
     uint16_t m_frameRate;
-    uint32_t m_gameStartTime;
-    float m_timeScale;
 
 private:
 

@@ -18,14 +18,12 @@ Engine::Engine(IGame* const game) :
     m_deltaTimeSeconds(0.0),
     m_frameCount(0),
     m_frameRate(0),
-    m_gameStartTime(0),
     m_timeModule(nullptr),
     m_windowModule(nullptr),
     m_renderer(nullptr),
     m_input(nullptr),
     m_ui(nullptr),
-    m_audio(nullptr),
-    m_timeScale(1.0f)
+    m_audio(nullptr)
 {
 }
 
@@ -133,7 +131,6 @@ void Engine::Terminate()
 void Engine::Run()
 {
     m_isRunning = true;
-    m_gameStartTime = SDL_GetTicks();
 
     /*
         Engine loop
@@ -173,11 +170,6 @@ void Engine::Render()
     m_windowModule->Display();
 }
 
-void Engine::SetTimeScale(float scale)
-{
-    m_timeScale = scale;
-}
-
 grim::graphics::IRenderer* Engine::GetRenderer()
 {
     return m_renderer.get();
@@ -200,7 +192,7 @@ grim::ui::IUserInterface* Engine::GetUI()
 
 uint32_t Engine::GetTime()
 {
-    return (SDL_GetTicks() - m_gameStartTime) * m_timeScale;
+    return m_timeModule->GetTimeMilliseconds();
 }
 
 graphics::IWindowModule* Engine::GetWindowModule()
