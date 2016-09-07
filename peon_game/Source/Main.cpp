@@ -1,30 +1,27 @@
+/*
+    Main.cpp
+    Game
+
+    Declan Hopkins
+    8/1/2016
+*/
+
 #include "PCH.hpp"
 #include "Game.hpp"
 
 int main(int argc, char** argv)
 {
-    if (argc > 1)
-    {
-        if (std::string(argv[1]) == "-noAudio")
-        {
-            grim::utility::Debug::DisableFlag(grim::utility::MIX_AUDIO);
-            grim::utility::Debug::LogError("-noAudio flag observed.");
-        }
-    }
-    else
-    {
-        grim::utility::Debug::EnableFlag(grim::utility::MIX_AUDIO);
-    }
+    // Clear the log file
+    grim::utility::Logger::Clear();
 
     Game game;
-    if (game.Initialize())
+    if (!game.Initialize())
     {
-        game.Run();
+        LOG_ERROR() << "Game initialization failed!";
     }
-    else
-    {
-        grim::utility::Debug::LogError("Game initialization failed.");
-    }
+
+    game.Run();
+    game.Terminate();
 
     return 0;
 }

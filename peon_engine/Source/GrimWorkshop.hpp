@@ -5,6 +5,7 @@
 */
 
 #include "Utility/Logger.hpp"
+#include "IModule.hpp"
 #include "Audio/IAudio.hpp"
 #include "Audio/SDLAudio.hpp"
 #include "Audio/AudioFactory.hpp"
@@ -21,9 +22,8 @@
 #include "Graphics/Material.hpp"
 #include "Graphics/Sprite.hpp"
 #include "Graphics/RenderCommand.hpp"
-#include "Graphics/IWindow.hpp"
-#include "Graphics/SDLWindow.hpp"
-#include "Graphics/WindowFactory.hpp"
+#include "Graphics/IWindowModule.hpp"
+#include "Graphics/OpenGL/OpenGLWindowModule.hpp"
 #include "Graphics/IRenderer.hpp"
 #include "Graphics/OpenGLRenderer.hpp"
 #include "Graphics/RendererFactory.hpp"
@@ -31,6 +31,8 @@
 #include "Utility/PoissonDiskGenerator.hpp"
 #include "Utility/Random.hpp"
 #include "Utility/Timer.hpp"
+#include "Utility/ITimeModule.hpp"
+#include "Utility/GrimTimeModule.hpp"
 #include "UI/IInput.hpp"
 #include "UI/SDLInput.hpp"
 #include "UI/InputFactory.hpp"
@@ -41,6 +43,7 @@
 #include "UI/IUserInterface.hpp"
 #include "UI/GrimUI.hpp"
 #include "UI/UIFactory.hpp"
+#include "ModuleFactory.hpp"
 #include "IGame.hpp"
 #include "Engine.hpp"
 

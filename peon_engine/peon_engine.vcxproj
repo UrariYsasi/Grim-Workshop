@@ -96,7 +96,7 @@
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>PCH.hpp</PrecompiledHeaderFile>
-      <AdditionalOptions>/D"WINDOWS" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/D"WINDOWS" /std:c++latest %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -123,13 +123,13 @@
     <ClCompile Include="Source\Graphics\Camera.cpp" />
     <ClCompile Include="Source\Graphics\Mesh.cpp" />
     <ClCompile Include="Source\Graphics\OpenGLRenderer.cpp" />
+    <ClCompile Include="Source\Graphics\OpenGL\OpenGLWindowModule.cpp" />
     <ClCompile Include="Source\Graphics\RendererFactory.cpp" />
-    <ClCompile Include="Source\Graphics\SDLWindow.cpp" />
     <ClCompile Include="Source\Graphics\Shader.cpp" />
     <ClCompile Include="Source\Graphics\ShaderProgram.cpp" />
     <ClCompile Include="Source\Graphics\Sprite.cpp" />
     <ClCompile Include="Source\Graphics\Texture.cpp" />
-    <ClCompile Include="Source\Graphics\WindowFactory.cpp" />
+    <ClCompile Include="Source\ModuleFactory.cpp" />
     <ClCompile Include="Source\PCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
@@ -142,6 +142,7 @@
     <ClCompile Include="Source\UI\Widgets\TextView.cpp" />
     <ClCompile Include="Source\UI\Widgets\Widget.cpp" />
     <ClCompile Include="Source\Utility\Debug.cpp" />
+    <ClCompile Include="Source\Utility\GrimTimeModule.cpp" />
     <ClCompile Include="Source\Utility\Logger.cpp" />
     <ClCompile Include="Source\Utility\PoissonDiskGenerator.cpp" />
     <ClCompile Include="Source\Utility\Random.cpp" />
@@ -156,21 +157,22 @@
     <ClInclude Include="Source\Graphics\IRenderer.hpp" />
     <ClInclude Include="Source\Graphics\Material.hpp" />
     <ClInclude Include="Source\Graphics\Mesh.hpp" />
+    <ClInclude Include="Source\Graphics\OpenGL\OpenGLWindowModule.hpp" />
     <ClInclude Include="Source\Graphics\PrimitiveType.hpp" />
     <ClInclude Include="Source\Graphics\Rect.hpp" />
     <ClInclude Include="Source\Graphics\OpenGLRenderer.hpp" />
     <ClInclude Include="Source\Graphics\RenderCommand.hpp" />
     <ClInclude Include="Source\Graphics\RendererFactory.hpp" />
-    <ClInclude Include="Source\Graphics\SDLWindow.hpp" />
     <ClInclude Include="Source\Graphics\Shader.hpp" />
     <ClInclude Include="Source\Graphics\ShaderProgram.hpp" />
     <ClInclude Include="Source\Graphics\Sprite.hpp" />
     <ClInclude Include="Source\Graphics\Texture.hpp" />
     <ClInclude Include="Source\Graphics\Transform.hpp" />
     <ClInclude Include="Source\Graphics\Vertex.hpp" />
-    <ClInclude Include="Source\Graphics\IWindow.hpp" />
-    <ClInclude Include="Source\Graphics\WindowFactory.hpp" />
+    <ClInclude Include="Source\Graphics\IWindowModule.hpp" />
     <ClInclude Include="Source\IGame.hpp" />
+    <ClInclude Include="Source\IModule.hpp" />
+    <ClInclude Include="Source\ModuleFactory.hpp" />
     <ClInclude Include="Source\PCH.hpp" />
     <ClInclude Include="Source\GrimWorkshop.hpp" />
     <ClInclude Include="Source\Audio\IAudio.hpp" />
@@ -185,6 +187,8 @@
     <ClInclude Include="Source\UI\Widgets\TextView.hpp" />
     <ClInclude Include="Source\UI\Widgets\Widget.hpp" />
     <ClInclude Include="Source\Utility\Debug.hpp" />
+    <ClInclude Include="Source\Utility\GrimTimeModule.hpp" />
+    <ClInclude Include="Source\Utility\ITimeModule.hpp" />
     <ClInclude Include="Source\Utility\Logger.hpp" />
     <ClInclude Include="Source\Utility\PoissonDiskGenerator.hpp" />
     <ClInclude Include="Source\Utility\Random.hpp" />

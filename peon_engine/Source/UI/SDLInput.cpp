@@ -91,7 +91,7 @@ void SDLInput::Update()
         {
             if (m_quitCallback != nullptr)
             {
-                m_quitCallback();
+                //m_quitCallback();
             }
         }
     }

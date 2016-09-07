@@ -13,12 +13,14 @@ namespace grim
 {
 
 Engine::Engine(IGame* const game) :
-    m_game(game),
     m_isRunning(false),
+    m_game(game),
+    m_deltaTimeSeconds(0.0),
     m_frameCount(0),
     m_frameRate(0),
     m_gameStartTime(0),
-    m_window(nullptr),
+    m_timeModule(nullptr),
+    m_windowModule(nullptr),
     m_renderer(nullptr),
     m_input(nullptr),
     m_ui(nullptr),
@@ -29,11 +31,6 @@ Engine::Engine(IGame* const game) :
 
 Engine::~Engine()
 {
-    m_audio->Terminate();
-    m_input->Terminate();
-    m_ui->Terminate();
-    m_renderer->Terminate();
-    m_window->Terminate();
 }
 
 bool Engine::Initialize()
@@ -44,7 +41,6 @@ bool Engine::Initialize()
         Create and Initialize Modules
     */
 
-    /*
     m_timeModule = ModuleFactory::CreateTimeModule();
     if (!m_timeModule->Initialize())
     {
@@ -53,6 +49,7 @@ bool Engine::Initialize()
         return false;
     }
 
+    /*
     m_fileModule = ModuleFactory::CreateFileModule();
     if (!m_fileModule->Initialize())
     {
@@ -62,7 +59,6 @@ bool Engine::Initialize()
     }
     */
 
-    /*
     m_windowModule = ModuleFactory::CreateWindowModule(this);
     if (!m_windowModule->Initialize())
     {
@@ -70,7 +66,6 @@ bool Engine::Initialize()
         LOG_ERROR() << "Window Module failed to initialize!";
         return false;
     }
-    */
 
     /*
     m_rendererModule = ModuleFactory::CreateRendererModule();
@@ -92,8 +87,8 @@ bool Engine::Initialize()
 
     // LEGACY
 
-    m_window = grim::graphics::CreateWindowService(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, IS_WINDOW_FULLSCREEN, IS_WINDOW_OPENGL);
-    if (!m_window->Initialize()) { return false; }
+    //m_window = grim::graphics::CreateWindowService(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, IS_WINDOW_FULLSCREEN, IS_WINDOW_OPENGL);
+    //if (!m_window->Initialize()) { return false; }
 
     m_renderer = grim::graphics::CreateRendererService();
     if (!m_renderer->Initialize()) { return false; }
@@ -114,7 +109,25 @@ bool Engine::Initialize()
 
 void Engine::Terminate()
 {
-    m_isRunning = false;
+    LOG() << "Engine terminating...";
+
+    /*
+        Terminate modules
+    */
+
+    // LEGACY
+    m_audio->Terminate();
+    m_input->Terminate();
+    m_ui->Terminate();
+    m_renderer->Terminate();
+
+    if (m_timeModule != nullptr) { m_timeModule->Terminate(); }
+    //if (m_fileModule != nullptr) { m_fileModule->Terminate(); }
+    //if (m_assetModule != nullptr) { m_assetModule->Terminate(); }
+    if (m_windowModule != nullptr) { m_windowModule->Terminate(); }
+    //if (m_rendererModule != nullptr) { m_rendererModule->Terminate(); }
+
+    LOG() << "Engine terminated.";
 }
 
 void Engine::Run()
@@ -122,22 +135,22 @@ void Engine::Run()
     m_isRunning = true;
     m_gameStartTime = SDL_GetTicks();
 
-    uint32_t frameStartTime = 0;
-    uint32_t frameEndTime = 0;
+    /*
+        Engine loop
+    */
+
+    double frameStartTimeSeconds = 0.0;
+    double frameEndTimeSeconds = 0.0;
+
     while (m_isRunning)
     {
-        frameStartTime = SDL_GetTicks();
-        float deltaTime = (frameStartTime - frameEndTime) / 1000.0f;
-        frameEndTime = frameStartTime;
+        m_deltaTimeSeconds = frameEndTimeSeconds - frameStartTimeSeconds;
+        frameStartTimeSeconds = m_timeModule->GetTimeSeconds();
 
-        m_input->Update();
         Update();
         Render();
-        m_renderer->Render();
-        m_window->SwapWindow();
 
-        m_frameCount++;
-        m_frameRate = static_cast<uint16_t>(std::round(((float)m_frameCount / (SDL_GetTicks() - m_gameStartTime)) * 1000.0f));
+        frameEndTimeSeconds = m_timeModule->GetTimeSeconds();
     }
 }
 
@@ -148,22 +161,21 @@ void Engine::Stop()
 
 void Engine::Update()
 {
+    m_windowModule->HandleWindowEvents();
     m_game->Update();
 }
 
 void Engine::Render()
 {
+    m_renderer->Clear();
     m_game->Render();
+    m_renderer->Render();
+    m_windowModule->Display();
 }
 
 void Engine::SetTimeScale(float scale)
 {
     m_timeScale = scale;
-}
-
-grim::graphics::IWindow* Engine::GetWindow()
-{
-    return m_window.get();
 }
 
 grim::graphics::IRenderer* Engine::GetRenderer()
@@ -189,6 +201,11 @@ grim::ui::IUserInterface* Engine::GetUI()
 uint32_t Engine::GetTime()
 {
     return (SDL_GetTicks() - m_gameStartTime) * m_timeScale;
+}
+
+graphics::IWindowModule* Engine::GetWindowModule()
+{
+    return m_windowModule.get();
 }
 
 }

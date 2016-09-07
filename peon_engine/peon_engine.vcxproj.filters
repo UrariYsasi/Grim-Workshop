@@ -20,6 +20,9 @@
     <Filter Include="Source\Audio">
       <UniqueIdentifier>{024aa736-29a4-4fba-966d-6951b455474f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Graphics\OpenGL">
+      <UniqueIdentifier>{03c82c63-aa88-4cfa-a486-c6a3525f30bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\PCH.cpp">
@@ -64,12 +67,6 @@
     <ClCompile Include="Source\Graphics\RendererFactory.cpp">
       <Filter>Source\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Graphics\WindowFactory.cpp">
-      <Filter>Source\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Graphics\SDLWindow.cpp">
-      <Filter>Source\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="Source\UI\SDLInput.cpp">
       <Filter>Source\UI</Filter>
     </ClCompile>
@@ -101,6 +98,15 @@
       <Filter>Source\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Source\Utility\Logger.cpp">
+      <Filter>Source\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\OpenGL\OpenGLWindowModule.cpp">
+      <Filter>Source\Graphics\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ModuleFactory.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utility\GrimTimeModule.cpp">
       <Filter>Source\Utility</Filter>
     </ClCompile>
   </ItemGroup>
@@ -171,15 +177,6 @@
     <ClInclude Include="Source\Graphics\IRenderer.hpp">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Graphics\IWindow.hpp">
-      <Filter>Source\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Graphics\WindowFactory.hpp">
-      <Filter>Source\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Graphics\SDLWindow.hpp">
-      <Filter>Source\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="Source\UI\SDLInput.hpp">
       <Filter>Source\UI</Filter>
     </ClInclude>
@@ -226,6 +223,24 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\Utility\Logger.hpp">
+      <Filter>Source\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\OpenGL\OpenGLWindowModule.hpp">
+      <Filter>Source\Graphics\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\IWindowModule.hpp">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\IModule.hpp">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ModuleFactory.hpp">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utility\ITimeModule.hpp">
+      <Filter>Source\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utility\GrimTimeModule.hpp">
       <Filter>Source\Utility</Filter>
     </ClInclude>
   </ItemGroup>

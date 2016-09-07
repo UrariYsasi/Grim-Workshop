@@ -45,16 +45,18 @@ public:
     void Render();
 
     void SetTimeScale(float scale);
-    grim::graphics::IWindow* GetWindow();
     grim::graphics::IRenderer* GetRenderer();
     grim::audio::IAudio* GetAudio();
     grim::ui::IInput* GetInput();
     grim::ui::IUserInterface* GetUI();
     uint32_t GetTime();
 
+    graphics::IWindowModule* GetWindowModule();
+
 private:
     bool m_isRunning;
     IGame* m_game;
+    double m_deltaTimeSeconds;
 
 public:
     uint32_t m_frameCount;
@@ -68,11 +70,13 @@ private:
         Modules
     */
 
-    std::unique_ptr<grim::graphics::IWindow> m_window;
-    std::unique_ptr<grim::graphics::IRenderer> m_renderer;
-    std::unique_ptr<grim::audio::IAudio> m_audio;
-    std::unique_ptr<grim::ui::IInput> m_input;
-    std::unique_ptr<grim::ui::IUserInterface> m_ui;
+    std::unique_ptr<utility::ITimeModule> m_timeModule;
+    std::unique_ptr<graphics::IWindowModule> m_windowModule;
+
+    std::unique_ptr<graphics::IRenderer> m_renderer;
+    std::unique_ptr<audio::IAudio> m_audio;
+    std::unique_ptr<ui::IInput> m_input;
+    std::unique_ptr<ui::IUserInterface> m_ui;
 };
 
 }

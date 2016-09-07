@@ -11,11 +11,14 @@
 
 #pragma once
 
-#define LOG() grim::Logger().Get(grim::LogLevel::Info)
-#define LOG_WARNING() grim::Logger().Get(grim::LogLevel::Warning)
-#define LOG_ERROR() grim::Logger().Get(grim::LogLevel::Error)
+#define LOG() grim::utility::Logger().Get(grim::utility::LogLevel::Info)
+#define LOG_WARNING() grim::utility::Logger().Get(grim::utility::LogLevel::Warning)
+#define LOG_ERROR() grim::utility::Logger().Get(grim::utility::LogLevel::Error)
 
 namespace grim
+{
+
+namespace utility
 {
 
 enum class LogLevel { Info, Warning, Error };
@@ -39,5 +42,7 @@ private:
 private:
     std::ostringstream logStream;
 };
+
+}
 
 }

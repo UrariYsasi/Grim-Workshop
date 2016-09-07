@@ -33,23 +33,6 @@ Game::Game() :
 
 Game::~Game()
 {
-    // TODO move this SDL stuff to the Engine
-    Mix_FreeMusic(m_bgMusic);
-
-    for (auto fontIt = m_fontMap.begin(); fontIt != m_fontMap.end(); fontIt++)
-    {
-        TTF_CloseFont(fontIt->second);
-    }
-
-    m_fontMap.clear();
-    m_textureMap.clear();
-    m_shaderMap.clear();
-    m_shaderProgramMap.clear();
-
-    m_player.reset();
-    m_map.reset();
-    m_uiCamera.reset();
-    m_mainCamera.reset();
 }
 
 grim::graphics::Camera* Game::GetMainCamera()
@@ -281,6 +264,25 @@ void Game::Run()
 
 void Game::Terminate()
 {
+    // TODO move this SDL stuff to the Engine
+    // THIS IS ALL LEGACY AHHHHH
+    Mix_FreeMusic(m_bgMusic);
+
+    for (auto fontIt = m_fontMap.begin(); fontIt != m_fontMap.end(); fontIt++)
+    {
+        TTF_CloseFont(fontIt->second);
+    }
+
+    m_fontMap.clear();
+    m_textureMap.clear();
+    m_shaderMap.clear();
+    m_shaderProgramMap.clear();
+
+    m_player.reset();
+    m_map.reset();
+    m_uiCamera.reset();
+    m_mainCamera.reset();
+
     m_engine.Terminate();
 }
 
@@ -329,8 +331,6 @@ void Game::Update()
 
 void Game::Render()
 {
-    m_engine.GetRenderer()->Clear();
-
     m_map->Render();
     m_player->Render();
 

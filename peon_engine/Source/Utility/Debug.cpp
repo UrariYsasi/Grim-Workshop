@@ -7,7 +7,7 @@ namespace grim
 namespace utility
 {
 
-uint8_t Debug::m_flags = 0;
+uint8_t Debug::m_flags = MIX_AUDIO;
 
 /*
     Send some stuff to the debug log, if debugging is enabled.

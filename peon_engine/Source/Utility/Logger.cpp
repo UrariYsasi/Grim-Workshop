@@ -12,6 +12,9 @@
 namespace grim
 {
 
+namespace utility
+{
+
 Logger::Logger() :
     logStream()
 {
@@ -56,6 +59,8 @@ std::string Logger::LogLevelToString(LogLevel level)
     }
 
     return "Log";
+}
+
 }
 
 }
