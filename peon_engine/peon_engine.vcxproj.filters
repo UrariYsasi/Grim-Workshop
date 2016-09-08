@@ -23,6 +23,12 @@
     <Filter Include="Source\Graphics\OpenGL">
       <UniqueIdentifier>{03c82c63-aa88-4cfa-a486-c6a3525f30bb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Platform">
+      <UniqueIdentifier>{21e1ee31-9e84-4126-b14f-7606eb574243}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform\Windows">
+      <UniqueIdentifier>{9efd63a2-beec-470d-bee4-618360c346ab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\PCH.cpp">
@@ -108,6 +114,9 @@
     </ClCompile>
     <ClCompile Include="Source\Utility\GrimTimeModule.cpp">
       <Filter>Source\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Platform\Windows\WindowsFileModule.cpp">
+      <Filter>Source\Platform\Windows</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -242,6 +251,12 @@
     </ClInclude>
     <ClInclude Include="Source\Utility\GrimTimeModule.hpp">
       <Filter>Source\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Platform\IFileModule.hpp">
+      <Filter>Source\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Platform\Windows\WindowsFileModule.hpp">
+      <Filter>Source\Platform\Windows</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

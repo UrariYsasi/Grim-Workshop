@@ -47,7 +47,6 @@ bool Engine::Initialize()
         return false;
     }
 
-    /*
     m_fileModule = ModuleFactory::CreateFileModule();
     if (!m_fileModule->Initialize())
     {
@@ -55,7 +54,6 @@ bool Engine::Initialize()
         LOG_ERROR() << "File Module failed to initialize!";
         return false;
     }
-    */
 
     m_windowModule = ModuleFactory::CreateWindowModule(this);
     if (!m_windowModule->Initialize())
@@ -120,7 +118,7 @@ void Engine::Terminate()
     m_renderer->Terminate();
 
     if (m_timeModule != nullptr) { m_timeModule->Terminate(); }
-    //if (m_fileModule != nullptr) { m_fileModule->Terminate(); }
+    if (m_fileModule != nullptr) { m_fileModule->Terminate(); }
     //if (m_assetModule != nullptr) { m_assetModule->Terminate(); }
     if (m_windowModule != nullptr) { m_windowModule->Terminate(); }
     //if (m_rendererModule != nullptr) { m_rendererModule->Terminate(); }
@@ -198,6 +196,11 @@ graphics::IWindowModule* Engine::GetWindowModule()
 utility::ITimeModule* Engine::GetTimeModule()
 {
     return m_timeModule.get();
+}
+
+platform::IFileModule* Engine::GetFileModule()
+{
+    return m_fileModule.get();
 }
 
 }

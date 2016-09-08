@@ -43,6 +43,8 @@
 #include "UI/IUserInterface.hpp"
 #include "UI/GrimUI.hpp"
 #include "UI/UIFactory.hpp"
+#include "Platform/IFileModule.hpp"
+#include "Platform/Windows/WindowsFileModule.hpp"
 #include "ModuleFactory.hpp"
 #include "IGame.hpp"
 #include "Engine.hpp"

@@ -17,12 +17,12 @@ std::unique_ptr<utility::ITimeModule> ModuleFactory::CreateTimeModule()
     return std::make_unique<utility::GrimTimeModule>();
 }
 
-/*
-std::unique_ptr<IFileModule> ModuleFactory::CreateFileModule()
+std::unique_ptr<platform::IFileModule> ModuleFactory::CreateFileModule()
 {
-    return std::make_unique<WindowsFileModule>();
+    return std::make_unique<platform::WindowsFileModule>();
 }
 
+/*
 std::unique_ptr<IAssetModule> ModuleFactory::CreateAssetModule(Engine* const engine)
 {
     return std::make_unique<GrimAssetModule>(engine);

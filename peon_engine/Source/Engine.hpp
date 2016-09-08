@@ -51,6 +51,7 @@ public:
 
     graphics::IWindowModule* GetWindowModule();
     utility::ITimeModule* GetTimeModule();
+    platform::IFileModule* GetFileModule();
 
 private:
     bool m_isRunning;
@@ -69,7 +70,9 @@ private:
 
     std::unique_ptr<utility::ITimeModule> m_timeModule;
     std::unique_ptr<graphics::IWindowModule> m_windowModule;
+    std::unique_ptr<platform::IFileModule> m_fileModule;
 
+    // LEGACY
     std::unique_ptr<graphics::IRenderer> m_renderer;
     std::unique_ptr<audio::IAudio> m_audio;
     std::unique_ptr<ui::IInput> m_input;
