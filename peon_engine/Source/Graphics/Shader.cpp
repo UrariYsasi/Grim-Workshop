@@ -35,7 +35,7 @@ uint8_t Shader::Compile(const std::string& source)
     m_handle = glCreateShader(m_type);
     if (m_handle == 0)
     {
-        grim::utility::Debug::LogError("Shader created failed! OpenGL handle: %d", m_handle);
+        //grim::utility::Debug::LogError("Shader created failed! OpenGL handle: %d", m_handle);
         return FAILURE;
     }
 
@@ -61,7 +61,7 @@ uint8_t Shader::Compile(const std::string& source)
                            NULL,              // Returns the length of the info log. In our case, this is irrelevant.
                            buffer);           // Returns the info log
 
-        grim::utility::Debug::LogError("Shader compilation failed! OpenGL handle: %d \n %s", m_handle, buffer);
+        //grim::utility::Debug::LogError("Shader compilation failed! OpenGL handle: %d \n %s", m_handle, buffer);
         return FAILURE;
     }
 

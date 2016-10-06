@@ -48,7 +48,7 @@ bool Game::Initialize()
 
     if (!m_engine.Initialize())
     {
-        grim::utility::Debug::LogError("Engine initialization failed.");
+        LOG_ERROR() << "Engine initialization failed.";
         return false;
     }
 
@@ -56,7 +56,6 @@ bool Game::Initialize()
         Load Textures
     */
 
-    grim::utility::Debug::Log("Loading textures...");
     LoadTexture("Resources/Textures/peon.png", "peon");
     LoadTexture("Resources/Textures/item.png", "item");
     LoadTexture("Resources/Textures/orc.png", "orc");
@@ -80,7 +79,6 @@ bool Game::Initialize()
         Load Fonts
     */
 
-    grim::utility::Debug::Log("Loading fonts...");
     LoadFont("Resources/Fonts/dos.ttf", "dos");
     LoadFont("Resources/Fonts/hack.ttf", "hack");
     LoadFont("Resources/Fonts/black_family.ttf", "black_family", 22);
@@ -90,7 +88,6 @@ bool Game::Initialize()
         Load Sounds
     */
 
-    grim::utility::Debug::Log("Loading sounds...");
     m_engine.GetAudio()->LoadSound("Resources/Sounds/select_00.wav", "select_00");
     m_engine.GetAudio()->LoadSound("Resources/Sounds/select_01.wav", "select_01");
     m_engine.GetAudio()->LoadSound("Resources/Sounds/woodcutting_00.wav", "woodcutting_00");
@@ -117,26 +114,27 @@ bool Game::Initialize()
         Load Music
     */
 
-    grim::utility::Debug::Log("Loading music...");
-    if (grim::utility::Debug::IsFlagEnabled(grim::utility::MIX_AUDIO))
+    /*
+    //grim::utility::Debug::Log("Loading music...");
+    if (//grim::utility::Debug::IsFlagEnabled(grim::utility::MIX_AUDIO))
     {
         m_bgMusic = Mix_LoadMUS("Resources/Music/jand_bg.mp3");
         if (!m_bgMusic)
         {
-            grim::utility::Debug::LogError("Music could not be loaded. SDL_mixer error: %s", Mix_GetError());
+            //grim::utility::Debug::LogError("Music could not be loaded. SDL_mixer error: %s", Mix_GetError());
         }
 
         // Start music
         Mix_VolumeMusic(MIX_MAX_VOLUME / 4);
         //Mix_PlayMusic(m_bgMusic, -1);
     }
+    */
 
     /*
         Load Shaders
     */
 
     // TODO REFACTOR THIS
-    grim::utility::Debug::Log("Loading shaders...");
     LoadShader("Resources/Shaders/vertex.glsl", GL_VERTEX_SHADER, "vertex_textured");
     LoadShader("Resources/Shaders/fragment.glsl", GL_FRAGMENT_SHADER, "fragment_textured");
     CreateShaderProgram("vertex_textured", "fragment_textured", "basic_shader");
@@ -153,14 +151,12 @@ bool Game::Initialize()
         Create ShaderPrograms
     */
 
-    grim::utility::Debug::Log("Creating shader programs...");
     //CreateShaderProgram("vertex_textured", "fragment_textured", "basic_shader");
 
     /*
         Create Materials
     */
 
-    grim::utility::Debug::Log("Creating materials...");
     CreateMaterial("sprite_terrain", GetTexture("terrain"), GetShaderProgram("basic_shader"));
     CreateMaterial("sprite_resource", GetTexture("resource"), GetShaderProgram("basic_shader"));
     CreateMaterial("sprite_peon", GetTexture("peon"), GetShaderProgram("basic_shader"));
@@ -247,7 +243,8 @@ bool Game::LoadFont(const std::string& path, const std::string& id, const int& s
     TTF_Font* font = TTF_OpenFont(path.c_str(), size);
     if (font == nullptr)
     {
-        grim::utility::Debug::LogError("Failed to load font %s! SDL_ttf error: %s", path.c_str(), TTF_GetError());
+        LOG_ERROR() << "Failed to load font";
+        ////grim::utility::Debug::LogError("Failed to load font %s! SDL_ttf error: %s", path.c_str(), TTF_GetError());
     }
 
     m_fontMap[id] = font;
@@ -309,7 +306,7 @@ std::string Game::ReadFile(const std::string& path)
     std::ifstream input(path);
     if (!input.is_open())
     {
-        grim::utility::Debug::LogError("Failed to open file %s", path);
+        LOG_ERROR() << "Failed to open file";
         return "*FAILURE*";
     }
 

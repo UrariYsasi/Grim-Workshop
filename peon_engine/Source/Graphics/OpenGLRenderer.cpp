@@ -121,13 +121,13 @@ bool OpenGLRenderer::Initialize()
     // Initialize GL3W
     if (gl3wInit())
     {
-        grim::utility::Debug::LogError("GL3W failed to initialize!");
+        //grim::utility::Debug::LogError("GL3W failed to initialize!");
         return false;
     }
 
     if (!gl3wIsSupported(3, 2))
     {
-        grim::utility::Debug::LogError("OpenGL 3.2 not supported!");
+        //grim::utility::Debug::LogError("OpenGL 3.2 not supported!");
         return false;
     }
 
@@ -135,7 +135,7 @@ bool OpenGLRenderer::Initialize()
     glGetIntegerv(GL_CONTEXT_FLAGS, &flags);
 
     if (flags & GL_CONTEXT_FLAG_DEBUG_BIT) {
-        grim::utility::Debug::Log("Debug output available.");
+        //grim::utility::Debug::Log("Debug output available.");
     }
 
     // Enable alpha blending
@@ -164,9 +164,9 @@ bool OpenGLRenderer::Initialize()
 
     glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE);
 
-    grim::utility::Debug::LogError("Renderer module OpenGLRenderer initialized.");
-    grim::utility::Debug::Log("    - OpenGL version %s", glGetString(GL_VERSION));
-    grim::utility::Debug::Log("    - GLSL version %s", glGetString(GL_SHADING_LANGUAGE_VERSION));
+    //grim::utility::Debug::LogError("Renderer module OpenGLRenderer initialized.");
+    //grim::utility::Debug::Log("    - OpenGL version %s", glGetString(GL_VERSION));
+    //grim::utility::Debug::Log("    - GLSL version %s", glGetString(GL_SHADING_LANGUAGE_VERSION));
     return true;
 }
 
@@ -181,7 +181,7 @@ void OpenGLRenderer::Terminate()
     // Delete VAO
     glDeleteVertexArrays(1, &m_VAOHandle);
 
-    grim::utility::Debug::LogError("Renderer module OpenGLRenderer terminated.");
+    //grim::utility::Debug::LogError("Renderer module OpenGLRenderer terminated.");
 }
 
 void OpenGLRenderer::Clear()
@@ -209,7 +209,7 @@ void OpenGLRenderer::Render()
     RenderBatch();
     ClearBatch();
 
-    //grim::utility::Debug::Log("Processed %d commands in %d render batches", m_renderCommandCount, m_renderBatchCount);
+    ////grim::utility::Debug::Log("Processed %d commands in %d render batches", m_renderCommandCount, m_renderBatchCount);
     m_renderCommandCount = 0;
     m_renderBatchCount = 0;
 }

@@ -119,7 +119,9 @@
   <ItemGroup>
     <ClCompile Include="Source\Audio\AudioFactory.cpp" />
     <ClCompile Include="Source\Audio\SDLAudio.cpp" />
-    <ClCompile Include="Source\Engine.cpp" />
+    <ClCompile Include="Source\Engine.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="Source\Graphics\Camera.cpp" />
     <ClCompile Include="Source\Graphics\Mesh.cpp" />
     <ClCompile Include="Source\Graphics\OpenGLRenderer.cpp" />
@@ -130,12 +132,8 @@
     <ClCompile Include="Source\Graphics\Sprite.cpp" />
     <ClCompile Include="Source\Graphics\Texture.cpp" />
     <ClCompile Include="Source\ModuleFactory.cpp" />
-    <ClCompile Include="Source\PCH.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="Source\Platform\Windows\WindowsFileModule.cpp" />
     <ClCompile Include="Source\UI\GrimInputModule.cpp" />
-    <ClCompile Include="Source\Utility\Debug.cpp" />
     <ClCompile Include="Source\Utility\GrimTimeModule.cpp" />
     <ClCompile Include="Source\Utility\Logger.cpp" />
     <ClCompile Include="Source\Utility\PoissonDiskGenerator.cpp" />
@@ -175,7 +173,6 @@
     <ClInclude Include="Source\UI\IInputModule.hpp" />
     <ClInclude Include="Source\UI\GrimInputModule.hpp" />
     <ClInclude Include="Source\UI\InputConstants.hpp" />
-    <ClInclude Include="Source\Utility\Debug.hpp" />
     <ClInclude Include="Source\Utility\GrimTimeModule.hpp" />
     <ClInclude Include="Source\Utility\ITimeModule.hpp" />
     <ClInclude Include="Source\Utility\Logger.hpp" />

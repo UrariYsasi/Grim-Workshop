@@ -91,9 +91,6 @@ bool Engine::Initialize()
 
     // LEGACY
 
-    //m_window = grim::graphics::CreateWindowService(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, IS_WINDOW_FULLSCREEN, IS_WINDOW_OPENGL);
-    //if (!m_window->Initialize()) { return false; }
-
     m_renderer = grim::graphics::CreateRendererService();
     if (!m_renderer->Initialize()) { return false; }
 

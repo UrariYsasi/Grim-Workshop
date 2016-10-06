@@ -66,7 +66,7 @@ void AttackAction::AttemptAttack()
     }
     else
     {
-        grim::utility::Debug::Log("Miss!");
+        ////grim::utility::Debug::Log("Miss!");
     }
 }
 

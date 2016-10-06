@@ -93,12 +93,12 @@ void World::ProcessTime()
 
 void World::Generate()
 {
-    grim::utility::Debug::Log("Generating world...");
+    //grim::utility::Debug::Log("Generating world...");
 
     // Explore initial Region
     ExploreRegion(glm::ivec2(0, 0));
 
-    grim::utility::Debug::Log("World generation complete.");
+    //grim::utility::Debug::Log("World generation complete.");
 }
 
 Region* World::CreateRegion(const glm::ivec2& coordinates)
@@ -145,7 +145,7 @@ void World::ExploreRegion(const glm::ivec2& coordinates)
     CreateRegion(coordinates + glm::ivec2(0, 1));   // Bottom center
     CreateRegion(coordinates + glm::ivec2(1, 1));   // Bottom right
 
-    grim::utility::Debug::Log("Explored Region at (%d, %d).", coordinates.x, coordinates.y);
+    //grim::utility::Debug::Log("Explored Region at (%d, %d).", coordinates.x, coordinates.y);
 }
 
 glm::ivec2 World::ConvertToRegionCoordinates(const glm::vec3& position)

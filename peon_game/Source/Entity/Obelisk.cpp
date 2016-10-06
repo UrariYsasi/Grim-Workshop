@@ -18,7 +18,7 @@ void Obelisk::Update(float deltaTime)
 {
     if (IsDead())
     {
-        grim::utility::Debug::Log("Obelisk is dead. Game over.");
+        //grim::utility::Debug::Log("Obelisk is dead. Game over.");
     }
 }
 

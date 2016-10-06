@@ -27,7 +27,6 @@
 #include "Graphics/IRenderer.hpp"
 #include "Graphics/OpenGLRenderer.hpp"
 #include "Graphics/RendererFactory.hpp"
-#include "Utility/Debug.hpp"
 #include "Utility/PoissonDiskGenerator.hpp"
 #include "Utility/Random.hpp"
 #include "Utility/Timer.hpp"

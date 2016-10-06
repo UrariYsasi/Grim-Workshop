@@ -19,13 +19,13 @@ bool SDLAudio::Initialize()
 {
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) != SUCCESS)
     {
-        grim::utility::Debug::LogError("SDLAudio failed to initialize! SDL_mixer error: %s", Mix_GetError());
+        //grim::utility::Debug::LogError("SDLAudio failed to initialize! SDL_mixer error: %s", Mix_GetError());
         return false;
     }
 
     Mix_Volume(-1, MIX_MAX_VOLUME / 3.0f);
 
-    grim::utility::Debug::LogError("Audio module SDLAudio initialized.");
+    //grim::utility::Debug::LogError("Audio module SDLAudio initialized.");
     return true;
 }
 
@@ -39,7 +39,7 @@ void SDLAudio::Terminate()
     Mix_CloseAudio();
     Mix_Quit();
 
-    grim::utility::Debug::LogError("Audio module SDLAudio terminated.");
+    //grim::utility::Debug::LogError("Audio module SDLAudio terminated.");
 }
 
 bool SDLAudio::LoadSound(const std::string& path, const std::string& id)
@@ -47,7 +47,7 @@ bool SDLAudio::LoadSound(const std::string& path, const std::string& id)
     Mix_Chunk* mixChunk = Mix_LoadWAV(path.c_str());
     if (mixChunk == nullptr)
     {
-        grim::utility::Debug::LogError("SDLAudio failed to load WAV from %s! SDL_mixer error: %s", path.c_str(), Mix_GetError());
+        //grim::utility::Debug::LogError("SDLAudio failed to load WAV from %s! SDL_mixer error: %s", path.c_str(), Mix_GetError());
         return false;
     }
 
@@ -61,7 +61,7 @@ bool SDLAudio::PlaySound(const std::string& id)
     Mix_Chunk* mixChunk = (m_soundDatabase.find(id))->second;
     if (mixChunk == nullptr)
     {
-        grim::utility::Debug::LogError("SDLAudio failed to play sound %s! The sound does not exist!", id.c_str());
+        //grim::utility::Debug::LogError("SDLAudio failed to play sound %s! The sound does not exist!", id.c_str());
         return false;
     }
 
