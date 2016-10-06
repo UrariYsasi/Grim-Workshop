@@ -22,12 +22,7 @@
 
 Game::Game() :
     m_engine(this),
-    m_bgMusic(nullptr),
-    m_frameRateWidget(nullptr),
-    m_peonCountWidget(nullptr),
-    m_woodCountWidget(nullptr),
-    m_faithCountWidget(nullptr),
-    m_basicPeonLabel(nullptr)
+    m_bgMusic(nullptr)
 {
 }
 
@@ -188,71 +183,14 @@ bool Game::Initialize()
 
     // Setup the game
     m_mainCamera = std::make_unique<grim::graphics::Camera>(&m_engine, WINDOW_WIDTH, WINDOW_HEIGHT, -1.0f, 1.0f);
-    m_uiCamera = std::make_unique<grim::graphics::Camera>(&m_engine, WINDOW_WIDTH, WINDOW_HEIGHT, -1.0f, 1.0f);
     m_map = std::make_unique<World>(this);
     m_player = std::make_unique<Player>(this);
 
     m_mainCamera->SetCenter(m_map->GetCenter());
 
     m_engine.GetRenderer()->SetLayerCamera(0, m_mainCamera.get());
-    m_engine.GetRenderer()->SetLayerCamera(1, m_uiCamera.get());
 
     m_map->Generate();
-
-    grim::graphics::Material textMaterial(nullptr, GetShaderProgram("basic_shader"));
-
-    m_frameRateWidget = new grim::ui::TextView(&m_engine, "FPS: 55", GetFont("hack"), textMaterial);
-    m_frameRateWidget->SetPosition(glm::vec2(5.0f, 5.0f));
-    m_engine.GetUI()->RegisterWidget(m_frameRateWidget);
-
-    m_headerSprite = std::make_unique<grim::graphics::Sprite>(GetMaterial("sprite_ui_header"));
-    m_header = new grim::ui::SpriteView(&m_engine, m_headerSprite.get());
-    m_header->SetPosition(glm::vec2(WINDOW_WIDTH / 2.0f, 40.0f));
-    m_header->SetScale(glm::vec2(1.3f, 1.3f));
-    m_header->SetZLayer(0.8f);
-    m_engine.GetUI()->RegisterWidget(m_header);
-
-    m_dateWidget = new grim::ui::TextView(&m_engine, " ", GetFont("hack"), textMaterial);
-    m_dateWidget->SetPosition(glm::vec2((WINDOW_WIDTH / 2.0f) - 85.0f, 5.0f));
-    m_engine.GetUI()->RegisterWidget(m_dateWidget);
-
-    m_peonCountWidget = new grim::ui::TextView(&m_engine, " ", GetFont("hack"), textMaterial);
-    m_peonCountWidget->SetPosition(glm::vec2(5.0f, 5.0f + 20.0f));
-    m_engine.GetUI()->RegisterWidget(m_peonCountWidget);
-
-    m_woodCountWidget = new grim::ui::TextView(&m_engine, " ", GetFont("hack"), textMaterial);
-    m_woodCountWidget->SetPosition(glm::vec2(5.0f, 5.0f + 40.0f));
-    m_engine.GetUI()->RegisterWidget(m_woodCountWidget);
-
-    m_faithCountWidget = new grim::ui::TextView(&m_engine, " ", GetFont("hack"), textMaterial);
-    m_faithCountWidget->SetPosition(glm::vec2(5.0f, 5.0f + 60.0f));
-    m_engine.GetUI()->RegisterWidget(m_faithCountWidget);
-
-    m_spellBookSprite = std::make_unique<grim::graphics::Sprite>(GetMaterial("sprite_ui_spellbook"));
-    m_spellbook = new grim::ui::SpriteView(&m_engine, m_spellBookSprite.get());
-    m_spellbook->SetPosition(glm::vec2(WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f + 260.0f));
-    m_spellbook->SetScale(glm::vec2(1.5f, 1.5f));
-    m_spellbook->SetVisible(false);
-    m_spellbook->SetZLayer(0.8f);
-    m_engine.GetUI()->RegisterWidget(m_spellbook);
-
-    m_basicPeonLabel = new grim::ui::TextView(&m_engine, "Peon", GetFont("black_family"), textMaterial);
-    m_basicPeonLabel->SetPosition(glm::vec2(-240.0f, -140.0f));
-    m_spellbook->RegisterWidget(m_basicPeonLabel);
-
-    m_buttonSprite = std::make_unique<grim::graphics::Sprite>(GetMaterial("sprite_terrain"));
-
-    m_peonButton = new grim::ui::ButtonView(&m_engine, GetEntitySprite(EntityID::PEON));
-    m_peonButton->SetPosition(glm::vec2(-220.0f, -110.0f));
-    m_peonButton->SetScale(glm::vec2(1.5f, 1.5f));
-    m_peonButton->SetZLayer(0.9f);
-    m_spellbook->RegisterWidget(m_peonButton);
-
-    m_peonButton->SetOnClick([this]()
-    {
-        GetPlayer()->GetPlacement()->SetHeldEntity(EntityID::PEON);
-        m_engine.GetAudio()->PlaySound("select_00");
-    });
 
     return true;
 }
@@ -280,7 +218,6 @@ void Game::Terminate()
 
     m_player.reset();
     m_map.reset();
-    m_uiCamera.reset();
     m_mainCamera.reset();
 
     m_engine.Terminate();
@@ -288,60 +225,14 @@ void Game::Terminate()
 
 void Game::Update()
 {
-    /*
-        Update Modules
-    */
-
-    m_engine.GetUI()->Update(0.016f);
-
-    glm::vec2 mousePos = m_mainCamera->ConvertToWorld(m_engine.GetInput()->GetMousePosition());
-
-    if (m_engine.GetInput()->GetKeyPress(SDLK_ESCAPE))
-    {
-        Terminate();
-    }
-
-    if (m_engine.GetInput()->GetKeyPress(SDLK_m))
-    {
-        Mix_PlayMusic(m_bgMusic, -1);
-    }
-
-    if (m_engine.GetInput()->GetKeyPress(SDLK_q))
-    {
-        m_spellbook->SetVisible(true);
-        m_basicPeonLabel->SetVisible(true);
-        m_engine.GetAudio()->PlaySound("book_open_00");
-    }
-    else if (m_engine.GetInput()->GetKeyRelease(SDLK_q))
-    {
-        m_spellbook->SetVisible(false);
-        m_basicPeonLabel->SetVisible(false);
-        m_engine.GetAudio()->PlaySound("book_close_00");
-    }
-
     m_map->Update(0.016f);
     m_player->Update(0.016f);
-
-    m_frameRateWidget->SetText("FPS: " + std::to_string(m_engine.m_frameRate));
-    m_dateWidget->SetText(std::to_string(m_map->GetDay()) + " " + m_map->GetMonth() + ", Year " + std::to_string(m_map->GetYear()));
-    m_peonCountWidget->SetText("Peons: " + std::to_string(m_player->GetPeonCount()));
-    m_woodCountWidget->SetText("Wood: " + std::to_string(m_player->GetInventory()->CountItem(ItemType::WOOD)));
-    m_woodCountWidget->SetText("Faith: " + std::to_string(m_player->GetFaith()));
 }
 
 void Game::Render()
 {
     m_map->Render();
     m_player->Render();
-
-    /*
-        Render Services
-    */
-
-    if (!m_engine.GetInput()->GetKey(SDLK_SPACE))
-    {
-        m_engine.GetUI()->Render();
-    }
 }
 
 bool Game::LoadTexture(const std::string& path, const std::string& ID, const bool& isOpaque, const GLenum& wrapMode, const GLenum& scaleMode)

@@ -40,7 +40,8 @@ void PlacementModule::Update(float deltaTime)
         m_world = m_owner->GetWorld();
     }
 
-    if (m_input->GetKeyPress(SDLK_1))
+    /*
+    if (m_input->IsKeyPressed(SDLK_1))
     {
         m_isPlacing = !m_isPlacing;
         m_heldEntityID = EntityID::MONSTER_SPIDER_QUEEN;
@@ -48,15 +49,13 @@ void PlacementModule::Update(float deltaTime)
         m_game->GetEngine()->GetAudio()->PlaySound("select_00");
     }
 
-    /*
-    if (m_input->GetKeyPress(SDLK_2))
+    if (m_input->IsKeyPressed(SDLK_2))
     {
         m_isPlacing = !m_isPlacing;
         m_heldEntityID = ENT_BEAM_EFFECT;
         m_heldEntitySprite = m_game->GetEntitySprite(m_heldEntityID);
         m_game->GetAudio()->PlaySound("select_00");
     }
-    */
 
     if (m_isPlacing)
     {
@@ -81,6 +80,7 @@ void PlacementModule::Update(float deltaTime)
             m_isPlacing = false;
         }
     }
+    */
 }
 
 void PlacementModule::Render()
@@ -89,7 +89,7 @@ void PlacementModule::Render()
     {
         if (m_heldEntityID != EntityID::NONE)
         {
-            glm::vec2 mousePosition = m_camera->ConvertToWorld(m_input->GetMousePosition());
+            //glm::vec2 mousePosition = m_camera->ConvertToWorld(m_input->GetMousePosition());
             //m_heldEntitySprite->color.a = 0.5f;
 
             //m_spriteBatch.Begin();

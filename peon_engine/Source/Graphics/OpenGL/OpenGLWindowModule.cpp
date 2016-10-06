@@ -105,6 +105,8 @@ void OpenGLWindowModule::Terminate()
 
 void OpenGLWindowModule::HandleWindowEvents()
 {
+    ui::IInputModule* inputModule = m_engine->GetInputModule();
+
     SDL_Event event;
     while (SDL_PollEvent(&event) != 0)
     {
@@ -112,6 +114,23 @@ void OpenGLWindowModule::HandleWindowEvents()
         {
             m_engine->Stop();
         }
+        else if (event.type == SDL_KEYDOWN)
+        {
+            inputModule->RegisterKeyPress(static_cast<ui::KeyScancode>(event.key.keysym.scancode));
+        }
+        else if (event.type == SDL_KEYUP)
+        {
+            inputModule->RegisterKeyRelease(static_cast<ui::KeyScancode>(event.key.keysym.scancode));
+        }
+        else if (event.type == SDL_MOUSEBUTTONDOWN)
+        {
+            m_engine->GetInputModule()->RegisterMousePress(static_cast<ui::MouseButton>(event.button.button));
+        }
+        else if (event.type == SDL_MOUSEBUTTONUP)
+        {
+            m_engine->GetInputModule()->RegisterMouseRelease(static_cast<ui::MouseButton>(event.button.button));
+        }
+
     }
 }
 

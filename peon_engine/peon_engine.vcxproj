@@ -134,14 +134,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Source\Platform\Windows\WindowsFileModule.cpp" />
-    <ClCompile Include="Source\UI\GrimUI.cpp" />
-    <ClCompile Include="Source\UI\InputFactory.cpp" />
-    <ClCompile Include="Source\UI\SDLInput.cpp" />
-    <ClCompile Include="Source\UI\UIFactory.cpp" />
-    <ClCompile Include="Source\UI\Widgets\ButtonView.cpp" />
-    <ClCompile Include="Source\UI\Widgets\SpriteView.cpp" />
-    <ClCompile Include="Source\UI\Widgets\TextView.cpp" />
-    <ClCompile Include="Source\UI\Widgets\Widget.cpp" />
+    <ClCompile Include="Source\UI\GrimInputModule.cpp" />
     <ClCompile Include="Source\Utility\Debug.cpp" />
     <ClCompile Include="Source\Utility\GrimTimeModule.cpp" />
     <ClCompile Include="Source\Utility\Logger.cpp" />
@@ -179,16 +172,9 @@
     <ClInclude Include="Source\Audio\IAudio.hpp" />
     <ClInclude Include="Source\Platform\IFileModule.hpp" />
     <ClInclude Include="Source\Platform\Windows\WindowsFileModule.hpp" />
-    <ClInclude Include="Source\UI\GrimUI.hpp" />
-    <ClInclude Include="Source\UI\IInput.hpp" />
-    <ClInclude Include="Source\UI\InputFactory.hpp" />
-    <ClInclude Include="Source\UI\SDLInput.hpp" />
-    <ClInclude Include="Source\UI\UIFactory.hpp" />
-    <ClInclude Include="Source\UI\IUserInterface.hpp" />
-    <ClInclude Include="Source\UI\Widgets\ButtonView.hpp" />
-    <ClInclude Include="Source\UI\Widgets\SpriteView.hpp" />
-    <ClInclude Include="Source\UI\Widgets\TextView.hpp" />
-    <ClInclude Include="Source\UI\Widgets\Widget.hpp" />
+    <ClInclude Include="Source\UI\IInputModule.hpp" />
+    <ClInclude Include="Source\UI\GrimInputModule.hpp" />
+    <ClInclude Include="Source\UI\InputConstants.hpp" />
     <ClInclude Include="Source\Utility\Debug.hpp" />
     <ClInclude Include="Source\Utility\GrimTimeModule.hpp" />
     <ClInclude Include="Source\Utility\ITimeModule.hpp" />

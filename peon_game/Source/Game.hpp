@@ -71,7 +71,6 @@ private:
     grim::Engine m_engine;
 
     std::unique_ptr<grim::graphics::Camera> m_mainCamera;
-    std::unique_ptr<grim::graphics::Camera> m_uiCamera;
     std::unique_ptr<World> m_map;
     std::unique_ptr<Player> m_player;
 
@@ -95,25 +94,4 @@ private:
 
     // This is here TEMPORARILY for debug purposes
     Mix_Music* m_bgMusic;
-
-    /*
-        User Interface
-    */
-
-    grim::ui::TextView* m_frameRateWidget;
-    grim::ui::TextView* m_dateWidget;
-    grim::ui::TextView* m_peonCountWidget;
-    grim::ui::TextView* m_woodCountWidget;
-    grim::ui::TextView* m_faithCountWidget;
-
-    grim::ui::TextView* m_basicPeonLabel;
-
-    std::unique_ptr<grim::graphics::Sprite> m_headerSprite;
-    grim::ui::SpriteView* m_header;
-
-    std::unique_ptr<grim::graphics::Sprite> m_spellBookSprite;
-    grim::ui::SpriteView* m_spellbook;
-
-    std::unique_ptr<grim::graphics::Sprite> m_buttonSprite;
-    grim::ui::ButtonView* m_peonButton;
 };

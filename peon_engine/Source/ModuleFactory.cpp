@@ -29,6 +29,11 @@ std::unique_ptr<IAssetModule> ModuleFactory::CreateAssetModule(Engine* const eng
 }
 */
 
+std::unique_ptr<ui::IInputModule> ModuleFactory::CreateInputModule()
+{
+    return std::make_unique<ui::GrimInputModule>();
+}
+
 std::unique_ptr<graphics::IWindowModule> ModuleFactory::CreateWindowModule(Engine* const engine)
 {
     return std::make_unique<graphics::OpenGLWindowModule>(engine, WINDOW_TITLE, WINDOW_WIDTH, WINDOW_HEIGHT, IS_WINDOW_FULLSCREEN);

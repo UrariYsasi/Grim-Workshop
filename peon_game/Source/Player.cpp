@@ -26,7 +26,7 @@ Player::Player(Game* game) :
     m_faith(100),
     m_placementModule(this)
 {
-    m_gameInput = m_game->GetEngine()->GetInput();
+    m_gameInput = m_game->GetEngine()->GetInputModule();
     m_gameCamera = m_game->GetMainCamera();
     m_gameWorld = m_game->GetWorld();
 }
@@ -50,31 +50,32 @@ void Player::Update(float deltaTime)
 
     glm::vec2 cameraMovement(0);
 
-    if (m_gameInput->GetKey(SDLK_w) || m_gameInput->GetKey(SDLK_UP))
+    /*
+    if (m_gameInput->IsKeyHeld(SDLK_w) || m_gameInput->IsKeyHeld(SDLK_UP))
     {
         cameraMovement += glm::vec2(0.0f, -1.0f);
     }
 
-    if (m_gameInput->GetKey(SDLK_a) || m_gameInput->GetKey(SDLK_LEFT))
+    if (m_gameInput->IsKeyHeld(SDLK_a) || m_gameInput->IsKeyHeld(SDLK_LEFT))
     {
         cameraMovement += glm::vec2(-1.0f, 0.0f);
     }
 
-    if (m_gameInput->GetKey(SDLK_s) || m_gameInput->GetKey(SDLK_DOWN))
+    if (m_gameInput->IsKeyHeld(SDLK_s) || m_gameInput->IsKeyHeld(SDLK_DOWN))
     {
         cameraMovement += glm::vec2(0.0f, 1.0f);
     }
 
-    if (m_gameInput->GetKey(SDLK_d) || m_gameInput->GetKey(SDLK_RIGHT))
+    if (m_gameInput->IsKeyHeld(SDLK_d) || m_gameInput->IsKeyHeld(SDLK_RIGHT))
     {
         cameraMovement += glm::vec2(1.0f, 0.0f);
     }
 
-    if (m_gameInput->GetKey(SDLK_LSHIFT) || m_gameInput->GetKey(SDLK_RSHIFT))
+    if (m_gameInput->IsKeyHeld(SDLK_LSHIFT) || m_gameInput->IsKeyHeld(SDLK_RSHIFT))
     {
         m_cameraSpeed = CAMERA_SPEED_FAST;
     }
-    else if (m_gameInput->GetKey(SDLK_LCTRL))
+    else if (m_gameInput->IsKeyHeld(SDLK_LCTRL))
     {
         m_cameraSpeed = CAMERA_SPEED_SLOW;
     }
@@ -82,6 +83,7 @@ void Player::Update(float deltaTime)
     {
         m_cameraSpeed = CAMERA_SPEED_NORMAL;
     }
+    */
 
     cameraMovement *= m_cameraSpeed;
     cameraMovement *= deltaTime;
@@ -112,6 +114,7 @@ void Player::Update(float deltaTime)
     m_gameCamera->SetPosition(cameraPosition);
     */
 
+    /*
     glm::vec2 mousePositionScreen = m_gameInput->GetMousePosition();
     glm::vec2 mousePositionWorld = m_gameCamera->ConvertToWorld(mousePositionScreen);
 
@@ -173,6 +176,7 @@ void Player::Update(float deltaTime)
     {
         IssueCommand(mousePositionWorld);
     }
+    */
 
     /*
         Update Modules
@@ -221,7 +225,7 @@ Game* Player::GetGame()
     return m_game;
 }
 
-grim::ui::IInput* Player::GetInput()
+grim::ui::IInputModule* Player::GetInput()
 {
     return m_gameInput;
 }

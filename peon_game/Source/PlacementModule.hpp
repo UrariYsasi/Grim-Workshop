@@ -19,7 +19,7 @@ public:
 private:
     Player* m_owner;
     Game* m_game;
-    grim::ui::IInput* m_input;
+    grim::ui::IInputModule* m_input;
     grim::graphics::Camera* m_camera;
     World* m_world;
     

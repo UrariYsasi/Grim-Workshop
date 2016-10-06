@@ -44,14 +44,14 @@ public:
     void Update();
     void Render();
 
+    // LEGACY
     grim::graphics::IRenderer* GetRenderer();
     grim::audio::IAudio* GetAudio();
-    grim::ui::IInput* GetInput();
-    grim::ui::IUserInterface* GetUI();
 
-    graphics::IWindowModule* GetWindowModule();
     utility::ITimeModule* GetTimeModule();
     platform::IFileModule* GetFileModule();
+    ui::IInputModule* GetInputModule();
+    graphics::IWindowModule* GetWindowModule();
 
 private:
     bool m_isRunning;
@@ -69,14 +69,13 @@ private:
     */
 
     std::unique_ptr<utility::ITimeModule> m_timeModule;
-    std::unique_ptr<graphics::IWindowModule> m_windowModule;
     std::unique_ptr<platform::IFileModule> m_fileModule;
+    std::unique_ptr<ui::IInputModule> m_inputModule;
+    std::unique_ptr<graphics::IWindowModule> m_windowModule;
 
     // LEGACY
     std::unique_ptr<graphics::IRenderer> m_renderer;
     std::unique_ptr<audio::IAudio> m_audio;
-    std::unique_ptr<ui::IInput> m_input;
-    std::unique_ptr<ui::IUserInterface> m_ui;
 };
 
 }

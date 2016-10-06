@@ -14,9 +14,6 @@
     <Filter Include="Source\Utility">
       <UniqueIdentifier>{22615b03-6cc9-49b3-95d6-197393a428ca}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\UI\Widgets">
-      <UniqueIdentifier>{4c221cf9-72b3-4283-b49a-5ea79aed7983}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Audio">
       <UniqueIdentifier>{024aa736-29a4-4fba-966d-6951b455474f}</UniqueIdentifier>
     </Filter>
@@ -46,9 +43,6 @@
     <ClCompile Include="Source\Graphics\Texture.cpp">
       <Filter>Source\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Source\UI\Widgets\Widget.cpp">
-      <Filter>Source\UI\Widgets</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Utility\Random.cpp">
       <Filter>Source\Utility</Filter>
     </ClCompile>
@@ -73,29 +67,8 @@
     <ClCompile Include="Source\Graphics\RendererFactory.cpp">
       <Filter>Source\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Source\UI\SDLInput.cpp">
-      <Filter>Source\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\UI\InputFactory.cpp">
-      <Filter>Source\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\UI\UIFactory.cpp">
-      <Filter>Source\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\UI\GrimUI.cpp">
-      <Filter>Source\UI</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Graphics\OpenGLRenderer.cpp">
       <Filter>Source\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\UI\Widgets\SpriteView.cpp">
-      <Filter>Source\UI\Widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\UI\Widgets\TextView.cpp">
-      <Filter>Source\UI\Widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\UI\Widgets\ButtonView.cpp">
-      <Filter>Source\UI\Widgets</Filter>
     </ClCompile>
     <ClCompile Include="Source\Graphics\Mesh.cpp">
       <Filter>Source\Graphics</Filter>
@@ -117,6 +90,9 @@
     </ClCompile>
     <ClCompile Include="Source\Platform\Windows\WindowsFileModule.cpp">
       <Filter>Source\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UI\GrimInputModule.cpp">
+      <Filter>Source\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -153,9 +129,6 @@
     <ClInclude Include="Source\Graphics\Sprite.hpp">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Source\UI\Widgets\Widget.hpp">
-      <Filter>Source\UI\Widgets</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Utility\PoissonDiskGenerator.hpp">
       <Filter>Source\Utility</Filter>
     </ClInclude>
@@ -186,35 +159,8 @@
     <ClInclude Include="Source\Graphics\IRenderer.hpp">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Source\UI\SDLInput.hpp">
-      <Filter>Source\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\UI\InputFactory.hpp">
-      <Filter>Source\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\UI\IInput.hpp">
-      <Filter>Source\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\UI\UIFactory.hpp">
-      <Filter>Source\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\UI\GrimUI.hpp">
-      <Filter>Source\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\UI\IUserInterface.hpp">
-      <Filter>Source\UI</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Graphics\OpenGLRenderer.hpp">
       <Filter>Source\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\UI\Widgets\SpriteView.hpp">
-      <Filter>Source\UI\Widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\UI\Widgets\TextView.hpp">
-      <Filter>Source\UI\Widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\UI\Widgets\ButtonView.hpp">
-      <Filter>Source\UI\Widgets</Filter>
     </ClInclude>
     <ClInclude Include="Source\Graphics\Transform.hpp">
       <Filter>Source\Graphics</Filter>
@@ -257,6 +203,15 @@
     </ClInclude>
     <ClInclude Include="Source\Platform\Windows\WindowsFileModule.hpp">
       <Filter>Source\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UI\IInputModule.hpp">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UI\GrimInputModule.hpp">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UI\InputConstants.hpp">
+      <Filter>Source\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

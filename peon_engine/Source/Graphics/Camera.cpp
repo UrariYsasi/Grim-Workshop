@@ -62,16 +62,6 @@ float Camera::GetHeight() const
 
 void Camera::Activate()
 {
-    // For debug purposes only
-    if (m_engine->GetInput()->GetKey(SDLK_SPACE))
-    {
-        m_projectionMatrix = glm::ortho(-m_width, m_width * 2.0f, m_height * 2.0f, -m_height, m_zNear, m_zFar);
-    }
-    else
-    {
-        m_projectionMatrix = glm::ortho(0.0f, m_width, m_height, 0.0f, m_zNear, m_zFar);
-    }
-
     // Transform the Camera
     m_viewMatrix = glm::mat4(1.0);
     m_viewMatrix = glm::translate(m_viewMatrix, -glm::vec3(m_position, 0.0f));

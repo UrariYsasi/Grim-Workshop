@@ -16,7 +16,7 @@ public:
     void Render();
 
     Game* GetGame();
-    grim::ui::IInput* GetInput();
+    grim::ui::IInputModule* GetInput();
     grim::graphics::Camera* GetCamera();
     World* GetWorld();
 
@@ -40,7 +40,7 @@ private:
     const int CAMERA_SPEED_FAST = 1792;
 
     Game* m_game;
-    grim::ui::IInput* m_gameInput;
+    grim::ui::IInputModule* m_gameInput;
     grim::graphics::Camera* m_gameCamera;
     World* m_gameWorld;
     uint32_t m_peonCount;

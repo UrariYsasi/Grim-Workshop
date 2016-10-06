@@ -21,8 +21,6 @@ Engine::Engine(IGame* const game) :
     m_timeModule(nullptr),
     m_windowModule(nullptr),
     m_renderer(nullptr),
-    m_input(nullptr),
-    m_ui(nullptr),
     m_audio(nullptr)
 {
 }
@@ -64,19 +62,29 @@ bool Engine::Initialize()
     }
 
     /*
+    m_assetModule = ModuleFactory::CreateAssetModule(this);
+    if (!m_assetModule->Initialize())
+    {
+    m_assetModule = nullptr;
+    LOG_ERROR() << "Asset Module failed to initialize!";
+    return false;
+    }
+    */
+
+    m_inputModule = ModuleFactory::CreateInputModule();
+    if (!m_inputModule->Initialize())
+    {
+        m_inputModule = nullptr;
+        LOG_ERROR() << "Input Module failed to initialize!";
+        return false;
+    }
+
+    /*
     m_rendererModule = ModuleFactory::CreateRendererModule();
     if (!m_rendererModule->Initialize())
     {
         m_rendererModule = nullptr;
         LOG_ERROR() << "Renderer Module failed to initialize!";
-        return false;
-    }
-
-    m_assetModule = ModuleFactory::CreateAssetModule(this);
-    if (!m_assetModule->Initialize())
-    {
-        m_assetModule = nullptr;
-        LOG_ERROR() << "Asset Module failed to initialize!";
         return false;
     }
     */
@@ -88,13 +96,6 @@ bool Engine::Initialize()
 
     m_renderer = grim::graphics::CreateRendererService();
     if (!m_renderer->Initialize()) { return false; }
-
-    m_ui = grim::ui::CreateUIService(this);
-    if (!m_ui->Initialize()) { return false;  }
-
-    m_input = grim::ui::CreateInputService();
-    m_input->SetQuitCallback(std::bind(&Engine::Terminate, this));
-    if (!m_input->Initialize()) { return false; }
 
     m_audio = grim::audio::CreateAudioService();
     if (!m_audio->Initialize()) { return false; }
@@ -113,13 +114,12 @@ void Engine::Terminate()
 
     // LEGACY
     m_audio->Terminate();
-    m_input->Terminate();
-    m_ui->Terminate();
     m_renderer->Terminate();
 
     if (m_timeModule != nullptr) { m_timeModule->Terminate(); }
     if (m_fileModule != nullptr) { m_fileModule->Terminate(); }
     //if (m_assetModule != nullptr) { m_assetModule->Terminate(); }
+    if (m_inputModule != nullptr) { m_inputModule->Terminate(); }
     if (m_windowModule != nullptr) { m_windowModule->Terminate(); }
     //if (m_rendererModule != nullptr) { m_rendererModule->Terminate(); }
 
@@ -129,10 +129,6 @@ void Engine::Terminate()
 void Engine::Run()
 {
     m_isRunning = true;
-
-    /*
-        Engine loop
-    */
 
     double frameStartTimeSeconds = 0.0;
     double frameEndTimeSeconds = 0.0;
@@ -178,21 +174,6 @@ grim::audio::IAudio* Engine::GetAudio()
     return m_audio.get();
 }
 
-grim::ui::IInput* Engine::GetInput()
-{
-    return m_input.get();
-}
-
-grim::ui::IUserInterface* Engine::GetUI()
-{
-    return m_ui.get();
-}
-
-graphics::IWindowModule* Engine::GetWindowModule()
-{
-    return m_windowModule.get();
-}
-
 utility::ITimeModule* Engine::GetTimeModule()
 {
     return m_timeModule.get();
@@ -201,6 +182,16 @@ utility::ITimeModule* Engine::GetTimeModule()
 platform::IFileModule* Engine::GetFileModule()
 {
     return m_fileModule.get();
+}
+
+ui::IInputModule* Engine::GetInputModule()
+{
+    return m_inputModule.get();
+}
+
+graphics::IWindowModule* Engine::GetWindowModule()
+{
+    return m_windowModule.get();
 }
 
 }
