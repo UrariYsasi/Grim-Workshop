@@ -19,8 +19,6 @@ public:
     GrimAssetModule(Engine* const engine);
     ~GrimAssetModule();
 
-    std::string GetFileName(const std::string& path) const;
-
     /*
         IModule Interface
     */
@@ -34,6 +32,12 @@ public:
     virtual void ImportAssets() override;
     virtual void AddAsset(const std::string& ID, std::unique_ptr<Asset> asset) override;
     virtual Asset* FindAsset(const std::string& ID) override;
+
+    /*
+        GrimAssetModule
+    */
+
+    std::string GetFileName(const std::string& path) const;
 
 private:
     Engine* m_engine;

@@ -1,11 +1,11 @@
 /*
-    Asset.hpp
+    Texture.hpp
     Engine
 
     Declan Hopkins
     10/6/2016
 
-    The base class for a game asset.
+    The base class for a texture asset.
 */
 
 #pragma once
@@ -13,7 +13,7 @@
 namespace grim::assets
 {
 
-class Texture
+class Texture : Asset
 {
 public:
     Texture();

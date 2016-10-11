@@ -37,7 +37,6 @@ public:
     */
     virtual void HandleWindowEvents() override;
     virtual void Display() override;
-
     virtual void SetSize(const glm::ivec2& size) override;
     virtual void SetTitle(const std::string& title) override;
     virtual glm::ivec2 GetSize() const override;
