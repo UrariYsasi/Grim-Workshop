@@ -1,3 +1,6 @@
+// TODO:
+// Refactor this schnizz
+
 #pragma once
 
 namespace grim::assets

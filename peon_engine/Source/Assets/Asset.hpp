@@ -17,7 +17,7 @@ class Asset
 {
 public:
     Asset(const std::string& id);
-    ~Asset();
+    virtual ~Asset();
 
     std::string GetId();
 
