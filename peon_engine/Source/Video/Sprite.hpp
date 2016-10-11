@@ -9,8 +9,8 @@ namespace graphics
 class Sprite
 {
 public:
-    Sprite(Material* material, uint32_t width, uint32_t height, uint32_t frame);
-    Sprite(Material* material);
+    Sprite(assets::Material* material, uint32_t width, uint32_t height, uint32_t frame);
+    Sprite(assets::Material* material);
     Sprite();
 
     void SetWidth(const uint32_t& width);
@@ -20,7 +20,7 @@ public:
     void SetFrame(const uint32_t& frame);
 
     Mesh* GetMesh();
-    Material* GetMaterial() const;
+    assets::Material* GetMaterial() const;
     uint32_t GetWidth() const;
     uint32_t GetHeight() const;
     float GetMeshWidth() const;
@@ -32,7 +32,7 @@ private:
 
 private:
     Mesh m_mesh;
-    Material* m_material;
+    assets::Material* m_material;
     uint32_t m_width;
     uint32_t m_height;
     float m_meshWidth;

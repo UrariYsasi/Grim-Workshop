@@ -7,7 +7,7 @@ Stockpile::Stockpile(Game* game, const glm::vec3& position) :
 {
     m_hitBox = grim::graphics::Rect(-16.0f, -16.0f, 32.0f, 32.0f);
 
-    //grim::graphics::Texture* texture = game->GetTexture("structure");
+    //grim::assets::Texture* texture = game->GetTexture("structure");
     //grim::graphics::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader");
     //m_sprite = std::make_unique<grim::graphics::Sprite>(texture, shaderProgram, 32, 32, 8);
 }

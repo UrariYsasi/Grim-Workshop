@@ -9,11 +9,11 @@ namespace graphics
 struct RenderCommand
 {
     Mesh* mesh;
-    Material* material;
+    assets::Material* material;
     Transform transform;
     uint8_t layer;
 
-    RenderCommand(Mesh* const mesh, Material* const material, const Transform& transform, const uint8_t layer = 0) :
+    RenderCommand(Mesh* const mesh, assets::Material* const material, const Transform& transform, const uint8_t layer = 0) :
         mesh(mesh),
         material(material),
         transform(transform),

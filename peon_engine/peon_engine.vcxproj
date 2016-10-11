@@ -133,7 +133,7 @@
     <ClCompile Include="Source\Video\Shader.cpp" />
     <ClCompile Include="Source\Video\ShaderProgram.cpp" />
     <ClCompile Include="Source\Video\Sprite.cpp" />
-    <ClCompile Include="Source\Video\Texture.cpp" />
+    <ClCompile Include="Source\Assets\Texture.cpp" />
     <ClCompile Include="Source\ModuleFactory.cpp" />
     <ClCompile Include="Source\Platform\Windows\WindowsFileModule.cpp" />
     <ClCompile Include="Source\UI\GrimInputModule.cpp" />
@@ -154,7 +154,7 @@
     <ClInclude Include="Source\Video\Camera.hpp" />
     <ClInclude Include="Source\Video\Color.hpp" />
     <ClInclude Include="Source\Video\IRenderer.hpp" />
-    <ClInclude Include="Source\Video\Material.hpp" />
+    <ClInclude Include="Source\Assets\Material.hpp" />
     <ClInclude Include="Source\Video\Mesh.hpp" />
     <ClInclude Include="Source\Video\OpenGL\OpenGLWindowModule.hpp" />
     <ClInclude Include="Source\Video\PrimitiveType.hpp" />
@@ -165,7 +165,7 @@
     <ClInclude Include="Source\Video\Shader.hpp" />
     <ClInclude Include="Source\Video\ShaderProgram.hpp" />
     <ClInclude Include="Source\Video\Sprite.hpp" />
-    <ClInclude Include="Source\Video\Texture.hpp" />
+    <ClInclude Include="Source\Assets\Texture.hpp" />
     <ClInclude Include="Source\Video\Transform.hpp" />
     <ClInclude Include="Source\Video\Vertex.hpp" />
     <ClInclude Include="Source\Video\IWindowModule.hpp" />

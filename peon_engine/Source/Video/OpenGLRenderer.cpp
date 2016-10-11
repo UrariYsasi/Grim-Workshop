@@ -234,7 +234,7 @@ void OpenGLRenderer::SetLayerCamera(const uint8_t layer, Camera* camera)
 void OpenGLRenderer::Process(const RenderCommand& command)
 {
     Mesh* mesh = command.mesh;
-    Material* material = command.material;
+    assets::Material* material = command.material;
     Transform transform = command.transform;
     uint8_t layer = command.layer;
 

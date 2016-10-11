@@ -40,7 +40,7 @@ private:
     GLuint m_VBOHandle;
     GLuint m_EBOHandle;
     PrimitiveType m_currentPrimitive;
-    Material* m_currentMaterial;
+    assets::Material* m_currentMaterial;
     uint8_t m_currentLayer;
     std::vector<Vertex> m_vertexData;
     std::vector<uint32_t> m_indexData;

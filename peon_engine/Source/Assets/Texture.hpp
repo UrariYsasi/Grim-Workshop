@@ -1,14 +1,18 @@
+/*
+    Asset.hpp
+    Engine
+
+    Declan Hopkins
+    10/6/2016
+
+    The base class for a game asset.
+*/
+
 #pragma once
 
-namespace grim
+namespace grim::assets
 {
 
-namespace graphics
-{
-
-/*
-    A texture that can be used in rendering.
-*/
 class Texture
 {
 public:
@@ -66,7 +70,5 @@ private:
     */
     unsigned char* m_data;
 };
-
-}
 
 }

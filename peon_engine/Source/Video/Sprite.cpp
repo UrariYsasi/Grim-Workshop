@@ -7,7 +7,7 @@ namespace grim
 namespace graphics
 {
 
-Sprite::Sprite(Material* material, uint32_t width, uint32_t height, uint32_t frame) :
+Sprite::Sprite(assets::Material* material, uint32_t width, uint32_t height, uint32_t frame) :
     m_mesh(PrimitiveType::TRIANGLES),
     m_material(material),
     m_width(width),
@@ -19,7 +19,7 @@ Sprite::Sprite(Material* material, uint32_t width, uint32_t height, uint32_t fra
     Construct();
 }
 
-Sprite::Sprite(Material* material) :
+Sprite::Sprite(assets::Material* material) :
     Sprite(material, material->texture->GetWidth(), material->texture->GetHeight(), 0)
 {
 }
@@ -121,7 +121,7 @@ Mesh* Sprite::GetMesh()
     return &m_mesh;
 }
 
-Material* Sprite::GetMaterial() const
+assets::Material* Sprite::GetMaterial() const
 {
     return m_material;
 }

@@ -91,13 +91,13 @@
     <ClCompile Include="Source\Video\Sprite.cpp">
       <Filter>Source\Video</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Video\Texture.cpp">
-      <Filter>Source\Video</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Assets\GrimAssetModule.cpp">
       <Filter>Source\Assets</Filter>
     </ClCompile>
     <ClCompile Include="Source\Assets\Importer.cpp">
+      <Filter>Source\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Assets\Texture.cpp">
       <Filter>Source\Assets</Filter>
     </ClCompile>
   </ItemGroup>
@@ -180,9 +180,6 @@
     <ClInclude Include="Source\Video\IWindowModule.hpp">
       <Filter>Source\Video</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Video\Material.hpp">
-      <Filter>Source\Video</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Video\Mesh.hpp">
       <Filter>Source\Video</Filter>
     </ClInclude>
@@ -210,9 +207,6 @@
     <ClInclude Include="Source\Video\Sprite.hpp">
       <Filter>Source\Video</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Video\Texture.hpp">
-      <Filter>Source\Video</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Video\Transform.hpp">
       <Filter>Source\Video</Filter>
     </ClInclude>
@@ -226,6 +220,12 @@
       <Filter>Source\Assets</Filter>
     </ClInclude>
     <ClInclude Include="Source\Assets\Importer.hpp">
+      <Filter>Source\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Assets\Texture.hpp">
+      <Filter>Source\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Assets\Material.hpp">
       <Filter>Source\Assets</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,10 +1,7 @@
 #include "PCH.hpp"
 #include "Texture.hpp"
 
-namespace grim
-{
-
-namespace graphics
+namespace grim::assets
 {
 
 Texture::Texture() :
@@ -121,8 +118,6 @@ void Texture::Unbind()
 
     glBindTexture(GL_TEXTURE_2D, 0);
     m_isBound = false;
-}
-
 }
 
 }

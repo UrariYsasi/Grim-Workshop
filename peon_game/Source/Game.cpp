@@ -233,7 +233,7 @@ void Game::Render()
 
 bool Game::LoadTexture(const std::string& path, const std::string& ID, const bool& isOpaque, const GLenum& wrapMode, const GLenum& scaleMode)
 {
-    m_textureMap[ID] = std::make_unique<grim::graphics::Texture>(isOpaque, wrapMode, scaleMode);
+    m_textureMap[ID] = std::make_unique<grim::assets::Texture>(isOpaque, wrapMode, scaleMode);
     m_textureMap[ID]->LoadFromFile(path);
     return true;
 }
@@ -270,13 +270,13 @@ bool Game::CreateShaderProgram(const std::string& vertexShaderID, const std::str
     return true;
 }
 
-bool Game::CreateMaterial(const std::string& ID, grim::graphics::Texture* const texture, grim::graphics::ShaderProgram* const shaderProgram)
+bool Game::CreateMaterial(const std::string& ID, grim::assets::Texture* const texture, grim::graphics::ShaderProgram* const shaderProgram)
 {
-    m_materialMap[ID] = std::make_unique<grim::graphics::Material>(texture, shaderProgram);
+    m_materialMap[ID] = std::make_unique<grim::assets::Material>(texture, shaderProgram);
     return true;
 }
 
-grim::graphics::Texture* Game::GetTexture(const std::string& ID)
+grim::assets::Texture* Game::GetTexture(const std::string& ID)
 {
     return m_textureMap[ID].get();
 }
@@ -296,7 +296,7 @@ grim::graphics::ShaderProgram* Game::GetShaderProgram(const std::string& ID)
     return m_shaderProgramMap[ID].get();
 }
 
-grim::graphics::Material* Game::GetMaterial(const std::string& ID)
+grim::assets::Material* Game::GetMaterial(const std::string& ID)
 {
     return m_materialMap[ID].get();
 }

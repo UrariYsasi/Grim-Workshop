@@ -27,11 +27,11 @@ public:
 
     grim::graphics::Camera* GetMainCamera();
     World* GetWorld();
-    grim::graphics::Texture* GetTexture(const std::string& ID);
+    grim::assets::Texture* GetTexture(const std::string& ID);
     TTF_Font* GetFont(const std::string& id);
     grim::graphics::Shader* GetShader(const std::string& ID);
     grim::graphics::ShaderProgram* GetShaderProgram(const std::string& ID);
-    grim::graphics::Material* GetMaterial(const std::string& ID);
+    grim::assets::Material* GetMaterial(const std::string& ID);
     grim::graphics::Sprite* GetEntitySprite(const EntityID& id);
     Player* GetPlayer();
     grim::Engine* const GetEngine();
@@ -60,7 +60,7 @@ private:
     */
     bool CreateShaderProgram(const std::string& vertexShaderID, const std::string& fragmentShaderID, const std::string& ID);
 
-    bool CreateMaterial(const std::string& ID, grim::graphics::Texture* const texture, grim::graphics::ShaderProgram* const shaderProgram);
+    bool CreateMaterial(const std::string& ID, grim::assets::Texture* const texture, grim::graphics::ShaderProgram* const shaderProgram);
 
     /*
         Read a file and output its contents in string form.
@@ -75,7 +75,7 @@ private:
     std::unique_ptr<Player> m_player;
 
     // Textures
-    std::map<std::string, std::unique_ptr<grim::graphics::Texture>> m_textureMap;
+    std::map<std::string, std::unique_ptr<grim::assets::Texture>> m_textureMap;
 
     // Fonts
     std::map<std::string, TTF_Font*> m_fontMap;
@@ -87,7 +87,7 @@ private:
     std::map<std::string, std::unique_ptr<grim::graphics::ShaderProgram>> m_shaderProgramMap;
 
     // Materials
-    std::map<std::string, std::unique_ptr<grim::graphics::Material>> m_materialMap;
+    std::map<std::string, std::unique_ptr<grim::assets::Material>> m_materialMap;
 
     // Sprites
     std::map<EntityID, std::unique_ptr<grim::graphics::Sprite>> m_spriteMap;

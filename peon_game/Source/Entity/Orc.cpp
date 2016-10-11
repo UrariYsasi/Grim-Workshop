@@ -13,7 +13,7 @@ Orc::Orc(Game* game, const glm::vec3& position) :
     m_hitBox = grim::graphics::Rect(-3.0f, -16.0f, 7.0f, 16.0f);
     m_hp = 6;
 
-    //grim::graphics::Texture* texture = game->GetTexture("orc");
+    //grim::assets::Texture* texture = game->GetTexture("orc");
     //grim::graphics::ShaderProgram* shaderProgram = game->GetShaderProgram("basic_shader"); 
     //m_sprite = std::make_unique<grim::graphics::Sprite>(texture, shaderProgram, 32, 32, 0);
 }
