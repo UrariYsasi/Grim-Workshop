@@ -117,20 +117,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Assets\Asset.cpp" />
     <ClCompile Include="Source\Audio\AudioFactory.cpp" />
     <ClCompile Include="Source\Audio\SDLAudio.cpp" />
     <ClCompile Include="Source\Engine.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Source\Graphics\Camera.cpp" />
-    <ClCompile Include="Source\Graphics\Mesh.cpp" />
-    <ClCompile Include="Source\Graphics\OpenGLRenderer.cpp" />
-    <ClCompile Include="Source\Graphics\OpenGL\OpenGLWindowModule.cpp" />
-    <ClCompile Include="Source\Graphics\RendererFactory.cpp" />
-    <ClCompile Include="Source\Graphics\Shader.cpp" />
-    <ClCompile Include="Source\Graphics\ShaderProgram.cpp" />
-    <ClCompile Include="Source\Graphics\Sprite.cpp" />
-    <ClCompile Include="Source\Graphics\Texture.cpp" />
+    <ClCompile Include="Source\Video\Camera.cpp" />
+    <ClCompile Include="Source\Video\Mesh.cpp" />
+    <ClCompile Include="Source\Video\OpenGLRenderer.cpp" />
+    <ClCompile Include="Source\Video\OpenGL\OpenGLWindowModule.cpp" />
+    <ClCompile Include="Source\Video\RendererFactory.cpp" />
+    <ClCompile Include="Source\Video\Shader.cpp" />
+    <ClCompile Include="Source\Video\ShaderProgram.cpp" />
+    <ClCompile Include="Source\Video\Sprite.cpp" />
+    <ClCompile Include="Source\Video\Texture.cpp" />
     <ClCompile Include="Source\ModuleFactory.cpp" />
     <ClCompile Include="Source\Platform\Windows\WindowsFileModule.cpp" />
     <ClCompile Include="Source\UI\GrimInputModule.cpp" />
@@ -141,27 +142,29 @@
     <ClCompile Include="Source\Utility\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Assets\Asset.hpp" />
+    <ClInclude Include="Source\Assets\IAssetModule.hpp" />
     <ClInclude Include="Source\Audio\AudioFactory.hpp" />
     <ClInclude Include="Source\Audio\SDLAudio.hpp" />
     <ClInclude Include="Source\Engine.hpp" />
-    <ClInclude Include="Source\Graphics\Camera.hpp" />
-    <ClInclude Include="Source\Graphics\Color.hpp" />
-    <ClInclude Include="Source\Graphics\IRenderer.hpp" />
-    <ClInclude Include="Source\Graphics\Material.hpp" />
-    <ClInclude Include="Source\Graphics\Mesh.hpp" />
-    <ClInclude Include="Source\Graphics\OpenGL\OpenGLWindowModule.hpp" />
-    <ClInclude Include="Source\Graphics\PrimitiveType.hpp" />
-    <ClInclude Include="Source\Graphics\Rect.hpp" />
-    <ClInclude Include="Source\Graphics\OpenGLRenderer.hpp" />
-    <ClInclude Include="Source\Graphics\RenderCommand.hpp" />
-    <ClInclude Include="Source\Graphics\RendererFactory.hpp" />
-    <ClInclude Include="Source\Graphics\Shader.hpp" />
-    <ClInclude Include="Source\Graphics\ShaderProgram.hpp" />
-    <ClInclude Include="Source\Graphics\Sprite.hpp" />
-    <ClInclude Include="Source\Graphics\Texture.hpp" />
-    <ClInclude Include="Source\Graphics\Transform.hpp" />
-    <ClInclude Include="Source\Graphics\Vertex.hpp" />
-    <ClInclude Include="Source\Graphics\IWindowModule.hpp" />
+    <ClInclude Include="Source\Video\Camera.hpp" />
+    <ClInclude Include="Source\Video\Color.hpp" />
+    <ClInclude Include="Source\Video\IRenderer.hpp" />
+    <ClInclude Include="Source\Video\Material.hpp" />
+    <ClInclude Include="Source\Video\Mesh.hpp" />
+    <ClInclude Include="Source\Video\OpenGL\OpenGLWindowModule.hpp" />
+    <ClInclude Include="Source\Video\PrimitiveType.hpp" />
+    <ClInclude Include="Source\Video\Rect.hpp" />
+    <ClInclude Include="Source\Video\OpenGLRenderer.hpp" />
+    <ClInclude Include="Source\Video\RenderCommand.hpp" />
+    <ClInclude Include="Source\Video\RendererFactory.hpp" />
+    <ClInclude Include="Source\Video\Shader.hpp" />
+    <ClInclude Include="Source\Video\ShaderProgram.hpp" />
+    <ClInclude Include="Source\Video\Sprite.hpp" />
+    <ClInclude Include="Source\Video\Texture.hpp" />
+    <ClInclude Include="Source\Video\Transform.hpp" />
+    <ClInclude Include="Source\Video\Vertex.hpp" />
+    <ClInclude Include="Source\Video\IWindowModule.hpp" />
     <ClInclude Include="Source\IGame.hpp" />
     <ClInclude Include="Source\IModule.hpp" />
     <ClInclude Include="Source\ModuleFactory.hpp" />

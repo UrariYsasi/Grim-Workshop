@@ -10,7 +10,7 @@
 
 #pragma once
 
-namespace grim::asset
+namespace grim::assets
 {
 
 class Asset

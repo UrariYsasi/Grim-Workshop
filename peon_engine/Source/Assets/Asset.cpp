@@ -1,7 +1,7 @@
 #include "PCH.hpp"
 #include "Asset.hpp"
 
-namespace grim::asset
+namespace grim::assets
 {
 
 Asset::Asset(const std::string& id) :
