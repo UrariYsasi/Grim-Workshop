@@ -38,6 +38,8 @@ public:
         Returns nullptr if the requested Asset could not be found.
     */
     virtual Asset* FindAsset(const std::string& ID) = 0;
+
+    virtual Engine* GetEngine() const = 0;
 };
 
 }

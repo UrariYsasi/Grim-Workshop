@@ -31,6 +31,7 @@ bool GrimAssetModule::Initialize()
         return false;
     }
 
+    m_importers.push_back(std::make_unique<TextureImporter>(this));
     //m_importers.push_back(std::make_unique<OpenGLShaderImporter>(this, m_fileModule));
     //m_importers.push_back(std::make_unique<OpenGLShaderProgramImporter>(this, m_fileModule));
 
@@ -125,6 +126,11 @@ std::string GrimAssetModule::GetFileName(const std::string& path) const
     }
 
     return fileName;
+}
+
+Engine* GrimAssetModule::GetEngine() const
+{
+    return m_engine;
 }
 
 }

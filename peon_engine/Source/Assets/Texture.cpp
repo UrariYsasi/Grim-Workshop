@@ -1,3 +1,11 @@
+/*
+    Texture.cpp
+    Engine
+
+    Declan Hopkins
+    10/11/2016
+*/
+
 #include "PCH.hpp"
 #include "Texture.hpp"
 

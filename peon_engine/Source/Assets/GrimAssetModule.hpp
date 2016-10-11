@@ -32,6 +32,7 @@ public:
     virtual void ImportAssets() override;
     virtual void AddAsset(const std::string& ID, std::unique_ptr<Asset> asset) override;
     virtual Asset* FindAsset(const std::string& ID) override;
+    virtual Engine* GetEngine() const override;
 
     /*
         GrimAssetModule

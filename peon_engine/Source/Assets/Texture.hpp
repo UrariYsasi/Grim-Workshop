@@ -13,7 +13,7 @@
 namespace grim::assets
 {
 
-class Texture : Asset
+class Texture : public Asset
 {
 public:
     Texture(std::string const& id, uint32_t const& width, uint32_t const& height);
@@ -22,7 +22,7 @@ public:
     uint32_t GetWidth() const;
     uint32_t GetHeight() const;
 
-private:
+protected:
     uint32_t m_width;
     uint32_t m_height;
 

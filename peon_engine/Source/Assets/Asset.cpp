@@ -1,3 +1,11 @@
+/*
+    Asset.cpp
+    Engine
+
+    Declan Hopkins
+    10/6/2016
+*/
+
 #include "PCH.hpp"
 #include "Asset.hpp"
 

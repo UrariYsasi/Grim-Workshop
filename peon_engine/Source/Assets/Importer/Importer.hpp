@@ -27,8 +27,8 @@ public:
         smart pointer to the Asset will be returned, which can then be stored (preferably in the
         Asset Module).
     */
-    virtual std::unique_ptr<Asset> Import(const std::string& path) = 0;
-    virtual bool CanImport(const std::string& path) = 0;
+    virtual std::unique_ptr<Asset> Import(std::string const& filePath) = 0;
+    virtual bool CanImport(std::string const& filePath) = 0;
 
 protected:
     IAssetModule* m_assetModule;
