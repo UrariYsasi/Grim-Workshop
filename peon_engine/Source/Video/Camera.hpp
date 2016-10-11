@@ -11,7 +11,7 @@ namespace graphics
 class Camera
 {
 public:
-    Camera(grim::Engine* engine, float width, float height, float zNear, float zFar);
+    Camera(grim::Engine* engine, uint32_t width, uint32_t height, float zNear, float zFar);
     ~Camera();
 
     void SetPosition(const glm::vec2& position);
@@ -33,8 +33,8 @@ private:
     glm::vec2 m_position;
     glm::vec3 m_rotation;
 
-    float m_width;
-    float m_height;
+    uint32_t m_width;
+    uint32_t m_height;
     float m_zNear;
     float m_zFar;
     glm::mat4 m_viewMatrix;

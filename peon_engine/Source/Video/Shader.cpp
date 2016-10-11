@@ -36,7 +36,7 @@ uint8_t Shader::Compile(const std::string& source)
     if (m_handle == 0)
     {
         //grim::utility::Debug::LogError("Shader created failed! OpenGL handle: %d", m_handle);
-        return FAILURE;
+        return 0;
     }
 
     // Upload the shader source
@@ -62,10 +62,10 @@ uint8_t Shader::Compile(const std::string& source)
                            buffer);           // Returns the info log
 
         //grim::utility::Debug::LogError("Shader compilation failed! OpenGL handle: %d \n %s", m_handle, buffer);
-        return FAILURE;
+        return 1;
     }
 
-    return SUCCESS;
+    return 0;
 }
 
 }

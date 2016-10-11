@@ -17,13 +17,13 @@ SDLAudio::~SDLAudio()
 
 bool SDLAudio::Initialize()
 {
-    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) != SUCCESS)
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) != 0)
     {
         //grim::utility::Debug::LogError("SDLAudio failed to initialize! SDL_mixer error: %s", Mix_GetError());
         return false;
     }
 
-    Mix_Volume(-1, MIX_MAX_VOLUME / 3.0f);
+    Mix_Volume(-1, static_cast<int>(MIX_MAX_VOLUME / 3.0f));
 
     //grim::utility::Debug::LogError("Audio module SDLAudio initialized.");
     return true;

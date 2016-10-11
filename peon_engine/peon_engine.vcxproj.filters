@@ -94,6 +94,12 @@
     <ClCompile Include="Source\Video\Texture.cpp">
       <Filter>Source\Video</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Assets\GrimAssetModule.cpp">
+      <Filter>Source\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Assets\Importer.cpp">
+      <Filter>Source\Assets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\PCH.hpp">
@@ -214,6 +220,12 @@
       <Filter>Source\Video</Filter>
     </ClInclude>
     <ClInclude Include="Source\Assets\IAssetModule.hpp">
+      <Filter>Source\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Assets\GrimAssetModule.hpp">
+      <Filter>Source\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Assets\Importer.hpp">
       <Filter>Source\Assets</Filter>
     </ClInclude>
   </ItemGroup>

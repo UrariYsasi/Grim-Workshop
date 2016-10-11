@@ -8,7 +8,7 @@ namespace grim
 namespace graphics
 {
 
-Camera::Camera(grim::Engine* engine, float width, float height, float zNear, float zFar) :
+Camera::Camera(grim::Engine* engine, uint32_t width, uint32_t height, float zNear, float zFar) :
     m_engine(engine),
     m_position(0.0f),
     m_rotation(0.0f),
@@ -17,7 +17,7 @@ Camera::Camera(grim::Engine* engine, float width, float height, float zNear, flo
     m_height(height),
     m_zNear(zNear),
     m_zFar(zFar),
-    m_projectionMatrix(glm::ortho(0.0f, m_width, m_height, 0.0f, zNear, zFar))
+    m_projectionMatrix(glm::ortho(0.0f, static_cast<float>(m_width), static_cast<float>(m_height), 0.0f, zNear, zFar))
 {
 }
 

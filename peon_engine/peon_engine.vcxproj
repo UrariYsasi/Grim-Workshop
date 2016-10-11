@@ -118,6 +118,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Assets\Asset.cpp" />
+    <ClCompile Include="Source\Assets\GrimAssetModule.cpp" />
+    <ClCompile Include="Source\Assets\Importer.cpp" />
     <ClCompile Include="Source\Audio\AudioFactory.cpp" />
     <ClCompile Include="Source\Audio\SDLAudio.cpp" />
     <ClCompile Include="Source\Engine.cpp">
@@ -143,7 +145,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Assets\Asset.hpp" />
+    <ClInclude Include="Source\Assets\GrimAssetModule.hpp" />
     <ClInclude Include="Source\Assets\IAssetModule.hpp" />
+    <ClInclude Include="Source\Assets\Importer.hpp" />
     <ClInclude Include="Source\Audio\AudioFactory.hpp" />
     <ClInclude Include="Source\Audio\SDLAudio.hpp" />
     <ClInclude Include="Source\Engine.hpp" />

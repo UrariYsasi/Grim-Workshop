@@ -22,12 +22,10 @@ std::unique_ptr<platform::IFileModule> ModuleFactory::CreateFileModule()
     return std::make_unique<platform::WindowsFileModule>();
 }
 
-/*
-std::unique_ptr<IAssetModule> ModuleFactory::CreateAssetModule(Engine* const engine)
+std::unique_ptr<assets::IAssetModule> ModuleFactory::CreateAssetModule(Engine* const engine)
 {
-    return std::make_unique<GrimAssetModule>(engine);
+    return std::make_unique<assets::GrimAssetModule>(engine);
 }
-*/
 
 std::unique_ptr<ui::IInputModule> ModuleFactory::CreateInputModule()
 {
@@ -36,7 +34,7 @@ std::unique_ptr<ui::IInputModule> ModuleFactory::CreateInputModule()
 
 std::unique_ptr<graphics::IWindowModule> ModuleFactory::CreateWindowModule(Engine* const engine)
 {
-    return std::make_unique<graphics::OpenGLWindowModule>(engine, WINDOW_TITLE, WINDOW_WIDTH, WINDOW_HEIGHT, IS_WINDOW_FULLSCREEN);
+    return std::make_unique<graphics::OpenGLWindowModule>(engine, WINDOW_TITLE, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_IS_FULLSCREEN);
 }
 
 /*

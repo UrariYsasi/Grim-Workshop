@@ -48,7 +48,7 @@ void Region::Generate()
     }
 
     GenerateTerrain();
-    GenerateEntities();
+    //GenerateEntities();
 }
 
 bool Region::ShouldCullTile(TerrainTile* const tile)

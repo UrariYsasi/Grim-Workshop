@@ -15,7 +15,7 @@ namespace grim
 namespace graphics
 {
 
-OpenGLWindowModule::OpenGLWindowModule(Engine* const engine, const std::string& title, const uint16_t& width, const uint16_t& height, const bool& isFullscreen) :
+OpenGLWindowModule::OpenGLWindowModule(Engine* const engine, const std::string& title, const uint32_t& width, const uint32_t& height, const bool& isFullscreen) :
     m_engine(engine),
     m_window(nullptr),
     m_glContext(),

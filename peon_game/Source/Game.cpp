@@ -222,13 +222,13 @@ void Game::Terminate()
 void Game::Update()
 {
     m_map->Update(0.016f);
-    m_player->Update(0.016f);
+    //m_player->Update(0.016f);
 }
 
 void Game::Render()
 {
     m_map->Render();
-    m_player->Render();
+    //m_player->Render();
 }
 
 bool Game::LoadTexture(const std::string& path, const std::string& ID, const bool& isOpaque, const GLenum& wrapMode, const GLenum& scaleMode)

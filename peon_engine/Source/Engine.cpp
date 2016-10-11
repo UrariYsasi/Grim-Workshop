@@ -19,6 +19,9 @@ Engine::Engine(IGame* const game) :
     m_frameCount(0),
     m_frameRate(0),
     m_timeModule(nullptr),
+    m_fileModule(nullptr),
+    m_assetModule(nullptr),
+    m_inputModule(nullptr),
     m_windowModule(nullptr),
     m_renderer(nullptr),
     m_audio(nullptr)
@@ -53,6 +56,14 @@ bool Engine::Initialize()
         return false;
     }
 
+    m_assetModule = ModuleFactory::CreateAssetModule(this);
+    if (!m_assetModule->Initialize())
+    {
+        m_assetModule = nullptr;
+        LOG_ERROR() << "Asset Module failed to initialize!";
+        return false;
+    }
+
     m_windowModule = ModuleFactory::CreateWindowModule(this);
     if (!m_windowModule->Initialize())
     {
@@ -60,16 +71,6 @@ bool Engine::Initialize()
         LOG_ERROR() << "Window Module failed to initialize!";
         return false;
     }
-
-    /*
-    m_assetModule = ModuleFactory::CreateAssetModule(this);
-    if (!m_assetModule->Initialize())
-    {
-    m_assetModule = nullptr;
-    LOG_ERROR() << "Asset Module failed to initialize!";
-    return false;
-    }
-    */
 
     m_inputModule = ModuleFactory::CreateInputModule();
     if (!m_inputModule->Initialize())
@@ -115,7 +116,7 @@ void Engine::Terminate()
 
     if (m_timeModule != nullptr) { m_timeModule->Terminate(); }
     if (m_fileModule != nullptr) { m_fileModule->Terminate(); }
-    //if (m_assetModule != nullptr) { m_assetModule->Terminate(); }
+    if (m_assetModule != nullptr) { m_assetModule->Terminate(); }
     if (m_inputModule != nullptr) { m_inputModule->Terminate(); }
     if (m_windowModule != nullptr) { m_windowModule->Terminate(); }
     //if (m_rendererModule != nullptr) { m_rendererModule->Terminate(); }
@@ -179,6 +180,11 @@ utility::ITimeModule* Engine::GetTimeModule()
 platform::IFileModule* Engine::GetFileModule()
 {
     return m_fileModule.get();
+}
+
+assets::IAssetModule* Engine::GetAssetModule()
+{
+    return m_assetModule.get();
 }
 
 ui::IInputModule* Engine::GetInputModule()
