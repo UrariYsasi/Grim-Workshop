@@ -1,5 +1,6 @@
 #include "PCH.hpp"
 #include "OpenGLRenderer.hpp"
+#include "OpenGL/OpenGLTexture.hpp"
 
 namespace grim
 {
@@ -231,9 +232,9 @@ void OpenGLRenderer::SetLayerCamera(const uint8_t layer, Camera* camera)
     }
 }
 
-void OpenGLRenderer::CreateTexture(uint32_t const& width, uint32_t const& height, unsigned char const*) const
+std::unique_ptr<assets::Texture> OpenGLRenderer::CreateTexture(std::string const& id, uint32_t const& width, uint32_t const& height, unsigned char const* data) const
 {
-
+    return std::make_unique<OpenGLTexture>(id, width, height, data);
 }
 
 void OpenGLRenderer::Process(const RenderCommand& command)

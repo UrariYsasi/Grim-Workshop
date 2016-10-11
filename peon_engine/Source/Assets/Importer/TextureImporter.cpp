@@ -25,7 +25,7 @@ std::unique_ptr<Asset> TextureImporter::Import(std::string const& filePath)
 {
     int width = 0;
     int height = 0;
-    unsigned char const* data = SOIL_load_image(filePath.c_str(), &width, &height, 0, SOIL_LOAD_RGBA);
+    unsigned char* data = SOIL_load_image(filePath.c_str(), &width, &height, 0, SOIL_LOAD_RGBA);
     if (data == nullptr)
     {
         LOG_ERROR() << "Failed to import asset file " << filePath;
@@ -33,26 +33,16 @@ std::unique_ptr<Asset> TextureImporter::Import(std::string const& filePath)
     }
 
     graphics::IRenderer* renderModule = m_assetModule->GetEngine()->GetRenderer();
-    std::unique_ptr<Texture> texture = renderModule->CreateTexture(width, height, data);
+    std::unique_ptr<Texture> texture = renderModule->CreateTexture("TEST", width, height, data);
     if (texture == nullptr)
     {
         LOG_ERROR() << "Failed to create texture asset from file " << filePath;
     }
 
-    /*
-    Bind();
-
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_data);
-    SOIL_free_image_data(m_data);
-
-    // Generate mipmaps
-    glGenerateMipmap(GL_TEXTURE_2D);
-
-    Unbind();
-    */
+    SOIL_free_image_data(data);
 
     LOG() << "Imported Texture " << filePath;
-    return texture;
+    return std::move(texture);
 }
 
 bool TextureImporter::CanImport(std::string const& filePath)
