@@ -55,18 +55,17 @@ void GrimAssetModule::ImportAssets()
     LOG() << "Loading Assets...";
 
     std::vector<std::string> files = m_engine->GetFileModule()->FindAllFiles(ASSET_DIRECTORY_PATH);
-    for (auto it = files.begin(); it != files.end(); it++)
+    for (auto filePath : files)
     {
-        std::string path = *(it);
-        std::string ID = GetFileName(path);
+        std::string ID = GetFileName(filePath);
 
         for (auto importerIt = m_importers.begin(); importerIt != m_importers.end(); importerIt++)
         {
             Importer* importer = importerIt->get();
 
-            if (importer->CanImport(path))
+            if (importer->CanImport(filePath))
             {
-                std::unique_ptr<Asset> asset = importer->Import(path);
+                std::unique_ptr<Asset> asset = importer->Import(filePath);
                 if (asset == nullptr)
                 {
                     LOG_ERROR() << "Asset " << ID << " failed to import!";
@@ -89,6 +88,9 @@ void GrimAssetModule::AddAsset(const std::string& ID, std::unique_ptr<Asset> ass
         LOG_ERROR() << "Asset " << ID << " could not be added, as it was nullptr!";
         return;
     }
+
+    // TODO:
+    // Add check for an already existing Asset.
 
     m_assetMap[ID] = std::move(asset);
     LOG() << "Asset " << ID << " added.";
