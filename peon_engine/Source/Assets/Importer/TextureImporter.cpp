@@ -25,15 +25,12 @@ std::unique_ptr<Asset> TextureImporter::Import(std::string const& filePath)
 {
     int width = 0;
     int height = 0;
-    unsigned char* data = SOIL_load_image(filePath.c_str(), &width, &height, 0, SOIL_LOAD_RGBA);
+    unsigned char const* data = SOIL_load_image(filePath.c_str(), &width, &height, 0, SOIL_LOAD_RGBA);
     if (data == nullptr)
     {
         LOG_ERROR() << "Failed to import asset file " << filePath;
         return false;
     }
-
-    // TODO:
-    // This
 
     graphics::IRenderer* renderModule = m_assetModule->GetEngine()->GetRenderer();
     std::unique_ptr<Texture> texture = renderModule->CreateTexture(width, height, data);

@@ -231,6 +231,11 @@ void OpenGLRenderer::SetLayerCamera(const uint8_t layer, Camera* camera)
     }
 }
 
+void OpenGLRenderer::CreateTexture(uint32_t const& width, uint32_t const& height, unsigned char const*) const
+{
+
+}
+
 void OpenGLRenderer::Process(const RenderCommand& command)
 {
     Mesh* mesh = command.mesh;
@@ -443,7 +448,7 @@ void OpenGLRenderer::PaintersSort()
 {
     std::sort(m_renderQueue.begin(), m_renderQueue.end(), [](const RenderCommand& a, const RenderCommand& b)
     {
-        if ((a.material->texture != nullptr) && (a.material->texture->IsOpaque()))
+        if ((a.material->texture != nullptr) && !(a.isTransparent))
         {
             return true;
         }

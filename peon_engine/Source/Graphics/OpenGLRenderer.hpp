@@ -18,6 +18,8 @@ public:
     virtual void Render();
     virtual void Submit(const RenderCommand& command);
 
+    virtual void CreateTexture(uint32_t const& width, uint32_t const& height, unsigned char const*) const override;
+
     virtual void SetLayerCamera(const uint8_t layer, Camera* camera);
     virtual void SetClearColor(const Color& color);
     virtual void SetActiveCamera(Camera* camera);
