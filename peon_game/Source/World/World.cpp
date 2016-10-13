@@ -32,13 +32,11 @@ void World::Update(float deltaTime)
     ProcessTime();
 
     // Entities
-    /*
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
         Entity* e = (*it).get();
         e->Update(deltaTime);
     }
-    */
 
     // Regions
     for (auto it = m_regions.begin(); it != m_regions.end(); it++)
@@ -56,7 +54,6 @@ void World::Render()
     }
 
     // Entities
-    /*
     for (auto it = m_entities.begin(); it != m_entities.end(); it++)
     {
         Entity* e = it->get();
@@ -67,7 +64,6 @@ void World::Render()
             e->Render();
         }
     }
-    */
 }
 
 void World::ProcessTime()

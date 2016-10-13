@@ -27,7 +27,6 @@ public:
 
     grim::graphics::Camera* GetMainCamera();
     World* GetWorld();
-    grim::assets::Texture* GetTexture(const std::string& ID);
     TTF_Font* GetFont(const std::string& id);
     grim::graphics::Shader* GetShader(const std::string& ID);
     grim::graphics::ShaderProgram* GetShaderProgram(const std::string& ID);
@@ -41,12 +40,6 @@ public:
 
 private:
     bool LoadFont(const std::string& path, const std::string& id, const int& size = 16);
-
-    /*
-        Load a texture with the given file name from the Resources/Textures folder
-        and store it in the texture map with the given ID.
-    */
-    bool LoadTexture(const std::string& path, const std::string& ID, const bool& isOpaque = false, const GLenum& wrapMode = GL_CLAMP_TO_EDGE, const GLenum& scaleMode = GL_NEAREST);
 
     /*
         Load a shader with the given file name from the Resources/Shaders folder

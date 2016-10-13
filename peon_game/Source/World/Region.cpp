@@ -48,7 +48,7 @@ void Region::Generate()
     }
 
     GenerateTerrain();
-    //GenerateEntities();
+    GenerateEntities();
 }
 
 bool Region::ShouldCullTile(TerrainTile* const tile)
@@ -115,11 +115,6 @@ void Region::GenerateEntities()
         m_world->Spawn(EntityID::PEON, glm::vec3(GetCenter().x - 32.0f, GetCenter().y + 64.0f, 0.0f));
         m_world->Spawn(EntityID::PEON, glm::vec3(GetCenter().x + 32.0f, GetCenter().y + 64.0f, 0.0f));
         //m_world->Spawn(EntityID::MONSTER_ORC, glm::vec3(GetCenter().x + 128.0f, GetCenter().y, 0.0f));
-    }
-
-    if (m_ID == REGION_BOSS_SPIDER)
-    {
-        m_world->Spawn(EntityID::MONSTER_SPIDER_QUEEN, glm::vec3(GetCenter().x, GetCenter().y, 0.0f));
     }
 
     // Structures

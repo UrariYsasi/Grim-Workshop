@@ -53,29 +53,6 @@ bool Game::Initialize()
     }
 
     /*
-        Load Textures
-    */
-
-    LoadTexture("Resources/Textures/peon.png", "peon");
-    LoadTexture("Resources/Textures/item.png", "item");
-    LoadTexture("Resources/Textures/orc.png", "orc");
-    LoadTexture("Resources/Textures/resource.png", "resource");
-    LoadTexture("Resources/Textures/terrain.png", "terrain", true, GL_CLAMP_TO_EDGE, GL_NEAREST);
-    LoadTexture("Resources/Textures/structure.png", "structure");
-    LoadTexture("Resources/Textures/obelisk.png", "obelisk");
-    LoadTexture("Resources/Textures/doosk.png", "doosk");
-    LoadTexture("Resources/Textures/puppy.png", "puppy");
-    LoadTexture("Resources/Textures/kitten.png", "kitten");
-    LoadTexture("Resources/Textures/grass.png", "grass");
-    LoadTexture("Resources/Textures/tree.png", "tree");
-    LoadTexture("Resources/Textures/gandalf.png", "gandalf");
-    LoadTexture("Resources/Textures/spider.png", "spider", false, GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR);
-    LoadTexture("Resources/Textures/spellbook.png", "spellbook", false, GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR);
-    LoadTexture("Resources/Textures/button.png", "button", false, GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR);
-    LoadTexture("Resources/Textures/header.png", "header", false, GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR);
-    LoadTexture("Resources/Textures/beam.png", "beam", false, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR);
-
-    /*
         Load Fonts
     */
 
@@ -157,18 +134,14 @@ bool Game::Initialize()
         Create Materials
     */
 
-    CreateMaterial("sprite_terrain", m_engine.GetAssetModule()->FindTexture("terrain"), GetShaderProgram("basic_shader"));
+    grim::assets::IAssetModule* assetModule = m_engine.GetAssetModule();
 
-    CreateMaterial("sprite_resource", GetTexture("resource"), GetShaderProgram("basic_shader"));
-    CreateMaterial("sprite_peon", GetTexture("peon"), GetShaderProgram("basic_shader"));
-    CreateMaterial("sprite_obelisk", GetTexture("obelisk"), GetShaderProgram("basic_shader"));
-    CreateMaterial("sprite_spider_queen", GetTexture("spider"), GetShaderProgram("basic_shader"));
-    CreateMaterial("sprite_item", GetTexture("item"), GetShaderProgram("basic_shader"));
-    CreateMaterial("effect_beam", GetTexture("beam"), GetShaderProgram("basic_shader"));
-    CreateMaterial("flat_black", GetTexture("beam"), GetShaderProgram("shader_flat"));
-    CreateMaterial("sprite_ui_header", GetTexture("header"), GetShaderProgram("basic_shader"));
-    CreateMaterial("sprite_ui_spellbook", GetTexture("spellbook"), GetShaderProgram("basic_shader"));
-    CreateMaterial("effect_beam", GetTexture("beam"), GetShaderProgram("basic_shader"));
+    CreateMaterial("sprite_terrain", assetModule->FindTexture("Textures.Terrain"), GetShaderProgram("basic_shader"));
+    CreateMaterial("sprite_peon", assetModule->FindTexture("Textures.Peon"), GetShaderProgram("basic_shader"));
+    CreateMaterial("sprite_obelisk", assetModule->FindTexture("Textures.Obelisk"), GetShaderProgram("basic_shader"));
+    CreateMaterial("sprite_item", assetModule->FindTexture("Textures.Item"), GetShaderProgram("basic_shader"));
+    CreateMaterial("sprite_resource", assetModule->FindTexture("Textures.Resource"), GetShaderProgram("basic_shader"));
+    CreateMaterial("effect_beam", assetModule->FindTexture("Textures.BeamEffect"), GetShaderProgram("basic_shader"));
 
     GetMaterial("effect_beam")->color.a = 0.75f;
 
@@ -187,7 +160,7 @@ bool Game::Initialize()
 
     m_engine.GetRenderer()->SetLayerCamera(0, m_mainCamera.get());
 
-    //m_map->Generate();
+    m_map->Generate();
 
     return true;
 }
@@ -232,13 +205,6 @@ void Game::Render()
     //m_player->Render();
 }
 
-bool Game::LoadTexture(const std::string& path, const std::string& ID, const bool& isOpaque, const GLenum& wrapMode, const GLenum& scaleMode)
-{
-    //m_textureMap[ID] = std::make_unique<grim::assets::Texture>(isOpaque, wrapMode, scaleMode);
-    //m_textureMap[ID]->LoadFromFile(path);
-    return true;
-}
-
 bool Game::LoadFont(const std::string& path, const std::string& id, const int& size)
 {
     TTF_Font* font = TTF_OpenFont(path.c_str(), size);
@@ -275,11 +241,6 @@ bool Game::CreateMaterial(const std::string& ID, grim::assets::Texture* const te
 {
     m_materialMap[ID] = std::make_unique<grim::assets::Material>(texture, shaderProgram);
     return true;
-}
-
-grim::assets::Texture* Game::GetTexture(const std::string& ID)
-{
-    return m_textureMap[ID].get();
 }
 
 TTF_Font* Game::GetFont(const std::string& id)

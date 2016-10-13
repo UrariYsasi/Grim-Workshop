@@ -50,7 +50,7 @@ void GrimAssetModule::Terminate()
 
 void GrimAssetModule::ImportAssets()
 {
-    LOG() << "Loading Assets...";
+    LOG() << "Importing Assets...";
 
     std::vector<std::string> files = m_engine->GetFileModule()->FindAllFiles(ASSET_DIRECTORY_PATH);
     for (auto filePath : files)
@@ -72,7 +72,7 @@ void GrimAssetModule::ImportAssets()
         }
     }
 
-    LOG() << "Loaded Assets.";
+    LOG() << "Imported Assets.";
 }
 
 void GrimAssetModule::AddAsset(std::unique_ptr<Asset> asset)
