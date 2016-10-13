@@ -33,7 +33,7 @@ std::unique_ptr<Asset> TextureImporter::Import(std::string const& filePath)
     }
     
     graphics::IRenderer* renderModule = m_assetModule->GetEngine()->GetRenderer();
-    std::unique_ptr<Texture> texture = renderModule->CreateTexture("TEST", width, height, data);
+    std::unique_ptr<Texture> texture = renderModule->CreateTexture(CreateId(filePath), width, height, data);
     if (texture == nullptr)
     {
         LOG_ERROR() << "Failed to create texture asset from file " << filePath;

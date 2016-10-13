@@ -21,4 +21,9 @@ Importer::~Importer()
 {
 }
 
+std::string Importer::CreateId(std::string const& filePath) const
+{
+    return filePath;
+}
+
 }

@@ -30,6 +30,8 @@ public:
     virtual std::unique_ptr<Asset> Import(std::string const& filePath) = 0;
     virtual bool CanImport(std::string const& filePath) = 0;
 
+    std::string CreateId(std::string const& filePath) const;
+
 protected:
     IAssetModule* m_assetModule;
 };
