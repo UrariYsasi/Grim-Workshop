@@ -98,6 +98,8 @@ bool Engine::Initialize()
     m_audio = grim::audio::CreateAudioService();
     if (!m_audio->Initialize()) { return false; }
 
+    m_assetModule->ImportAssets();
+
     LOG() << "Engine initialized.";
     return true;
 }

@@ -174,8 +174,8 @@ bool Game::Initialize()
     // Sprites
     m_spriteMap[EntityID::STRUCTURE_STOCKPILE] = nullptr;
     m_spriteMap[EntityID::MONSTER_SPIDER_QUEEN] = nullptr;
-    m_spriteMap[EntityID::PEON] = std::make_unique<grim::graphics::Sprite>(GetMaterial("sprite_peon"), 32, 32, 0);
-    m_spriteMap[EntityID::EFFECT_BEAM] = std::make_unique<grim::graphics::Sprite>(GetMaterial("effect_beam"));
+    //m_spriteMap[EntityID::PEON] = std::make_unique<grim::graphics::Sprite>(GetMaterial("sprite_peon"), 32, 32, 0);
+    //m_spriteMap[EntityID::EFFECT_BEAM] = std::make_unique<grim::graphics::Sprite>(GetMaterial("effect_beam"));
 
     // Setup the game
     m_mainCamera = std::make_unique<grim::graphics::Camera>(&m_engine, WINDOW_WIDTH, WINDOW_HEIGHT, -1.0f, 1.0f);
@@ -186,7 +186,7 @@ bool Game::Initialize()
 
     m_engine.GetRenderer()->SetLayerCamera(0, m_mainCamera.get());
 
-    m_map->Generate();
+    //m_map->Generate();
 
     return true;
 }
@@ -233,8 +233,8 @@ void Game::Render()
 
 bool Game::LoadTexture(const std::string& path, const std::string& ID, const bool& isOpaque, const GLenum& wrapMode, const GLenum& scaleMode)
 {
-    m_textureMap[ID] = std::make_unique<grim::assets::Texture>(isOpaque, wrapMode, scaleMode);
-    m_textureMap[ID]->LoadFromFile(path);
+    //m_textureMap[ID] = std::make_unique<grim::assets::Texture>(isOpaque, wrapMode, scaleMode);
+    //m_textureMap[ID]->LoadFromFile(path);
     return true;
 }
 

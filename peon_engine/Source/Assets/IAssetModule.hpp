@@ -11,6 +11,13 @@
 
 #pragma once
 
+namespace grim
+{
+
+class Engine;
+
+}
+
 namespace grim::assets
 {
 

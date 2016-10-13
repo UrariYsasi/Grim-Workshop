@@ -16,7 +16,7 @@ namespace grim::assets
 class GrimAssetModule : public IAssetModule
 {
 public:
-    GrimAssetModule(Engine* const engine);
+    GrimAssetModule(grim::Engine* const engine);
     ~GrimAssetModule();
 
     /*
@@ -41,7 +41,7 @@ public:
     std::string GetFileName(const std::string& path) const;
 
 private:
-    Engine* m_engine;
+    grim::Engine* m_engine;
     std::map<std::string, std::unique_ptr<Asset>> m_assetMap;
     std::vector<std::unique_ptr<Importer>> m_importers;
 };

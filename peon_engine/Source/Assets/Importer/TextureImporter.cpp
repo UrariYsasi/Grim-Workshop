@@ -41,7 +41,6 @@ std::unique_ptr<Asset> TextureImporter::Import(std::string const& filePath)
 
     SOIL_free_image_data(data);
 
-    LOG() << "Imported Texture " << filePath;
     return std::move(texture);
 }
 

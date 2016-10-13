@@ -8,11 +8,12 @@
 
 #include "PCH.hpp"
 #include "GrimAssetModule.hpp"
+#include "Engine.hpp"
 
 namespace grim::assets
 {
 
-GrimAssetModule::GrimAssetModule(Engine* const engine) :
+GrimAssetModule::GrimAssetModule(grim::Engine* const engine) :
     m_engine(engine)
 {
 }
@@ -34,8 +35,6 @@ bool GrimAssetModule::Initialize()
     m_importers.push_back(std::make_unique<TextureImporter>(this));
     //m_importers.push_back(std::make_unique<OpenGLShaderImporter>(this, m_fileModule));
     //m_importers.push_back(std::make_unique<OpenGLShaderProgramImporter>(this, m_fileModule));
-
-    ImportAssets();
 
     LOG() << "Asset Module GrimAssetModule initialized.";
     return true;
@@ -60,10 +59,8 @@ void GrimAssetModule::ImportAssets()
     {
         std::string ID = GetFileName(filePath);
 
-        for (auto importerIt = m_importers.begin(); importerIt != m_importers.end(); importerIt++)
+        for (auto& importer : m_importers)
         {
-            Importer* importer = importerIt->get();
-
             if (importer->CanImport(filePath))
             {
                 std::unique_ptr<Asset> asset = importer->Import(filePath);
@@ -74,6 +71,7 @@ void GrimAssetModule::ImportAssets()
                 }
 
                 AddAsset(ID, std::move(asset));
+                LOG() << "Imported asset " << ID;
                 break;
             }
         }
@@ -94,7 +92,6 @@ void GrimAssetModule::AddAsset(const std::string& ID, std::unique_ptr<Asset> ass
     // Add check for an already existing Asset.
 
     m_assetMap[ID] = std::move(asset);
-    LOG() << "Asset " << ID << " added.";
 }
 
 Asset* GrimAssetModule::FindAsset(const std::string& ID)

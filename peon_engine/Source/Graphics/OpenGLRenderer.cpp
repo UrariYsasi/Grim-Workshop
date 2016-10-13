@@ -192,6 +192,11 @@ void OpenGLRenderer::Clear()
 
 void OpenGLRenderer::Render()
 {
+    if (m_renderQueue.size() == 0)
+    {
+        return;
+    }
+
     // Batch Sort
     std::sort(m_renderQueue.begin(), m_renderQueue.end());
 
@@ -390,6 +395,12 @@ void OpenGLRenderer::RenderBatch()
 
     // Bind our ShaderProgram
     m_currentMaterial->shaderProgram->Bind();
+    OpenGLTexture* texture = dynamic_cast<OpenGLTexture*>(m_currentMaterial->texture);
+    if (texture == nullptr)
+    {
+        LOG_ERROR() << "Texture wasn't an OpenGL texture!";
+        return;
+    }
 
     // Upload our model matrix
     glm::mat4 modelMatrix(1.0f);
@@ -399,7 +410,7 @@ void OpenGLRenderer::RenderBatch()
     // Bind our Texture
     if (m_currentMaterial->texture != nullptr)
     {
-        m_currentMaterial->texture->Bind();
+        BindTexture(texture);
     }
 
     // Get OpenGL primitive type
@@ -423,7 +434,7 @@ void OpenGLRenderer::RenderBatch()
     // Unbind our Texture
     if (m_currentMaterial->texture != nullptr)
     {
-        m_currentMaterial->texture->Unbind();
+        UnbindTexture();
     }
 
     // Unbind our ShaderProgram
@@ -449,13 +460,23 @@ void OpenGLRenderer::PaintersSort()
 {
     std::sort(m_renderQueue.begin(), m_renderQueue.end(), [](const RenderCommand& a, const RenderCommand& b)
     {
-        if ((a.material->texture != nullptr) && !(a.isTransparent))
+        if ((a.material->texture != nullptr) && !(a.material->isTransparent))
         {
             return true;
         }
 
         return a.transform.position.z < b.transform.position.z;
     });
+}
+
+void OpenGLRenderer::BindTexture(OpenGLTexture const* texture)
+{
+    glBindTexture(GL_TEXTURE_2D, texture->GetHandle());
+}
+
+void OpenGLRenderer::UnbindTexture()
+{
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void OpenGLRenderer::SetClearColor(const Color& color)

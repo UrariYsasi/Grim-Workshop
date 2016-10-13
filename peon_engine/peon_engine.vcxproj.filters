@@ -23,10 +23,13 @@
     <Filter Include="Source\Assets">
       <UniqueIdentifier>{b5365424-a7a6-4761-b82b-c167655cfce4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Video">
+    <Filter Include="Source\Assets\Importer">
+      <UniqueIdentifier>{d47a03b3-7748-41e6-9804-089445461452}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Graphics">
       <UniqueIdentifier>{23e7bff9-1b6c-4bc7-9841-b56e180b416d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Video\OpenGL">
+    <Filter Include="Source\Graphics\OpenGL">
       <UniqueIdentifier>{03c82c63-aa88-4cfa-a486-c6a3525f30bb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -67,38 +70,44 @@
     <ClCompile Include="Source\Assets\Asset.cpp">
       <Filter>Source\Assets</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Video\OpenGL\OpenGLWindowModule.cpp">
-      <Filter>Source\Video\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Video\Camera.cpp">
-      <Filter>Source\Video</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Video\Mesh.cpp">
-      <Filter>Source\Video</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Video\OpenGLRenderer.cpp">
-      <Filter>Source\Video</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Video\RendererFactory.cpp">
-      <Filter>Source\Video</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Video\Shader.cpp">
-      <Filter>Source\Video</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Video\ShaderProgram.cpp">
-      <Filter>Source\Video</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Video\Sprite.cpp">
-      <Filter>Source\Video</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Assets\GrimAssetModule.cpp">
-      <Filter>Source\Assets</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Assets\Importer.cpp">
       <Filter>Source\Assets</Filter>
     </ClCompile>
     <ClCompile Include="Source\Assets\Texture.cpp">
       <Filter>Source\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Assets\Importer\Importer.cpp">
+      <Filter>Source\Assets\Importer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Assets\Importer\TextureImporter.cpp">
+      <Filter>Source\Assets\Importer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\OpenGL\OpenGLTexture.cpp">
+      <Filter>Source\Graphics\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\OpenGL\OpenGLWindowModule.cpp">
+      <Filter>Source\Graphics\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\Camera.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\Mesh.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\OpenGLRenderer.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\RendererFactory.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\Shader.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\ShaderProgram.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\Sprite.cpp">
+      <Filter>Source\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -165,61 +174,10 @@
     <ClInclude Include="Source\Assets\Asset.hpp">
       <Filter>Source\Assets</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Video\OpenGL\OpenGLWindowModule.hpp">
-      <Filter>Source\Video\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Video\Camera.hpp">
-      <Filter>Source\Video</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Video\Color.hpp">
-      <Filter>Source\Video</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Video\IRenderer.hpp">
-      <Filter>Source\Video</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Video\IWindowModule.hpp">
-      <Filter>Source\Video</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Video\Mesh.hpp">
-      <Filter>Source\Video</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Video\OpenGLRenderer.hpp">
-      <Filter>Source\Video</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Video\PrimitiveType.hpp">
-      <Filter>Source\Video</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Video\Rect.hpp">
-      <Filter>Source\Video</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Video\RenderCommand.hpp">
-      <Filter>Source\Video</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Video\RendererFactory.hpp">
-      <Filter>Source\Video</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Video\Shader.hpp">
-      <Filter>Source\Video</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Video\ShaderProgram.hpp">
-      <Filter>Source\Video</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Video\Sprite.hpp">
-      <Filter>Source\Video</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Video\Transform.hpp">
-      <Filter>Source\Video</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Video\Vertex.hpp">
-      <Filter>Source\Video</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Assets\IAssetModule.hpp">
       <Filter>Source\Assets</Filter>
     </ClInclude>
     <ClInclude Include="Source\Assets\GrimAssetModule.hpp">
-      <Filter>Source\Assets</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Assets\Importer.hpp">
       <Filter>Source\Assets</Filter>
     </ClInclude>
     <ClInclude Include="Source\Assets\Texture.hpp">
@@ -228,5 +186,64 @@
     <ClInclude Include="Source\Assets\Material.hpp">
       <Filter>Source\Assets</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Assets\Importer\Importer.hpp">
+      <Filter>Source\Assets\Importer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Assets\Importer\TextureImporter.hpp">
+      <Filter>Source\Assets\Importer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\OpenGL\OpenGLWindowModule.hpp">
+      <Filter>Source\Graphics\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\Camera.hpp">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\Color.hpp">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\IRenderer.hpp">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\IWindowModule.hpp">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\Mesh.hpp">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\OpenGLRenderer.hpp">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\PrimitiveType.hpp">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\Rect.hpp">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\RenderCommand.hpp">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\RendererFactory.hpp">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\Shader.hpp">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\ShaderProgram.hpp">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\Sprite.hpp">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\Transform.hpp">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\Vertex.hpp">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Source\Graphics\OpenGL\OpenGLTexture.hpp">
+      <Filter>Source\Graphics\OpenGL</Filter>
+    </None>
   </ItemGroup>
 </Project>

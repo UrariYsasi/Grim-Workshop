@@ -32,6 +32,8 @@ private:
     virtual void RenderBatch();
     virtual void ClearBatch();
     void PaintersSort();
+    void BindTexture(OpenGLTexture const* texture);
+    void UnbindTexture();
 
 private:
     Camera* m_activeCamera;

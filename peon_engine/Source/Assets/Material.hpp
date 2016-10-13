@@ -11,6 +11,7 @@ struct Material
     Texture* texture;
     graphics::ShaderProgram* shaderProgram;
     graphics::Color color;
+    bool isTransparent;
 
     Material() :
         Material(nullptr, nullptr, graphics::Color(1.0f, 1.0f, 1.0f))
@@ -25,7 +26,8 @@ struct Material
     Material(Texture* texture, graphics::ShaderProgram* shaderProgram, graphics::Color color) :
         texture(texture),
         shaderProgram(shaderProgram),
-        color(color)
+        color(color),
+        isTransparent(false)
     {
     }
 };
