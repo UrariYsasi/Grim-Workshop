@@ -13,7 +13,9 @@ namespace grim::assets
 {
 
 Texture::Texture(std::string const& id, uint32_t const& width, uint32_t const& height) :
-    Asset(id)
+    Asset(id),
+    m_width(width),
+    m_height(height)
 {
 }
 

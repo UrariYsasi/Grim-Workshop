@@ -94,7 +94,7 @@ void GrimAssetModule::AddAsset(const std::string& ID, std::unique_ptr<Asset> ass
     m_assetMap[ID] = std::move(asset);
 }
 
-Asset* GrimAssetModule::FindAsset(const std::string& ID)
+Asset* GrimAssetModule::FindAsset(const std::string& ID) const
 {
     auto assetIterator = m_assetMap.find(ID);
     if (assetIterator != m_assetMap.end())
@@ -104,6 +104,17 @@ Asset* GrimAssetModule::FindAsset(const std::string& ID)
 
     LOG_ERROR() << "Asset \'" << ID << "\' couldn't be found!";
     return nullptr;
+}
+
+Texture* GrimAssetModule::FindTexture(std::string const& id) const
+{
+    Texture* texture = dynamic_cast<Texture*>(FindAsset(id));
+    if (texture == nullptr)
+    {
+        //LOG_ERROR() << "Asset " << id << " isn't a Texture!";
+    }
+
+    return texture;
 }
 
 std::string GrimAssetModule::GetFileName(const std::string& path) const

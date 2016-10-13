@@ -157,7 +157,8 @@ bool Game::Initialize()
         Create Materials
     */
 
-    CreateMaterial("sprite_terrain", GetTexture("terrain"), GetShaderProgram("basic_shader"));
+    CreateMaterial("sprite_terrain", m_engine.GetAssetModule()->FindTexture("terrain"), GetShaderProgram("basic_shader"));
+
     CreateMaterial("sprite_resource", GetTexture("resource"), GetShaderProgram("basic_shader"));
     CreateMaterial("sprite_peon", GetTexture("peon"), GetShaderProgram("basic_shader"));
     CreateMaterial("sprite_obelisk", GetTexture("obelisk"), GetShaderProgram("basic_shader"));

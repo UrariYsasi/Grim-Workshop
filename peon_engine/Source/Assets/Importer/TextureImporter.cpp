@@ -31,7 +31,7 @@ std::unique_ptr<Asset> TextureImporter::Import(std::string const& filePath)
         LOG_ERROR() << "Failed to import asset file " << filePath;
         return false;
     }
-
+    
     graphics::IRenderer* renderModule = m_assetModule->GetEngine()->GetRenderer();
     std::unique_ptr<Texture> texture = renderModule->CreateTexture("TEST", width, height, data);
     if (texture == nullptr)

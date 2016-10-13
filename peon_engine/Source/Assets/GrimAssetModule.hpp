@@ -31,7 +31,8 @@ public:
     */
     virtual void ImportAssets() override;
     virtual void AddAsset(const std::string& ID, std::unique_ptr<Asset> asset) override;
-    virtual Asset* FindAsset(const std::string& ID) override;
+    virtual Asset* FindAsset(const std::string& ID) const override;
+    virtual Texture* FindTexture(std::string const& id) const override;
     virtual Engine* GetEngine() const override;
 
     /*
