@@ -96,7 +96,7 @@
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>PCH.hpp</PrecompiledHeaderFile>
-      <AdditionalOptions>/D"WINDOWS" /std:c++latest %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/D"WINDOWS" /std:c++latest /U"NDEBUG" %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -189,6 +189,7 @@
     <ClInclude Include="Source\Utility\PoissonDiskGenerator.hpp" />
     <ClInclude Include="Source\Utility\Random.hpp" />
     <ClInclude Include="Source\Utility\Timer.hpp" />
+    <ClInclude Include="TextureMode.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\Graphics\OpenGL\OpenGLTexture.hpp" />

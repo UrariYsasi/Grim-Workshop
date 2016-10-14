@@ -395,12 +395,9 @@ void OpenGLRenderer::RenderBatch()
 
     // Bind our ShaderProgram
     m_currentMaterial->shaderProgram->Bind();
+
     OpenGLTexture* texture = dynamic_cast<OpenGLTexture*>(m_currentMaterial->texture);
-    if (texture == nullptr)
-    {
-        LOG_ERROR() << "Texture wasn't an OpenGL texture!";
-        return;
-    }
+    assert(texture != nullptr, "Texture wasn't an OpenGLTexture!");
 
     // Upload our model matrix
     glm::mat4 modelMatrix(1.0f);
@@ -410,7 +407,7 @@ void OpenGLRenderer::RenderBatch()
     // Bind our Texture
     if (m_currentMaterial->texture != nullptr)
     {
-        BindTexture(texture);
+        glBindTexture(GL_TEXTURE_2D, texture->GetHandle());
     }
 
     // Get OpenGL primitive type
@@ -434,7 +431,7 @@ void OpenGLRenderer::RenderBatch()
     // Unbind our Texture
     if (m_currentMaterial->texture != nullptr)
     {
-        UnbindTexture();
+        glBindTexture(GL_TEXTURE_2D, 0);
     }
 
     // Unbind our ShaderProgram
@@ -468,17 +465,6 @@ void OpenGLRenderer::PaintersSort()
         return a.transform.position.z < b.transform.position.z;
     });
 }
-
-void OpenGLRenderer::BindTexture(OpenGLTexture const* texture)
-{
-    glBindTexture(GL_TEXTURE_2D, texture->GetHandle());
-}
-
-void OpenGLRenderer::UnbindTexture()
-{
-    glBindTexture(GL_TEXTURE_2D, 0);
-}
-
 void OpenGLRenderer::SetClearColor(const Color& color)
 {
     glClearColor(color.r, color.g, color.b, color.a);
