@@ -240,7 +240,7 @@
     <ClInclude Include="Source\Graphics\Vertex.hpp">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="TextureMode.hpp">
+    <ClInclude Include="Source\Graphics\TextureMode.hpp">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
   </ItemGroup>

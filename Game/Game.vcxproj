@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\peon_engine\peon_engine.vcxproj">
+    <ProjectReference Include="..\Engine\Engine.vcxproj">
       <Project>{56d5b956-259d-47af-bd0c-05bdacc32b0e}</Project>
     </ProjectReference>
   </ItemGroup>
@@ -99,9 +99,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{9AAE8292-4106-4182-A26F-2DDE23C134DE}</ProjectGuid>
-    <RootNamespace>peon_game</RootNamespace>
+    <RootNamespace>Game</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
-    <ProjectName>peon_game</ProjectName>
+    <ProjectName>Game</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -149,7 +149,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)..\SDL2\SDL_ttf_VS2015\include;$(SolutionDir)..\SDL2\SDL_VS2015\include;$(SolutionDir)..\SDL2\SDL2_mixer_VS2015\include;$(SolutionDir)..\SOIL\include;$(SolutionDir)..\GL3W\GL3W\include;$(SolutionDir)..\GLM\glm;$(ProjectDir)Source;$(SolutionDir)peon_engine\Source;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\SDL2\SDL_ttf_VS2015\include;$(SolutionDir)..\SDL2\SDL_VS2015\include;$(SolutionDir)..\SDL2\SDL2_mixer_VS2015\include;$(SolutionDir)..\SOIL\include;$(SolutionDir)..\GL3W\GL3W\include;$(SolutionDir)..\GLM\glm;$(ProjectDir)Source;$(SolutionDir)Engine\Source;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)..\SDL2\SDL_ttf_VS2015\lib\x86;$(SolutionDir)..\SDL2\SDL_VS2015\lib\win32;$(SolutionDir)..\SDL2\SDL2_mixer_VS2015\lib\x86;$(SolutionDir)..\GL3W\GL3W\lib;$(SolutionDir)..\SOIL\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

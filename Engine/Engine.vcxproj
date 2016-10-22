@@ -20,8 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{56D5B956-259D-47AF-BD0C-05BDACC32B0E}</ProjectGuid>
-    <RootNamespace>peon_engine</RootNamespace>
+    <RootNamespace>Engine</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <ProjectName>Engine</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -189,7 +190,7 @@
     <ClInclude Include="Source\Utility\PoissonDiskGenerator.hpp" />
     <ClInclude Include="Source\Utility\Random.hpp" />
     <ClInclude Include="Source\Utility\Timer.hpp" />
-    <ClInclude Include="TextureMode.hpp" />
+    <ClInclude Include="Source\Graphics\TextureMode.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\Graphics\OpenGL\OpenGLTexture.hpp" />
