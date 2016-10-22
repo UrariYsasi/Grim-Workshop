@@ -2,8 +2,6 @@
 
 A rewrite of the original Project Peon. Some goals for the new version include an entity component system and a bucketized rendering system.
 
-![Peon Preview](http://declanhopkins.com/static/peon.gif)
-
 Technology     | Purpose
 ---------------|----------
 **C++14**      | Core
