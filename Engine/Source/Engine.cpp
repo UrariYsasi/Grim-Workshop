@@ -19,7 +19,7 @@ Engine::Engine(IGame* const game) :
     m_frameCount(0),
     m_frameRate(0),
     m_timeModule(nullptr),
-    m_fileModule(nullptr),
+    m_platformModule(nullptr),
     m_assetModule(nullptr),
     m_inputModule(nullptr),
     m_windowModule(nullptr),
@@ -40,19 +40,19 @@ bool Engine::Initialize()
         Create and Initialize Modules
     */
 
+    m_platformModule = ModuleFactory::CreatePlatformModule();
+    if (!m_platformModule->Initialize())
+    {
+        m_platformModule = nullptr;
+        LOG_ERROR() << "Platform Module failed to initialize!";
+        return false;
+    }
+
     m_timeModule = ModuleFactory::CreateTimeModule();
     if (!m_timeModule->Initialize())
     {
         m_timeModule = nullptr;
         LOG_ERROR() << "Time Module failed to initialize!";
-        return false;
-    }
-
-    m_fileModule = ModuleFactory::CreateFileModule();
-    if (!m_fileModule->Initialize())
-    {
-        m_fileModule = nullptr;
-        LOG_ERROR() << "File Module failed to initialize!";
         return false;
     }
 
@@ -117,7 +117,7 @@ void Engine::Terminate()
     m_renderer->Terminate();
 
     if (m_timeModule != nullptr) { m_timeModule->Terminate(); }
-    if (m_fileModule != nullptr) { m_fileModule->Terminate(); }
+    if (m_platformModule != nullptr) { m_platformModule->Terminate(); }
     if (m_assetModule != nullptr) { m_assetModule->Terminate(); }
     if (m_inputModule != nullptr) { m_inputModule->Terminate(); }
     if (m_windowModule != nullptr) { m_windowModule->Terminate(); }
@@ -174,14 +174,14 @@ grim::audio::IAudio* Engine::GetAudio()
     return m_audio.get();
 }
 
+platform::IPlatformModule* Engine::GetPlatformModule()
+{
+    return m_platformModule.get();
+}
+
 utility::ITimeModule* Engine::GetTimeModule()
 {
     return m_timeModule.get();
-}
-
-platform::IFileModule* Engine::GetFileModule()
-{
-    return m_fileModule.get();
 }
 
 assets::IAssetModule* Engine::GetAssetModule()

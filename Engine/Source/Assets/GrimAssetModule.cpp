@@ -52,7 +52,7 @@ void GrimAssetModule::ImportAssets()
 {
     LOG() << "Importing Assets...";
 
-    std::vector<std::string> files = m_engine->GetFileModule()->FindAllFiles(ASSET_DIRECTORY_PATH);
+    std::vector<std::string> files = m_engine->GetPlatformModule()->FindAllFiles(ASSET_DIRECTORY_PATH);
     for (auto filePath : files)
     {
         for (auto& importer : m_importers)

@@ -61,9 +61,6 @@
     <ClCompile Include="Source\Utility\GrimTimeModule.cpp">
       <Filter>Source\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Platform\Windows\WindowsFileModule.cpp">
-      <Filter>Source\Platform\Windows</Filter>
-    </ClCompile>
     <ClCompile Include="Source\UI\GrimInputModule.cpp">
       <Filter>Source\UI</Filter>
     </ClCompile>
@@ -108,6 +105,15 @@
     </ClCompile>
     <ClCompile Include="Source\Graphics\Sprite.cpp">
       <Filter>Source\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Platform\Windows\WindowsPlatformModule.cpp">
+      <Filter>Source\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Assets\Importer\MaterialImporter.cpp">
+      <Filter>Source\Assets\Importer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Assets\Material.cpp">
+      <Filter>Source\Assets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,12 +161,6 @@
     </ClInclude>
     <ClInclude Include="Source\Utility\GrimTimeModule.hpp">
       <Filter>Source\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Platform\IFileModule.hpp">
-      <Filter>Source\Platform</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Platform\Windows\WindowsFileModule.hpp">
-      <Filter>Source\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="Source\UI\IInputModule.hpp">
       <Filter>Source\UI</Filter>
@@ -240,7 +240,16 @@
     <ClInclude Include="Source\Graphics\Vertex.hpp">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Graphics\TextureMode.hpp">
+    <ClInclude Include="Source\Platform\IPlatformModule.hpp">
+      <Filter>Source\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Platform\Windows\WindowsPlatformModule.hpp">
+      <Filter>Source\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Assets\Importer\MaterialImporter.hpp">
+      <Filter>Source\Assets\Importer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\TextureAttributes.hpp">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
   </ItemGroup>

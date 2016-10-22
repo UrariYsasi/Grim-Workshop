@@ -325,7 +325,7 @@ void OpenGLRenderer::UploadBatch()
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBOHandle);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices[0]) * m_indexData.size(), indices, GL_DYNAMIC_DRAW);
 
-    GLuint shaderHandle = m_currentMaterial->shaderProgram->GetHandle();
+    GLuint shaderHandle = m_currentMaterial->GetShaderProgram()->GetHandle();
 
     GLint positionAttribute = glGetAttribLocation(shaderHandle, "inPosition");
     if (positionAttribute != -1)
@@ -394,18 +394,18 @@ void OpenGLRenderer::RenderBatch()
     }
 
     // Bind our ShaderProgram
-    m_currentMaterial->shaderProgram->Bind();
+    m_currentMaterial->GetShaderProgram()->Bind();
 
-    OpenGLTexture* texture = dynamic_cast<OpenGLTexture*>(m_currentMaterial->texture);
+    OpenGLTexture* texture = dynamic_cast<OpenGLTexture*>(m_currentMaterial->GetTexture());
     assert(texture != nullptr, "Texture wasn't an OpenGLTexture!");
 
     // Upload our model matrix
     glm::mat4 modelMatrix(1.0f);
-    GLuint uniModel = glGetUniformLocation(m_currentMaterial->shaderProgram->GetHandle(), "model");
+    GLuint uniModel = glGetUniformLocation(m_currentMaterial->GetShaderProgram()->GetHandle(), "model");
     glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
     // Bind our Texture
-    if (m_currentMaterial->texture != nullptr)
+    if (m_currentMaterial->GetTexture() != nullptr)
     {
         glBindTexture(GL_TEXTURE_2D, texture->GetHandle());
     }
@@ -429,13 +429,13 @@ void OpenGLRenderer::RenderBatch()
     glDrawElements(primitiveType, m_indexData.size(), GL_UNSIGNED_INT, 0);
 
     // Unbind our Texture
-    if (m_currentMaterial->texture != nullptr)
+    if (m_currentMaterial->GetTexture() != nullptr)
     {
         glBindTexture(GL_TEXTURE_2D, 0);
     }
 
     // Unbind our ShaderProgram
-    m_currentMaterial->shaderProgram->Unbind();
+    m_currentMaterial->GetShaderProgram()->Unbind();
 
     // Unbind the EBO
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
@@ -457,7 +457,7 @@ void OpenGLRenderer::PaintersSort()
 {
     std::sort(m_renderQueue.begin(), m_renderQueue.end(), [](const RenderCommand& a, const RenderCommand& b)
     {
-        if ((a.material->texture != nullptr) && (a.material->isTransparent == false))
+        if ((a.material->GetTexture() != nullptr) && (a.material->GetTextureTransparencyMode() == assets::Texture::TransparencyMode::Opaque))
         {
             return true;
         }

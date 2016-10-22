@@ -17,9 +17,9 @@ std::unique_ptr<utility::ITimeModule> ModuleFactory::CreateTimeModule()
     return std::make_unique<utility::GrimTimeModule>();
 }
 
-std::unique_ptr<platform::IFileModule> ModuleFactory::CreateFileModule()
+std::unique_ptr<platform::IPlatformModule> ModuleFactory::CreatePlatformModule()
 {
-    return std::make_unique<platform::WindowsFileModule>();
+    return std::make_unique<platform::WindowsPlatformModule>();
 }
 
 std::unique_ptr<assets::IAssetModule> ModuleFactory::CreateAssetModule(Engine* const engine)

@@ -48,8 +48,8 @@ public:
     grim::graphics::IRenderer* GetRenderer();
     grim::audio::IAudio* GetAudio();
 
+    platform::IPlatformModule* GetPlatformModule();
     utility::ITimeModule* GetTimeModule();
-    platform::IFileModule* GetFileModule();
     assets::IAssetModule* GetAssetModule();
     ui::IInputModule* GetInputModule();
     graphics::IWindowModule* GetWindowModule();
@@ -69,8 +69,8 @@ private:
         Modules
     */
 
+    std::unique_ptr<platform::IPlatformModule> m_platformModule;
     std::unique_ptr<utility::ITimeModule> m_timeModule;
-    std::unique_ptr<platform::IFileModule> m_fileModule;
     std::unique_ptr<assets::IAssetModule> m_assetModule;
     std::unique_ptr<ui::IInputModule> m_inputModule;
     std::unique_ptr<graphics::IWindowModule> m_windowModule;

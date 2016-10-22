@@ -26,8 +26,32 @@ protected:
     uint32_t m_width;
     uint32_t m_height;
 
-    // TODO:
-    // Add scale mode and texture wrap variables
+public:
+    enum class WrapMode
+    {
+        ClampToEdge,
+        ClampToBorder,
+        ClampMirrored,
+        Repeat,
+        RepeatMirrored,
+    };
+
+    enum class FilterMode
+    {
+        Nearest,
+        Linear,
+        NearestMipmap,
+        LinearMipmap,
+        LinearNearestMipmap,
+        NearestLinearMipmap,
+        MirroredClamp
+    };
+
+    enum class TransparencyMode
+    {
+        Opaque,
+        Transparent,
+    };
 };
 
 }

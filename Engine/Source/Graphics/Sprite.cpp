@@ -20,7 +20,7 @@ Sprite::Sprite(assets::Material* material, uint32_t width, uint32_t height, uint
 }
 
 Sprite::Sprite(assets::Material* material) :
-    Sprite(material, material->texture->GetWidth(), material->texture->GetHeight(), 0)
+    Sprite(material, material->GetTexture()->GetWidth(), material->GetTexture()->GetHeight(), 0)
 {
 }
 
@@ -39,8 +39,8 @@ void Sprite::Construct()
     // TODO origin points
 
     // Calculate texture region
-    uint32_t spriteSheetWidth = m_material->texture->GetWidth();
-    uint32_t spriteSheetHeight = m_material->texture->GetHeight();
+    uint32_t spriteSheetWidth = m_material->GetTexture()->GetWidth();
+    uint32_t spriteSheetHeight = m_material->GetTexture()->GetHeight();
     uint32_t spriteSheetRows = spriteSheetHeight / m_height;
     uint32_t spriteSheetCols = spriteSheetWidth / m_width;
     m_frame = m_frame % (spriteSheetRows * spriteSheetCols);
@@ -72,10 +72,11 @@ void Sprite::Construct()
     m_mesh.ClearData();
 
     // Create vertices
-    m_mesh.AddVertex(grim::graphics::Vertex(glm::vec3(topLeft.x, topLeft.y, topLeft.z), m_material->color, glm::vec2(spriteTexelX, spriteTexelY)));
-    m_mesh.AddVertex(grim::graphics::Vertex(glm::vec3(topRight.x, topRight.y, topRight.z), m_material->color, glm::vec2(spriteTexelX + spriteTexelWidth, spriteTexelY)));
-    m_mesh.AddVertex(grim::graphics::Vertex(glm::vec3(bottomLeft.x, bottomLeft.y, bottomLeft.z), m_material->color, glm::vec2(spriteTexelX, spriteTexelY + spriteTexelHeight)));
-    m_mesh.AddVertex(grim::graphics::Vertex(glm::vec3(bottomRight.x, bottomRight.y, bottomRight.z), m_material->color, glm::vec2(spriteTexelX + spriteTexelWidth, spriteTexelY + spriteTexelHeight)));
+    Color color(1.0f, 1.0f, 1.0f, 1.0f);
+    m_mesh.AddVertex(grim::graphics::Vertex(glm::vec3(topLeft.x, topLeft.y, topLeft.z), color, glm::vec2(spriteTexelX, spriteTexelY)));
+    m_mesh.AddVertex(grim::graphics::Vertex(glm::vec3(topRight.x, topRight.y, topRight.z), color, glm::vec2(spriteTexelX + spriteTexelWidth, spriteTexelY)));
+    m_mesh.AddVertex(grim::graphics::Vertex(glm::vec3(bottomLeft.x, bottomLeft.y, bottomLeft.z), color, glm::vec2(spriteTexelX, spriteTexelY + spriteTexelHeight)));
+    m_mesh.AddVertex(grim::graphics::Vertex(glm::vec3(bottomRight.x, bottomRight.y, bottomRight.z), color, glm::vec2(spriteTexelX + spriteTexelWidth, spriteTexelY + spriteTexelHeight)));
 
     // Create indices
     m_mesh.AddIndex(0);

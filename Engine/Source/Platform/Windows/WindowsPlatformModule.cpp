@@ -1,5 +1,5 @@
 /*
-    WindowsFileModule.cpp
+    WindowsPlatformModule.cpp
     Engine
 
     Declan Hopkins
@@ -7,34 +7,34 @@
 */
 
 #include "PCH.hpp"
-#include "WindowsFileModule.hpp"
+#include "WindowsPlatformModule.hpp"
 #include <windows.h>
 
 namespace grim::platform
 {
 
-WindowsFileModule::WindowsFileModule()
+WindowsPlatformModule::WindowsPlatformModule()
 {
 }
 
-WindowsFileModule::~WindowsFileModule()
+WindowsPlatformModule::~WindowsPlatformModule()
 {
 }
 
-bool WindowsFileModule::Initialize()
+bool WindowsPlatformModule::Initialize()
 {
-    LOG() << "File Module WindowsFileModule initializing...";
-    LOG() << "File Module WindowsFileModule initialized.";
+    LOG() << "Platform Module WindowsPlatformModule initializing...";
+    LOG() << "Platform Module WindowsPlatformModule initialized.";
     return true;
 }
 
-void WindowsFileModule::Terminate()
+void WindowsPlatformModule::Terminate()
 {
-    LOG() << "File Module WindowsFileModule terminating...";
-    LOG() << "File Module WindowsFileModule terminated.";
+    LOG() << "Platform Module WindowsPlatformModule terminating...";
+    LOG() << "Platform Module WindowsPlatformModule terminated.";
 }
 
-std::vector<std::string> WindowsFileModule::FindAllFiles(const std::string& directoryPath)
+std::vector<std::string> WindowsPlatformModule::FindAllFiles(const std::string& directoryPath)
 {
     std::vector<std::string> filePaths;
     std::string searchPath = directoryPath + "*";
@@ -62,6 +62,17 @@ std::vector<std::string> WindowsFileModule::FindAllFiles(const std::string& dire
     }
 
     return filePaths;
+}
+
+std::string WindowsPlatformModule::FindFileExtension(std::string const& filePath)
+{
+    std::string extension;
+    if (filePath.find_last_of(".") != std::string::npos)
+    {
+        extension = filePath.substr(filePath.find_last_of(".") + 1);
+    }
+
+    return extension;
 }
 
 }

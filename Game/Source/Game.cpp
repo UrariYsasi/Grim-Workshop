@@ -56,10 +56,12 @@ bool Game::Initialize()
         Load Fonts
     */
 
+    /*
     LoadFont("Resources/Fonts/dos.ttf", "dos");
     LoadFont("Resources/Fonts/hack.ttf", "hack");
     LoadFont("Resources/Fonts/black_family.ttf", "black_family", 22);
     LoadFont("Resources/Fonts/black_family_incised.ttf", "black_family_incised", 32);
+    */
 
     /*
         Load Sounds
@@ -143,7 +145,7 @@ bool Game::Initialize()
     CreateMaterial("sprite_resource", assetModule->FindTexture("Textures.Resource"), GetShaderProgram("basic_shader"));
     CreateMaterial("effect_beam", assetModule->FindTexture("Textures.BeamEffect"), GetShaderProgram("basic_shader"));
 
-    GetMaterial("effect_beam")->color.a = 0.75f;
+    //GetMaterial("effect_beam")->color.a = 0.75f;
 
     // Sprites
     m_spriteMap[EntityID::STRUCTURE_STOCKPILE] = nullptr;
@@ -239,7 +241,7 @@ bool Game::CreateShaderProgram(const std::string& vertexShaderID, const std::str
 
 bool Game::CreateMaterial(const std::string& ID, grim::assets::Texture* const texture, grim::graphics::ShaderProgram* const shaderProgram)
 {
-    m_materialMap[ID] = std::make_unique<grim::assets::Material>(texture, shaderProgram);
+    m_materialMap[ID] = std::make_unique<grim::assets::Material>(ID, texture, grim::assets::Texture::WrapMode::ClampToEdge, grim::assets::Texture::FilterMode::Nearest, grim::assets::Texture::TransparencyMode::Opaque, shaderProgram);
     return true;
 }
 

@@ -121,7 +121,9 @@
     <ClCompile Include="Source\Assets\Asset.cpp" />
     <ClCompile Include="Source\Assets\GrimAssetModule.cpp" />
     <ClCompile Include="Source\Assets\Importer\Importer.cpp" />
+    <ClCompile Include="Source\Assets\Importer\MaterialImporter.cpp" />
     <ClCompile Include="Source\Assets\Importer\TextureImporter.cpp" />
+    <ClCompile Include="Source\Assets\Material.cpp" />
     <ClCompile Include="Source\Audio\AudioFactory.cpp" />
     <ClCompile Include="Source\Audio\SDLAudio.cpp" />
     <ClCompile Include="Source\Engine.cpp">
@@ -138,7 +140,7 @@
     <ClCompile Include="Source\Graphics\Sprite.cpp" />
     <ClCompile Include="Source\Assets\Texture.cpp" />
     <ClCompile Include="Source\ModuleFactory.cpp" />
-    <ClCompile Include="Source\Platform\Windows\WindowsFileModule.cpp" />
+    <ClCompile Include="Source\Platform\Windows\WindowsPlatformModule.cpp" />
     <ClCompile Include="Source\UI\GrimInputModule.cpp" />
     <ClCompile Include="Source\Utility\GrimTimeModule.cpp" />
     <ClCompile Include="Source\Utility\Logger.cpp" />
@@ -151,6 +153,7 @@
     <ClInclude Include="Source\Assets\GrimAssetModule.hpp" />
     <ClInclude Include="Source\Assets\IAssetModule.hpp" />
     <ClInclude Include="Source\Assets\Importer\Importer.hpp" />
+    <ClInclude Include="Source\Assets\Importer\MaterialImporter.hpp" />
     <ClInclude Include="Source\Assets\Importer\TextureImporter.hpp" />
     <ClInclude Include="Source\Audio\AudioFactory.hpp" />
     <ClInclude Include="Source\Audio\SDLAudio.hpp" />
@@ -179,8 +182,8 @@
     <ClInclude Include="Source\PCH.hpp" />
     <ClInclude Include="Source\GrimWorkshop.hpp" />
     <ClInclude Include="Source\Audio\IAudio.hpp" />
-    <ClInclude Include="Source\Platform\IFileModule.hpp" />
-    <ClInclude Include="Source\Platform\Windows\WindowsFileModule.hpp" />
+    <ClInclude Include="Source\Platform\IPlatformModule.hpp" />
+    <ClInclude Include="Source\Platform\Windows\WindowsPlatformModule.hpp" />
     <ClInclude Include="Source\UI\IInputModule.hpp" />
     <ClInclude Include="Source\UI\GrimInputModule.hpp" />
     <ClInclude Include="Source\UI\InputConstants.hpp" />
@@ -190,7 +193,7 @@
     <ClInclude Include="Source\Utility\PoissonDiskGenerator.hpp" />
     <ClInclude Include="Source\Utility\Random.hpp" />
     <ClInclude Include="Source\Utility\Timer.hpp" />
-    <ClInclude Include="Source\Graphics\TextureMode.hpp" />
+    <ClInclude Include="Source\Graphics\TextureAttributes.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\Graphics\OpenGL\OpenGLTexture.hpp" />

@@ -46,20 +46,7 @@ std::unique_ptr<Asset> TextureImporter::Import(std::string const& filePath)
 
 bool TextureImporter::CanImport(std::string const& filePath)
 {
-    // TODO:
-    // Refactor file extension checking into the File Module, for portability.
-
-    if (filePath.find_last_of(".") != std::string::npos)
-    {
-        std::string extension = filePath.substr(filePath.find_last_of(".") + 1);
-        if (extension == "png")
-        {
-            return true;
-        }
-    }
-
-    return false;
+    return (m_assetModule->GetEngine()->GetPlatformModule()->FindFileExtension(filePath) == "png");
 }
-
 
 }
