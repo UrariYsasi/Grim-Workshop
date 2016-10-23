@@ -115,6 +115,9 @@
     <ClCompile Include="Source\Assets\Material.cpp">
       <Filter>Source\Assets</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Utility\Metadata.cpp">
+      <Filter>Source\Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\PCH.hpp">
@@ -249,13 +252,13 @@
     <ClInclude Include="Source\Assets\Importer\MaterialImporter.hpp">
       <Filter>Source\Assets\Importer</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Graphics\TextureAttributes.hpp">
-      <Filter>Source\Graphics</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\Graphics\OpenGL\OpenGLTexture.hpp">
       <Filter>Source\Graphics\OpenGL</Filter>
+    </None>
+    <None Include="Source\Utility\Metadata.hpp">
+      <Filter>Source\Utility</Filter>
     </None>
   </ItemGroup>
 </Project>

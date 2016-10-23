@@ -144,6 +144,7 @@
     <ClCompile Include="Source\UI\GrimInputModule.cpp" />
     <ClCompile Include="Source\Utility\GrimTimeModule.cpp" />
     <ClCompile Include="Source\Utility\Logger.cpp" />
+    <ClCompile Include="Source\Utility\Metadata.cpp" />
     <ClCompile Include="Source\Utility\PoissonDiskGenerator.cpp" />
     <ClCompile Include="Source\Utility\Random.cpp" />
     <ClCompile Include="Source\Utility\Timer.cpp" />
@@ -193,10 +194,10 @@
     <ClInclude Include="Source\Utility\PoissonDiskGenerator.hpp" />
     <ClInclude Include="Source\Utility\Random.hpp" />
     <ClInclude Include="Source\Utility\Timer.hpp" />
-    <ClInclude Include="Source\Graphics\TextureAttributes.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\Graphics\OpenGL\OpenGLTexture.hpp" />
+    <None Include="Source\Utility\Metadata.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

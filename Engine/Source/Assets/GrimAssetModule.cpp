@@ -33,6 +33,7 @@ bool GrimAssetModule::Initialize()
     }
 
     m_importers.push_back(std::make_unique<TextureImporter>(this));
+    m_importers.push_back(std::make_unique<MaterialImporter>(this));
 
     LOG() << "Asset Module GrimAssetModule initialized.";
     return true;

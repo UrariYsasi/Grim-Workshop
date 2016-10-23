@@ -24,6 +24,8 @@ MaterialImporter::~MaterialImporter()
 
 std::unique_ptr<Asset> MaterialImporter::Import(std::string const& filePath)
 {
+    utility::Metadata metadata = ParseMetadata(filePath);
+    LOG() << metadata.ToString();
     //std::unique_ptr<Material> material;
 
     //return std::move(material);

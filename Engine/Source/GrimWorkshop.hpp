@@ -5,6 +5,7 @@
 */
 
 #include "Utility/Logger.hpp"
+#include "Utility/Metadata.hpp"
 #include "IModule.hpp"
 #include "Audio/IAudio.hpp"
 #include "Audio/SDLAudio.hpp"
@@ -14,7 +15,6 @@
 #include "Assets/Asset.hpp"
 #include "Assets/IAssetModule.hpp"
 #include "Assets/Importer/Importer.hpp"
-#include "Graphics/TextureAttributes.hpp"
 #include "Assets/Importer/TextureImporter.hpp"
 #include "Assets/Importer/MaterialImporter.hpp"
 #include "Assets/Texture.hpp"

@@ -1,4 +1,5 @@
-texture = "Textures.Terrain"
-textureWrapMode = ClampEdge
-textureFilter = Nearest
-transparency = Opaque
+[Material]
+texture = Textures.Terrain;
+textureWrapMode = ClampEdge;
+textureFilter = Nearest;
+transparency = Opaque;

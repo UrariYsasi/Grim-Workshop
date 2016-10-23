@@ -31,9 +31,20 @@ public:
     virtual bool CanImport(std::string const& filePath) = 0;
 
     std::string CreateId(std::string const& filePath) const;
+    utility::Metadata ParseMetadata(std::string const& filePath) const;
 
 protected:
     IAssetModule* m_assetModule;
+
+public:
+    enum class ParseState
+    {
+        None,
+        ParsingSection,
+        ParsingKey,
+        ParsingValue,
+        Completed
+    };
 };
 
 }
