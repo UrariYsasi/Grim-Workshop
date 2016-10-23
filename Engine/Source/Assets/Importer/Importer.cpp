@@ -127,7 +127,6 @@ utility::Metadata Importer::ParseMetadata(std::string const& filePath) const
             {
                 value = readBuffer;
                 readBuffer.clear();
-                LOG() << "got (" << key << " = " << value << ")" << " in section " << section;
                 metadata.Store(section, key, value);
                 state = ParseState::None;
             }
