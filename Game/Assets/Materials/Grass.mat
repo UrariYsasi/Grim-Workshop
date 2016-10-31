@@ -3,3 +3,4 @@ texture = Textures.Terrain;
 textureWrapMode = ClampEdge;
 textureFilter = Nearest;
 transparency = Opaque;
+shaderProgram = TODO;

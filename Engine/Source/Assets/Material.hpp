@@ -26,6 +26,9 @@ public:
     graphics::ShaderProgram* GetShaderProgram() const;
 
 private:
+    void Deserialize(utility::Metadata const& metadata);
+
+private:
     Texture* m_texture;
     Texture::WrapMode m_textureWrapMode;
     Texture::FilterMode m_textureFilterMode;

@@ -13,6 +13,8 @@
 namespace grim::assets
 {
 
+class Material;
+
 class MaterialImporter : public Importer
 {
 public:
@@ -25,6 +27,9 @@ public:
 
     virtual std::unique_ptr<Asset> Import(std::string const& filePath) override;
     virtual bool CanImport(std::string const& filePath) override;
+
+private:
+    std::unique_ptr<Material> DeserializeMaterial(std::string const& id, utility::Metadata const& metadata) const;
 };
 
 }

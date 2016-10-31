@@ -397,7 +397,7 @@ void OpenGLRenderer::RenderBatch()
     m_currentMaterial->GetShaderProgram()->Bind();
 
     OpenGLTexture* texture = dynamic_cast<OpenGLTexture*>(m_currentMaterial->GetTexture());
-    assert(texture != nullptr, "Texture wasn't an OpenGLTexture!");
+    assert(texture != nullptr && "Texture wasn't an OpenGLTexture!");
 
     // Upload our model matrix
     glm::mat4 modelMatrix(1.0f);
