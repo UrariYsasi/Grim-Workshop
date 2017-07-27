@@ -2,7 +2,7 @@
 
 An experimental strategy game where you lead a group of cultists on their journey to enlightenment after they have woken up at the base of a strange monument in the forest, with no recollection of what brought them there.
 
-![Project Peon](http://declanhopkins.com/static/images/screenshots/project-peon-screenshot.png)
+![Project Peon](http://declanhopkins.com/static/images/screenshots/peon.png)
 
 In it's current state, you can use your peons to explore an "infinite" game world, as well as fight a _very_ basic boss, sacrifice dead creatures, gather wood from trees, and summon more peons using the spellbook.
 
